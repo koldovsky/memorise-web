@@ -1,7 +1,7 @@
 <md-button-toggle-group>
   <md-list>
     <md-list-item *ngFor="let category of categories">
-      <md-button-toggle value="">
+      <md-button-toggle value="{{category.id}}">
         {{category.name}}
       </md-button-toggle>
     </md-list-item>

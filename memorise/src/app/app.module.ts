@@ -5,7 +5,8 @@ import {
     MdButtonModule, MdCardModule,
     MdMenuModule, MdToolbarModule,
     MdIconModule, MdListModule,
-    MdButtonToggleModule, MdSidenavModule
+    MdButtonToggleModule, MdSidenavModule,
+    MdExpansionModule, MdLineModule
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -13,6 +14,7 @@ import { HomeComponent } from './home/home.component';
 import { CategoriesComponent } from './catalog/categories.component';
 import { CoursesComponent } from './catalog/courses/courses.component';
 import { DecksComponent } from './catalog/decks/decks.component';
+import { CourseDetailsComponent } from './catalog/courses/course-details.component';
 
 import { AppRoutingModule } from './app-routing.module'
 
@@ -22,6 +24,7 @@ import { AppRoutingModule } from './app-routing.module'
         HomeComponent,
         CategoriesComponent,
         CoursesComponent,
+        CourseDetailsComponent,
         DecksComponent
     ],
     imports: [
@@ -35,7 +38,9 @@ import { AppRoutingModule } from './app-routing.module'
         MdIconModule,
         MdListModule,
         MdButtonToggleModule,
-        MdSidenavModule
+        MdSidenavModule,
+        MdExpansionModule,
+        MdLineModule
     ],
     providers: [],
     bootstrap: [AppComponent]

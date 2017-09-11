@@ -1,15 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'categories',
   templateUrl: './categories.component.html'
 })
 
-export class CategoriesComponent {
+export class CategoriesComponent implements OnInit {
   categories = [
   {
       id: 1,
-      name: 'category-1'
+      name: 'category1'
   },
   {
       id: 2,
@@ -43,4 +43,6 @@ export class CategoriesComponent {
       id: 9,
       name: 'category9'
   }];
+
+    ngOnInit(): void {}
 }

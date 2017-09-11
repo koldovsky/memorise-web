@@ -1,9 +1,48 @@
-<md-sidenav-container style="height: 100pc">
-    <md-sidenav #sidenav mode="side" opened="true">
-        <categories></categories>
-    </md-sidenav>
+<md-sidenav-container>
+  <md-sidenav #sidenav mode="side" opened="true">
+    <categories></categories>
+  </md-sidenav>
 
+  <div>
     <div>
-        <h1>Courses</h1>
+      <h1>Courses</h1>
     </div>
+    <div>
+      <div *ngFor="let course of courses">
+        <md-card id="{{course.id}}">
+          <md-card-header>
+            <md-card-title-group>
+              <md-card-title>
+              <h2>
+                <a>{{course.name}}</a>
+              </h2>
+              </md-card-title>
+              <md-card-subtitle>{{course.price ? course.price : 'FREE'}}</md-card-subtitle>
+              <md-card-subtitle>{{course.description}}</md-card-subtitle>
+            </md-card-title-group>
+          </md-card-header>
+
+          <md-card-content>
+            <md-expansion-panel>
+              <md-expansion-panel-header>
+                <md-panel-title>
+                  Decks
+                </md-panel-title>
+              </md-expansion-panel-header>
+
+              <md-list>
+                <md-list-item *ngFor="let deck of course.decks">
+                  <h3 mdLine>{{deck.name}}</h3>
+                  <p mdLine>{{deck.description}}</p>
+                  <md-divider></md-divider>
+                </md-list-item>
+              </md-list>
+              
+            </md-expansion-panel>
+          </md-card-content>
+        </md-card>
+        <md-divider></md-divider>
+      </div>
+    </div>
+  </div>
 </md-sidenav-container>
