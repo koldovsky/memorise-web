@@ -17,6 +17,8 @@ import { DecksComponent } from './catalog/decks/decks.component';
 import { CourseDetailsComponent } from './catalog/courses/course-details.component';
 
 import { AppRoutingModule } from './app-routing.module'
+import { CategoryService } from './common/services/category.service';
+import { CourseService } from './common/services/course.service';
 
 @NgModule({
     declarations: [
@@ -42,7 +44,7 @@ import { AppRoutingModule } from './app-routing.module'
         MdExpansionModule,
         MdLineModule
     ],
-    providers: [],
+    providers: [CategoryService, CourseService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
