@@ -18,6 +18,8 @@ import { CourseDetailsComponent } from './catalog/courses/course-details.compone
 
 import { AppRoutingModule } from './app-routing.module';
 import { CatalogRoutingModule  } from './catalog/catalog-routing.module';
+import { CategoryService } from './common/services/category.service';
+import { CourseService } from './common/services/course.service';
 
 @NgModule({
     declarations: [
@@ -44,7 +46,7 @@ import { CatalogRoutingModule  } from './catalog/catalog-routing.module';
         MdExpansionModule,
         MdLineModule
     ],
-    providers: [],
+    providers: [CategoryService, CourseService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
