@@ -5,10 +5,17 @@ import { CATEGORIES } from '../mocks/categories';
 import { Category } from '../models/models';
 
 import 'rxjs/add/operator/toPromise';
+import { handleError } from "../functions/functions";
 
 @Injectable()
 export class CategoryService {
+    private categoryUrl = 'http://localhost:1010/categories';
+    constructor(private http: Http) { }
+
     getCategories(): Promise<Category[]> {
-        return Promise.resolve(CATEGORIES);
+        return this.http.get(this.categoryUrl)
+            .toPromise()
+            .then(response => response.json().data as Category[])
+            .catch(handleError);
     }
 }

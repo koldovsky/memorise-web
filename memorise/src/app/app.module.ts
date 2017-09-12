@@ -8,7 +8,7 @@ import {
     MdButtonToggleModule, MdSidenavModule,
     MdExpansionModule, MdLineModule
 } from '@angular/material';
-
+import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { CategoriesComponent } from './catalog/categories.component';
@@ -20,6 +20,7 @@ import { AppRoutingModule } from './app-routing.module'
 import { CategoryService } from './common/services/category.service';
 import { CourseService } from './common/services/course.service';
 import { CatalogRoutingModule  } from './catalog/catalog-routing.module';
+import { DeckService } from "./common/services/deck.service";
 
 @NgModule({
     declarations: [
@@ -35,6 +36,7 @@ import { CatalogRoutingModule  } from './catalog/catalog-routing.module';
         BrowserAnimationsModule,
         AppRoutingModule,
         CatalogRoutingModule,
+        HttpModule,
         MdButtonModule,
         MdCardModule,
         MdMenuModule,
@@ -46,7 +48,11 @@ import { CatalogRoutingModule  } from './catalog/catalog-routing.module';
         MdExpansionModule,
         MdLineModule
     ],
-    providers: [CategoryService, CourseService],
+    providers: [
+        CategoryService,
+        CourseService,
+        DeckService
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
