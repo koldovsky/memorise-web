@@ -46,9 +46,10 @@ export interface Course extends BaseEntity {
 export interface Deck extends BaseEntity {
     name: string;
     price: number;
-    photo: string;
-    category: Category;
-    cards: Card[];
+    rating?: number;
+    photo?: string;
+    category?: Category;
+    cards?: Card[];
 }
 
 export interface Report extends BaseEntity {
