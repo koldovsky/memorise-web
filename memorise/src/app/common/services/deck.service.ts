@@ -8,7 +8,7 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class DeckService {
-    private decksUrl = 'http://localhost:1010/decks';
+    private decksUrl = 'http://localhost:37271/Catalog/GetAllDecks';
     constructor(private http: Http) { }
 
     getDecks(): Promise<Deck[]> {

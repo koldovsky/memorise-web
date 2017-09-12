@@ -9,7 +9,7 @@ import { handleError } from "../functions/functions";
 
 @Injectable()
 export class CategoryService {
-    private categoryUrl = 'http://localhost:1010/categories';
+    private categoryUrl = 'http://localhost:37271/Catalog/GetAllCategories';
     constructor(private http: Http) { }
 
     getCategories(): Promise<Category[]> {

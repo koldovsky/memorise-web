@@ -9,7 +9,7 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class CourseService {
-        private coursesUrl = 'http://localhost:1010/courses';
+        private coursesUrl = 'http://localhost:37271/Catalog/GetAllCourses';
     constructor(private http: Http) { }
 
     getCourses(): Promise<Course[]> {
