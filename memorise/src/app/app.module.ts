@@ -16,10 +16,10 @@ import { CoursesComponent } from './catalog/courses/courses.component';
 import { DecksComponent } from './catalog/decks/decks.component';
 import { CourseDetailsComponent } from './catalog/courses/course-details.component';
 
-import { AppRoutingModule } from './app-routing.module';
-import { CatalogRoutingModule  } from './catalog/catalog-routing.module';
+import { AppRoutingModule } from './app-routing.module'
 import { CategoryService } from './common/services/category.service';
 import { CourseService } from './common/services/course.service';
+import { CatalogRoutingModule  } from './catalog/catalog-routing.module';
 
 @NgModule({
     declarations: [
