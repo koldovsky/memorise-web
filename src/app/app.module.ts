@@ -29,7 +29,8 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { CategoryService } from './common/services/category.service';
 import { CourseService } from './common/services/course.service';
-import { DeckService } from "./common/services/deck.service";
+import { DeckService } from './common/services/deck.service';
+import { UserService } from './common/services/user.service';
 
 @NgModule({
     declarations: [
@@ -67,7 +68,8 @@ import { DeckService } from "./common/services/deck.service";
     providers: [
         CategoryService,
         CourseService,
-        DeckService
+        DeckService,
+        UserService
     ],
     bootstrap: [AppComponent]
 })

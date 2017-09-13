@@ -9,13 +9,13 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class CourseService {
-        private coursesUrl = 'http://localhost:37271/Catalog/GetAllCourses';
+        private coursesUrl = 'http://localhost:37271/Catalog/GetCourses';
     constructor(private http: Http) { }
 
     getCourses(): Promise<Course[]> {
         return this.http.get(this.coursesUrl)
             .toPromise()
-            .then(response => response.json().data as Course[])
+            .then(response => response.json() as Course[])
             .catch(handleError);
     }
 }

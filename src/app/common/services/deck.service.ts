@@ -8,13 +8,13 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class DeckService {
-    private decksUrl = 'http://localhost:37271/Catalog/GetAllDecks';
+    private decksUrl = 'http://localhost:37271/Catalog/GetDecks';
     constructor(private http: Http) { }
 
     getDecks(): Promise<Deck[]> {
          return this.http.get(this.decksUrl)
         .toPromise()
-        .then(response => response.json().data as Deck[])
+        .then(response => response.json() as Deck[])
         .catch(handleError);
     }
 }
