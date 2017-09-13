@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('memorise App', () => {
+describe('memorise-web App', () => {
   let page: AppPage;
 
   beforeEach(() => {
