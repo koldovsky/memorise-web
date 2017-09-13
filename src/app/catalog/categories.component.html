@@ -1,9 +1,5 @@
-<md-button-toggle-group>
-  <md-list>
-    <md-list-item *ngFor="let category of categories">
-      <md-button-toggle value="{{category.id}}">
-        {{category.name}}
-      </md-button-toggle>
-    </md-list-item>
-  </md-list>
+<md-button-toggle-group vertical>
+    <md-button-toggle *ngFor="let category of categories" value="{{category.Name}}">
+        {{category.Name}}
+    </md-button-toggle>
 </md-button-toggle-group>

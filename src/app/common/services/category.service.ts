@@ -14,10 +14,7 @@ export class CategoryService {
     getCategories(): Promise<Category[]> {
         return this.http.get(this.categoryUrl)
             .toPromise()
-            .then(response => {
-                 console.log(response);
-                console.log(response.json());
-                return response.json() as Category[]; })
+            .then(response => response.json() as Category[])
             .catch(handleError);
     }
 }

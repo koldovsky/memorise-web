@@ -3,7 +3,7 @@ import { Course } from '../../common/models/models';
 import { CourseService } from '../../common/services/course.service';
 
 @Component({
-    selector: 'courses',
+    selector: 'app-courses',
     templateUrl: './courses.component.html'
 })
 

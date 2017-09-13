@@ -1,30 +1,23 @@
 <md-sidenav-container style="height: 100pc">
-  <md-sidenav #sidenav mode="side" opened="true">
-      <categories></categories>
-  </md-sidenav>
-  <div>
-    <div>
-      <h1>Decks</h1>
-    </div>
-    <div>
-      <div *ngFor="let deck of decks">
-        <md-card id="{{deck.id}}">
-          <md-card-header>
-            <md-card-title-group>
-              <!--<div md-card-image></div>-->
-              <md-card-title>
-                <h2>{{deck.name}}</h2>
-              </md-card-title>
-              <md-card-subtitle>{{deck.price ? deck.price : 'FREE'}}</md-card-subtitle>
-              <md-card-subtitle>{{deck.description}}</md-card-subtitle>
-            </md-card-title-group>
-          </md-card-header>
+    <md-sidenav #sidenav mode="side" opened="true">
+        <app-categories></app-categories>
+    </md-sidenav>
+    <div *ngFor="let deck of decks">
+        <md-card>
+            <md-card-header>
+                <md-card-title-group>
+                    <!--<div md-card-image></div>-->
+                    <md-card-title>
+                        <h2>{{deck.Name}}</h2>
+                    </md-card-title>
+                    <md-card-subtitle>{{deck.Price ? deck.Price : 'FREE'}}</md-card-subtitle>
+                    <md-card-subtitle>{{deck.Description}}</md-card-subtitle>
+                </md-card-title-group>
+            </md-card-header>
 
-          <md-card-content>
-          </md-card-content>
+            <md-card-content>
+            </md-card-content>
         </md-card>
         <md-divider></md-divider>
-      </div>
     </div>
-  </div>
 </md-sidenav-container>

@@ -1,9 +1,9 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 
-import { COURSES } from "../mocks/courses";
-import { Course } from "../models/models";
-import { Http } from "@angular/http";
-import { handleError } from "../functions/functions";
+import { COURSES } from '../mocks/courses';
+import { Course } from '../models/models';
+import { Http } from '@angular/http';
+import { handleError } from '../functions/functions';
 
 import 'rxjs/add/operator/toPromise';
 
