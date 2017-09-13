@@ -1,4 +1,5 @@
 <md-button-toggle-group vertical>
+    <md-button-toggle disabled>Categories</md-button-toggle>
     <md-button-toggle *ngFor="let category of categories" value="{{category.Name}}">
         {{category.Name}}
     </md-button-toggle>
