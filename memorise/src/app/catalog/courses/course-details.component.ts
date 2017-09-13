@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class CourseDetailsComponent implements OnInit {
     course = {
         id: 1,
-        name: 'course1',
+        name: 'course1course1course1',
         description: 'description1',
         rating: 4,
         photo: './app/catalog/courses/placeholder-thumb.jpg',

@@ -11,7 +11,7 @@ export interface Answer extends BaseEntity {
 export interface Card extends BaseEntity {
     cardType: CardType;
     deck: Deck;
-    comments: Comment[];
+    comments?: Comment[];
     answers: Answer[];
 }
 
@@ -29,8 +29,8 @@ export interface Category extends BaseEntity {
 export interface Comment extends BaseEntity {
     message: string;
     user: User;
-    course: Course;
-    card: Card;
+    course?: Course;
+    card?: Card;
 }
 
 export interface Course extends BaseEntity {
@@ -53,8 +53,8 @@ export interface Deck extends BaseEntity {
 }
 
 export interface Report extends BaseEntity {
-    reason: string;
-    description: string;
+    reason?: string;
+    description?: string;
     date: Date;
     sender: User;
 }
@@ -71,13 +71,13 @@ export interface Statistic extends BaseEntity {
 
 export interface User extends BaseEntity {
     login: string;
-    password: string;
-    photo: string;
-    email: string;
-    isBlocked: boolean;
+    password?: string;
+    photo?: string;
+    email?: string;
+    isBlocked?: boolean;
 
-    comments: Comment[];
-    reports: Report[];
+    comments?: Comment[];
+    reports?: Report[];
 }
 
 export interface UserCourse extends BaseEntity {

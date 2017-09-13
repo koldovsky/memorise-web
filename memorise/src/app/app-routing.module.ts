@@ -4,15 +4,34 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { CoursesComponent } from './catalog/courses/courses.component';
 import { DecksComponent } from './catalog/decks/decks.component';
+import { CourseDetailsComponent } from "./catalog/courses/course-details.component";
+import { ProfileComponent } from "./users/customer/profile.component";
 
 const routes: Routes = [
     { path: "", component: HomeComponent, pathMatch: "full"},
-    { path: "courses", component: CoursesComponent },
-    { path: "decks", component: DecksComponent }    
+    { 
+        path: "courses", 
+        component: CoursesComponent
+    },
+    {
+        path: "course/:id",
+        component: CourseDetailsComponent
+    },
+    // { 
+    //     path: "decks", 
+    //     component: DecksComponent,
+    //     children: [
+    //         { path: "deck/:id", component: CourseDetailsComponent}
+    //     ]
+    // }
+    {
+        path: "user/:id",
+        component: ProfileComponent
+    }    
 ];
 
 @NgModule({
-    imports: [ RouterModule.forRoot(routes) ],
+    imports: [ RouterModule.forRoot(routes), RouterModule.forChild(routes) ],
     exports: [ RouterModule ]
 })
 

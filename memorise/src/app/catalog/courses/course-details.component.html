@@ -1,25 +1,34 @@
-<md-card>
-  <md-card-header>
-    <md-card-title>
-      <h1>{{course.name}}</h1>
-    </md-card-title>
-    <md-card-subtitle>{{course.price ? course.price : 'FREE'}}</md-card-subtitle>
-  </md-card-header>
-  <md-card-content>
-    <p>{{course.description}}</p>
+<md-grid-list cols="6" rowHeight="1:2">
+    <md-grid-tile colspan="1"></md-grid-tile>
+    <md-grid-tile colspan="4">
+        <div flex>
+            <md-card>
+                <md-card-header>
+                    <md-card-title>
+                        <h1>{{course.name}}</h1>
+                    </md-card-title>
+                    <md-card-subtitle>{{course.price ? course.price : 'FREE'}}</md-card-subtitle>
+                </md-card-header>
+                <md-card-content>
+                    <p>{{course.description}}</p>
 
-    <md-divider></md-divider>
+                    <md-divider></md-divider>
 
-    <h2>Decks :</h2>
-    <md-list>
-      <md-list-item *ngFor="let deck of course.decks">
-        <h3 mdLine>{{deck.name}}</h3>
-        <p mdLine>{{deck.description}}</p>
-        <md-divider></md-divider>
-      </md-list-item>
-    </md-list>
-
-    <a md-raised-button color="success">Subscribe</a>
-    <a md-raised-button color="primary" routerLink="/quiz">Try it now</a>
-  </md-card-content>
-</md-card>
+                    <h2>Decks :</h2>
+                    <md-list>
+                        <md-list-item *ngFor="let deck of course.decks">
+                            <h3 mdLine>{{deck.name}}</h3>
+                            <p mdLine>{{deck.description}}</p>
+                            <md-divider></md-divider>
+                        </md-list-item>
+                    </md-list>
+                    <div align="center">
+                        <a md-raised-button color="success">Subscribe</a><br>
+                        <a md-raised-button color="primary" routerLink="/quiz">Try it now</a>
+                    </div>
+                </md-card-content>
+            </md-card>
+        </div>
+    </md-grid-tile>
+    <md-grid-tile colspan="1"></md-grid-tile>
+</md-grid-list>
