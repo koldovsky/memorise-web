@@ -7,7 +7,7 @@ import {
     MdIconModule, MdListModule,
     MdButtonToggleModule, MdSidenavModule,
     MdExpansionModule, MdLineModule,
-    MdGridListModule, MdTabsModule
+    MdGridListModule, MdTabsModule, MdDialogModule, MdInputModule
 } from '@angular/material';
 
 import { HttpModule } from '@angular/http';
@@ -31,6 +31,7 @@ import { CategoryService } from './common/services/category.service';
 import { CourseService } from './common/services/course.service';
 import { DeckService } from './common/services/deck.service';
 import { UserService } from './common/services/user.service';
+import { LoginComponent } from './auth/components/login.component';
 
 @NgModule({
     declarations: [
@@ -45,7 +46,11 @@ import { UserService } from './common/services/user.service';
         SecurityComponent,
         UserCoursesComponent,
         UserDecksComponent,
-        StatisticsComponent
+        StatisticsComponent,
+        LoginComponent
+    ],
+    entryComponents: [
+        LoginComponent
     ],
     imports: [
         BrowserModule,
@@ -59,8 +64,10 @@ import { UserService } from './common/services/user.service';
         MdIconModule,
         MdListModule,
         MdButtonToggleModule,
+        MdDialogModule,
         MdSidenavModule,
         MdExpansionModule,
+        MdInputModule,
         MdLineModule,
         MdGridListModule,
         MdTabsModule

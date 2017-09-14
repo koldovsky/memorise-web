@@ -17,7 +17,7 @@
             </md-card-header>
 
             <md-card-content>
-                <md-expansion-panel>
+                <md-expansion-panel (opened)="getCourseDecks(course.Name)">
                     <md-expansion-panel-header>
                         <md-panel-title>
                             Decks
