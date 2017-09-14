@@ -1,7 +1,8 @@
 <md-sidenav-container>
-    <md-sidenav #sidenav mode="side" opened="true">
+    <md-sidenav mode="side" opened="true">
         <app-categories></app-categories>
     </md-sidenav>
+
     <div *ngFor="let course of courses">
         <md-card>
             <md-card-header>
@@ -10,13 +11,13 @@
                         <img md-card-sm-image src="../assets/images/placeholder-thumb.jpg" />
                     </span>
                     <span>                        
-                    <md-card-title>
-                        <h2>
-                            <a [routerLink]="['/course', course.Name]">{{course.Name}}</a>
-                        </h2>
-                    </md-card-title>
-                    <md-card-subtitle>{{course.Price ? course.Price : 'FREE'}}</md-card-subtitle>
-                    <md-card-subtitle>{{course.Description}}</md-card-subtitle>
+                        <md-card-title>
+                            <h2>
+                                <a [routerLink]="['/course', course.Name]">{{course.Name}}</a>
+                            </h2>
+                        </md-card-title>
+                        <md-card-subtitle>{{course.Price ? course.Price : 'FREE'}}</md-card-subtitle>
+                        <md-card-subtitle>{{course.Description}}</md-card-subtitle>
                     </span>
                 </md-card-title-group>
             </md-card-header>
@@ -36,10 +37,11 @@
                             <md-divider></md-divider>
                         </md-list-item>
                     </md-list>
-
                 </md-expansion-panel>
             </md-card-content>
         </md-card>
+
         <md-divider></md-divider>
+
     </div>
 </md-sidenav-container>

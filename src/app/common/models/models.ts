@@ -1,36 +1,36 @@
 export interface BaseEntity {
-    id?: number;
+    Id?: number;
 }
 
 export interface Answer extends BaseEntity {
-    text?: string;
-    isCorrect?: boolean;
-    card?: Card;
+    Text: string;
+    IsCorrect?: boolean;
+    Card?: Card;
 }
 
 export interface Card extends BaseEntity {
-    cardType: CardType;
-    deck: Deck;
-    comments?: Comment[];
-    answers: Answer[];
+    CardType: CardType;
+    Deck: Deck;
+    Comments?: Comment[];
+    Answers: Answer[];
 }
 
 export interface CardType extends BaseEntity {
-    name: string;
-    cards: Card[];
+    Name: string;
+    Cards: Card[];
 }
 
 export interface Category extends BaseEntity {
-    name: string;
-    courses?: Course[];
-    decks?: Deck[];
+    Name: string;
+    Courses?: Course[];
+    Decks?: Deck[];
 }
 
 export interface Comment extends BaseEntity {
-    message: string;
-    user: User;
-    course?: Course;
-    card?: Card;
+    Message: string;
+    User: User;
+    Course?: Course;
+    Card?: Card;
 }
 
 export interface Course extends BaseEntity {
@@ -44,44 +44,44 @@ export interface Course extends BaseEntity {
 }
 
 export interface Deck extends BaseEntity {
-    name: string;
-    price: number;
-    rating?: number;
-    photo?: string;
-    category?: Category;
-    cards?: Card[];
+    Name: string;
+    Price: number;
+    Rating?: number;
+    Photo?: string;
+    Category?: Category;
+    Cards?: Card[];
 }
 
 export interface Report extends BaseEntity {
-    reason?: string;
-    description?: string;
-    date: Date;
-    sender: User;
+    Reason?: string;
+    Description?: string;
+    Date: Date;
+    Sender: User;
 }
 
 export interface Role extends BaseEntity {
-    name: string;
+    Name: string;
 }
 
 export interface Statistic extends BaseEntity {
-    successPercent: number;
-    user: User;
-    deck: Deck;
+    SuccessPercent: number;
+    User: User;
+    Deck: Deck;
 }
 
 export interface User extends BaseEntity {
-    login: string;
-    password?: string;
-    photo?: string;
-    email?: string;
-    isBlocked?: boolean;
+    Login: string;
+    Password?: string;
+    Photo?: string;
+    Email?: string;
+    IsBlocked?: boolean;
 
-    comments?: Comment[];
-    reports?: Report[];
+    Comments?: Comment[];
+    Reports?: Report[];
 }
 
 export interface UserCourse extends BaseEntity {
-    rating: number;
-    user: User;
-    course: Course;
+    Rating: number;
+    User: User;
+    Course: Course;
 }

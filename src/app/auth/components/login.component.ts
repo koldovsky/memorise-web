@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MdDialog, MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
+
 import { User } from '../../common/models/models';
 
 @Component({
@@ -19,6 +20,7 @@ export class LoginComponent implements OnInit {
     onNoClick(): void {
         this.dialogRef.close();
     }
+
     ngOnInit(): void {
     }
 }

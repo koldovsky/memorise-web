@@ -1,19 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'user-decks',
+  selector: 'app-user-decks',
   templateUrl: './user-decks.component.html'
 })
-export class UserDecksComponent implements OnInit{
-  customer = {
-    id: 1,
-    firstName: 'Nastya',
-    lastName: 'Kolomoets',
-    login: 'nastya',
-    password: '12345',
-    photo: null,
-    isBlocked: false
-  }
 
+export class UserDecksComponent implements OnInit {
   ngOnInit(): void {}
 }

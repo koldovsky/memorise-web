@@ -10,7 +10,8 @@ import { Course } from '../../common/models/models';
 
 @Component({
     selector: 'app-course-details',
-    templateUrl: './course-details.component.html'
+    templateUrl: './course-details.component.html',
+    styleUrls: ['./course-details.component.css']
 })
 
 export class CourseDetailsComponent implements OnInit {
@@ -19,6 +20,7 @@ export class CourseDetailsComponent implements OnInit {
         private route: ActivatedRoute,
         private location: Location
     ) {}
+
     course: Course;
 
     ngOnInit(): void {

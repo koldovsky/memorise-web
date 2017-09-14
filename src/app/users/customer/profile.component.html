@@ -1,27 +1,28 @@
 <md-grid-list cols="5">
-    <md-grid-tile colspan="1" align="center">
+    <md-grid-tile colspan="1">
         <div>
             <img src="./placeholder-thumb.jpg">
             <h2>{{user.firstName}} {{user.lastName}}</h2>
             <a md-raised-button color="primary">Edit</a>
         </div>
     </md-grid-tile>
+
     <md-grid-tile colspan="4">
         <md-tab-group>
             <md-tab label="Account">
-                <account></account>
+                <app-user-account></app-user-account>
             </md-tab>
             <md-tab label="Security">
-                <security></security>
+                <app-user-security></app-user-security>
             </md-tab>
             <md-tab label="My Courses">
-                <user-courses></user-courses>
+                <app-user-courses></app-user-courses>
             </md-tab>
             <md-tab label="My Decks">
-                <user-decks></user-decks>
+                <app-user-decks></app-user-decks>
             </md-tab>
             <md-tab label="Statistics">
-                <statistics></statistics>
+                <app-user-statistics></app-user-statistics>
             </md-tab>
         </md-tab-group>
     </md-grid-tile>

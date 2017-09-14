@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'user-profile',
+  selector: 'app-user-profile',
   templateUrl: './profile.component.html'
 })
-export class ProfileComponent implements OnInit{
+
+export class ProfileComponent implements OnInit {
   user = {
     id: 1,
     firstName: 'Nastya',
@@ -13,7 +14,7 @@ export class ProfileComponent implements OnInit{
     password: '12345',
     photo: null,
     isBlocked: false
-  }
+  };
 
   ngOnInit(): void {}
 }

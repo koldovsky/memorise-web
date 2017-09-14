@@ -1,4 +1,5 @@
 <h2 md-dialog-title>{{action}}</h2>
+
 <md-dialog-actions>
     <form>
         <md-form-field>
@@ -8,6 +9,8 @@
             <input mdInput placeholder="Password">
         </md-form-field>
     </form>
+
     <button md-button md-dialog-close>Cancel</button>
     <button md-button [md-dialog-close]="true">Sign In</button>
+
 </md-dialog-actions>

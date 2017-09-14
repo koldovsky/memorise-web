@@ -1,19 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'statistics',
+  selector: 'app-user-statistics',
   templateUrl: './statistics.component.html'
 })
-export class StatisticsComponent implements OnInit{
-  customer = {
-    id: 1,
-    firstName: 'Nastya',
-    lastName: 'Kolomoets',
-    login: 'nastya',
-    password: '12345',
-    photo: null,
-    isBlocked: false
-  }
 
+export class StatisticsComponent implements OnInit {
   ngOnInit(): void {}
 }

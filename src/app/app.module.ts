@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpModule } from '@angular/http';
 import {
     MdButtonModule, MdCardModule,
     MdMenuModule, MdToolbarModule,
@@ -10,7 +11,7 @@ import {
     MdGridListModule, MdTabsModule, MdDialogModule, MdInputModule
 } from '@angular/material';
 
-import { HttpModule } from '@angular/http';
+import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -24,14 +25,12 @@ import { SecurityComponent } from './users/customer/security.component';
 import { UserCoursesComponent } from './users/customer/user-courses.component';
 import { UserDecksComponent } from './users/customer/user-decks.component';
 import { StatisticsComponent } from './users/customer/statistics.component';
-
-import { AppRoutingModule } from './app-routing.module';
+import { LoginComponent } from './auth/components/login.component';
 
 import { CategoryService } from './common/services/category.service';
 import { CourseService } from './common/services/course.service';
 import { DeckService } from './common/services/deck.service';
 import { UserService } from './common/services/user.service';
-import { LoginComponent } from './auth/components/login.component';
 
 @NgModule({
     declarations: [

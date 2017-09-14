@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MdDialog, MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
+
 import { User } from './common/models/models';
 import { LoginComponent } from './auth/components/login.component';
 
@@ -8,10 +9,12 @@ import { LoginComponent } from './auth/components/login.component';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent {
   title = 'Memo Rise';
   description = 'Some description';
-  constructor(private dialog: MdDialog) { }
+
+  constructor(private dialog: MdDialog) {}
 
   openSignUpDialog(): void {
     const dialogRef = this.dialog.open(LoginComponent, {

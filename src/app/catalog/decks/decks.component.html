@@ -1,7 +1,8 @@
 <md-sidenav-container>
-    <md-sidenav #sidenav mode="side" opened="true">
+    <md-sidenav mode="side" opened="true">
         <app-categories></app-categories>
     </md-sidenav>
+
     <div *ngFor="let deck of decks">
         <md-card>
             <md-card-header>
@@ -22,6 +23,8 @@
             <md-card-content>
             </md-card-content>
         </md-card>
+
         <md-divider></md-divider>
+
     </div>
 </md-sidenav-container>

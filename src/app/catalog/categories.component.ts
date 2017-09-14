@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import { CategoryService } from '../common/services/category.service';
 import { Category } from '../common/models/models';
 
@@ -9,6 +10,7 @@ import { Category } from '../common/models/models';
 
 export class CategoriesComponent implements OnInit {
     constructor(private categoryService: CategoryService) { }
+
     categories: Category[];
 
     ngOnInit(): void {
