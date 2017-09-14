@@ -24,7 +24,9 @@ export class CourseDetailsComponent implements OnInit {
     ngOnInit(): void {
         this.route.paramMap
             .switchMap((params: ParamMap) => this.courseService.getCourse(decodeURIComponent(params.get('name'))))
-            .subscribe(course => this.course = course);
-            console.log(this.course);
+            .subscribe(course => {
+                this.course = course;
+                console.log(this.course);
+            });
     }
 }

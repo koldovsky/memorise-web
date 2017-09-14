@@ -22,13 +22,17 @@ export class CourseService {
     }
 
     getCourse(name: string): Promise<Course> {
-        // return this.http.get(this.courseUrl)
-        //     .toPromise()
-        //     .then(response => {
-        //         return response.json() as Course;
-        //     })
-        //     .catch(handleError);
-        return this.getCourses()
-            .then(courses => courses.find(course => course.Name === name));
+        const URL = this.courseUrl + '/' + name;
+        return this.http.get(URL)
+            .toPromise()
+            .then(response => {
+                return response.json() as Course;
+            })
+            .catch(handleError);
+        // return this.getCourses()
+        //     .then(courses => {
+        //         console.log(courses.find(course => course.Name === name));
+        //         return courses.find(course => course.Name === name) as Course;
+        //     });
     }
 }
