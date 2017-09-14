@@ -3,16 +3,21 @@
         <app-categories></app-categories>
     </md-sidenav>
     <div *ngFor="let course of courses">
-        <md-card id="{{course.id}}">
+        <md-card>
             <md-card-header>
                 <md-card-title-group>
+                    <span>                        
+                        <img md-card-sm-image src="../assets/images/placeholder-thumb.jpg" />
+                    </span>
+                    <span>                        
                     <md-card-title>
                         <h2>
-                            <a>{{course.Name}}</a>
+                            <a [routerLink]="['/course', course.Name]">{{course.Name}}</a>
                         </h2>
                     </md-card-title>
                     <md-card-subtitle>{{course.Price ? course.Price : 'FREE'}}</md-card-subtitle>
                     <md-card-subtitle>{{course.Description}}</md-card-subtitle>
+                    </span>
                 </md-card-title-group>
             </md-card-header>
 

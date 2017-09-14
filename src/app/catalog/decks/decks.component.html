@@ -6,12 +6,16 @@
         <md-card>
             <md-card-header>
                 <md-card-title-group>
-                    <!--<div md-card-image></div>-->
-                    <md-card-title>
-                        <h2>{{deck.Name}}</h2>
-                    </md-card-title>
-                    <md-card-subtitle>{{deck.Price ? deck.Price : 'FREE'}}</md-card-subtitle>
-                    <md-card-subtitle>{{deck.Description}}</md-card-subtitle>
+                    <span>                        
+                        <img md-card-sm-image src="../assets/images/placeholder-thumb.jpg" />
+                    </span>
+                    <span>
+                        <md-card-title>
+                            <h2>{{deck.Name}}</h2>
+                        </md-card-title>
+                        <md-card-subtitle>{{deck.Price ? deck.Price : 'FREE'}}</md-card-subtitle>
+                        <md-card-subtitle>{{deck.Description}}</md-card-subtitle>
+                    </span>
                 </md-card-title-group>
             </md-card-header>
 

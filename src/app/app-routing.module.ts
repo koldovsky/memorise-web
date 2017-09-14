@@ -18,7 +18,7 @@ const routes: Routes = [
         component: CoursesComponent
     },
     {
-        path: 'course/:id',
+        path: 'course/:name',
         component: CourseDetailsComponent
     },
     {
@@ -36,4 +36,4 @@ const routes: Routes = [
     exports: [ RouterModule ]
 })
 
-export class AppRoutingModule {};
+export class AppRoutingModule {}

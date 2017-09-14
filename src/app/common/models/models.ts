@@ -34,13 +34,13 @@ export interface Comment extends BaseEntity {
 }
 
 export interface Course extends BaseEntity {
-    name: string;
-    description: string;
-    price: number;
-    photo?: string;
-    category?: Category;
-    decks?: Deck[];
-    comments?: Comment[];
+    Name: string;
+    Description: string;
+    Price: number;
+    Photo?: string;
+    Category?: Category;
+    Decks?: Deck[];
+    Comments?: Comment[];
 }
 
 export interface Deck extends BaseEntity {
