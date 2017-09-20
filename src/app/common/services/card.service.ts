@@ -8,12 +8,14 @@ import { handleError } from '../functions/functions';
 
 @Injectable()
 export class CardService {
-    private CardUrl = 'http://localhost:37271/Catalog/GetCards';
+    private CardUrl = 'http://localhost:37271/Quiz';
 
     constructor(private http: Http) { }
 
-    getCards(): Promise<Card[]> {
-        return this.http.get(this.CardUrl)
+    getCards(cardName: string): Promise<Card[]> {
+        const URL = `${this.CardUrl}/GetCardsByDeck${cardName}`;
+
+        return this.http.get(URL)
             .toPromise()
             .then(response => {
                  console.log(response);
