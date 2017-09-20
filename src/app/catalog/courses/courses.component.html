@@ -32,9 +32,11 @@
 
                     <md-list>
                         <md-list-item *ngFor="let deck of course.Decks">
-                            <h3 mdLine>{{deck.Name}}</h3>
-                            <p mdLine>{{deck.Description}}</p>
-                            <md-divider></md-divider>
+                                <a [routerLink]="['/deck', deck.Name]">
+                                    <h3 mdLine>{{deck.Name}}</h3>
+                                    <p mdLine>{{deck.Description}}</p>
+                                    <md-divider></md-divider>
+                                </a>
                         </md-list-item>
                     </md-list>
                 </md-expansion-panel>

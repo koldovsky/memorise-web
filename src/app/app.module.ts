@@ -26,7 +26,8 @@ import { UserCoursesComponent } from './users/customer/user-courses.component';
 import { UserDecksComponent } from './users/customer/user-decks.component';
 import { StatisticsComponent } from './users/customer/statistics.component';
 import { LoginComponent } from './auth/components/login.component';
-
+import { CardsComponent } from './catalog/cards/cards.component';
+import { DeckDetailsComponent } from './catalog/decks/deck-details.component';
 import { CategoryService } from './common/services/category.service';
 import { CourseService } from './common/services/course.service';
 import { DeckService } from './common/services/deck.service';
@@ -46,7 +47,9 @@ import { UserService } from './common/services/user.service';
         UserCoursesComponent,
         UserDecksComponent,
         StatisticsComponent,
-        LoginComponent
+        LoginComponent,
+        CardsComponent,
+        DeckDetailsComponent
     ],
     entryComponents: [
         LoginComponent

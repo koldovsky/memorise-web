@@ -12,8 +12,8 @@ export class CardService {
 
     constructor(private http: Http) { }
 
-    getCards(cardName: string): Promise<Card[]> {
-        const URL = `${this.CardUrl}/GetCardsByDeck${cardName}`;
+    getCards(deckName: string): Promise<Card[]> {
+        const URL = `${this.CardUrl}/GetCardsByDeck${deckName}`;
 
         return this.http.get(URL)
             .toPromise()

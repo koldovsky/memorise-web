@@ -4,27 +4,29 @@
     </md-sidenav>
 
     <div *ngFor="let deck of decks">
-        <md-card>
-            <md-card-header>
-                <md-card-title-group>
-                    <span>                        
-                        <img md-card-sm-image src="../assets/images/placeholder-thumb.jpg" />
-                    </span>
-                    <span>
-                        <md-card-title>
-                            <h2>{{deck.Name}}</h2>
-                        </md-card-title>
-                        <md-card-subtitle>{{deck.Price ? deck.Price : 'FREE'}}</md-card-subtitle>
-                        <md-card-subtitle>{{deck.Description}}</md-card-subtitle>
-                    </span>
-                </md-card-title-group>
-            </md-card-header>
+            <a [routerLink]="['/deck', deck.Name]">
+                <md-card>
+                    <md-card-header>
+                        <md-card-title-group>
+                            <span>                        
+                                <img md-card-sm-image src="../assets/images/placeholder-thumb.jpg" />
+                            </span>
+                            <span>
+                                <md-card-title>
+                                    {{deck.Name}}
+                                </md-card-title>
+                                <md-card-subtitle>{{deck.Price ? deck.Price : 'FREE'}}</md-card-subtitle>
+                                <md-card-subtitle>{{deck.Description}}</md-card-subtitle>
+                            </span>
+                        </md-card-title-group>
+                    </md-card-header>
 
-            <md-card-content>
-            </md-card-content>
-        </md-card>
+                    <md-card-content>
+                    </md-card-content>
+                </md-card>
 
-        <md-divider></md-divider>
+                <md-divider></md-divider>
+            </a>
 
     </div>
 </md-sidenav-container>
