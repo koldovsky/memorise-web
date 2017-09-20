@@ -5,3 +5,8 @@ md-card div {
 #quizButton {
     color: primary;
 }
+
+.btnBack {
+    color : rgb(255,0,0);
+    font-size: 20px;
+}

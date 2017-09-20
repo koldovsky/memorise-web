@@ -32,4 +32,9 @@ export class CourseDetailsComponent implements OnInit {
                 console.log(this.course);
             });
     }
+
+    goBack(): void {
+        this.location.back();
+      }
+    
 }

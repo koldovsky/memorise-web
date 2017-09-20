@@ -10,7 +10,8 @@ import { Deck } from '../../common/models/models';
 
 @Component({
     selector: 'app-deck-details',
-    templateUrl: './deck-details.component.html'
+    templateUrl: './deck-details.component.html',
+    styleUrls: ['./deck-details.component.css']
 })
 
 export class DeckDetailsComponent implements OnInit {
@@ -31,4 +32,8 @@ export class DeckDetailsComponent implements OnInit {
                 console.log(this.deck);
             });
     }
+
+    goBack(): void {
+        this.location.back();
+      }
 }
