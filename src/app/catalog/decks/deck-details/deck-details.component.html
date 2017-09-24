@@ -1,0 +1,30 @@
+<div *ngIf="deck">
+    <h2>Deck details</h2>
+    <md-card>
+        <md-card-header>
+            <span>                        
+                <img md-card-sm-image src="../assets/images/placeholder-thumb.jpg" />
+            </span>
+            <span>
+                <md-card-title>
+                    <h1>{{deck.Name}}</h1>
+                </md-card-title>
+                <md-card-subtitle>{{deck.Price ? deck.Price : 'FREE'}}</md-card-subtitle>
+            </span>
+        </md-card-header>
+
+        <md-card-content>
+            <md-divider></md-divider>
+
+            <h2>Cards count :{{deck.CardsNumber}}</h2>
+
+            <div align="center">
+                <button md-raised-button>Subscribe</button><br>
+                <a md-raised-button color="primary" routerLink="/quiz">Try it now</a>
+            </div>
+            <div align="center">
+                <button md-raised-button class="btnBack" (click)="goBack()">Back</button>
+            </div>
+        </md-card-content>
+    </md-card>
+</div>

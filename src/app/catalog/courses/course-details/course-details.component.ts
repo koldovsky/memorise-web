@@ -4,8 +4,8 @@ import { Location } from '@angular/common';
 
 import 'rxjs/add/operator/switchMap';
 
-import { CourseService } from '../../common/services/course.service';
-import { Course } from '../../common/models/models';
+import { CourseService } from '../../../common/services/course.service';
+import { Course } from '../../../common/models/models';
 
 
 @Component({
@@ -35,6 +35,5 @@ export class CourseDetailsComponent implements OnInit {
 
     goBack(): void {
         this.location.back();
-      }
-    
+    }
 }
