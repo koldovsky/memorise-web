@@ -10,6 +10,7 @@ import {
     MdExpansionModule, MdLineModule,
     MdGridListModule, MdTabsModule, MdDialogModule, MdInputModule
 } from '@angular/material';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -27,7 +28,7 @@ import { LoginComponent } from './auth/components/login.component';
 import { CardsComponent } from './catalog/cards/cards.component';
 import { DeckDetailsComponent } from './catalog/decks/deck-details/deck-details.component';
 import { PageNotFoundComponent } from './not-found-component';
-
+import { RegisterComponent } from './auth/components/register.component';
 import { CategoryService } from './common/services/category.service';
 import { CourseService } from './common/services/course.service';
 import { DeckService } from './common/services/deck.service';
@@ -55,9 +56,13 @@ import { AppRoutingModule } from './app-routing.module';
         AppComponent,
         HomeComponent,
         PageNotFoundComponent
+
+        RegisterComponent
+
     ],
     entryComponents: [
-        LoginComponent
+        LoginComponent,
+        RegisterComponent
     ],
     imports: [
         // BrowserModule,
@@ -77,9 +82,14 @@ import { AppRoutingModule } from './app-routing.module';
         MdLineModule,
         MdGridListModule,
         MdTabsModule,
+
         CoursesModule,
         DecksModule,
         AppRoutingModule
+
+        FormsModule,
+        ReactiveFormsModule
+
     ],
     providers: [
         CategoryService,

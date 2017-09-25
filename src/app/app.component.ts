@@ -3,6 +3,7 @@ import { MdDialog, MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
 
 import { User } from './common/models/models';
 import { LoginComponent } from './auth/components/login.component';
+import {RegisterComponent} from './auth/components/register.component';
 
 @Component({
   selector: 'app-root',
@@ -17,8 +18,8 @@ export class AppComponent {
   constructor(private dialog: MdDialog) { }
 
   openSignUpDialog(): void {
-    const dialogRef = this.dialog.open(LoginComponent, {
-      width: '250px',
+    const dialogRef = this.dialog.open(RegisterComponent, {
+      width: '400px',
       data:
       {
         action: 'Sign Up',
@@ -34,12 +35,13 @@ export class AppComponent {
 
   openSignInDialog(): void {
     const dialogRef = this.dialog.open(LoginComponent, {
-      width: '250px',
+      width: '400px',
       data:
       {
         action: 'Sign In',
         name: '',
-        password: ''
+        password: '',
+        signUp: this.dialog
       }
     });
 
