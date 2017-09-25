@@ -27,15 +27,19 @@ import { LoginComponent } from './auth/components/login.component';
 import { CardsComponent } from './catalog/cards/cards.component';
 import { DeckDetailsComponent } from './catalog/decks/deck-details/deck-details.component';
 import { PageNotFoundComponent } from './not-found-component';
+import { QuizComponent } from './quiz/quiz.component';
 
 import { CategoryService } from './common/services/category.service';
 import { CourseService } from './common/services/course.service';
 import { DeckService } from './common/services/deck.service';
 import { UserService } from './common/services/user.service';
+import { QuizService } from './common/services/quiz.service';
+
 
 import { CoursesModule } from './catalog/courses/courses.module';
 import { DecksModule } from './catalog/decks/decks.module';
 import { AppRoutingModule } from './app-routing.module';
+import { QuizModule } from './quiz/quiz.module';
 
 @NgModule({
     declarations: [
@@ -54,7 +58,8 @@ import { AppRoutingModule } from './app-routing.module';
         DeckDetailsComponent,
         AppComponent,
         HomeComponent,
-        PageNotFoundComponent
+        PageNotFoundComponent,
+        QuizComponent
     ],
     entryComponents: [
         LoginComponent
@@ -79,13 +84,15 @@ import { AppRoutingModule } from './app-routing.module';
         MdTabsModule,
         CoursesModule,
         DecksModule,
+        QuizModule,
         AppRoutingModule
     ],
     providers: [
         CategoryService,
         CourseService,
         DeckService,
-        UserService
+        UserService,
+        QuizService
     ],
     bootstrap: [AppComponent]
 })

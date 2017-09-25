@@ -20,7 +20,7 @@
 
             <div align="center">
                 <button md-raised-button>Subscribe</button><br>
-                <a md-raised-button color="primary" routerLink="/quiz">Try it now</a>
+                <a md-raised-button color="primary" [routerLink]="['/quiz', deck.Name]">Try it now</a>
             </div>
             <div align="center">
                 <button md-raised-button class="btnBack" (click)="goBack()">Back</button>
