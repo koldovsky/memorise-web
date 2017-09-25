@@ -55,7 +55,7 @@ import { AppRoutingModule } from './app-routing.module';
         DeckDetailsComponent,
         AppComponent,
         HomeComponent,
-        PageNotFoundComponent
+        PageNotFoundComponent,
 
         RegisterComponent
 
@@ -85,7 +85,7 @@ import { AppRoutingModule } from './app-routing.module';
 
         CoursesModule,
         DecksModule,
-        AppRoutingModule
+        AppRoutingModule,
 
         FormsModule,
         ReactiveFormsModule
