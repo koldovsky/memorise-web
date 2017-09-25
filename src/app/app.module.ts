@@ -10,6 +10,7 @@ import {
     MdExpansionModule, MdLineModule,
     MdGridListModule, MdTabsModule, MdDialogModule, MdInputModule
 } from '@angular/material';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -26,6 +27,7 @@ import { UserCoursesComponent } from './users/customer/user-courses.component';
 import { UserDecksComponent } from './users/customer/user-decks.component';
 import { StatisticsComponent } from './users/customer/statistics.component';
 import { LoginComponent } from './auth/components/login.component';
+import { RegisterComponent } from './auth/components/register.component';
 
 import { CategoryService } from './common/services/category.service';
 import { CourseService } from './common/services/course.service';
@@ -46,10 +48,12 @@ import { UserService } from './common/services/user.service';
         UserCoursesComponent,
         UserDecksComponent,
         StatisticsComponent,
-        LoginComponent
+        LoginComponent,
+        RegisterComponent
     ],
     entryComponents: [
-        LoginComponent
+        LoginComponent,
+        RegisterComponent
     ],
     imports: [
         BrowserModule,
@@ -69,7 +73,9 @@ import { UserService } from './common/services/user.service';
         MdInputModule,
         MdLineModule,
         MdGridListModule,
-        MdTabsModule
+        MdTabsModule,
+        FormsModule,
+        ReactiveFormsModule
     ],
     providers: [
         CategoryService,
