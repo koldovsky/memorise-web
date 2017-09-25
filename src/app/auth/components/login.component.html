@@ -9,20 +9,15 @@
         </md-dialog-content>
         <md-dialog-content layout="column">
             <md-form-field class="full-width">
-                <input mdInput placeholder="Email" [formControl]="email">
-                <!-- <div *ngIf="email.invalid && (email.dirty || email.touched)"> -->
-                    <md-error *ngIf="email.hasError('pattern')">
-                        Please enter a valid email address
-                    </md-error>
-                    <md-error *ngIf="email.hasError('required')">
-                        Email is <strong>required</strong>
-                    </md-error>
-                <!-- </div> -->
+                <input name="login" mdInput placeholder="Login" [formControl]="login">
+                <md-error *ngIf="login.hasError('required')">
+                    Login is <strong>required</strong>
+                </md-error>
             </md-form-field>
         </md-dialog-content>
         <md-dialog-content layout="column">
             <md-form-field class="full-width">
-                <input mdInput placeholder="Password" type="password" [formControl]="password">
+                <input name="password" mdInput placeholder="Password" type="password" [formControl]="password">
                 <md-error *ngIf="password.hasError('minLength')">
                     Please enter a valid password
                 </md-error>
@@ -35,7 +30,7 @@
 
     <md-dialog-content layout="column">
         <button md-button md-dialog-close>Cancel</button>
-        <button md-button [md-dialog-close]="true" *ngIf="!signUp">Sign In</button>
+        <button md-button type="submit" [md-dialog-close]="true" *ngIf="!signUp" (click)="LogIn()">Sign In</button>
         <button md-button (click)="Register()">Sign Up</button>
     </md-dialog-content>
 
