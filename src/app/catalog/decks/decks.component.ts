@@ -5,7 +5,8 @@ import { DeckService } from '../../common/services/deck.service';
 
 @Component({
     selector: 'app-decks',
-    templateUrl: './decks.component.html'
+    templateUrl: './decks.component.html',
+    styleUrls: ['./decks.component.css']
 })
 
 export class DecksComponent implements OnInit {

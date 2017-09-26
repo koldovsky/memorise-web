@@ -9,6 +9,7 @@ import { handleError } from '../functions/functions';
 @Injectable()
 export class DeckService {
     private decksUrl = 'http://localhost:37271/Catalog';
+    private decksDetailsUrl = 'http://localhost:37271/DeckDetails';
 
     constructor(private http: Http) { }
 
@@ -26,6 +27,14 @@ export class DeckService {
         return this.http.get(URL)
             .toPromise()
             .then(response => response.json() as Deck[])
+            .catch(handleError);
+    }
+    getDeckWithDetails(deckName: string): Promise<Deck> {
+        const URL = `${this.decksDetailsUrl}/GetDeckWithDetails/${deckName}`;
+
+        return this.http.get(URL)
+            .toPromise()
+            .then(response => response.json() as Deck)
             .catch(handleError);
     }
 }

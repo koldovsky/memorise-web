@@ -1,0 +1,25 @@
+<div align="center">
+        <h1>
+                Welcome to Quiz!
+        </h1>
+        <md-grid-list cols="6">
+                <md-grid-tile *ngFor="let card of cards">
+                        <md-card>
+                                <md-card-header>
+                                        <md-card-title>{{card.Question}}</md-card-title>
+                                </md-card-header>
+                                <md-card-content>
+                                        <img md-card-sm-image src="../assets/images/placeholder-thumb.jpg">
+                                        <md-card-title *ngFor="let answer of card.Answers">
+                                                {{answer.Text}}
+                                        </md-card-title>
+                                </md-card-content>
+                        </md-card>
+                </md-grid-tile>
+        </md-grid-list>
+        <!-- <md-paginator [length]="10" [pageSize]="1" [pageSizeOptions]="[1]" (page)="pageEvent = $event">
+        </md-paginator>
+        <div *ngIf="pageEvent">
+                
+        </div> -->
+</div>

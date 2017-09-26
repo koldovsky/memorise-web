@@ -13,7 +13,7 @@
                     <span>                        
                         <md-card-title>
                             <h2>
-                                <a [routerLink]="['/course', course.Name]">{{course.Name}}</a>
+                                <a [routerLink]="['/courses', course.Name]">{{course.Name}}</a>
                             </h2>
                         </md-card-title>
                         <md-card-subtitle>{{course.Price ? course.Price : 'FREE'}}</md-card-subtitle>
@@ -32,9 +32,11 @@
 
                     <md-list>
                         <md-list-item *ngFor="let deck of course.Decks">
-                            <h3 mdLine>{{deck.Name}}</h3>
-                            <p mdLine>{{deck.Description}}</p>
-                            <md-divider></md-divider>
+                            <a [routerLink]="['/decks', deck.Name]">
+                                <h3 mdLine>{{deck.Name}}</h3>
+                                <p mdLine>{{deck.Description}}</p>
+                                <md-divider></md-divider>
+                            </a>
                         </md-list-item>
                     </md-list>
                 </md-expansion-panel>
@@ -44,4 +46,9 @@
         <md-divider></md-divider>
 
     </div>
+
 </md-sidenav-container>
+
+<!-- <div>
+    <router-outlet></router-outlet>
+</div> -->

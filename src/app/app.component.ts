@@ -14,7 +14,7 @@ export class AppComponent {
   title = 'Memo Rise';
   description = 'Some description';
 
-  constructor(private dialog: MdDialog) {}
+  constructor(private dialog: MdDialog) { }
 
   openSignUpDialog(): void {
     const dialogRef = this.dialog.open(LoginComponent, {

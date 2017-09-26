@@ -18,11 +18,11 @@
             <md-divider></md-divider>
 
             <h2>Decks :</h2>
-            <md-grid-list cols="6">
+            <md-grid-list cols="4">
                 <md-grid-tile *ngFor="let deck of course.Decks">
                     <md-card>
                         <md-card-header>
-                            <md-card-title>{{deck.Name}}</md-card-title>
+                            <md-card-title><a [routerLink]="['/courses', course.Name, deck.Name]">{{deck.Name}}</a></md-card-title>
                             <md-card-subtitle>{{deck.Description}}</md-card-subtitle>
                         </md-card-header>
 
@@ -37,6 +37,13 @@
                 <button md-raised-button>Subscribe</button><br>
                 <a md-raised-button color="primary" routerLink="/quiz">Try it now</a>
             </div>
+            <div align="center">
+                <button md-raised-button class="btnBack" (click)="goBack()">Back</button>
+            </div>
         </md-card-content>
     </md-card>
 </div>
+
+<!-- <div>
+    <router-outlet></router-outlet>
+</div> -->
