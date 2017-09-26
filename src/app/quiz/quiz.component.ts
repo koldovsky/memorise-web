@@ -11,7 +11,7 @@ import { ParamMap, ActivatedRoute } from '@angular/router';
 export class QuizComponent {
     constructor(
         private quizService: QuizService,
-        private route: ActivatedRoute, 
+        private route: ActivatedRoute
     ) { }
     cards: Card[];
 

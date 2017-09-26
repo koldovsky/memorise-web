@@ -8,7 +8,8 @@ import {
     MdIconModule, MdListModule,
     MdButtonToggleModule, MdSidenavModule,
     MdExpansionModule, MdLineModule,
-    MdGridListModule, MdTabsModule, MdDialogModule, MdInputModule
+    MdGridListModule, MdTabsModule, MdDialogModule,
+    MdInputModule, MdPaginatorModule
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -83,6 +84,7 @@ import { QuizModule } from './quiz/quiz.module';
         MdGridListModule,
         MdTabsModule,
         CoursesModule,
+        MdPaginatorModule,
         DecksModule,
         QuizModule,
         AppRoutingModule
