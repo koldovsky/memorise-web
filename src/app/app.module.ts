@@ -1,4 +1,4 @@
-// import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
@@ -8,7 +8,8 @@ import {
     MdIconModule, MdListModule,
     MdButtonToggleModule, MdSidenavModule,
     MdExpansionModule, MdLineModule,
-    MdGridListModule, MdTabsModule, MdDialogModule, MdInputModule
+    MdGridListModule, MdTabsModule, MdDialogModule,
+    MdInputModule, MdPaginatorModule
 } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
@@ -28,15 +29,21 @@ import { LoginComponent } from './auth/components/login.component';
 import { CardsComponent } from './catalog/cards/cards.component';
 import { DeckDetailsComponent } from './catalog/decks/deck-details/deck-details.component';
 import { PageNotFoundComponent } from './not-found-component';
+import { QuizComponent } from './quiz/quiz.component';
 import { RegisterComponent } from './auth/components/register.component';
+
+
 import { CategoryService } from './common/services/category.service';
 import { CourseService } from './common/services/course.service';
 import { DeckService } from './common/services/deck.service';
 import { UserService } from './common/services/user.service';
+import { QuizService } from './common/services/quiz.service';
+
 
 import { CoursesModule } from './catalog/courses/courses.module';
 import { DecksModule } from './catalog/decks/decks.module';
 import { AppRoutingModule } from './app-routing.module';
+import { QuizModule } from './quiz/quiz.module';
 
 @NgModule({
     declarations: [
@@ -57,7 +64,12 @@ import { AppRoutingModule } from './app-routing.module';
         HomeComponent,
         PageNotFoundComponent,
 
+
         RegisterComponent
+
+
+        QuizComponent
+   
 
     ],
     entryComponents: [
@@ -65,7 +77,7 @@ import { AppRoutingModule } from './app-routing.module';
         RegisterComponent
     ],
     imports: [
-        // BrowserModule,
+        BrowserModule,
         BrowserAnimationsModule,
         HttpModule,
         MdButtonModule,
@@ -82,20 +94,24 @@ import { AppRoutingModule } from './app-routing.module';
         MdLineModule,
         MdGridListModule,
         MdTabsModule,
-
         CoursesModule,
+        MdPaginatorModule,
         DecksModule,
         AppRoutingModule,
-
         FormsModule,
         ReactiveFormsModule
-
+        QuizModule,
+        AppRoutingModule,
+        MdTabsModule,
+        FormsModule,
+        ReactiveFormsModule
     ],
     providers: [
         CategoryService,
         CourseService,
         DeckService,
-        UserService
+        UserService,
+        QuizService
     ],
     bootstrap: [AppComponent]
 })

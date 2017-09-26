@@ -29,7 +29,6 @@ export class CourseDetailsComponent implements OnInit {
             .getCourse(decodeURIComponent(params.get('name'))))
             .subscribe(course => {
                 this.course = course;
-                console.log(this.course);
             });
     }
 

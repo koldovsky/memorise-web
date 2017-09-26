@@ -23,5 +23,4 @@ const route: Routes = [
         RouterModule
     ]
 })
-
 export class DecksRoutingModule { }

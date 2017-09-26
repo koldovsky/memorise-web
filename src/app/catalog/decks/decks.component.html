@@ -4,9 +4,11 @@
     </md-sidenav>
     <md-grid-list cols="4" rowHeight="2:1" gutterSize="2px">
         <div *ngFor="let deck of decks">
-            <md-grid-tile >
-                <a [routerLink]="['/decks', deck.Name]" style="text-decoration: none">
-                    <md-card>
+            
+
+            <md-grid-tile style="width: 100%">
+                    <a [routerLink]="['/decks', deck.Name]" style="text-decoration: none">
+                    <md-card style="width: 100%">
                         <md-card-header>
                             <md-card-title-group>
                                 <span>                        
@@ -23,8 +25,9 @@
                             </md-card-title-group>
                         </md-card-header>
                     </md-card>
-                </a>
+                    </a>
             </md-grid-tile>
+        
         </div>
     </md-grid-list>
 </md-sidenav-container>

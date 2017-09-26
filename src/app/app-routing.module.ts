@@ -8,6 +8,7 @@ import { CourseDetailsComponent } from './catalog/courses/course-details/course-
 import { DeckDetailsComponent } from './catalog/decks/deck-details/deck-details.component';
 import { ProfileComponent } from './users/customer/profile.component';
 import { PageNotFoundComponent } from './not-found-component';
+import { QuizComponent } from './quiz/quiz.component'
 
 const routes: Routes = [
     {
@@ -31,5 +32,4 @@ const routes: Routes = [
     ],
     exports: [RouterModule]
 })
-
 export class AppRoutingModule { }
