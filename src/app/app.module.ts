@@ -91,7 +91,7 @@ import { QuizModule } from './quiz/quiz.module';
         MdPaginatorModule,
         DecksModule,
         QuizModule,
-        AppRoutingModule
+        AppRoutingModule,
         MdTabsModule,
         FormsModule,
         ReactiveFormsModule
