@@ -1,4 +1,4 @@
-// import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
@@ -11,6 +11,7 @@ import {
     MdGridListModule, MdTabsModule, MdDialogModule,
     MdInputModule, MdPaginatorModule
 } from '@angular/material';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -29,6 +30,7 @@ import { CardsComponent } from './catalog/cards/cards.component';
 import { DeckDetailsComponent } from './catalog/decks/deck-details/deck-details.component';
 import { PageNotFoundComponent } from './not-found-component';
 import { QuizComponent } from './quiz/quiz.component';
+import { RegisterComponent } from './auth/components/register.component';
 
 import { CategoryService } from './common/services/category.service';
 import { CourseService } from './common/services/course.service';
@@ -60,13 +62,15 @@ import { QuizModule } from './quiz/quiz.module';
         AppComponent,
         HomeComponent,
         PageNotFoundComponent,
-        QuizComponent
+        QuizComponent,
+        RegisterComponent
     ],
     entryComponents: [
-        LoginComponent
+        LoginComponent,
+        RegisterComponent
     ],
     imports: [
-        // BrowserModule,
+        BrowserModule,
         BrowserAnimationsModule,
         HttpModule,
         MdButtonModule,
@@ -87,7 +91,10 @@ import { QuizModule } from './quiz/quiz.module';
         MdPaginatorModule,
         DecksModule,
         QuizModule,
-        AppRoutingModule
+        AppRoutingModule,
+        MdTabsModule,
+        FormsModule,
+        ReactiveFormsModule
     ],
     providers: [
         CategoryService,

@@ -1,0 +1,50 @@
+<h2 md-dialog-title>{{action}}</h2>
+<md-dialog-actions align='center'>
+    <form class="main-form" [formGroup]="myForm">
+        <md-dialog-content layout="column">
+            <md-form-field class="full-width">
+                <input name="login" mdInput placeholder="Login" [formControl]="login">
+                <md-error *ngIf="login.hasError('required')">
+                        Login is <strong>required</strong>
+                    </md-error>
+            </md-form-field>
+        </md-dialog-content>
+        <md-dialog-content layout="column">
+            <md-form-field class="full-width">
+                <input name="email" mdInput placeholder="Email" [formControl]="email">
+                <md-error *ngIf="email.hasError('pattern')">
+                        Please enter a valid email address
+                    </md-error>
+                <md-error *ngIf="email.hasError('required')">
+                        Email is <strong>required</strong>
+                    </md-error>
+            </md-form-field>
+        </md-dialog-content>
+        <md-dialog-content layout="column">
+            <md-form-field class="full-width">
+                <input name="password" mdInput placeholder="Password" type="password" [formControl]="password">
+                <md-error *ngIf="password.hasError('minLength')">
+                        Please enter a valid password
+                    </md-error>
+                    <md-error *ngIf="password.hasError('required')">
+                        Password is <strong>required</strong>
+                    </md-error>
+            </md-form-field>
+        </md-dialog-content>
+        <!-- <md-dialog-content layout="column">
+            <md-form-field class="full-width">
+                <input name="password1" mdInput placeholder="Confirm Password" type="password" [formControl]="password1">
+                <md-error *ngIf="password.hasError('minLength')">
+                        Please enter a valid password
+                    </md-error>
+                    <md-error *ngIf="password.hasError('required')">
+                        Password is <strong>required</strong>
+                    </md-error>
+            </md-form-field>
+        </md-dialog-content> -->
+    </form>
+    <md-dialog-content layout="column">
+        <button md-button md-dialog-close>Cancel</button>
+        <button md-button [md-dialog-close]="true" (click)="Register()">Sign Up</button>
+    </md-dialog-content>
+</md-dialog-actions>
