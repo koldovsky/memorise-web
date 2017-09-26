@@ -7,13 +7,13 @@ import { Card } from '../models/models';
 import { handleError } from '../functions/functions';
 
 @Injectable()
-export class CardService {
-    private CardUrl = 'http://localhost:37271/Quiz';
+export class QuizService {
+    private QuizUrl = 'http://localhost:37271/Quiz/';
 
     constructor(private http: Http) { }
 
-    getCards(deckName: string): Promise<Card[]> {
-        const URL = `${this.CardUrl}/GetCardsByDeck${deckName}`;
+    GetCardsByDeck(name: string): Promise<Card[]> {
+        const URL = `${this.QuizUrl}GetCardsByDeck/${name}`;
 
         return this.http.get(URL)
             .toPromise()

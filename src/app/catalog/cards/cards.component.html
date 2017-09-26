@@ -1,0 +1,26 @@
+<md-sidenav-container>
+    <md-sidenav mode="side" opened="true">
+       <app-categories></app-categories>
+    </md-sidenav>
+
+    <div *ngFor="let card of cards"> 
+        <md-card>
+            <md-card-header>
+                <md-card-title-group>
+                    <span>                        
+                        <img md-card-sm-image src="../assets/images/Card.png" />
+                    </span>
+                    <span>
+                        <md-card-title>
+                            <h2>{{Card.Question}}</h2>
+                        </md-card-title>
+                        <md-card-subtitle>{{Card.CardType}}</md-card-subtitle>
+                    </span>
+                </md-card-title-group>
+            </md-card-header>
+
+        </md-card>
+
+      
+    </div>
+</md-sidenav-container>

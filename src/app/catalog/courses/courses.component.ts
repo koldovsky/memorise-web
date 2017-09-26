@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Course } from '../../common/models/models';
 import { CourseService } from '../../common/services/course.service';
 import { DeckService } from '../../common/services/deck.service';
+import { Course } from '../../common/models/models';
+
+
 
 @Component({
     selector: 'app-courses',
@@ -11,7 +13,7 @@ import { DeckService } from '../../common/services/deck.service';
 
 export class CoursesComponent implements OnInit {
     constructor(private courseService: CourseService,
-                private deckService: DeckService) {
+        private deckService: DeckService) {
     }
 
     courses: Course[];

@@ -9,9 +9,10 @@ export interface Answer extends BaseEntity {
 }
 
 export interface Card extends BaseEntity {
+    Question: string;
     CardType: CardType;
     Deck: Deck;
-    Comments?: Comment[];
+    Comments: Comment[];
     Answers: Answer[];
 }
 
@@ -46,6 +47,7 @@ export interface Course extends BaseEntity {
 export interface Deck extends BaseEntity {
     Name: string;
     Price: number;
+    CardsNumber?: number;
     Rating?: number;
     Photo?: string;
     Category?: Category;
