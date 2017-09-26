@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MdDialog, MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
 
 import { User } from '../../common/models/models';
+import { UserService } from '../../common/services/user.service';
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
@@ -18,6 +19,7 @@ export class RegisterComponent implements OnInit {
     email: FormControl;
     password: FormControl;
     login: FormControl;
+    user: User 
 
     emailFormControl = new FormControl('', [
         Validators.required,
@@ -30,8 +32,10 @@ export class RegisterComponent implements OnInit {
 
     constructor(
         public dialogRef: MdDialogRef<RegisterComponent>,
+        private userService: UserService,
         @Inject(MD_DIALOG_DATA) public data: any) {            
         this.action = data.action;
+        this.user={Login:"non"} as User;
     }
 
     onNoClick(): void {
@@ -63,5 +67,12 @@ export class RegisterComponent implements OnInit {
             password: this.password            
           });
     }
+    Register():void{ 
+        this.user.Login=this.login.value;
+        this.user.Email=this.email.value;
+        this.user.Password=this.password.value;
+        console.log(this.user);
+        this.userService.registerUser(this.user);
+        }    
 }
 
