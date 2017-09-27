@@ -4,11 +4,11 @@ import { CategoryService } from '../common/services/category.service';
 import { Category } from '../common/models/models';
 
 @Component({
-    selector: 'app-categories',
-    templateUrl: './categories.component.html'
+    selector: 'app-catalog',
+    templateUrl: './catalog.component.html'
 })
 
-export class CategoriesComponent implements OnInit {
+export class CatalogComponent implements OnInit {
     constructor(private categoryService: CategoryService) { }
 
     categories: Category[];

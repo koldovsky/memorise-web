@@ -1,16 +1,11 @@
-<md-sidenav-container>
-    <md-sidenav mode="side" opened="true">
-        <app-categories></app-categories>
-    </md-sidenav>
-
-    <div *ngFor="let course of courses">
-        <md-card>
-            <md-card-header>
-                <md-card-title-group>
-                    <span>                        
+<div *ngFor="let course of courses">
+    <md-card>
+        <md-card-header>
+            <md-card-title-group>
+                <span>                        
                         <img md-card-sm-image src="../assets/images/placeholder-thumb.jpg" />
                     </span>
-                    <span>                        
+                <span>                        
                         <md-card-title>
                             <h2>
                                 <a [routerLink]="['/courses', course.Name]">{{course.Name}}</a>
@@ -19,35 +14,33 @@
                         <md-card-subtitle>{{course.Price ? course.Price : 'FREE'}}</md-card-subtitle>
                         <md-card-subtitle>{{course.Description}}</md-card-subtitle>
                     </span>
-                </md-card-title-group>
-            </md-card-header>
+            </md-card-title-group>
+        </md-card-header>
 
-            <md-card-content>
-                <md-expansion-panel (opened)="getCourseDecks(course.Name)">
-                    <md-expansion-panel-header>
-                        <md-panel-title>
-                            Decks
-                        </md-panel-title>
-                    </md-expansion-panel-header>
+        <md-card-content>
+            <md-expansion-panel (opened)="getCourseDecks(course.Name)">
+                <md-expansion-panel-header>
+                    <md-panel-title>
+                        Decks
+                    </md-panel-title>
+                </md-expansion-panel-header>
 
-                    <md-list>
-                        <md-list-item *ngFor="let deck of course.Decks">
-                            <a [routerLink]="['/decks', deck.Name]">
-                                <h3 mdLine>{{deck.Name}}</h3>
-                                <p mdLine>{{deck.Description}}</p>
-                                <md-divider></md-divider>
-                            </a>
-                        </md-list-item>
-                    </md-list>
-                </md-expansion-panel>
-            </md-card-content>
-        </md-card>
+                <md-list>
+                    <md-list-item *ngFor="let deck of course.Decks">
+                        <a [routerLink]="['/decks', deck.Name]">
+                            <h3 mdLine>{{deck.Name}}</h3>
+                            <p mdLine>{{deck.Description}}</p>
+                            <md-divider></md-divider>
+                        </a>
+                    </md-list-item>
+                </md-list>
+            </md-expansion-panel>
+        </md-card-content>
+    </md-card>
 
-        <md-divider></md-divider>
+    <md-divider></md-divider>
 
-    </div>
-
-</md-sidenav-container>
+</div>
 
 <!-- <div>
     <router-outlet></router-outlet>

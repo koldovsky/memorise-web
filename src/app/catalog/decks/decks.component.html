@@ -1,20 +1,16 @@
-<md-sidenav-container>
-    <md-sidenav mode="side" opened="true">
-        <app-categories></app-categories>
-    </md-sidenav>
-    <md-grid-list cols="4" rowHeight="2:1" gutterSize="2px">
-        <div *ngFor="let deck of decks">
-            
+<md-grid-list cols="4" rowHeight="2:1" gutterSize="2px">
+    <div *ngFor="let deck of decks">
 
-            <md-grid-tile style="width: 100%">
-                    <a [routerLink]="['/decks', deck.Name]" style="text-decoration: none">
-                    <md-card style="width: 100%">
-                        <md-card-header>
-                            <md-card-title-group>
-                                <span>                        
+
+        <md-grid-tile style="width: 100%">
+            <a [routerLink]="['/decks', deck.Name]" style="text-decoration: none">
+                <md-card style="width: 100%">
+                    <md-card-header>
+                        <md-card-title-group>
+                            <span>                        
                                     <img md-card-sm-image src="../assets/images/placeholder-thumb.jpg" />
                                 </span>
-                                <span>
+                            <span>
                                     <md-card-title>
                                         {{deck.Name}}
                                     </md-card-title>
@@ -22,12 +18,11 @@
                                         {{deck.Price ? deck.Price : 'FREE'}}
                                     </md-card-subtitle>
                                 </span>
-                            </md-card-title-group>
-                        </md-card-header>
-                    </md-card>
-                    </a>
-            </md-grid-tile>
-        
-        </div>
-    </md-grid-list>
-</md-sidenav-container>
+                        </md-card-title-group>
+                    </md-card-header>
+                </md-card>
+            </a>
+        </md-grid-tile>
+
+    </div>
+</md-grid-list>

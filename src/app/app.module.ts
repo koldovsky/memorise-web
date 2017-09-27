@@ -15,7 +15,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { CategoriesComponent } from './catalog/categories.component';
+import { CatalogComponent } from './catalog/catalog.component';
 import { CoursesComponent } from './catalog/courses/courses.component';
 import { DecksComponent } from './catalog/decks/decks.component';
 import { CourseDetailsComponent } from './catalog/courses/course-details/course-details.component';
@@ -38,7 +38,7 @@ import { DeckService } from './common/services/deck.service';
 import { UserService } from './common/services/user.service';
 import { QuizService } from './common/services/quiz.service';
 
-
+import { CatalogModule } from './catalog/catalog.module';
 import { CoursesModule } from './catalog/courses/courses.module';
 import { DecksModule } from './catalog/decks/decks.module';
 import { AppRoutingModule } from './app-routing.module';
@@ -46,7 +46,7 @@ import { QuizModule } from './quiz/quiz.module';
 
 @NgModule({
     declarations: [
-        CategoriesComponent,
+        CatalogComponent,
         CourseDetailsComponent,
         CoursesComponent,
         DecksComponent,
@@ -73,6 +73,7 @@ import { QuizModule } from './quiz/quiz.module';
         BrowserModule,
         BrowserAnimationsModule,
         HttpModule,
+
         MdButtonModule,
         MdCardModule,
         MdMenuModule,
@@ -87,14 +88,17 @@ import { QuizModule } from './quiz/quiz.module';
         MdLineModule,
         MdGridListModule,
         MdTabsModule,
-        CoursesModule,
         MdPaginatorModule,
+        MdTabsModule,
+
+        FormsModule,
+        ReactiveFormsModule,
+
+        CatalogModule,
+        CoursesModule,
         DecksModule,
         QuizModule,
-        AppRoutingModule,
-        MdTabsModule,
-        FormsModule,
-        ReactiveFormsModule
+        AppRoutingModule
     ],
     providers: [
         CategoryService,
