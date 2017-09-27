@@ -1,13 +1,29 @@
 <md-sidenav-container>
-    <md-sidenav mode="side" opened="true">
-        <md-button-toggle-group vertical>
-            <md-button-toggle>Categories</md-button-toggle>
-            <md-button-toggle *ngFor="let category of categories" value="{{category.Name}}">
+    <md-sidenav #sidenav>
+        <md-button-toggle-group vertical #group="mdButtonToggleGroup">
+            <h3>Categories</h3>
+            <md-button-toggle value="Any" (click)="sidenav.close()">
+                Any
+            </md-button-toggle>
+            <md-button-toggle *ngFor="let category of categories" value="{{category.Name}}" (click)="sidenav.close()">
                 {{category.Name}}
             </md-button-toggle>
         </md-button-toggle-group>
     </md-sidenav>
 
+    <md-toolbar>
+        <button md-icon-button (click)="sidenav.open()">
+            <md-icon class="menustyle">menu</md-icon>
+        </button>
+        <label for="selectedCategory">
+            Category: 
+        </label>
+        <md-chip-list name="selectedCategory">
+            <md-chip>
+                {{group.value ? group.value : "Any"}}
+            </md-chip>
+        </md-chip-list>
+    </md-toolbar>
     <router-outlet></router-outlet>
 
 </md-sidenav-container>
