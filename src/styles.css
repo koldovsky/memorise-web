@@ -1,3 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto', sans-serif;
+}
+
+p {
+    font-family: 'Montserrat', sans-serif;    
+}
+
+a:not(.md-button) {
+    color: inherit;
+    text-decoration: inherit;
+    font-weight: inherit;
+}
