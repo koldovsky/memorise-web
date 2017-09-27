@@ -11,7 +11,7 @@ import {
     MdGridListModule, MdTabsModule, MdDialogModule,
     MdInputModule, MdPaginatorModule
 } from '@angular/material';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -65,11 +65,11 @@ import { QuizModule } from './quiz/quiz.module';
         PageNotFoundComponent,
 
 
-        RegisterComponent
+        RegisterComponent,
 
 
         QuizComponent
-   
+
 
     ],
     entryComponents: [
@@ -97,14 +97,10 @@ import { QuizModule } from './quiz/quiz.module';
         CoursesModule,
         MdPaginatorModule,
         DecksModule,
-        AppRoutingModule,
-        FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
         QuizModule,
         AppRoutingModule,
-        MdTabsModule,
         FormsModule,
-        ReactiveFormsModule
     ],
     providers: [
         CategoryService,

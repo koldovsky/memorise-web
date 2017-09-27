@@ -26,6 +26,6 @@ export class CoursesComponent implements OnInit {
     getCourseDecks(name: string) {
         this.deckService.getDecksByCourseName(name)
             .then(decks => this.courses
-                .find(course => course.Name === name).Decks = decks);
+                .find(course => course.Linking === name).Decks = decks);
     }
 }
