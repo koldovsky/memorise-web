@@ -9,7 +9,8 @@ import {
     MdButtonToggleModule, MdSidenavModule,
     MdExpansionModule, MdLineModule,
     MdGridListModule, MdTabsModule, MdDialogModule,
-    MdInputModule, MdPaginatorModule
+    MdInputModule, MdPaginatorModule,
+    MdChipsModule
 } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
@@ -90,6 +91,7 @@ import { QuizModule } from './quiz/quiz.module';
         MdTabsModule,
         MdPaginatorModule,
         MdTabsModule,
+        MdChipsModule,
 
         FormsModule,
         ReactiveFormsModule,
