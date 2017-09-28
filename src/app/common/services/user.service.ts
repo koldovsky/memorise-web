@@ -9,7 +9,7 @@ import { handleError } from '../functions/functions';
 @Injectable()
 export class UserService {
     private UsersUrl = 'http://localhost:37271/Catalog/GetUsers';
-    private AccountUrl='http://localhost:37271/Account/';
+    private AccountUrl= 'http://localhost:37271/Account/';
 
     constructor(private http: Http) { }
 

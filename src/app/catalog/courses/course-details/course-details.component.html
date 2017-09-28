@@ -22,7 +22,7 @@
                 <md-grid-tile *ngFor="let deck of course.Decks">
                     <md-card>
                         <md-card-header>
-                            <md-card-title><a [routerLink]="['/courses', course.Name, deck.Name]">{{deck.Name}}</a></md-card-title>
+                            <md-card-title><a [routerLink]="['/courses', course.Linking, deck.Linking]">{{deck.Name}}</a></md-card-title>
                             <md-card-subtitle>{{deck.Description}}</md-card-subtitle>
                         </md-card-header>
 
