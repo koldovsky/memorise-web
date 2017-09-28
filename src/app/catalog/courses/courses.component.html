@@ -1,11 +1,12 @@
-<div *ngFor="let course of courses">
-    <md-card>
-        <md-card-header>
-            <md-card-title-group>
-                <span>                        
+<div>
+    <div *ngFor="let course of courses">
+        <md-card>
+            <md-card-header>
+                <md-card-title-group>
+                    <span>                        
                         <img md-card-sm-image src="../assets/images/placeholder-thumb.jpg" />
                     </span>
-                <span>                        
+                    <span>                        
                         <md-card-title>
                             <h2>
                                 <a [routerLink]="['/courses', course.Linking]">{{course.Name}}</a>
@@ -14,8 +15,8 @@
                         <md-card-subtitle>{{course.Price ? course.Price : 'FREE'}}</md-card-subtitle>
                         <md-card-subtitle>{{course.Description}}</md-card-subtitle>
                     </span>
-            </md-card-title-group>
-        </md-card-header>
+                </md-card-title-group>
+            </md-card-header>
 
             <md-card-content>
                 <md-expansion-panel (opened)="getCourseDecks(course.Linking)">
@@ -38,10 +39,10 @@
             </md-card-content>
         </md-card>
 
-    <md-divider></md-divider>
+        <md-divider></md-divider>
 
-</div>
+    </div>
 
-<!-- <div>
+    <!-- <div>
     <router-outlet></router-outlet>
-</div> -->
+</div> --></div>
