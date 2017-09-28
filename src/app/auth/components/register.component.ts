@@ -4,6 +4,8 @@ import { MdDialog, MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
 
 import { User } from '../../common/models/models';
 import { UserService } from '../../common/services/user.service';
+import { passwordMatchValidator } from './password-matcher';
+import { FormBuilder } from '@angular/forms';
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
@@ -18,61 +20,64 @@ export class RegisterComponent implements OnInit {
     myForm: FormGroup;
     email: FormControl;
     password: FormControl;
+    passwordConfirm: FormControl;
     login: FormControl;
-    user: User 
-
-    emailFormControl = new FormControl('', [
-        Validators.required,
-        Validators.pattern(EMAIL_REGEX)]);
-
-    passwordFormControl = new FormControl('', [
-        Validators.minLength(8),
-        Validators.required
-    ]);   
+    user: User;
 
     constructor(
         public dialogRef: MdDialogRef<RegisterComponent>,
         private userService: UserService,
-        @Inject(MD_DIALOG_DATA) public data: any) {            
+        public fb: FormBuilder,
+        @Inject(MD_DIALOG_DATA) public data: any) {
         this.action = data.action;
-        this.user={Login:"non"} as User;
     }
 
     onNoClick(): void {
         this.dialogRef.close();
-    }    
+    }
 
     ngOnInit(): void {
+        this.user = {
+            Login: ""
+        } as User;
         this.createFormControls();
-        this.createForm(); 
+        this.createForm();
     }
-    createFormControls(){
+    createFormControls() {
         this.login = new FormControl('', [
-            Validators.required            
+            Validators.required
         ]);
-        this.email= new FormControl('', [
+        this.email = new FormControl('', [
             Validators.required,
             Validators.pattern(EMAIL_REGEX)
         ]);
-        this.password=new FormControl('', [
+        this.password = new FormControl('', [
             Validators.required,
-            Validators.minLength(8)            
+            Validators.minLength(4),
+            passwordMatchValidator
         ]);
+        this.passwordConfirm = new FormControl('', Validators.compose([
+            Validators.required,
+            passwordMatchValidator
+        ]));
     }
 
-    createForm(){
-        this.myForm = new FormGroup({ 
-            login: this.login,           
+    createForm() {
+        this.myForm = this.fb.group({
+            login: this.login,
             email: this.email,
-            password: this.password            
-          });
+            password: this.password,
+            passwordConfirm: this.password
+        }, {
+                Validator: passwordMatchValidator
+            });
     }
-    Register():void{ 
-        this.user.Login=this.login.value;
-        this.user.Email=this.email.value;
-        this.user.Password=this.password.value;
+    Register(): void {
+        this.user.Login = this.login.value;
+        this.user.Email = this.email.value;
+        this.user.Password = this.password.value;
         console.log(this.user);
         this.userService.registerUser(this.user);
-        }    
+    }
 }
 

@@ -19,69 +19,73 @@ export class LoginComponent implements OnInit {
     signUp: boolean = false;
     myForm: FormGroup;
     //email: FormControl;
-    login: FormControl;    
+    login: FormControl;
     password: FormControl;
-    MDdialog: MdDialog; 
+    MDdialog: MdDialog;
     user: User;
-    name:string;   
+    name: string;
 
     constructor(
         public dialogRef: MdDialogRef<LoginComponent>,
         @Inject(MD_DIALOG_DATA) public data: any,
         private userService: UserService
-        
-    ){
+
+    ) {
         this.action = data.action;
         this.MDdialog = data.signUp; 
-        this.user={Login:""} as User;       
     }
 
     onNoClick(): void {
-        this.dialogRef.close({name: this.name});
+        this.dialogRef.close({
+            name: this.name
+        });
     }
-    LogIn():void{ 
-        this.user.Login=this.login.value;
-        this.user.Password=this.password.value;
+    LogIn(): void {
+        this.user.Login = this.login.value;
+        this.user.Password = this.password.value;
         console.log(this.user);
         this.userService.loginUser(this.user);
         this.dialogRef.close(this.login.value);
-        }    
+    }
 
-    Register(): void {        
+    Register(): void {
         this.MDdialog.open(RegisterComponent, {
             width: '400px',
             data:
             {
-              action: 'Sign Up',
-              name: '',
-              email: '',
-              password: ''
+                action: 'Sign Up',
+                name: '',
+                email: '',
+                password: ''
             }
-          });  
-          this.dialogRef.close();        
+        });
+        this.dialogRef.close();
     }
 
     ngOnInit(): void {
+        this.user = {
+            Login: ""
+        } as User;
         this.createFormControls();
-        this.createForm();        
+        this.createForm();
     }
 
-    createFormControls(){
-        this.login= new FormControl('', [
-            Validators.required,
+    createFormControls() {
+        this.login = new FormControl('', [
+            Validators.required
             //Validators.pattern(EMAIL_REGEX)
         ]);
-        this.password=new FormControl('', [
+        this.password = new FormControl('', [
             Validators.required,
-            Validators.minLength(6)            
+            Validators.minLength(4)
         ]);
     }
 
-    createForm(){
-        this.myForm = new FormGroup({            
+    createForm() {
+        this.myForm = new FormGroup({
             email: this.login,
-            password: this.password            
-          });
+            password: this.password
+        });
     }
 }
 

@@ -2,11 +2,11 @@
 
 <md-dialog-actions align='center'>
     <form class="main-form" [formGroup]="myForm">
-        <md-dialog-content layout="column" *ngIf="signUp">
+        <!-- <md-dialog-content layout="column" *ngIf="signUp">
             <md-form-field class="full-width">
                 <input mdInput placeholder="Login">
             </md-form-field>
-        </md-dialog-content>
+        </md-dialog-content> -->
         <md-dialog-content layout="column">
             <md-form-field class="full-width">
                 <input name="login" mdInput placeholder="Login" [formControl]="login">
