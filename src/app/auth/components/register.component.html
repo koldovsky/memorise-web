@@ -45,6 +45,6 @@
     </form>
     <md-dialog-content layout="column">
         <button md-button md-dialog-close>Cancel</button>
-        <button md-button [md-dialog-close]="true" (click)="Register()">Sign Up</button>
+        <button md-button type="submit" [disabled]="!myForm.valid" [md-dialog-close]="true" (click)="Register()">Sign Up</button>
     </md-dialog-content>
 </md-dialog-actions>

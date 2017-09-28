@@ -30,7 +30,7 @@
 
     <md-dialog-content layout="column">
         <button md-button md-dialog-close>Cancel</button>
-        <button md-button md-raised-button (click)="LogIn()">Sign In</button>
+        <button md-button type="submit" [disabled]="!myForm.valid" md-raised-button (click)="LogIn()">Sign In</button>
         <button md-button (click)="Register()">Sign Up</button>
     </md-dialog-content>
 
