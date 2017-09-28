@@ -7,8 +7,18 @@
 
             <span class="example-fill-remaining-space"></span>
 
-            <button md-button (click)="openSignUpDialog()">Sign Up</button>
-            <button md-button (click)="openSignInDialog()">Sign In</button>
+            <button md-button (click)="openSignUpDialog()" *ngIf="!name">Sign Up</button>
+            <button md-button (click)="openSignInDialog()" *ngIf="!name">Sign In</button>
+            <div *ngIf="name" class="position-expension-panel">
+                <md-expansion-panel>
+                    <md-expansion-panel-header>
+                        <md-panel-title>
+                            <p>Welcome, <i>{{name}}</i></p>
+                        </md-panel-title>                        
+                    </md-expansion-panel-header>
+                    <button md-button (click)="signOut()">Sign Out</button>
+                </md-expansion-panel>
+            </div>            
         </md-toolbar>
     </header>
 

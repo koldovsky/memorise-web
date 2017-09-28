@@ -22,7 +22,8 @@ export class LoginComponent implements OnInit {
     login: FormControl;    
     password: FormControl;
     MDdialog: MdDialog; 
-    user: User   
+    user: User;
+    name:string;   
 
     constructor(
         public dialogRef: MdDialogRef<LoginComponent>,
@@ -32,17 +33,18 @@ export class LoginComponent implements OnInit {
     ){
         this.action = data.action;
         this.MDdialog = data.signUp; 
-        this.user={Login:"non"} as User;       
+        this.user={Login:""} as User;       
     }
 
     onNoClick(): void {
-        this.dialogRef.close();
+        this.dialogRef.close({name: this.name});
     }
     LogIn():void{ 
         this.user.Login=this.login.value;
         this.user.Password=this.password.value;
         console.log(this.user);
         this.userService.loginUser(this.user);
+        this.dialogRef.close(this.login.value);
         }    
 
     Register(): void {        
