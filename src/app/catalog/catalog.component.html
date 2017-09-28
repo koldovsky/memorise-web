@@ -15,13 +15,13 @@
         <button md-icon-button (click)="sidenav.open()">
             <md-icon class="menustyle">menu</md-icon>
         </button>
-        <label for="selectedCategory">
-            Category: 
-        </label>
-        <md-chip-list name="selectedCategory">
+        <md-chip-list>
+            <label>
+                Category: 
             <md-chip>
                 {{group.value ? group.value : "Any"}}
             </md-chip>
+        </label>
         </md-chip-list>
     </md-toolbar>
     <router-outlet></router-outlet>
