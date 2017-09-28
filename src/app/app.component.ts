@@ -53,6 +53,5 @@ export class AppComponent {
   signOut(): void {
     this.name = undefined;
   }
-
-
 }
+

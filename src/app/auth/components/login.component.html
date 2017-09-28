@@ -2,27 +2,25 @@
 
 <md-dialog-actions align='center'>
     <form class="main-form" [formGroup]="myForm">
-        <!-- <md-dialog-content layout="column" *ngIf="signUp">
-            <md-form-field class="full-width">
-                <input mdInput placeholder="Login">
-            </md-form-field>
-        </md-dialog-content> -->
         <md-dialog-content layout="column">
             <md-form-field class="full-width">
-                <input name="login" mdInput placeholder="Login" [formControl]="login">
-                <md-error *ngIf="login.hasError('required')">
+                <input name="login" mdInput placeholder="Login" [formControl]="myForm.controls['login']">
+                <md-error *ngIf="myForm.controls['login'].hasError('required')">
                     Login is <strong>required</strong>
+                </md-error>
+                <md-error *ngIf="myForm.controls['login'].hasError('maxlength')">
+                    Login <strong>must</strong> be less then 18 symbols
                 </md-error>
             </md-form-field>
         </md-dialog-content>
         <md-dialog-content layout="column">
             <md-form-field class="full-width">
-                <input name="password" mdInput placeholder="Password" type="password" [formControl]="password">
-                <md-error *ngIf="password.hasError('minLength')">
-                    Please enter a valid password
-                </md-error>
-                <md-error *ngIf="password.hasError('required')">
+                <input name="password" mdInput placeholder="Password" type="password" [formControl]="myForm.controls['password']">
+                <md-error *ngIf="myForm.controls['password'].hasError('required')">
                     Password is <strong>required</strong>
+                </md-error>
+                <md-error *ngIf="myForm.controls['password'].hasError('minlength')">
+                    Password length <strong>must</strong> be at least 6
                 </md-error>
             </md-form-field>
         </md-dialog-content>
@@ -33,5 +31,4 @@
         <button md-button type="submit" [disabled]="!myForm.valid" md-raised-button (click)="LogIn()">Sign In</button>
         <button md-button (click)="Register()">Sign Up</button>
     </md-dialog-content>
-
 </md-dialog-actions>
