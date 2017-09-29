@@ -26,10 +26,9 @@ export class DeckDetailsComponent implements OnInit {
     ngOnInit(): void {
         this.route.paramMap
             .switchMap((params: ParamMap) => this.deckService
-                .getDeckWithDetails(decodeURIComponent(params.get('name'))))
+            .getDeckWithDetails(params.get('name')))
             .subscribe(deck => {
                 this.deck = deck;
-                console.log(this.deck);
             });
     }
 
