@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpModule } from '@angular/http';
+
 import {
     MdButtonModule, MdCardModule,
     MdMenuModule, MdToolbarModule,
@@ -11,7 +11,8 @@ import {
     MdGridListModule, MdTabsModule, MdDialogModule,
     MdInputModule, MdPaginatorModule
 } from '@angular/material';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, FormBuilder, ReactiveFormsModule} from '@angular/forms';
+import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -32,11 +33,13 @@ import { PageNotFoundComponent } from './not-found-component';
 import { QuizComponent } from './quiz/quiz.component';
 import { RegisterComponent } from './auth/components/register.component';
 
+import { AuthService } from './common/services/auth.service';
 import { CategoryService } from './common/services/category.service';
 import { CourseService } from './common/services/course.service';
 import { DeckService } from './common/services/deck.service';
 import { UserService } from './common/services/user.service';
 import { QuizService } from './common/services/quiz.service';
+import { InterceptorService } from './common/services/interceptor.service';
 
 
 import { CoursesModule } from './catalog/courses/courses.module';
@@ -72,7 +75,7 @@ import { QuizModule } from './quiz/quiz.module';
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
-        HttpModule,
+        HttpClientModule,
         MdButtonModule,
         MdCardModule,
         MdMenuModule,
@@ -97,11 +100,18 @@ import { QuizModule } from './quiz/quiz.module';
         ReactiveFormsModule
     ],
     providers: [
+        AuthService,
         CategoryService,
         CourseService,
         DeckService,
         UserService,
-        QuizService
+        QuizService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass:InterceptorService,
+            multi:true
+        }
+        
     ],
     bootstrap: [AppComponent]
 })

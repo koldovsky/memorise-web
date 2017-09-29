@@ -1,13 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MdDialog, MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
-import { FormBuilder } from '@angular/forms';
 
-import { User } from '../../common/models/models';
 import { RegisterComponent } from './register.component';
-import { UserService } from '../../common/services/user.service';
+import { AuthService } from '../../common/services/auth.service';
 
-const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
 @Component({
     selector: 'app-login',
@@ -16,18 +13,15 @@ const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA
 })
 
 export class LoginComponent implements OnInit {
-    action: string;    
-    myForm: FormGroup;    
-    //login: FormControl;
-    //password: FormControl;
+    action: string;
+    myForm: FormGroup;
     MDdialog: MdDialog;
-    //user: User;    
 
     constructor(
         public dialogRef: MdDialogRef<LoginComponent>,
         @Inject(MD_DIALOG_DATA) public data: any,
         public fb: FormBuilder,
-        private userService: UserService
+        private authService: AuthService
 
     ) {
         this.action = data.action;
@@ -36,25 +30,19 @@ export class LoginComponent implements OnInit {
             'login': new FormControl('', [
                 Validators.required,
                 Validators.maxLength(18)
-            ]), 
+            ]),
             'password': new FormControl('', [
                 Validators.required,
                 Validators.minLength(6)
             ])
         });
     }
-
     onNoClick(): void {
         this.dialogRef.close();
     }
-    LogIn(): void {
-        //this.user.Login = this.login.value;
-        //this.user.Password = this.password.value;
-        //console.log(this.user);
-        this.userService.loginUser({
-            Login: this.myForm.controls['login'].value,
-            Password: this.myForm.controls['password'].value
-        });
+
+    LogIn(user): void {
+        this.authService.signIn(user);
         this.dialogRef.close(this.myForm.controls['login'].value);
     }
 
@@ -73,30 +61,7 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        /* this.user = {
-            Login: '',
-            Password: ''
-        }  */
-        //this.createFormControls();
-        //this.createForm();
+       
     }
-
-    /* createFormControls() {
-        this.login = new FormControl('', [
-            Validators.required
-            //Validators.pattern(EMAIL_REGEX)
-        ]);
-        this.password = new FormControl('', [
-            Validators.required,
-            Validators.minLength(4)
-        ]);
-    }
-
-    createForm() {
-        this.myForm = new FormGroup({
-            email: this.login,
-            password: this.password
-        });
-    } */
 }
 

@@ -77,6 +77,7 @@ export interface User extends BaseEntity {
     Photo?: string;
     Email?: string;
     IsBlocked?: boolean;
+    grant_type?: string;
 
     Comments?: Comment[];
     Reports?: Report[];
