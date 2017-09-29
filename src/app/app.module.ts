@@ -15,6 +15,7 @@ import {
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { AppComponent } from './app.component';
+import { NavigationComponent } from './navigation/navigation.component';
 import { HomeComponent } from './home/home.component';
 import { CatalogComponent } from './catalog/catalog.component';
 import { CoursesComponent } from './catalog/courses/courses.component';
@@ -64,7 +65,8 @@ import { QuizModule } from './quiz/quiz.module';
         HomeComponent,
         PageNotFoundComponent,
         QuizComponent,
-        RegisterComponent
+        RegisterComponent,
+        NavigationComponent
     ],
     entryComponents: [
         LoginComponent,
