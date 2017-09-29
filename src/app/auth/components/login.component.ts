@@ -16,9 +16,9 @@ const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA
 
 export class LoginComponent implements OnInit {
     action: string;
-    signUp: boolean = false;
+    signUp = false;
     myForm: FormGroup;
-    //email: FormControl;
+    // email: FormControl;
     login: FormControl;
     password: FormControl;
     Matdialog: MatDialog;
@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
     ) {
         this.action = data.action;
         this.Matdialog = data.signUp;
-        this.user = { Login: "non" } as User;
+        this.user = { Login: 'non' } as User;
     }
 
     onNoClick(): void {

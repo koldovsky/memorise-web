@@ -19,7 +19,7 @@ export class RegisterComponent implements OnInit {
     email: FormControl;
     password: FormControl;
     login: FormControl;
-    user: User
+    user: User;
 
     emailFormControl = new FormControl('', [
         Validators.required,
@@ -35,7 +35,7 @@ export class RegisterComponent implements OnInit {
         private userService: UserService,
         @Inject(MAT_DIALOG_DATA) public data: any) {
         this.action = data.action;
-        this.user = { Login: "non" } as User;
+        this.user = { Login: 'non' } as User;
     }
 
     onNoClick(): void {
