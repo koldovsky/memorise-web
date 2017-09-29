@@ -1,28 +1,28 @@
-<md-grid-list cols="4" rowHeight="2:1" gutterSize="2px">
+<mat-grid-list cols="4" rowHeight="2:1" gutterSize="2px">
     <div *ngFor="let deck of decks">
 
 
-            <md-grid-tile style="width: 100%">
+            <mat-grid-tile style="width: 100%">
                     <a [routerLink]="['/decks', deck.Linking]" style="text-decoration: none">
-                    <md-card style="width: 100%">
-                        <md-card-header>
-                            <md-card-title-group>
+                    <mat-card style="width: 100%">
+                        <mat-card-header>
+                            <mat-card-title-group>
                                 <span>                        
-                                    <img md-card-sm-image src="../assets/images/placeholder-thumb.jpg" />
+                                    <img mat-card-sm-image src="../assets/images/placeholder-thumb.jpg" />
                                 </span>
                             <span>
-                                    <md-card-title>
+                                    <mat-card-title>
                                         {{deck.Name}}
-                                    </md-card-title>
-                                    <md-card-subtitle>
+                                    </mat-card-title>
+                                    <mat-card-subtitle>
                                         {{deck.Price ? deck.Price : 'FREE'}}
-                                    </md-card-subtitle>
+                                    </mat-card-subtitle>
                                 </span>
-                        </md-card-title-group>
-                    </md-card-header>
-                </md-card>
+                        </mat-card-title-group>
+                    </mat-card-header>
+                </mat-card>
             </a>
-        </md-grid-tile>
+        </mat-grid-tile>
 
     </div>
-</md-grid-list>
+</mat-grid-list>

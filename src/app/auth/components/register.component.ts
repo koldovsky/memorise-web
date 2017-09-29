@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MdDialog, MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 import { User } from '../../common/models/models';
 import { UserService } from '../../common/services/user.service';
@@ -19,7 +19,7 @@ export class RegisterComponent implements OnInit {
     email: FormControl;
     password: FormControl;
     login: FormControl;
-    user: User 
+    user: User
 
     emailFormControl = new FormControl('', [
         Validators.required,
@@ -28,51 +28,51 @@ export class RegisterComponent implements OnInit {
     passwordFormControl = new FormControl('', [
         Validators.minLength(8),
         Validators.required
-    ]);   
+    ]);
 
     constructor(
-        public dialogRef: MdDialogRef<RegisterComponent>,
+        public dialogRef: MatDialogRef<RegisterComponent>,
         private userService: UserService,
-        @Inject(MD_DIALOG_DATA) public data: any) {            
+        @Inject(MAT_DIALOG_DATA) public data: any) {
         this.action = data.action;
-        this.user={Login:"non"} as User;
+        this.user = { Login: "non" } as User;
     }
 
     onNoClick(): void {
         this.dialogRef.close();
-    }    
+    }
 
     ngOnInit(): void {
         this.createFormControls();
-        this.createForm(); 
+        this.createForm();
     }
-    createFormControls(){
+    createFormControls() {
         this.login = new FormControl('', [
-            Validators.required            
+            Validators.required
         ]);
-        this.email= new FormControl('', [
+        this.email = new FormControl('', [
             Validators.required,
             Validators.pattern(EMAIL_REGEX)
         ]);
-        this.password=new FormControl('', [
+        this.password = new FormControl('', [
             Validators.required,
-            Validators.minLength(8)            
+            Validators.minLength(8)
         ]);
     }
 
-    createForm(){
-        this.myForm = new FormGroup({ 
-            login: this.login,           
+    createForm() {
+        this.myForm = new FormGroup({
+            login: this.login,
             email: this.email,
-            password: this.password            
-          });
+            password: this.password
+        });
     }
-    Register():void{ 
-        this.user.Login=this.login.value;
-        this.user.Email=this.email.value;
-        this.user.Password=this.password.value;
+    Register(): void {
+        this.user.Login = this.login.value;
+        this.user.Email = this.email.value;
+        this.user.Password = this.password.value;
         console.log(this.user);
         this.userService.registerUser(this.user);
-        }    
+    }
 }
 

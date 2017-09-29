@@ -3,14 +3,14 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
 import {
-    MdButtonModule, MdCardModule,
-    MdMenuModule, MdToolbarModule,
-    MdIconModule, MdListModule,
-    MdButtonToggleModule, MdSidenavModule,
-    MdExpansionModule, MdLineModule,
-    MdGridListModule, MdTabsModule, MdDialogModule,
-    MdInputModule, MdPaginatorModule,
-    MdChipsModule
+    MatButtonModule, MatCardModule,
+    MatMenuModule, MatToolbarModule,
+    MatIconModule, MatListModule,
+    MatButtonToggleModule, MatSidenavModule,
+    MatExpansionModule, MatLineModule,
+    MatGridListModule, MatTabsModule, MatDialogModule,
+    MatInputModule, MatPaginatorModule,
+    MatChipsModule
 } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
@@ -75,23 +75,23 @@ import { QuizModule } from './quiz/quiz.module';
         BrowserAnimationsModule,
         HttpModule,
 
-        MdButtonModule,
-        MdCardModule,
-        MdMenuModule,
-        MdToolbarModule,
-        MdIconModule,
-        MdListModule,
-        MdButtonToggleModule,
-        MdDialogModule,
-        MdSidenavModule,
-        MdExpansionModule,
-        MdInputModule,
-        MdLineModule,
-        MdGridListModule,
-        MdTabsModule,
-        MdPaginatorModule,
-        MdTabsModule,
-        MdChipsModule,
+        MatButtonModule,
+        MatCardModule,
+        MatMenuModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatListModule,
+        MatButtonToggleModule,
+        MatDialogModule,
+        MatSidenavModule,
+        MatExpansionModule,
+        MatInputModule,
+        MatLineModule,
+        MatGridListModule,
+        MatTabsModule,
+        MatPaginatorModule,
+        MatTabsModule,
+        MatChipsModule,
 
         FormsModule,
         ReactiveFormsModule,

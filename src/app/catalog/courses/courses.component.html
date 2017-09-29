@@ -1,44 +1,44 @@
 <div *ngFor="let course of courses">
-    <md-card>
-        <md-card-header>
-            <md-card-title-group>
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title-group>
                 <span>                        
-                        <img md-card-sm-image src="../assets/images/placeholder-thumb.jpg" />
+                        <img mat-card-sm-image src="../assets/images/placeholder-thumb.jpg" />
                     </span>
                 <span>                        
-                        <md-card-title>
+                        <mat-card-title>
                             <h2>
                                 <a [routerLink]="['/courses', course.Linking]">{{course.Name}}</a>
                             </h2>
-                        </md-card-title>
-                        <md-card-subtitle>{{course.Price ? course.Price : 'FREE'}}</md-card-subtitle>
-                        <md-card-subtitle>{{course.Description}}</md-card-subtitle>
+                        </mat-card-title>
+                        <mat-card-subtitle>{{course.Price ? course.Price : 'FREE'}}</mat-card-subtitle>
+                        <mat-card-subtitle>{{course.Description}}</mat-card-subtitle>
                     </span>
-            </md-card-title-group>
-        </md-card-header>
+            </mat-card-title-group>
+        </mat-card-header>
 
-            <md-card-content>
-                <md-expansion-panel (opened)="getCourseDecks(course.Linking)">
-                    <md-expansion-panel-header>
-                        <md-panel-title>
+            <mat-card-content>
+                <mat-expansion-panel (opened)="getCourseDecks(course.Linking)">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
                             Decks
-                        </md-panel-title>
-                    </md-expansion-panel-header>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
 
-                    <md-list>
-                        <md-list-item *ngFor="let deck of course.Decks">
+                    <mat-list>
+                        <mat-list-item *ngFor="let deck of course.Decks">
                             <a [routerLink]="['/decks', deck.Linking]">
-                                <h3 mdLine>{{deck.Name}}</h3>
-                                <p mdLine>{{deck.Description}}</p>
-                                <md-divider></md-divider>
+                                <h3 matLine>{{deck.Name}}</h3>
+                                <p matLine>{{deck.Description}}</p>
+                                <mat-divider></mat-divider>
                             </a>
-                        </md-list-item>
-                    </md-list>
-                </md-expansion-panel>
-            </md-card-content>
-        </md-card>
+                        </mat-list-item>
+                    </mat-list>
+                </mat-expansion-panel>
+            </mat-card-content>
+        </mat-card>
 
-    <md-divider></md-divider>
+    <mat-divider></mat-divider>
 
 </div>
 
