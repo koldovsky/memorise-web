@@ -1,6 +1,27 @@
-<div>
-    <div *ngFor="let course of courses">
-        <md-card>
+<div class="flex-container">
+    <div class="flex-item" *ngFor="let course of courses">
+        <a [routerLink]="['/courses', course.Linking]">
+            <md-card>
+                <md-card-content>
+                    <img md-card-image src="../assets/images/placeholder-thumb.jpg" />
+                </md-card-content>
+                <md-card-header>
+                    <md-card-title-group>
+                        <md-card-title>
+                            <h2>
+                                {{course.Name}}
+                            </h2>
+                        </md-card-title>
+                        <md-card-subtitle>{{course.Price ? course.Price : 'FREE'}}</md-card-subtitle>
+                    </md-card-title-group>
+                </md-card-header>
+                <!-- <md-card-content>
+                    <p>{{course.Description}}</p>
+                </md-card-content> -->
+            </md-card>
+        </a>
+
+        <!-- <md-card>
             <md-card-header>
                 <md-card-title-group>
                     <span>                        
@@ -38,11 +59,11 @@
                 </md-expansion-panel>
             </md-card-content>
         </md-card>
-
-        <md-divider></md-divider>
+        <md-divider></md-divider> -->
 
     </div>
 
     <!-- <div>
     <router-outlet></router-outlet>
-</div> --></div>
+    </div> -->
+</div>
