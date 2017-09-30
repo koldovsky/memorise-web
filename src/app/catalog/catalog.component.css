@@ -5,6 +5,7 @@
 footer {
     background-color: gainsboro;
     padding: 1vh 1vw;
+    bottom: 0;
 }
 
 mat-sidenav {
