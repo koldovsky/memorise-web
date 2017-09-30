@@ -1,0 +1,17 @@
+a {
+    text-decoration: none;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: stretch;
+}
+
+.flex-item {
+    align-self: stretch;
+    order: 1;
+    margin: 2vw 0 2vw;
+}

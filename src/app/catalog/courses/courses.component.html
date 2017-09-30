@@ -1,47 +1,44 @@
-<div *ngFor="let course of courses">
-    <mat-card>
-        <mat-card-header>
-            <mat-card-title-group>
-                <span>                        
-                        <img mat-card-sm-image src="../assets/images/placeholder-thumb.jpg" />
-                    </span>
-                <span>                        
+<div class="flex-container">
+    <div class="flex-item" *ngFor="let course of courses">
+        <a [routerLink]="['/courses', course.Linking]">
+            <mat-card>
+                <mat-card-content>
+                    <img mat-card-image src="../assets/images/placeholder-thumb.jpg" />
+                </mat-card-content>
+                <mat-card-header>
+                    <mat-card-title-group>
                         <mat-card-title>
                             <h2>
-                                <a [routerLink]="['/courses', course.Linking]">{{course.Name}}</a>
+                                {{course.Name}}
                             </h2>
                         </mat-card-title>
                         <mat-card-subtitle>{{course.Price ? course.Price : 'FREE'}}</mat-card-subtitle>
-                        <mat-card-subtitle>{{course.Description}}</mat-card-subtitle>
+                    </mat-card-title-group>
+                </mat-card-header>
+                <!-- <mat-card-content>
+                    <p>{{course.Description}}</p>
+                </mat-card-content> -->
+            </mat-card>
+        </a>
+
+        <!-- <mat-card>
+            <mat-card-header>
+                <mat-card-title-group>
+                    <span>                        
+                        <img mat-card-sm-image src="../assets/images/placeholder-thumb.jpg" />
                     </span>
-            </mat-card-title-group>
-        </mat-card-header>
-
-            <mat-card-content>
-                <mat-expansion-panel (opened)="getCourseDecks(course.Linking)">
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            Decks
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-
-                    <mat-list>
-                        <mat-list-item *ngFor="let deck of course.Decks">
-                            <a [routerLink]="['/decks', deck.Linking]">
-                                <h3 matLine>{{deck.Name}}</h3>
-                                <p matLine>{{deck.Description}}</p>
-                                <mat-divider></mat-divider>
-                            </a>
+                    <span>                        
+                        <mat-card-title>
+                </mat-card-title-group>
+            </mat-card-header>
                         </mat-list-item>
                     </mat-list>
                 </mat-expansion-panel>
             </mat-card-content>
         </mat-card>
-
-    <mat-divider></mat-divider>
-
-</div>
-
-<!-- <div>
+        <mat-divider></mat-divider> -->
+    </div>
+    <!-- <div>
     <router-outlet></router-outlet>
-</div> -->
+    </div> -->
+</div>

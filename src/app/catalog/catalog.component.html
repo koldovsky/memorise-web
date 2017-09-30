@@ -1,33 +1,35 @@
-<mat-sidenav-container>
-    <mat-sidenav #sidenav>
-        <mat-button-toggle-group vertical #group="matButtonToggleGroup">
-            <h3>Categories</h3>
-            <mat-button-toggle value="Any" (click)="sidenav.close()">
-                Any
-            </mat-button-toggle>
-            <mat-button-toggle *ngFor="let category of categories" value="{{category.Name}}" (click)="sidenav.close()">
-                {{category.Name}}
-            </mat-button-toggle>
-        </mat-button-toggle-group>
-    </mat-sidenav>
+<div>
+    <mat-sidenav-container>
+        <mat-sidenav #sidenav>
+            <mat-button-toggle-group vertical #group="matButtonToggleGroup">
+                <h3 id="categories">Categories</h3>
+                <mat-button-toggle value="Any" (click)="sidenav.close()">
+                    Any
+                </mat-button-toggle>
+                <mat-button-toggle *ngFor="let category of categories" value="{{category.Name}}" (click)="sidenav.close()">
+                    {{category.Name}}
+                </mat-button-toggle>
+            </mat-button-toggle-group>
+        </mat-sidenav>
 
-    <mat-toolbar>
-        <button mat-icon-button (click)="sidenav.open()">
-            <mat-icon class="menustyle">menu</mat-icon>
+        <mat-toolbar>
+            <button mat-icon-button (click)="sidenav.open()">
+            <mat-icon class="menu-icon">menu</mat-icon>
         </button>
-        <label for="selectedCategory">
-            Category: 
-        </label>
-        <mat-chip-list name="selectedCategory">
+            <mat-chip-list>
+                <label>
+                Category: 
             <mat-chip>
                 {{group.value ? group.value : "Any"}}
             </mat-chip>
-        </mat-chip-list>
-    </mat-toolbar>
-    <router-outlet></router-outlet>
+        </label>
+            </mat-chip-list>
+        </mat-toolbar>
+        <router-outlet></router-outlet>
 
-</mat-sidenav-container>
-
-<!-- <div>
+    </mat-sidenav-container>
+    <!-- <div>
     <router-outlet></router-outlet>
 </div> -->
+
+</div>

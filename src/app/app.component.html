@@ -1,23 +1,17 @@
 <div>
-    <header>
-        <mat-toolbar color="primary">
-            <a mat-button routerLink="/">Memo Rise</a>
-            <a mat-button routerLink="/catalog/courses">Courses</a>
-            <a mat-button routerLink="/catalog/decks">Decks</a>
+    <div class="main-content">
+        <header>
+            <app-navigation></app-navigation>
+        </header>
 
-            <span class="example-fill-remaining-space"></span>
-
-            <button mat-button (click)="openSignUpDialog()">Sign Up</button>
-            <button mat-button (click)="openSignInDialog()">Sign In</button>
-        </mat-toolbar>
-    </header>
-
-    <main>
-        <div>
+        <main>
             <router-outlet></router-outlet>
-        </div>
-    </main>
+        </main>
+    </div>
 
     <footer>
+        <div>
+            <h3>Created by group Lv-261.1.Net</h3>
+        </div>
     </footer>
 </div>

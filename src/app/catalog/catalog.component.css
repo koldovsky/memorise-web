@@ -1,3 +1,15 @@
-.menustyle {
-    margin-bottom: 4px;
+.menu-icon {
+    margin-bottom: 5px;
+}
+
+md-sidenav {
+    min-width: 10%;
+}
+
+md-sidenav md-button-toggle-group {
+    width: 100%;
+}
+
+#categories {
+    margin-left: 10px;
 }
