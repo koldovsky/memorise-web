@@ -1,35 +1,36 @@
-<div>
-    <mat-sidenav-container>
-        <mat-sidenav #sidenav>
-            <mat-button-toggle-group vertical #group="matButtonToggleGroup">
-                <h3 id="categories">Categories</h3>
-                <mat-button-toggle value="Any" (click)="sidenav.close()">
-                    Any
-                </mat-button-toggle>
-                <mat-button-toggle *ngFor="let category of categories" value="{{category.Name}}" (click)="sidenav.close()">
-                    {{category.Name}}
-                </mat-button-toggle>
-            </mat-button-toggle-group>
-        </mat-sidenav>
+<mat-sidenav-container>
+    <mat-sidenav #sidenav>
+        <mat-button-toggle-group vertical #group="matButtonToggleGroup">
+            <h3 id="categories">Categories</h3>
+            <mat-button-toggle value="Any" (click)="sidenav.close()">
+                Any
+            </mat-button-toggle>
+            <mat-button-toggle *ngFor="let category of categories" value="{{category.Name}}" (click)="sidenav.close()">
+                {{category.Name}}
+            </mat-button-toggle>
+        </mat-button-toggle-group>
+    </mat-sidenav>
 
-        <mat-toolbar>
-            <button mat-icon-button (click)="sidenav.open()">
+    <mat-toolbar>
+        <button mat-icon-button (click)="sidenav.open()">
             <mat-icon class="menu-icon">menu</mat-icon>
         </button>
-            <mat-chip-list>
-                <label>
-                Category: 
-            <mat-chip>
-                {{group.value ? group.value : "Any"}}
-            </mat-chip>
-        </label>
-            </mat-chip-list>
-        </mat-toolbar>
-        <router-outlet></router-outlet>
-
-    </mat-sidenav-container>
-    <!-- <div>
+        <mat-chip-list>
+            <label>
+                Category:
+                <mat-chip>
+                    {{group.value ? group.value : "Any"}}
+                </mat-chip>
+            </label>
+        </mat-chip-list>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+    <footer>
+        <div>
+            <h3>Created by group Lv-261.1.Net</h3>
+        </div>
+    </footer>
+</mat-sidenav-container>
+<!-- <div>
     <router-outlet></router-outlet>
 </div> -->
-
-</div>

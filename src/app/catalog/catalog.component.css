@@ -2,11 +2,16 @@
     margin-bottom: 5px;
 }
 
-md-sidenav {
+footer {
+    background-color: gainsboro;
+    padding: 1vh 1vw;
+}
+
+mat-sidenav {
     min-width: 10%;
 }
 
-md-sidenav md-button-toggle-group {
+mat-sidenav mat-button-toggle-group {
     width: 100%;
 }
 
