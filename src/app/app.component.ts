@@ -28,10 +28,7 @@ export class AppComponent {
         password: ''
       }
     });
-
-    // dialogRef.afterClosed().subscribe(result => {
-    //   this.user = JSON.parse(result) as User;
-    // });
+   
   }
 
   openSignInDialog(): void {

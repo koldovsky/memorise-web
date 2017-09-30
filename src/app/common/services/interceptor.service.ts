@@ -14,20 +14,22 @@ import { AuthService } from './auth.service';
 
 @Injectable()
 export class InterceptorService implements HttpInterceptor {
-  private auth: AuthService
+  //private auth: AuthService
   constructor(private injector: Injector) {
-    setTimeout(() => {
-      this.auth = this.injector.get(AuthService);
-    })
+    // setTimeout(() => {
+    //   this.auth = this.injector.get(AuthService);
+    // })
   }
   //constructor( private auth: AuthService ) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+      const auth = this.injector.get(AuthService);
       request = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${this.auth.getToken()}`
+          Authorization: `Bearer ${auth.getToken()}`
         }
       });
+ 
       return next.handle(request).do((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
           // do stuff with success response if you want
@@ -43,4 +45,5 @@ export class InterceptorService implements HttpInterceptor {
           }
         });
     }
-  }
+  
+}

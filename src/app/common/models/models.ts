@@ -88,3 +88,9 @@ export interface UserCourse extends BaseEntity {
     User: User;
     Course: Course;
 }
+
+export interface Token extends BaseEntity {
+    access_token: string;
+    expires_in: User;
+    token_type: Course;
+}
