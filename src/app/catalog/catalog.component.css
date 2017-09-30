@@ -11,6 +11,10 @@ mat-sidenav {
     min-width: 10%;
 }
 
+:host {
+    width: 100%;
+}
+
 mat-sidenav mat-button-toggle-group {
     width: 100%;
 }
