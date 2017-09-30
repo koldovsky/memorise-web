@@ -1,33 +1,36 @@
-<md-sidenav-container>
-    <md-sidenav #sidenav>
-        <md-button-toggle-group vertical #group="mdButtonToggleGroup">
-            <h3 id="categories">Categories</h3>
-            <md-button-toggle value="Any" (click)="sidenav.close()">
-                Any
-            </md-button-toggle>
-            <md-button-toggle *ngFor="let category of categories" value="{{category.Name}}" (click)="sidenav.close()">
-                {{category.Name}}
-            </md-button-toggle>
-        </md-button-toggle-group>
-    </md-sidenav>
+<div>
+    <md-sidenav-container>
+        <md-sidenav #sidenav>
+            <md-button-toggle-group vertical #group="mdButtonToggleGroup">
+                <h3 id="categories">Categories</h3>
+                <md-button-toggle value="Any" (click)="sidenav.close()">
+                    Any
+                </md-button-toggle>
+                <md-button-toggle *ngFor="let category of categories" value="{{category.Name}}" (click)="sidenav.close()">
+                    {{category.Name}}
+                </md-button-toggle>
+            </md-button-toggle-group>
+        </md-sidenav>
 
-    <md-toolbar>
-        <button md-icon-button (click)="sidenav.open()">
-            <md-icon class="menustyle">menu</md-icon>
+        <md-toolbar>
+            <button md-icon-button (click)="sidenav.open()">
+            <md-icon class="menu-icon">menu</md-icon>
         </button>
-        <md-chip-list>
-            <label>
+            <md-chip-list>
+                <label>
                 Category: 
             <md-chip>
                 {{group.value ? group.value : "Any"}}
             </md-chip>
         </label>
-        </md-chip-list>
-    </md-toolbar>
-    <router-outlet></router-outlet>
+            </md-chip-list>
+        </md-toolbar>
+        <router-outlet></router-outlet>
 
-</md-sidenav-container>
+    </md-sidenav-container>
 
-<!-- <div>
+    <!-- <div>
     <router-outlet></router-outlet>
 </div> -->
+
+</div>
