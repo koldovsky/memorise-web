@@ -4,8 +4,6 @@ import { CourseService } from '../../common/services/course.service';
 import { DeckService } from '../../common/services/deck.service';
 import { Course } from '../../common/models/models';
 
-
-
 @Component({
     selector: 'app-courses',
     templateUrl: './courses.component.html',

@@ -1,28 +1,28 @@
-<mat-grid-list cols="4" rowHeight="2:1" gutterSize="2px">
-    <div *ngFor="let deck of decks">
-
-
-            <mat-grid-tile style="width: 100%">
-                    <a [routerLink]="['/decks', deck.Linking]" style="text-decoration: none">
-                    <mat-card style="width: 100%">
-                        <mat-card-header>
-                            <mat-card-title-group>
-                                <span>                        
-                                    <img mat-card-sm-image src="../assets/images/placeholder-thumb.jpg" />
-                                </span>
-                            <span>
-                                    <mat-card-title>
-                                        {{deck.Name}}
-                                    </mat-card-title>
-                                    <mat-card-subtitle>
-                                        {{deck.Price ? deck.Price : 'FREE'}}
-                                    </mat-card-subtitle>
-                                </span>
-                        </mat-card-title-group>
-                    </mat-card-header>
-                </mat-card>
-            </a>
-        </mat-grid-tile>
-
+<div class="flex-container">
+    <div class="flex-item" *ngFor="let deck of decks">
+            <a [routerLink]="['/decks', deck.Linking]" style="text-decoration: none">
+                <mat-card>
+                    <mat-card-content>
+                        
+                            <span>                        
+                                <img mat-card-sm-image src="../assets/images/placeholder-thumb.jpg" />
+                            </span>
+                        
+                </mat-card-content>
+                <mat-card-header>
+                <mat-card-title-group>
+                <span>
+                            <mat-card-title>
+                                {{deck.Name}}
+                            </mat-card-title>
+                            <mat-card-subtitle>
+                                {{deck.Price ? deck.Price : 'FREE'}}
+                            </mat-card-subtitle>
+                        </span>
+                    </mat-card-title-group>
+                
+                </mat-card-header>
+            </mat-card>
+        </a>
     </div>
-</mat-grid-list>
+</div>

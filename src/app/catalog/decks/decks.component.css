@@ -1,33 +1,13 @@
-md-grid-tile {
-  background: lightblue;
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: stretch;
 }
 
-
-
-
-/* [class*='col-'] {
-  float: left;
-  padding-right: 20px;
-  padding-bottom: 20px;
+.flex-item {
+    align-self: stretch;
+    order: 1;
+    margin: 2vw 0 2vw;
 }
-
-a {
-  text-decoration: none;
-}
-*, *:after, *:before {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-.col-1-4 {
-  width: 25%;
-}
-.module {
-  padding: 20px;
-  text-align: center;
-  color: #EEEEEE;
-  max-height: 120px;
-  min-width: 120px;
-  background-color: #607D8B;
-  border-radius: 2px;
-} */

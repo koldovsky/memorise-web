@@ -2,8 +2,20 @@
     min-height: 79vh;
 } */
 
-.main-content {
-    min-height: 100vh;
+app-home {
+    width: 100%;
+}
+
+header {
+    position: relative;
+    z-index: 10;
+}
+
+main {
+    overflow-y: auto;
+    -webkit-box-flex: 1;
+    flex: 1 1 auto;    
+    display: flex;
 }
 
 footer {
