@@ -7,6 +7,7 @@ import {
   HttpRequest,
   HttpResponse
 } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
@@ -14,14 +15,12 @@ import { AuthService } from './auth.service';
 
 @Injectable()
 export class InterceptorService implements HttpInterceptor {
-  //private auth: AuthService
-  constructor(private injector: Injector) {
-    // setTimeout(() => {
-    //   this.auth = this.injector.get(AuthService);
-    // })
-  }
-  //constructor( private auth: AuthService ) { }
-
+  
+  constructor(
+    private injector: Injector,
+    private router: Router
+  ) { }
+  
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
       const auth = this.injector.get(AuthService);
       request = request.clone({
@@ -33,14 +32,14 @@ export class InterceptorService implements HttpInterceptor {
       return next.handle(request).do((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
           // do stuff with success response if you want
-          console.log(event);
+          //console.log(event);
         }
       }, (err) => {
         if (err instanceof HttpErrorResponse) {
             if (err.status === 401) {
               // redirect to the login route
               // or show a modal
-              console.log(err.status);
+              this.router.navigate(['/unathorized']);
             }
           }
         });

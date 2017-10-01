@@ -30,6 +30,7 @@ import { LoginComponent } from './auth/components/login.component';
 import { CardsComponent } from './catalog/cards/cards.component';
 import { DeckDetailsComponent } from './catalog/decks/deck-details/deck-details.component';
 import { PageNotFoundComponent } from './not-found-component';
+import { UnauthorizedComponent} from './unauthorized-component';
 import { QuizComponent } from './quiz/quiz.component';
 import { RegisterComponent } from './auth/components/register.component';
 
@@ -65,6 +66,7 @@ import { QuizModule } from './quiz/quiz.module';
         AppComponent,
         HomeComponent,
         PageNotFoundComponent,
+        UnauthorizedComponent,
         QuizComponent,
         RegisterComponent
     ],

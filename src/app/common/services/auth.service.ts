@@ -29,7 +29,6 @@ export class AuthService {
             .then(response => {
                 var us = response;
                 console.log(response);
-                //alert("You are registered with login: "+us.Login);
             })
             .catch(handleError);
     }
