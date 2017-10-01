@@ -30,7 +30,7 @@ import { StatisticsComponent } from './users/customer/statistics.component';
 import { LoginComponent } from './auth/components/login.component';
 import { CardsComponent } from './catalog/cards/cards.component';
 import { DeckDetailsComponent } from './catalog/decks/deck-details/deck-details.component';
-import { PageNotFoundComponent } from './not-found-component';
+import { PageNotFoundComponent } from './not-found/not-found.component';
 import { QuizComponent } from './quiz/quiz.component';
 import { RegisterComponent } from './auth/components/register.component';
 
