@@ -32,6 +32,9 @@ export class DecksComponent implements OnInit {
                 const category = data as Category;
                 this.categoryService.getDecksByCategory(category.Linking)
                     .then(decks => this.decks = decks);
+            } else {
+                this.deckService.getDecks()
+                    .then(decks => this.decks = decks);
             }
         });
     }

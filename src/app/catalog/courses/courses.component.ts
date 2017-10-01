@@ -44,6 +44,9 @@ export class CoursesComponent implements OnInit, OnDestroy {
                 const category = data as Category;
                 this.categoryService.getCoursesByCategory(category.Linking)
                     .then(courses => this.courses = courses);
+            } else {
+                this.courseService.getCourses()
+                    .then(courses => this.courses = courses);
             }
         });
     }
