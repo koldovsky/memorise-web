@@ -1,7 +1,11 @@
 :host {
-    width: 100vw;
+    margin: 0 auto;
 }
 
-img {
-    
+.card-header {
+    margin: -3vh auto auto 2vw;
+}
+
+.card-actions {
+    margin: 0 auto;
 }
