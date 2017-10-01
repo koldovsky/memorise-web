@@ -2,12 +2,23 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: stretch;
+    margin: 0 10vw;
+    min-height: 75vh;
 }
 
 .flex-item {
-    align-self: stretch;
     order: 1;
-    margin: 2vw 0 2vw;
+    margin: 2vh 1vw;
 }
+
+.description {
+    display: none;
+    flex-wrap: wrap;
+}
+
+
+/* .show-description:hover .description {
+    display: block;
+} */

@@ -1,12 +1,24 @@
-mat-card div {
-    align-items: center;
+:host {
+    margin: 0 auto;
 }
 
 #quizButton {
     color: primary;
 }
 
-.btnBack {
-    color : rgb(255,0,0);
-    font-size: 20px;
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+.flex-item {
+    order: 1;
+    margin: 2vh 1vw;
+}
+
+.description {
+    margin: -3vh auto auto 2vw;
 }

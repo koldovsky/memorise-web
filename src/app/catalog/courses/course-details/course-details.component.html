@@ -2,24 +2,26 @@
     <mat-card>
         <mat-card-header>
             <span>                        
-                <img mat-card-sm-image src="../assets/images/placeholder-thumb.jpg" />
+                <img src="../assets/images/placeholder-thumb.jpg" />
             </span>
-            <span>
+            <span class="description">
                 <mat-card-title>
                     <h1>{{course.Name}}</h1>
                 </mat-card-title>
                 <mat-card-subtitle>{{course.Price ? course.Price : 'FREE'}}</mat-card-subtitle>
+                <mat-card-subtitle>
+                    {{course.Description}}
+                </mat-card-subtitle>
             </span>
         </mat-card-header>
 
         <mat-card-content>
-            <p>{{course.Description}}</p>
 
             <mat-divider></mat-divider>
 
             <h2>Decks :</h2>
-            <mat-grid-list cols="4">
-                <mat-grid-tile *ngFor="let deck of course.Decks">
+            <div class="flex-container">
+                <div class="flex-item" *ngFor="let deck of course.Decks">
                     <mat-card>
                         <mat-card-header>
                             <mat-card-title><a [routerLink]="['/courses', course.Linking, deck.Linking]">{{deck.Name}}</a></mat-card-title>
@@ -30,17 +32,20 @@
                             <img mat-card-sm-image src="../assets/images/placeholder-thumb.jpg">
                         </mat-card-content>
                     </mat-card>
-                </mat-grid-tile>
-            </mat-grid-list>
-
-            <div align="center">
-                <button mat-raised-button>Subscribe</button><br>
-                <a mat-raised-button color="primary" routerLink="/quiz">Try it now</a>
-            </div>
-            <div align="center">
-                <button mat-raised-button class="btnBack" (click)="goBack()">Back</button>
+                </div>
             </div>
         </mat-card-content>
+        <mat-card-actions align="center">
+            <button mat-raised-button (click)="goBack()">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+            <a mat-raised-button color="primary" [routerLink]="['/quiz']">
+                Try it now
+            </a>
+            <button mat-raised-button>
+                Subscribe
+            </button>
+        </mat-card-actions>
     </mat-card>
 </div>
 
