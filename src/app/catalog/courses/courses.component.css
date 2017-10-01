@@ -18,7 +18,10 @@
     flex-wrap: wrap;
 }
 
-
-/* .show-description:hover .description {
+.flex-item:hover .description {
     display: block;
-} */
+}
+
+.show-description:hover .flex-item {
+    z-index: 5;
+}
