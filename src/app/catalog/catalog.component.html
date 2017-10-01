@@ -1,15 +1,17 @@
-<md-sidenav-container>
+  <md-sidenav-container>
     <md-sidenav #sidenav>
+        <div class="position-expension-panel">
         <md-button-toggle-group vertical #group="mdButtonToggleGroup">
             <h3>Categories</h3>
-            <md-button-toggle value="Any" (click)="sidenav.close()">
+            <md-button-toggle value="Any" (click)="select(null, sidenav)">
                 Any
             </md-button-toggle>
-            <md-button-toggle *ngFor="let category of categories" value="{{category.Name}}" (click)="sidenav.close()">
+            <md-button-toggle *ngFor="let category of categories" value="{{category.Name}}" (click)="select(category, sidenav)">
                 {{category.Name}}
             </md-button-toggle>
         </md-button-toggle-group>
-    </md-sidenav>
+    </div>
+    </md-sidenav> 
 
     <md-toolbar>
         <button md-icon-button (click)="sidenav.open()">

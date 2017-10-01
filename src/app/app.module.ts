@@ -44,6 +44,7 @@ import { CoursesModule } from './catalog/courses/courses.module';
 import { DecksModule } from './catalog/decks/decks.module';
 import { AppRoutingModule } from './app-routing.module';
 import { QuizModule } from './quiz/quiz.module';
+import { MessageService } from './common/services/message.service';
 
 @NgModule({
     declarations: [
@@ -107,7 +108,8 @@ import { QuizModule } from './quiz/quiz.module';
         CourseService,
         DeckService,
         UserService,
-        QuizService
+        QuizService,
+        MessageService
     ],
     bootstrap: [AppComponent]
 })

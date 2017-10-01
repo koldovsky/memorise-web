@@ -23,6 +23,7 @@ export interface CardType extends BaseEntity {
 
 export interface Category extends BaseEntity {
     Name: string;
+    Linking: string;
     Courses?: Course[];
     Decks?: Deck[];
 }

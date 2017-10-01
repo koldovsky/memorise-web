@@ -3,7 +3,7 @@ import { MdDialog, MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
 
 import { User } from './common/models/models';
 import { LoginComponent } from './auth/components/login.component';
-import {RegisterComponent} from './auth/components/register.component';
+import { RegisterComponent } from './auth/components/register.component';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +15,8 @@ export class AppComponent {
   title = 'Memo Rise';
   description = 'Some description';
 
-  constructor(private dialog: MdDialog) { }
+  constructor(private dialog: MdDialog,
+  ) { }
 
   openSignUpDialog(): void {
     const dialogRef = this.dialog.open(RegisterComponent, {

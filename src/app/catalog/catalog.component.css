@@ -1,3 +1,12 @@
 .menustyle {
     margin-bottom: 4px;
 }
+
+.md-button-toggle-group:first-child.md-button-toggle-checked, .md-button-toggle:first-child.md-button-toggle-disabled {
+    border-top-left-radius: inherit;
+    border-bottom-left-radius: inherit;
+}
+.mat-button-toggle:last-child.mat-button-toggle-checked, .mat-button-toggle:last-child.mat-button-toggle-disabled {
+    border-top-right-radius: inherit;
+    border-bottom-right-radius: inherit;
+}
