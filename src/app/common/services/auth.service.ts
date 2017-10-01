@@ -1,18 +1,24 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
 import 'rxjs/add/operator/toPromise';
+
 
 import { User, Token } from '../models/models';
 import { handleError } from '../functions/functions';
 
 @Injectable()
 export class AuthService {
+    errorMessage="";
+    
     private commonUrl = 'http://localhost:37271/';
-    constructor(private http: HttpClient) {
-    }
+    constructor(
+        private http: HttpClient,
+        private router: Router
+    ) { }
 
     signIn(user) {
-
+        
         return this.http.post(this.commonUrl + "memo/login",
             `username=${user.login}&password=${btoa(user.password)}&grant_type=password`)
             .toPromise()
@@ -20,7 +26,11 @@ export class AuthService {
                 let token = response as Token;
                 localStorage.setItem("token", token.access_token);
             })
-            .catch(handleError)
+            .catch( 
+                error=>{
+                 this.errorMessage="Invalid login or password";
+                 this.router.navigate(['/unauthorized']);
+                })
     }
     signUp(user) {
         user.password= btoa(user.password);
@@ -28,15 +38,23 @@ export class AuthService {
             .toPromise()
             .then(response => {
                 var us = response;
-                console.log(response);
+                //console.log(response);
             })
-            .catch(handleError);
+            .catch(handleError)
+         
     }
+
     getToken() {
         let currentToken=localStorage.getItem("token");
         if(!currentToken){
             currentToken="empty";
         }
         return currentToken;
+    }
+    getError(){
+        return this.errorMessage;
+    }
+    setError(message:string){
+        this.errorMessage=message;
     }
 }

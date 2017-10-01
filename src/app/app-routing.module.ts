@@ -22,7 +22,7 @@ const routes: Routes = [
         pathMatch: 'full'
     },
     {
-        path: 'unathorized',
+        path: 'unauthorized',
         component: UnauthorizedComponent
     },
     {
