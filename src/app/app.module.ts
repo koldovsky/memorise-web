@@ -45,6 +45,7 @@ import { CoursesModule } from './catalog/courses/courses.module';
 import { DecksModule } from './catalog/decks/decks.module';
 import { AppRoutingModule } from './app-routing.module';
 import { QuizModule } from './quiz/quiz.module';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
     declarations: [
@@ -66,7 +67,8 @@ import { QuizModule } from './quiz/quiz.module';
         PageNotFoundComponent,
         QuizComponent,
         RegisterComponent,
-        NavigationComponent
+        NavigationComponent,
+        FooterComponent
     ],
     entryComponents: [
         LoginComponent,
