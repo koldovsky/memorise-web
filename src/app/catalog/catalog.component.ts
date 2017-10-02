@@ -24,5 +24,6 @@ export class CatalogComponent implements OnInit {
     select(category: Category, sidenav: any): void {
         this.messageService.notify(category);
         sidenav.close();
+        console.log(category.Linking);
     }
 }
