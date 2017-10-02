@@ -42,7 +42,7 @@ export class InterceptorService implements HttpInterceptor {
           let message = JSON.stringify(err.error);
           const expr = /The request is invalid/;
           if(message.match(expr)){
-            auth.setError("User with such login already exists.");
+            auth.setError("user with such login already exists!");
           }
           else{
           let correctMessage=message.slice(16,message.length-4);

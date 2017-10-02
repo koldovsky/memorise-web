@@ -30,7 +30,7 @@ export class AuthService {
             .catch(
             error => {
                 this.valid = false;
-                this.errorMessage = "Invalid login or password";
+                this.errorMessage = "input, please try again!";
                 //this.router.navigate(['/unauthorized']);
             })
     }
