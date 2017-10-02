@@ -29,7 +29,6 @@ import { UserDecksComponent } from './users/customer/user-decks.component';
 import { StatisticsComponent } from './users/customer/statistics.component';
 import { LoginComponent } from './auth/components/login.component';
 import { CardsComponent } from './catalog/cards/cards.component';
-import { DeckDetailsComponent } from './catalog/decks/deck-details/deck-details.component';
 import { PageNotFoundComponent } from './not-found/not-found.component';
 import { QuizComponent } from './quiz/quiz.component';
 import { RegisterComponent } from './auth/components/register.component';
@@ -41,8 +40,6 @@ import { UserService } from './common/services/user.service';
 import { QuizService } from './common/services/quiz.service';
 
 import { CatalogModule } from './catalog/catalog.module';
-import { CoursesModule } from './catalog/courses/courses.module';
-import { DecksModule } from './catalog/decks/decks.module';
 import { AppRoutingModule } from './app-routing.module';
 import { QuizModule } from './quiz/quiz.module';
 import { FooterComponent } from './footer/footer.component';
@@ -61,7 +58,6 @@ import { FooterComponent } from './footer/footer.component';
         StatisticsComponent,
         LoginComponent,
         CardsComponent,
-        DeckDetailsComponent,
         AppComponent,
         HomeComponent,
         PageNotFoundComponent,
@@ -101,8 +97,6 @@ import { FooterComponent } from './footer/footer.component';
         ReactiveFormsModule,
 
         CatalogModule,
-        CoursesModule,
-        DecksModule,
         QuizModule,
         AppRoutingModule
     ],

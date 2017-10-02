@@ -1,6 +1,6 @@
 <div class="flex-container">
     <div class="flex-item" *ngFor="let course of courses">
-        <a [routerLink]="['/courses', course.Linking]">
+        <a [routerLink]="['/catalog/courses', course.Linking]" class="show-description">
             <mat-card>
                 <mat-card-content>
                     <img mat-card-image src="../assets/images/placeholder-thumb.jpg" />
