@@ -1,9 +1,9 @@
 <div class="flex-container">
     <div class="flex-item" *ngFor="let course of courses">
-        <a [routerLink]="['/catalog/courses', course.Linking]" class="show-description">
+        <a [routerLink]="['/catalog/courses', course.Linking]">
             <mat-card>
                 <mat-card-content>
-                    <img mat-card-image src="../assets/images/placeholder-thumb.jpg" />
+                    <img mat-card-m-image src="../assets/images/placeholder-thumb.jpg" />
                 </mat-card-content>
                 <mat-card-header>
                     <mat-card-title-group>
@@ -13,7 +13,7 @@
                             </h2>
                         </mat-card-title>
                         <mat-card-subtitle>{{course.Price ? course.Price : 'FREE'}}</mat-card-subtitle>
-                        <mat-card-subtitle class="description">
+                        <mat-card-subtitle>
                             <p>{{course.Description}}</p>
                         </mat-card-subtitle>
                     </mat-card-title-group>
