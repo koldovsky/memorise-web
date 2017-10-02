@@ -1,12 +1,28 @@
-md-card div {
-    align-items: center;
+:host {
+    width: 100vw;
+}
+
+#course {
+    margin: 2vh 10vw;
 }
 
 #quizButton {
     color: primary;
 }
 
-.btnBack {
-    color : rgb(255,0,0);
-    font-size: 20px;
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: start;
+    align-items: stretch;
+}
+
+.flex-item {
+    order: 1;
+    margin: 2vh 1vw;
+}
+
+.description {
+    margin: -3vh auto auto 2vw;
 }

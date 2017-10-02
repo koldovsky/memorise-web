@@ -1,47 +1,35 @@
-<div *ngFor="let course of courses">
-    <md-card>
-        <md-card-header>
-            <md-card-title-group>
-                <span>                        
-                        <img md-card-sm-image src="../assets/images/placeholder-thumb.jpg" />
-                    </span>
-                <span>                        
-                        <md-card-title>
+<div class="flex-container">
+    <div class="flex-item" *ngFor="let course of courses">
+        <a [routerLink]="['/catalog/courses', course.Linking]" class="show-description">
+            <mat-card>
+                <mat-card-content>
+                    <img mat-card-image src="../assets/images/placeholder-thumb.jpg" />
+                </mat-card-content>
+                <mat-card-header>
+                    <mat-card-title-group>
+                        <mat-card-title>
                             <h2>
-                                <a [routerLink]="['/courses', course.Linking]">{{course.Name}}</a>
+                                {{course.Name}}
                             </h2>
-                        </md-card-title>
-                        <md-card-subtitle>{{course.Price ? course.Price : 'FREE'}}</md-card-subtitle>
-                        <md-card-subtitle>{{course.Description}}</md-card-subtitle>
-                    </span>
-            </md-card-title-group>
-        </md-card-header>
-
-            <md-card-content>
-                <md-expansion-panel (opened)="getCourseDecks(course.Linking)">
-                    <md-expansion-panel-header>
-                        <md-panel-title>
-                            Decks
-                        </md-panel-title>
-                    </md-expansion-panel-header>
-
-                    <md-list>
-                        <md-list-item *ngFor="let deck of course.Decks">
-                            <a [routerLink]="['/decks', deck.Linking]">
-                                <h3 mdLine>{{deck.Name}}</h3>
-                                <p mdLine>{{deck.Description}}</p>
-                                <md-divider></md-divider>
-                            </a>
-                        </md-list-item>
-                    </md-list>
-                </md-expansion-panel>
-            </md-card-content>
-        </md-card>
-
-    <md-divider></md-divider>
-
-</div>
-
-<!-- <div>
+                        </mat-card-title>
+                        <mat-card-subtitle>{{course.Price ? course.Price : 'FREE'}}</mat-card-subtitle>
+                        <mat-card-subtitle class="description">
+                            <p>{{course.Description}}</p>
+                        </mat-card-subtitle>
+                    </mat-card-title-group>
+                </mat-card-header>
+                <mat-card-actions align="center">
+                    <a mat-raised-button color="primary" [routerLink]="['/quiz']">
+                            Try it now
+                        </a>
+                    <button mat-raised-button>
+                            Subscribe
+                        </button>
+                </mat-card-actions>
+            </mat-card>
+        </a>
+    </div>
+    <!-- <div>
     <router-outlet></router-outlet>
-</div> -->
+    </div> -->
+</div>

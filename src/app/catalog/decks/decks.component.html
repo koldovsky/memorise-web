@@ -1,28 +1,34 @@
-<md-grid-list cols="4" rowHeight="2:1" gutterSize="2px">
-    <div *ngFor="let deck of decks">
-
-
-            <md-grid-tile style="width: 100%">
-                    <a [routerLink]="['/decks', deck.Linking]" style="text-decoration: none">
-                    <md-card style="width: 100%">
-                        <md-card-header>
-                            <md-card-title-group>
-                                <span>                        
-                                    <img md-card-sm-image src="../assets/images/placeholder-thumb.jpg" />
-                                </span>
-                            <span>
-                                    <md-card-title>
-                                        {{deck.Name}}
-                                    </md-card-title>
-                                    <md-card-subtitle>
-                                        {{deck.Price ? deck.Price : 'FREE'}}
-                                    </md-card-subtitle>
-                                </span>
-                        </md-card-title-group>
-                    </md-card-header>
-                </md-card>
-            </a>
-        </md-grid-tile>
-
+<div class="flex-container">
+    <div class="flex-item" *ngFor="let deck of decks">
+        <mat-card>
+            <mat-card-content>
+                <span>
+                    <img mat-card-sm-image src="../assets/images/placeholder-thumb.jpg" />
+                </span>
+            </mat-card-content>
+            <mat-card-header>
+                <mat-card-title-group>
+                    <span>
+                        <mat-card-title>
+                            {{deck.Name}}
+                        </mat-card-title>
+                        <mat-card-subtitle>
+                            {{deck.Price ? deck.Price : 'FREE'}}
+                        </mat-card-subtitle>
+                        <mat-card-subtitle>Cards: {{deck.CardsNumber}}</mat-card-subtitle>
+                    </span>
+                </mat-card-title-group>
+            </mat-card-header>
+            <mat-card-actions align="center">
+                <div>
+                    <button mat-raised-button>Subscribe</button>
+                </div>
+                <div>
+                    <a mat-raised-button color="primary" [routerLink]="['/quiz', deck.Linking]">
+                        Try it now
+                    </a>
+                </div>
+            </mat-card-actions>
+        </mat-card>
     </div>
-</md-grid-list>
+</div>

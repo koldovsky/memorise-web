@@ -1,12 +1,20 @@
-.menustyle {
-    margin-bottom: 4px;
+.menu-icon {
+    margin-bottom: 5px;
 }
 
-md-sidenav-container {
-    position: inherit;
-    transform: none;
+mat-sidenav {
+    min-width: 10%;
 }
 
-md-sidenav {
-     top: 8.8%;
- }
+:host {
+    width: 100%;
+    flex-grow: 1;
+}
+
+mat-sidenav mat-button-toggle-group {
+    width: 100%;
+}
+
+#categories {
+    margin-left: 10px;
+}
