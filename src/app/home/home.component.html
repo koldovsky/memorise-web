@@ -2,8 +2,24 @@
     <h1>
         Welcome to {{title}}!
     </h1>
-    <p>
+    <!-- <p>
         {{description}}
-    </p>
+    </p> -->
+    <!-- <img md-card-sm-image src="../assets/images/head.png" /> -->
     <a md-raised-button color="primary" routerLink="/courses">GET STARTED</a>
+
+    <md-horizontal-stepper [linear]="isLinear">
+        <md-step>
+              <ng-template mdStepLabel>pass test</ng-template>
+              <img md-card-sm-image src="../assets/images/placeholder-thumb.jpg" />
+        </md-step>
+        <md-step>
+            <ng-template mdStepLabel>review result</ng-template>
+            <img md-card-sm-image src="../assets/images/placeholder-thumb.jpg" />
+      </md-step>
+      <md-step>
+        <ng-template mdStepLabel>start learning</ng-template>
+        <img md-card-sm-image src="../assets/images/placeholder-thumb.jpg" />
+  </md-step>
+    </md-horizontal-stepper>
 </div>

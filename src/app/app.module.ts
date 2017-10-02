@@ -9,7 +9,7 @@ import {
     MdButtonToggleModule, MdSidenavModule,
     MdExpansionModule, MdLineModule,
     MdGridListModule, MdTabsModule, MdDialogModule,
-    MdInputModule, MdPaginatorModule
+    MdInputModule, MdPaginatorModule,MdStepperModule
 } from '@angular/material';
 import {FormsModule, FormBuilder, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -92,6 +92,7 @@ import { QuizModule } from './quiz/quiz.module';
         MdLineModule,
         MdGridListModule,
         MdTabsModule,
+        MdStepperModule,
         CoursesModule,
         MdPaginatorModule,
         DecksModule,
