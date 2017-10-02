@@ -1,25 +1,20 @@
-<div align="center">
-    <h1>
-        Welcome to {{title}}!
-    </h1>
-    <!-- <p>
-        {{description}}
-    </p> -->
-    <!-- <img md-card-sm-image src="../assets/images/head.png" /> -->
-    <a md-raised-button color="primary" routerLink="/courses">GET STARTED</a>
+<div id="background">
+    <div id="trans-box">
+        <h1>
+            Welcome to {{title}}!
+        </h1>
+        <p>
+            {{description}}
+        </p>
+        <a mat-raised-button color="primary" routerLink="/catalog/courses">GET STARTED</a>
+    </div>
+</div>
 
-    <md-horizontal-stepper [linear]="isLinear">
-        <md-step>
-              <ng-template mdStepLabel>pass test</ng-template>
-              <img md-card-sm-image src="../assets/images/placeholder-thumb.jpg" />
-        </md-step>
-        <md-step>
-            <ng-template mdStepLabel>review result</ng-template>
-            <img md-card-sm-image src="../assets/images/placeholder-thumb.jpg" />
-      </md-step>
-      <md-step>
-        <ng-template mdStepLabel>start learning</ng-template>
-        <img md-card-sm-image src="../assets/images/placeholder-thumb.jpg" />
-  </md-step>
-    </md-horizontal-stepper>
+<div align="center">
+    <h1>What is spaced repetition learning?</h1>
+    <img src="../../assets/images/spaced-repetition.jpg" />
+</div>
+
+<div>
+    <app-footer></app-footer>
 </div>

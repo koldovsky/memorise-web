@@ -23,6 +23,7 @@ export interface CardType extends BaseEntity {
 
 export interface Category extends BaseEntity {
     Name: string;
+    Linking: string;
     Courses?: Course[];
     Decks?: Deck[];
 }
@@ -36,6 +37,7 @@ export interface Comment extends BaseEntity {
 
 export interface Course extends BaseEntity {
     Name: string;
+    Linking: string;
     Description: string;
     Price: number;
     Photo?: string;
@@ -46,6 +48,7 @@ export interface Course extends BaseEntity {
 
 export interface Deck extends BaseEntity {
     Name: string;
+    Linking: string;
     Price: number;
     CardsNumber?: number;
     Rating?: number;

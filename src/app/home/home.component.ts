@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit  } from '@angular/core';
+import { MessageService } from '../common/services/message.service';
 
 
 @Component({
@@ -7,7 +8,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   title = 'Memo Rise';
-  description = 'Some description...';
+  description = 'Here you can improve your knowlage and train your memory by using spaced repetition lerning. Good luck!';
+
+  constructor(
+    private messageService: MessageService
+  ) { }
+
+  ngOnInit(): void {
+    this.messageService.temp = null;
+  }
 }

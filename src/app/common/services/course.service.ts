@@ -21,8 +21,8 @@ export class CourseService {
             .catch(handleError);
     }
 
-    getCourse(name: string): Promise<Course> {
-        const URL = this.courseUrl + '/' + name;
+    getCourse(link: string): Promise<Course> {
+        const URL = this.courseUrl + '/' + link;
 
         return this.http.get(URL)
             .toPromise()

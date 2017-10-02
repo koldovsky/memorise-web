@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { MdDialog, MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
 
 import { User } from './common/models/models';
 import { LoginComponent } from './auth/components/login.component';

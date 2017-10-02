@@ -3,21 +3,23 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {
-    MdButtonModule, MdCardModule,
-    MdMenuModule, MdToolbarModule,
-    MdIconModule, MdListModule,
-    MdButtonToggleModule, MdSidenavModule,
-    MdExpansionModule, MdLineModule,
-    MdGridListModule, MdTabsModule, MdDialogModule,
-    MdInputModule, MdPaginatorModule,MdStepperModule
+    MatButtonModule, MatCardModule,
+    MatMenuModule, MatToolbarModule,
+    MatIconModule, MatListModule,
+    MatButtonToggleModule, MatSidenavModule,
+    MatExpansionModule, MatLineModule,
+    MatGridListModule, MatTabsModule, MatDialogModule,
+    MatInputModule, MatPaginatorModule,
+    MatChipsModule
 } from '@angular/material';
 import {FormsModule, FormBuilder, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
 import {MatCardModule} from '@angular/material';
 
 import { AppComponent } from './app.component';
+import { NavigationComponent } from './navigation/navigation.component';
 import { HomeComponent } from './home/home.component';
-import { CategoriesComponent } from './catalog/categories.component';
+import { CatalogComponent } from './catalog/catalog.component';
 import { CoursesComponent } from './catalog/courses/courses.component';
 import { DecksComponent } from './catalog/decks/decks.component';
 import { CourseDetailsComponent } from './catalog/courses/course-details/course-details.component';
@@ -44,16 +46,16 @@ import { UserService } from './common/services/user.service';
 import { QuizService } from './common/services/quiz.service';
 import { InterceptorService } from './common/services/interceptor.service';
 
-
-import { CoursesModule } from './catalog/courses/courses.module';
-import { DecksModule } from './catalog/decks/decks.module';
+import { CatalogModule } from './catalog/catalog.module';
 import { AppRoutingModule } from './app-routing.module';
 import { QuizModule } from './quiz/quiz.module';
+import { FooterComponent } from './footer/footer.component';
+import { MessageService } from './common/services/message.service';
 import {ProfileModule} from './auth/user/profile/profile.module';
 
 @NgModule({
     declarations: [
-        CategoriesComponent,
+        CatalogComponent,
         CourseDetailsComponent,
         CoursesComponent,
         DecksComponent,
@@ -65,13 +67,14 @@ import {ProfileModule} from './auth/user/profile/profile.module';
         StatisticsComponent,
         LoginComponent,
         CardsComponent,
-        DeckDetailsComponent,
         AppComponent,
         HomeComponent,
         PageNotFoundComponent,
         UnauthorizedComponent,
         QuizComponent,
         RegisterComponent,
+        NavigationComponent,
+        FooterComponent,
         ProfileComponent
     ],
     entryComponents: [
@@ -83,25 +86,29 @@ import {ProfileModule} from './auth/user/profile/profile.module';
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
+
+        MatButtonModule,
         MatCardModule,
-        MdButtonModule,
-        MdCardModule,
-        MdMenuModule,
-        MdToolbarModule,
-        MdIconModule,
-        MdListModule,
-        MdButtonToggleModule,
-        MdDialogModule,
-        MdSidenavModule,
-        MdExpansionModule,
-        MdInputModule,
-        MdLineModule,
-        MdGridListModule,
-        MdTabsModule,
-        MdStepperModule,
-        CoursesModule,
-        MdPaginatorModule,
-        DecksModule,
+        MatMenuModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatListModule,
+        MatButtonToggleModule,
+        MatDialogModule,
+        MatSidenavModule,
+        MatExpansionModule,
+        MatInputModule,
+        MatLineModule,
+        MatGridListModule,
+        MatTabsModule,
+        MatPaginatorModule,
+        MatTabsModule,
+        MatChipsModule,
+
+        FormsModule,
+        ReactiveFormsModule,
+
+        CatalogModule,
         QuizModule,
         AppRoutingModule,
         MdTabsModule,
@@ -120,8 +127,10 @@ import {ProfileModule} from './auth/user/profile/profile.module';
             provide: HTTP_INTERCEPTORS,
             useClass:InterceptorService,
             multi:true
-        }
+        },
         
+        
+        MessageService
     ],
     bootstrap: [AppComponent]
 })

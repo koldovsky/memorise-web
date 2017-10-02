@@ -1,34 +1,7 @@
-<div>
-    <header>
-        <md-toolbar color="primary">
-            <a md-button routerLink="/">Memo Rise</a>
-            <a md-button routerLink="/courses">Courses</a>
-            <a md-button routerLink="/decks">Decks</a>
+<header>
+    <app-navigation></app-navigation>
+</header>
 
-            <span class="example-fill-remaining-space"></span>
-
-            <button md-button (click)="openSignUpDialog()" *ngIf="!name">Sign Up</button>
-            <button md-button (click)="openSignInDialog()" *ngIf="!name">Sign In</button>
-            <div *ngIf="name" class="position-expension-panel">
-                <md-expansion-panel>
-                    <md-expansion-panel-header>
-                        <md-panel-title>
-                            <p><i>{{name}}</i></p>
-                        </md-panel-title>                        
-                    </md-expansion-panel-header>
-                    <button md-button routerLink="/profile">Profile</button>
-                    <button md-button (click)="signOut()">Sign Out</button>                    
-                </md-expansion-panel>
-            </div>            
-        </md-toolbar>
-    </header>
-
-    <main>
-        <div>
-            <router-outlet></router-outlet>
-        </div>
-    </main>
-
-    <footer>
-    </footer>
-</div>
+<main>
+    <router-outlet></router-outlet>
+</main>
