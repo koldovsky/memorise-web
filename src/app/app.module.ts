@@ -43,6 +43,7 @@ import { CatalogModule } from './catalog/catalog.module';
 import { AppRoutingModule } from './app-routing.module';
 import { QuizModule } from './quiz/quiz.module';
 import { FooterComponent } from './footer/footer.component';
+import { MessageService } from './common/services/message.service';
 
 @NgModule({
     declarations: [
@@ -105,7 +106,8 @@ import { FooterComponent } from './footer/footer.component';
         CourseService,
         DeckService,
         UserService,
-        QuizService
+        QuizService,
+        MessageService
     ],
     bootstrap: [AppComponent]
 })
