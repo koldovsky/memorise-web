@@ -60,4 +60,5 @@ export class CoursesComponent implements OnInit, OnDestroy {
             .then(decks => this.courses
                 .find(course => course.Linking === name).Decks = decks);
     }
+        
 }
