@@ -6,11 +6,13 @@ import { AuthService } from './common/services/auth.service';
 @Component({
     template: 
   `
+  <img style="margin-left:35%" src="../assets/images/membersOnly.jpg" />
   <h1 align="center">{{message}}</h1>
   <div align="center">
-    <button md-raised-button (click)="goHome()">Home</button>
+  <a mat-raised-button (click)="goHome()">Home</a>
   </div>
-  `
+  `,
+  styleUrls: ['./not-found/not-found.component.css']
 })
 
 export class UnauthorizedComponent implements OnInit {
