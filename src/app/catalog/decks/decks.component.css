@@ -2,12 +2,31 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: stretch;
+    margin: 0 10vw;
 }
 
 .flex-item {
-    align-self: stretch;
     order: 1;
-    margin: 2vw 0 2vw;
+    margin: 1vh 2vw;
+}
+
+.flex-item mat-card-header {
+    max-width: 80px;
+}
+
+.flex-item:hover {
+    overflow: visible;
+    z-index: 100;
+}
+
+.flex-item mat-card-actions {
+    display: none;
+    overflow: hidden;
+}
+
+.flex-item:hover mat-card-actions {
+    display: block;
+    z-index: 100;    
 }

@@ -1,28 +1,34 @@
 <div class="flex-container">
     <div class="flex-item" *ngFor="let deck of decks">
-            <a [routerLink]="['/decks', deck.Linking]" style="text-decoration: none">
-                <mat-card>
-                    <mat-card-content>
-                        
-                            <span>                        
-                                <img mat-card-sm-image src="../assets/images/placeholder-thumb.jpg" />
-                            </span>
-                        
-                </mat-card-content>
-                <mat-card-header>
-                <mat-card-title-group>
+        <mat-card>
+            <mat-card-content>
                 <span>
-                            <mat-card-title>
-                                {{deck.Name}}
-                            </mat-card-title>
-                            <mat-card-subtitle>
-                                {{deck.Price ? deck.Price : 'FREE'}}
-                            </mat-card-subtitle>
-                        </span>
-                    </mat-card-title-group>
-                
-                </mat-card-header>
-            </mat-card>
-        </a>
+                    <img mat-card-sm-image src="../assets/images/placeholder-thumb.jpg" />
+                </span>
+            </mat-card-content>
+            <mat-card-header>
+                <mat-card-title-group>
+                    <span>
+                        <mat-card-title>
+                            {{deck.Name}}
+                        </mat-card-title>
+                        <mat-card-subtitle>
+                            {{deck.Price ? deck.Price : 'FREE'}}
+                        </mat-card-subtitle>
+                        <mat-card-subtitle>Cards: {{deck.CardsNumber}}</mat-card-subtitle>
+                    </span>
+                </mat-card-title-group>
+            </mat-card-header>
+            <mat-card-actions align="center">
+                <div>
+                    <button mat-raised-button>Subscribe</button>
+                </div>
+                <div>
+                    <a mat-raised-button color="primary" [routerLink]="['/quiz', deck.Linking]">
+                        Try it now
+                    </a>
+                </div>
+            </mat-card-actions>
+        </mat-card>
     </div>
 </div>
