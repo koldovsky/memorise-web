@@ -5,3 +5,7 @@
     align-self: flex-start;
     margin-top: 8px;
 } 
+header{
+    position: relative;
+    z-index: 1;
+}

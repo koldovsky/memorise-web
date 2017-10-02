@@ -1,0 +1,6 @@
+.example-header-image {
+    background-image: url('../../../../assets/images/placeholder-thumb.jpg');
+    background-size: cover;
+    width: 500px;
+    height: 800px;
+  }

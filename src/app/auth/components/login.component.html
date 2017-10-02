@@ -1,5 +1,5 @@
 <h2 md-dialog-title>{{action}}</h2>
-
+<md-error *ngIf="!authService.validData() && clicked"><strong>Incorrect</strong> input, please try again!</md-error>
 <md-dialog-actions align='center'>
     <form class="main-form" [formGroup]="myForm">
         <md-dialog-content layout="column">

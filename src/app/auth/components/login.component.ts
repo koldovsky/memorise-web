@@ -14,6 +14,7 @@ import { AuthService } from '../../common/services/auth.service';
 
 export class LoginComponent implements OnInit {
     action: string;
+    clicked: boolean = false;
     myForm: FormGroup;
     MDdialog: MdDialog;
 
@@ -42,8 +43,16 @@ export class LoginComponent implements OnInit {
     }
 
     LogIn(user): void {
-        this.authService.signIn(user);
-        this.dialogRef.close(this.myForm.controls['login'].value);
+        this.authService.signIn(user)
+            .then(() => {
+                if (this.authService.validData()) {
+                    this.dialogRef.close(this.myForm.controls['login'].value);
+                } else {
+                    this.myForm.controls.login.setValue('');
+                    this.myForm.controls.password.setValue('');
+                }
+            });
+            this.clicked = true;
     }
 
     Register(): void {
@@ -61,7 +70,7 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit(): void {
-       
+
     }
 }
 

@@ -13,6 +13,7 @@ import {
 } from '@angular/material';
 import {FormsModule, FormBuilder, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
+import {MatCardModule} from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -20,7 +21,8 @@ import { CategoriesComponent } from './catalog/categories.component';
 import { CoursesComponent } from './catalog/courses/courses.component';
 import { DecksComponent } from './catalog/decks/decks.component';
 import { CourseDetailsComponent } from './catalog/courses/course-details/course-details.component';
-import { ProfileComponent } from './users/customer/profile.component';
+//import { ProfileComponent } from './users/customer/profile.component';
+import {ProfileComponent} from './auth/user/profile/profile.component';
 import { AccountComponent } from './users/customer/account.component';
 import { SecurityComponent } from './users/customer/security.component';
 import { UserCoursesComponent } from './users/customer/user-courses.component';
@@ -47,6 +49,7 @@ import { CoursesModule } from './catalog/courses/courses.module';
 import { DecksModule } from './catalog/decks/decks.module';
 import { AppRoutingModule } from './app-routing.module';
 import { QuizModule } from './quiz/quiz.module';
+import {ProfileModule} from './auth/user/profile/profile.module';
 
 @NgModule({
     declarations: [
@@ -68,16 +71,19 @@ import { QuizModule } from './quiz/quiz.module';
         PageNotFoundComponent,
         UnauthorizedComponent,
         QuizComponent,
-        RegisterComponent
+        RegisterComponent,
+        ProfileComponent
     ],
     entryComponents: [
         LoginComponent,
-        RegisterComponent
+        RegisterComponent,
+        ProfileComponent
     ],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
+        MatCardModule,
         MdButtonModule,
         MdCardModule,
         MdMenuModule,
@@ -100,7 +106,8 @@ import { QuizModule } from './quiz/quiz.module';
         AppRoutingModule,
         MdTabsModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        ProfileModule
     ],
     providers: [
         AuthService,
