@@ -9,52 +9,59 @@ import { handleError } from '../functions/functions';
 
 @Injectable()
 export class AuthService {
-    errorMessage="";
-    
+    errorMessage = "";
+
     private commonUrl = 'http://localhost:37271/';
     constructor(
         private http: HttpClient,
         private router: Router
     ) { }
-
+    private valid: boolean = true;
     signIn(user) {
-        
+
         return this.http.post(this.commonUrl + "memo/login",
             `username=${user.login}&password=${btoa(user.password)}&grant_type=password`)
             .toPromise()
             .then(response => {
                 let token = response as Token;
                 localStorage.setItem("token", token.access_token);
+                this.valid = true;
             })
-            .catch( 
-                error=>{
-                 this.errorMessage="Invalid login or password";
-                 this.router.navigate(['/unauthorized']);
-                })
+            .catch(
+            error => {
+                this.valid = false;
+                this.errorMessage = "Invalid login or password";
+                //this.router.navigate(['/unauthorized']);
+            })
     }
     signUp(user) {
-        user.password= btoa(user.password);
+        user.password = btoa(user.password);
         return this.http.post(this.commonUrl + "Account/SignUp", user)
             .toPromise()
             .then(response => {
-                var us = response;
+                var response = response;
+                this.valid = true;
                 //console.log(response);
             })
-            .catch(handleError)
-         
-    }
+            .catch(handleError=>{
+                this.valid = false;
+            })
 
+    }
+    validData(): boolean {
+        return this.valid;
+    }
     getToken() {
-        let currentToken=localStorage.getItem("token");
-        if(!currentToken){
-            currentToken="empty";
+        let currentToken = localStorage.getItem("token");
+        if (!currentToken) {
+            currentToken = "empty";
         }
         return currentToken;
     }
-    getError(){
+    getError() {
         return this.errorMessage;
     }
-    setError(message:string){
-        this.errorMessage=message;
+    setError(message: string) {
+        this.errorMessage = message;
     }
 }

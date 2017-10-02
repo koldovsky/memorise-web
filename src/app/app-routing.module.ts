@@ -6,10 +6,11 @@ import { CoursesComponent } from './catalog/courses/courses.component';
 import { DecksComponent } from './catalog/decks/decks.component';
 import { CourseDetailsComponent } from './catalog/courses/course-details/course-details.component';
 import { DeckDetailsComponent } from './catalog/decks/deck-details/deck-details.component';
-import { ProfileComponent } from './users/customer/profile.component';
+//import { ProfileComponent } from './users/customer/profile.component';
 import { PageNotFoundComponent } from './not-found-component';
 import { UnauthorizedComponent} from './unauthorized-component';
-import { QuizComponent } from './quiz/quiz.component'
+import { QuizComponent } from './quiz/quiz.component';
+import {ProfileComponent} from './auth/user/profile/profile.component';
 
 const routes: Routes = [
     {

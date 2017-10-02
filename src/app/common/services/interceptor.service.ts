@@ -53,9 +53,9 @@ export class InterceptorService implements HttpInterceptor {
         if (err.status === 401) {
           
           auth.setError("Access denied! You need to SignIn.");
-
+          this.router.navigate(['/unauthorized']);
         }
-        this.router.navigate(['/unauthorized']);
+        //this.router.navigate(['/unauthorized']);
       }
     });
   }

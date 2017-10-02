@@ -1,4 +1,5 @@
 <h2 md-dialog-title>{{action}}</h2>
+<md-error *ngIf="!authService.validData() && clicked"><strong>Error</strong>, user with such login already exists!</md-error>
 <md-dialog-actions align='center'>
     <form class="main-form" [formGroup]="myForm">
         <md-dialog-content layout="column">
@@ -52,6 +53,6 @@
     
     <md-dialog-content layout="column">
         <button md-button md-dialog-close>Cancel</button>
-        <button md-button type="submit" [disabled]="!myForm.valid" [md-dialog-close]="true" (click)="Register(myForm.value)">Sign Up</button>
+        <button md-button type="submit" [disabled]="!myForm.valid" (click)="Register(myForm.value)">Sign Up</button>
     </md-dialog-content>
 </md-dialog-actions>
