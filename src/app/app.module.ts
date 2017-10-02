@@ -14,7 +14,6 @@ import {
 } from '@angular/material';
 import {FormsModule, FormBuilder, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
-import {MatCardModule} from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
@@ -32,8 +31,7 @@ import { UserDecksComponent } from './users/customer/user-decks.component';
 import { StatisticsComponent } from './users/customer/statistics.component';
 import { LoginComponent } from './auth/components/login.component';
 import { CardsComponent } from './catalog/cards/cards.component';
-import { DeckDetailsComponent } from './catalog/decks/deck-details/deck-details.component';
-import { PageNotFoundComponent } from './not-found-component';
+import { PageNotFoundComponent } from './not-found/not-found.component';
 import { UnauthorizedComponent} from './unauthorized-component';
 import { QuizComponent } from './quiz/quiz.component';
 import { RegisterComponent } from './auth/components/register.component';
@@ -111,7 +109,7 @@ import {ProfileModule} from './auth/user/profile/profile.module';
         CatalogModule,
         QuizModule,
         AppRoutingModule,
-        MdTabsModule,
+        MatTabsModule,
         FormsModule,
         ReactiveFormsModule,
         ProfileModule

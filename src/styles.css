@@ -20,7 +20,7 @@ app-root {
     flex-direction: column;
 }
 
-a:not(.md-button) {
+a:not(.mat-button) {
     color: inherit;
     text-decoration: inherit;
     font-weight: inherit;

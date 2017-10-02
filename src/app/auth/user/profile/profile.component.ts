@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {MatCardModule} from '@angular/material';
-import { MdCardModule } from '@angular/material';
 
 import { UserService } from '../../../common/services/user.service';
 import { User } from '../../../common/models/models';

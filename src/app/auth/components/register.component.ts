@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MdDialog, MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {MdSnackBar} from '@angular/material';
+import {MatSnackBar} from '@angular/material';
 
 import { AuthService } from '../../common/services/auth.service';
 import { passwordMatchValidator } from './password-matcher';
@@ -21,15 +21,15 @@ export class RegisterComponent implements OnInit {
     action: string;
     clicked: boolean = false;
     message: 'Congratulation, you successfully registered!';
-    snackBar: MdSnackBar;
+    snackBar: MatSnackBar;
     myForm: FormGroup;
 
     constructor(
-        public dialogRef: MdDialogRef<RegisterComponent>,
+        public dialogRef: MatDialogRef<RegisterComponent>,
         private authService: AuthService,
         public fb: FormBuilder,
-        //public snackBar: MdSnackBar,
-        @Inject(MD_DIALOG_DATA) public data: any) {
+        //public snackBar: MatSnackBar,
+        @Inject(MAT_DIALOG_DATA) public data: any) {
         this.action = data.action;
         this.myForm = this.fb.group({
             'login': new FormControl('', [

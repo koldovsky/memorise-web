@@ -7,7 +7,18 @@
 
         <a mat-button routerLink="/catalog/courses">Courses</a>
         <a mat-button routerLink="/catalog/decks">Decks</a>
-        <!-- <button mat-button (click)="openSignUpDialog()">Sign Up</button> -->
-        <button mat-button (click)="openSignInDialog()">Sign In</button>
+        <button mat-button (click)="openSignUpDialog()" *ngIf="!name">Sign Up</button>
+        <button mat-button (click)="openSignInDialog()" *ngIf="!name">Sign In</button>
+        <div *ngIf="name" class="position-expension-panel">
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <p><i>{{name}}</i></p>
+                    </mat-panel-title>                        
+                </mat-expansion-panel-header>
+                <button mat-button routerLink="/profile">Profile</button>
+                <button mat-button (click)="signOut()">Sign Out</button>                    
+            </mat-expansion-panel>
+        </div>            
     </mat-toolbar>
 </nav>

@@ -23,7 +23,7 @@ export class CategoryService {
 
         return this.http.get(URL)
             .toPromise()
-            .then(response => response.json() as Course[])
+            .then(response => response as Course[])
             .catch(handleError);
     }
 
@@ -32,7 +32,7 @@ export class CategoryService {
 
         return this.http.get(URL)
             .toPromise()
-            .then(response => response.json() as Course[])
+            .then(response => response as Course[])
             .catch(handleError);
     }
 }

@@ -1,34 +1,34 @@
-<h2 md-dialog-title>{{action}}</h2>
-<md-error *ngIf="!authService.validData() && clicked"><strong>Incorrect</strong> {{authService.getError()}}</md-error>
-<md-dialog-actions align='center'>
+<h2 mat-dialog-title>{{action}}</h2>
+<mat-error *ngIf="!authService.validData() && clicked"><strong>Incorrect</strong> {{authService.getError()}}</mat-error>
+<mat-dialog-actions align='center'>
     <form class="main-form" [formGroup]="myForm">
-        <md-dialog-content layout="column">
-            <md-form-field class="full-width">
-                <input name="login" mdInput placeholder="Login" [formControl]="myForm.controls['login']">
-                <md-error *ngIf="myForm.controls['login'].hasError('required')">
+        <mat-dialog-content layout="column">
+            <mat-form-field class="full-width">
+                <input name="login" matInput placeholder="Login" [formControl]="myForm.controls['login']">
+                <mat-error *ngIf="myForm.controls['login'].hasError('required')">
                     Login is <strong>required</strong>
-                </md-error>
-                <md-error *ngIf="myForm.controls['login'].hasError('maxlength')">
+                </mat-error>
+                <mat-error *ngIf="myForm.controls['login'].hasError('maxlength')">
                     Login <strong>must</strong> be less then 18 symbols
-                </md-error>
-            </md-form-field>
-        </md-dialog-content>
-        <md-dialog-content layout="column">
-            <md-form-field class="full-width">
-                <input name="password" mdInput placeholder="Password" type="password" [formControl]="myForm.controls['password']">
-                <md-error *ngIf="myForm.controls['password'].hasError('required')">
+                </mat-error>
+            </mat-form-field>
+        </mat-dialog-content>
+        <mat-dialog-content layout="column">
+            <mat-form-field class="full-width">
+                <input name="password" matInput placeholder="Password" type="password" [formControl]="myForm.controls['password']">
+                <mat-error *ngIf="myForm.controls['password'].hasError('required')">
                     Password is <strong>required</strong>
-                </md-error>
-                <md-error *ngIf="myForm.controls['password'].hasError('minlength')">
+                </mat-error>
+                <mat-error *ngIf="myForm.controls['password'].hasError('minlength')">
                     Password length <strong>must</strong> be at least 6
-                </md-error>
-            </md-form-field>
-        </md-dialog-content>
+                </mat-error>
+            </mat-form-field>
+        </mat-dialog-content>
     </form>
 
-    <md-dialog-content layout="column">
-        <button md-button md-dialog-close>Cancel</button>
-        <button md-button type="submit" [disabled]="!myForm.valid" md-raised-button (click)="LogIn(myForm.value)">Sign In</button>
-        <button md-button (click)="Register()">Sign Up</button>
-    </md-dialog-content>
-</md-dialog-actions>
+    <mat-dialog-content layout="column">
+        <button mat-button mat-dialog-close>Cancel</button>
+        <button mat-button type="submit" [disabled]="!myForm.valid" mat-raised-button (click)="LogIn(myForm.value)">Sign In</button>
+        <button mat-button (click)="Register()">Sign Up</button>
+    </mat-dialog-content>
+</mat-dialog-actions>
