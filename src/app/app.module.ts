@@ -3,18 +3,19 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
 import {
-    MdButtonModule, MdCardModule,
-    MdMenuModule, MdToolbarModule,
-    MdIconModule, MdListModule,
-    MdButtonToggleModule, MdSidenavModule,
-    MdExpansionModule, MdLineModule,
-    MdGridListModule, MdTabsModule, MdDialogModule,
-    MdInputModule, MdPaginatorModule,
-    MdChipsModule
+    MatButtonModule, MatCardModule,
+    MatMenuModule, MatToolbarModule,
+    MatIconModule, MatListModule,
+    MatButtonToggleModule, MatSidenavModule,
+    MatExpansionModule, MatLineModule,
+    MatGridListModule, MatTabsModule, MatDialogModule,
+    MatInputModule, MatPaginatorModule,
+    MatChipsModule
 } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { AppComponent } from './app.component';
+import { NavigationComponent } from './navigation/navigation.component';
 import { HomeComponent } from './home/home.component';
 import { CatalogComponent } from './catalog/catalog.component';
 import { CoursesComponent } from './catalog/courses/courses.component';
@@ -28,8 +29,7 @@ import { UserDecksComponent } from './users/customer/user-decks.component';
 import { StatisticsComponent } from './users/customer/statistics.component';
 import { LoginComponent } from './auth/components/login.component';
 import { CardsComponent } from './catalog/cards/cards.component';
-import { DeckDetailsComponent } from './catalog/decks/deck-details/deck-details.component';
-import { PageNotFoundComponent } from './not-found-component';
+import { PageNotFoundComponent } from './not-found/not-found.component';
 import { QuizComponent } from './quiz/quiz.component';
 import { RegisterComponent } from './auth/components/register.component';
 
@@ -40,11 +40,9 @@ import { UserService } from './common/services/user.service';
 import { QuizService } from './common/services/quiz.service';
 
 import { CatalogModule } from './catalog/catalog.module';
-import { CoursesModule } from './catalog/courses/courses.module';
-import { DecksModule } from './catalog/decks/decks.module';
 import { AppRoutingModule } from './app-routing.module';
 import { QuizModule } from './quiz/quiz.module';
-import { MessageService } from './common/services/message.service';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
     declarations: [
@@ -60,12 +58,13 @@ import { MessageService } from './common/services/message.service';
         StatisticsComponent,
         LoginComponent,
         CardsComponent,
-        DeckDetailsComponent,
         AppComponent,
         HomeComponent,
         PageNotFoundComponent,
         QuizComponent,
-        RegisterComponent
+        RegisterComponent,
+        NavigationComponent,
+        FooterComponent
     ],
     entryComponents: [
         LoginComponent,
@@ -76,30 +75,28 @@ import { MessageService } from './common/services/message.service';
         BrowserAnimationsModule,
         HttpModule,
 
-        MdButtonModule,
-        MdCardModule,
-        MdMenuModule,
-        MdToolbarModule,
-        MdIconModule,
-        MdListModule,
-        MdButtonToggleModule,
-        MdDialogModule,
-        MdSidenavModule,
-        MdExpansionModule,
-        MdInputModule,
-        MdLineModule,
-        MdGridListModule,
-        MdTabsModule,
-        MdPaginatorModule,
-        MdTabsModule,
-        MdChipsModule,
+        MatButtonModule,
+        MatCardModule,
+        MatMenuModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatListModule,
+        MatButtonToggleModule,
+        MatDialogModule,
+        MatSidenavModule,
+        MatExpansionModule,
+        MatInputModule,
+        MatLineModule,
+        MatGridListModule,
+        MatTabsModule,
+        MatPaginatorModule,
+        MatTabsModule,
+        MatChipsModule,
 
         FormsModule,
         ReactiveFormsModule,
 
         CatalogModule,
-        CoursesModule,
-        DecksModule,
         QuizModule,
         AppRoutingModule
     ],
@@ -108,8 +105,7 @@ import { MessageService } from './common/services/message.service';
         CourseService,
         DeckService,
         UserService,
-        QuizService,
-        MessageService
+        QuizService
     ],
     bootstrap: [AppComponent]
 })

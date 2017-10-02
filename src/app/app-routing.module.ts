@@ -5,9 +5,8 @@ import { HomeComponent } from './home/home.component';
 import { CoursesComponent } from './catalog/courses/courses.component';
 import { DecksComponent } from './catalog/decks/decks.component';
 import { CourseDetailsComponent } from './catalog/courses/course-details/course-details.component';
-import { DeckDetailsComponent } from './catalog/decks/deck-details/deck-details.component';
 import { ProfileComponent } from './users/customer/profile.component';
-import { PageNotFoundComponent } from './not-found-component';
+import { PageNotFoundComponent } from './not-found/not-found.component';
 import { QuizComponent } from './quiz/quiz.component';
 
 const routes: Routes = [

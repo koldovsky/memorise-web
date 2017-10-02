@@ -1,3 +1,7 @@
+mat-card-header {
+    margin: -2vh 0;
+}
+
 .flex-container {
     display: flex;
     flex-direction: row;
@@ -10,24 +14,18 @@
 
 .flex-item {
     order: 1;
-    margin: 1vh 2vw;
+    margin: 2vh 1vw;
 }
 
-.flex-item mat-card-header {
-    max-width: 80px;
-}
-
-.flex-item:hover {
-    overflow: visible;
-    z-index: 100;
-}
-
-.flex-item mat-card-actions {
+.description {
     display: none;
-    overflow: hidden;
+    flex-wrap: wrap;
 }
 
-.flex-item:hover mat-card-actions {
+.flex-item:hover .description {
     display: block;
-    z-index: 100;
+}
+
+.show-description:hover .flex-item {
+    z-index: 5;
 }

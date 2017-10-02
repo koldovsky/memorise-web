@@ -1,50 +1,50 @@
-<h2 md-dialog-title>{{action}}</h2>
-<md-dialog-actions align='center'>
+<h2 mat-dialog-title>{{action}}</h2>
+<mat-dialog-actions align='center'>
     <form class="main-form" [formGroup]="myForm">
-        <md-dialog-content layout="column">
-            <md-form-field class="full-width">
-                <input name="login" mdInput placeholder="Login" [formControl]="login">
-                <md-error *ngIf="login.hasError('required')">
+        <mat-dialog-content layout="column">
+            <mat-form-field class="full-width">
+                <input name="login" matInput placeholder="Login" [formControl]="login">
+                <mat-error *ngIf="login.hasError('required')">
                         Login is <strong>required</strong>
-                    </md-error>
-            </md-form-field>
-        </md-dialog-content>
-        <md-dialog-content layout="column">
-            <md-form-field class="full-width">
-                <input name="email" mdInput placeholder="Email" [formControl]="email">
-                <md-error *ngIf="email.hasError('pattern')">
+                    </mat-error>
+            </mat-form-field>
+        </mat-dialog-content>
+        <mat-dialog-content layout="column">
+            <mat-form-field class="full-width">
+                <input name="email" matInput placeholder="Email" [formControl]="email">
+                <mat-error *ngIf="email.hasError('pattern')">
                         Please enter a valid email address
-                    </md-error>
-                <md-error *ngIf="email.hasError('required')">
+                    </mat-error>
+                <mat-error *ngIf="email.hasError('required')">
                         Email is <strong>required</strong>
-                    </md-error>
-            </md-form-field>
-        </md-dialog-content>
-        <md-dialog-content layout="column">
-            <md-form-field class="full-width">
-                <input name="password" mdInput placeholder="Password" type="password" [formControl]="password">
-                <md-error *ngIf="password.hasError('minLength')">
+                    </mat-error>
+            </mat-form-field>
+        </mat-dialog-content>
+        <mat-dialog-content layout="column">
+            <mat-form-field class="full-width">
+                <input name="password" matInput placeholder="Password" type="password" [formControl]="password">
+                <mat-error *ngIf="password.hasError('minLength')">
                         Please enter a valid password
-                    </md-error>
-                    <md-error *ngIf="password.hasError('required')">
+                    </mat-error>
+                    <mat-error *ngIf="password.hasError('required')">
                         Password is <strong>required</strong>
-                    </md-error>
-            </md-form-field>
-        </md-dialog-content>
-        <!-- <md-dialog-content layout="column">
-            <md-form-field class="full-width">
-                <input name="password1" mdInput placeholder="Confirm Password" type="password" [formControl]="password1">
-                <md-error *ngIf="password.hasError('minLength')">
+                    </mat-error>
+            </mat-form-field>
+        </mat-dialog-content>
+        <!-- <mat-dialog-content layout="column">
+            <mat-form-field class="full-width">
+                <input name="password1" matInput placeholder="Confirm Password" type="password" [formControl]="password1">
+                <mat-error *ngIf="password.hasError('minLength')">
                         Please enter a valid password
-                    </md-error>
-                    <md-error *ngIf="password.hasError('required')">
+                    </mat-error>
+                    <mat-error *ngIf="password.hasError('required')">
                         Password is <strong>required</strong>
-                    </md-error>
-            </md-form-field>
-        </md-dialog-content> -->
+                    </mat-error>
+            </mat-form-field>
+        </mat-dialog-content> -->
     </form>
-    <md-dialog-content layout="column">
-        <button md-button md-dialog-close>Cancel</button>
-        <button md-button [md-dialog-close]="true" (click)="Register()">Sign Up</button>
-    </md-dialog-content>
-</md-dialog-actions>
+    <mat-dialog-content layout="column">
+        <button mat-button mat-dialog-close>Cancel</button>
+        <button mat-button [mat-dialog-close]="true" (click)="Register()">Sign Up</button>
+    </mat-dialog-content>
+</mat-dialog-actions>

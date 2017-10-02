@@ -1,47 +1,52 @@
 <div *ngIf="course">
-    <md-card>
-        <md-card-header>
+    <mat-card id="course">
+        <mat-card-header>
             <span>                        
-                <img md-card-sm-image src="../assets/images/placeholder-thumb.jpg" />
+                <img src="../assets/images/placeholder-thumb.jpg" />
             </span>
-            <span>
-                <md-card-title>
+            <span class="description">
+                <mat-card-title>
                     <h1>{{course.Name}}</h1>
-                </md-card-title>
-                <md-card-subtitle>{{course.Price ? course.Price : 'FREE'}}</md-card-subtitle>
+                </mat-card-title>
+                <mat-card-subtitle>{{course.Price ? course.Price : 'FREE'}}</mat-card-subtitle>
+                <mat-card-subtitle>
+                    {{course.Description}}
+                </mat-card-subtitle>
             </span>
-        </md-card-header>
+        </mat-card-header>
 
-        <md-card-content>
-            <p>{{course.Description}}</p>
+        <mat-card-content>
 
-            <md-divider></md-divider>
+            <mat-divider></mat-divider>
 
             <h2>Decks :</h2>
-            <md-grid-list cols="4">
-                <md-grid-tile *ngFor="let deck of course.Decks">
-                    <md-card>
-                        <md-card-header>
-                            <md-card-title><a [routerLink]="['/courses', course.Linking, deck.Linking]">{{deck.Name}}</a></md-card-title>
-                            <md-card-subtitle>{{deck.Description}}</md-card-subtitle>
-                        </md-card-header>
+            <div class="flex-container">
+                <div class="flex-item" *ngFor="let deck of course.Decks">
+                    <mat-card>
+                        <mat-card-header>
+                            <mat-card-title><a [routerLink]="['/courses', course.Linking, deck.Linking]">{{deck.Name}}</a></mat-card-title>
+                            <mat-card-subtitle>{{deck.Description}}</mat-card-subtitle>
+                        </mat-card-header>
 
-                        <md-card-content>
-                            <img md-card-sm-image src="../assets/images/placeholder-thumb.jpg">
-                        </md-card-content>
-                    </md-card>
-                </md-grid-tile>
-            </md-grid-list>
-
-            <div align="center">
-                <button md-raised-button>Subscribe</button><br>
-                <a md-raised-button color="primary" routerLink="/quiz">Try it now</a>
+                        <mat-card-content>
+                            <img mat-card-sm-image src="../assets/images/placeholder-thumb.jpg">
+                        </mat-card-content>
+                    </mat-card>
+                </div>
             </div>
-            <div align="center">
-                <button md-raised-button class="btnBack" (click)="goBack()">Back</button>
-            </div>
-        </md-card-content>
-    </md-card>
+        </mat-card-content>
+        <mat-card-actions align="center">
+            <button mat-raised-button (click)="goBack()">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+            <a mat-raised-button color="primary" [routerLink]="['/quiz']">
+                Try it now
+            </a>
+            <button mat-raised-button>
+                Subscribe
+            </button>
+        </mat-card-actions>
+    </mat-card>
 </div>
 
 <!-- <div>
