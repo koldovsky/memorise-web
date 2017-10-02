@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
 
 export class HomeComponent {
   title = 'Memo Rise';
-  description = 'Some description...';
+  description = 'Here you can improve your knowlage and train your memory by using spaced repetition lerning. Good luck!';
 }

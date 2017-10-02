@@ -1,3 +1,7 @@
+mat-card-header {
+    margin: -2vh 0;
+}
+
 .flex-container {
     display: flex;
     flex-direction: row;

@@ -2,12 +2,6 @@
     margin-bottom: 5px;
 }
 
-footer {
-    background-color: gainsboro;
-    padding: 1vh 1vw;
-    bottom: 0;
-}
-
 mat-sidenav {
     min-width: 10%;
 }
