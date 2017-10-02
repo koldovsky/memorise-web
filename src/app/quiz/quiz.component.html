@@ -1,25 +1,55 @@
-<div align="center">
-        <h1>
-                Welcome to Quiz!
-        </h1>
-        <mat-grid-list cols="6">
-                <mat-grid-tile *ngFor="let card of cards">
-                        <mat-card>
-                                <mat-card-header>
-                                        <mat-card-title>{{card.Question}}</mat-card-title>
-                                </mat-card-header>
-                                <mat-card-content>
-                                        <img mat-card-sm-image src="../assets/images/placeholder-thumb.jpg">
-                                        <mat-card-title *ngFor="let answer of card.Answers">
-                                                {{answer.Text}}
+<div class="flex-container">        
+        <mat-grid-list cols="3" *ngIf='cardCount' rowHeight="700px"><p style="color: white">__________________________________________________________________________________________________________________________________________________________________________</p>                                                                                                                                                                       
+                <mat-grid-tile>
+                        <div class="noSelect" id="leftHeap" hidden="hidden" (click)='counterMinus(); heapCtrl(); setChecked(); cleanColor();'>
+                                <h3 class="textCenter">
+                                        {{countPassedQuistions()}} {{passedQuistionOrQuistions()}} passed
+                                </h3>
+                                <img src="../assets/images/{{getImgPreNamePassed()}}cardBackMin.png" alt="card back">
+                        </div>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                        <div class="width95">
+                                <p class="noSelect">
+                                        Question {{cards[counter].Id}} / {{cards.length}}
+                                </p>
+                                <mat-card>
+                                        <mat-card-title id="cardTitle{{cards[counter].Id}}">
+                                                {{cards[counter].Question}}
+                                                <button mat-fab (click)="finishQuiz()" id="btnFinish">
+                                                Finish
+                                        </button>
                                         </mat-card-title>
-                                </mat-card-content>
-                        </mat-card>
+                                        <hr>
+                                        <mat-card-content *ngFor='let answer of cards[counter].Answers'>
+                                                <label id='lable{{answer.Id}}'>
+                                                <input  type="checkbox" 
+                                                        id='checkbox{{answer.Id}}'
+                                                        (change)='changeAnswerCheck(answer)'
+                                                />
+                                                {{answer.Text}}
+                                        </label>
+                                        </mat-card-content>
+                                        <mat-card-actions>
+                                                <button mat-raised-button (click)="counterMinus(); heapCtrl(); setChecked(); cleanColor();">Previous question</button>
+                                                <button mat-raised-button (click)="counterPlus(); heapCtrl(); setChecked(); cleanColor();">Next question</button>
+                                                <button mat-fab (click)="checkQuestion()" id="btnCheck">Check</button>
+                                        </mat-card-actions>
+                                </mat-card>
+                        </div>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                        <div class="noselect" id="RightHeap" (click)="counterPlus(); heapCtrl(); setChecked(); cleanColor();">
+                                <h3 class="textCenter">
+                                        {{countLeftQuistions()}} {{leftQuistionOrQuistions()}} left
+                                </h3>
+                                <img src="../assets/images/{{getImgPreNameLeft()}}cardBackMin.png" alt="card back">
+                        </div>
                 </mat-grid-tile>
         </mat-grid-list>
-        <!-- <mat-paginator [length]="10" [pageSize]="1" [pageSizeOptions]="[1]" (page)="pageEvent = $event">
-        </mat-paginator>
-        <div *ngIf="pageEvent">
-                
-        </div> -->
+
+        <div *ngIf='!cardCount'>
+                <h1>Sorry, there are no cards in the deck...</h1>
+        </div>
+
 </div>

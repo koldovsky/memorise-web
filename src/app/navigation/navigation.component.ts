@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { RegisterComponent } from '../auth/components/register.component';
 import { LoginComponent } from '../auth/components/login.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navigation',
@@ -10,6 +11,8 @@ import { LoginComponent } from '../auth/components/login.component';
 })
 export class NavigationComponent implements OnInit {
 
+  name:string;
+  private router: Router;
   constructor(private dialog: MatDialog) { }
 
   openSignUpDialog(): void {
@@ -23,9 +26,7 @@ export class NavigationComponent implements OnInit {
       }
     });
 
-    // dialogRef.afterClosed().subscribe(result => {
-    //   this.user = JSON.parse(result) as User;
-    // });
+    
   }
 
   openSignInDialog(): void {
@@ -40,12 +41,17 @@ export class NavigationComponent implements OnInit {
       }
     });
 
-    // dialogRef.afterClosed().subscribe(result => {
-    //   this.user = JSON.parse(result) as User;
-    // });
+    dialogRef.afterClosed().subscribe(result => {
+      this.name = result;
+    });
   }
 
-  ngOnInit() {
-  }
 
+
+  signOut(): void {
+    this.name = undefined;
+    localStorage.setItem("token", "empty");
+  }
+  ngOnInit() { }
+  
 }
