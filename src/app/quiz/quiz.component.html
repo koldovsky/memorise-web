@@ -1,5 +1,5 @@
-<div class="flex-container">        
-        <mat-grid-list cols="3" *ngIf='cardCount' rowHeight="450px"><p style="color: white">___________________________________________________________________________________________________________________________</p>                                                                                                                                                                       
+<div >        
+        <mat-grid-list cols="3" *ngIf='cardCount' >
                 <mat-grid-tile>
                         <div class="noSelect" id="leftHeap" hidden="hidden" (click)='counterMinus(); heapCtrl(); setChecked(); cleanColor();'>
                                 <h3 class="textCenter">
@@ -31,8 +31,8 @@
                                         </label>
                                         </mat-card-content>
                                         <mat-card-actions>
-                                                <button mat-raised-button (click)="counterMinus(); heapCtrl(); setChecked(); cleanColor();">Previous question</button>
-                                                <button mat-raised-button (click)="counterPlus(); heapCtrl(); setChecked(); cleanColor();">Next question</button>
+                                                <button mat-raised-button (click)="counterMinus(); heapCtrl(); setChecked(); cleanColor();">Previous</button>
+                                                <button mat-raised-button (click)="counterPlus(); heapCtrl(); setChecked(); cleanColor();">Next</button>
                                                 <button mat-fab (click)="checkQuestion()" id="btnCheck">Check</button>
                                         </mat-card-actions>
                                 </mat-card>

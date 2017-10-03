@@ -36,15 +36,6 @@ hr{
 .mat-card-content{
     width: 80%;
 }
-.flex-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: stretch;
-    margin: 0 10vw;
-    min-height: 75vh;
-    z-index: 11;
-    position: relative;
-    
+:host{
+    width: 100%;
 }
