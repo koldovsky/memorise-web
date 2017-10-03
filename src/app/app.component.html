@@ -1,23 +1,7 @@
-<div>
-    <header>
-        <md-toolbar color="primary">
-            <a md-button routerLink="/">Memo Rise</a>
-            <a md-button routerLink="/courses">Courses</a>
-            <a md-button routerLink="/decks">Decks</a>
+<header>
+    <app-navigation></app-navigation>
+</header>
 
-            <span class="example-fill-remaining-space"></span>
-
-            <button md-button (click)="openSignUpDialog()">Sign Up</button>
-            <button md-button (click)="openSignInDialog()">Sign In</button>
-        </md-toolbar>
-    </header>
-
-    <main>
-        <div>
-            <router-outlet></router-outlet>
-        </div>
-    </main>
-
-    <footer>
-    </footer>
-</div>
+<main>
+    <router-outlet></router-outlet>
+</main>

@@ -1,0 +1,18 @@
+mat-card-header {
+    margin: -2vh 0;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: stretch;
+    margin: 0 10vw;
+    min-height: 75vh;
+}
+
+.flex-item {
+    order: 1;
+    margin: 2vh 1vw;
+}

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -11,13 +11,13 @@ export class DeckService {
     private decksUrl = 'http://localhost:37271/Catalog';
     private decksDetailsUrl = 'http://localhost:37271/DeckDetails';
 
-    constructor(private http: Http) { }
+    constructor(private http: HttpClient) { }
 
     getDecks(): Promise<Deck[]> {
         const url = `${this.decksUrl}/GetDecks`;
          return this.http.get(url)
         .toPromise()
-        .then(response => response.json() as Deck[])
+        .then(response => response as Deck[])
         .catch(handleError);
     }
 
@@ -26,7 +26,7 @@ export class DeckService {
 
         return this.http.get(URL)
             .toPromise()
-            .then(response => response.json() as Deck[])
+            .then(response => response as Deck[])
             .catch(handleError);
     }
     getDeckWithDetails(deckName: string): Promise<Deck> {
@@ -34,7 +34,7 @@ export class DeckService {
 
         return this.http.get(URL)
             .toPromise()
-            .then(response => response.json() as Deck)
+            .then(response => response as Deck)
             .catch(handleError);
     }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -10,7 +10,7 @@ import { handleError } from '../functions/functions';
 export class CardService {
     private CardUrl = 'http://localhost:37271/Quiz';
 
-    constructor(private http: Http) { }
+    constructor(private http: HttpClient) { }
 
     getCards(deckName: string): Promise<Card[]> {
         const URL = `${this.CardUrl}/GetCardsByDeck${deckName}`;
@@ -19,8 +19,8 @@ export class CardService {
             .toPromise()
             .then(response => {
                  console.log(response);
-                console.log(response.json());
-                return response.json() as Card[]; })
+                console.log(response);
+                return response as Card[]; })
             .catch(handleError);
     }
 }

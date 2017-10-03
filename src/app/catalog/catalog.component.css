@@ -1,0 +1,20 @@
+.menu-icon {
+    margin-bottom: 5px;
+}
+
+mat-sidenav {
+    min-width: 10%;
+}
+
+:host {
+    width: 100%;
+    flex-grow: 1;
+}
+
+mat-sidenav mat-button-toggle-group {
+    width: 100%;
+}
+
+#categories {
+    margin-left: 10px;
+}

@@ -6,6 +6,7 @@ export interface Answer extends BaseEntity {
     Text: string;
     IsCorrect?: boolean;
     Card?: Card;
+    Checked?: boolean;
 }
 
 export interface Card extends BaseEntity {
@@ -23,6 +24,7 @@ export interface CardType extends BaseEntity {
 
 export interface Category extends BaseEntity {
     Name: string;
+    Linking: string;
     Courses?: Course[];
     Decks?: Deck[];
 }
@@ -36,6 +38,7 @@ export interface Comment extends BaseEntity {
 
 export interface Course extends BaseEntity {
     Name: string;
+    Linking: string;
     Description: string;
     Price: number;
     Photo?: string;
@@ -46,6 +49,7 @@ export interface Course extends BaseEntity {
 
 export interface Deck extends BaseEntity {
     Name: string;
+    Linking: string;
     Price: number;
     CardsNumber?: number;
     Rating?: number;
@@ -77,6 +81,7 @@ export interface User extends BaseEntity {
     Photo?: string;
     Email?: string;
     IsBlocked?: boolean;
+    grant_type?: string;
 
     Comments?: Comment[];
     Reports?: Report[];
@@ -86,4 +91,10 @@ export interface UserCourse extends BaseEntity {
     Rating: number;
     User: User;
     Course: Course;
+}
+
+export interface Token extends BaseEntity {
+    access_token: string;
+    expires_in: User;
+    token_type: Course;
 }
