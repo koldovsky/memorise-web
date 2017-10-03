@@ -61,7 +61,7 @@ export class QuizComponent implements OnInit {
        this.cards.forEach(card => {
            this.check(card);
        });
-
+       this.quizService.cards = this.cards;
    };
    countPassedQuistions(): number{
        return this.counter;

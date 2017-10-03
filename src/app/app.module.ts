@@ -35,6 +35,7 @@ import { PageNotFoundComponent } from './not-found/not-found.component';
 import { UnauthorizedComponent} from './unauthorized/unauthorized-component';
 import { QuizComponent } from './quiz/quiz.component';
 import { RegisterComponent } from './auth/components/register.component';
+import { QuizResultsComponent } from './quiz/results/quiz-results.component';
 
 import { AuthService } from './common/services/auth.service';
 import { CategoryService } from './common/services/category.service';
@@ -73,7 +74,8 @@ import {ProfileModule} from './auth/user/profile/profile.module';
         RegisterComponent,
         NavigationComponent,
         FooterComponent,
-        ProfileComponent
+        ProfileComponent,
+        QuizResultsComponent
     ],
     entryComponents: [
         LoginComponent,

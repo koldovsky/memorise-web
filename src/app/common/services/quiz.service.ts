@@ -9,6 +9,7 @@ import { handleError } from '../functions/functions';
 @Injectable()
 export class QuizService {
     private QuizUrl = 'http://localhost:37271/Quiz/';
+    cards : Card[];
 
     constructor(private http: HttpClient) { }
 
