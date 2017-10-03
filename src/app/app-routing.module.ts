@@ -9,6 +9,7 @@ import { PageNotFoundComponent } from './not-found/not-found.component';
 import { UnauthorizedComponent} from './unauthorized/unauthorized-component';
 import { QuizComponent } from './quiz/quiz.component';
 import {ProfileComponent} from './auth/user/profile/profile.component';
+import { QuizResultsComponent } from './quiz/results/quiz-results.component';
 
 const routes: Routes = [
     {
@@ -24,6 +25,7 @@ const routes: Routes = [
         path: 'unauthorized',
         component: UnauthorizedComponent
     },
+    
     {
         path: 'profile',
         component: ProfileComponent

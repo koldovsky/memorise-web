@@ -16,7 +16,7 @@
                                 <mat-card>
                                         <mat-card-title id="cardTitle{{cards[counter].Id}}">
                                                 {{cards[counter].Question}}
-                                                <button mat-fab (click)="finishQuiz()" id="btnFinish">
+                                                <button mat-fab (click)="finishQuiz()" id="btnFinish" [routerLink]="['results']">
                                                 Finish
                                         </button>
                                         </mat-card-title>
@@ -47,9 +47,4 @@
                         </div>
                 </mat-grid-tile>
         </mat-grid-list>
-
-        <div *ngIf='!cardCount'>
-                <h1>Sorry, there are no cards in the deck...</h1>
-        </div>
-
 </div>
