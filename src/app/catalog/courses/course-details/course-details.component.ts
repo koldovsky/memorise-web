@@ -7,7 +7,6 @@ import 'rxjs/add/operator/switchMap';
 import { CourseService } from '../../../common/services/course.service';
 import { Course } from '../../../common/models/models';
 
-
 @Component({
     selector: 'app-course-details',
     templateUrl: './course-details.component.html',
@@ -19,14 +18,14 @@ export class CourseDetailsComponent implements OnInit {
         private courseService: CourseService,
         private route: ActivatedRoute,
         private location: Location
-    ) {}
+    ) { }
 
     course: Course;
 
     ngOnInit(): void {
         this.route.paramMap
             .switchMap((params: ParamMap) => this.courseService
-            .getCourse(params.get('name')))
+                .getCourse(params.get('name')))
             .subscribe(course => {
                 this.course = course;
             });

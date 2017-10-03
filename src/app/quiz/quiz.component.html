@@ -1,5 +1,5 @@
-<div >        
-        <mat-grid-list cols="3" *ngIf='cardCount' >
+<div>
+        <mat-grid-list cols="3" *ngIf='cardCount'>
                 <mat-grid-tile>
                         <div class="noSelect" id="leftHeap" hidden="hidden" (click)='counterMinus(); heapCtrl(); setChecked(); cleanColor();'>
                                 <h3 class="textCenter">
@@ -17,18 +17,14 @@
                                         <mat-card-title id="cardTitle{{cards[counter].Id}}">
                                                 {{cards[counter].Question}}
                                                 <button mat-fab (click)="finishQuiz()" id="btnFinish" [routerLink]="['results']">
-                                                Finish
-                                        </button>
+                                                        Finish
+                                                </button>
                                         </mat-card-title>
                                         <hr>
                                         <mat-card-content *ngFor='let answer of cards[counter].Answers'>
                                                 <label id='lable{{answer.Id}}'>
-                                                <input  type="checkbox" 
-                                                        id='checkbox{{answer.Id}}'
-                                                        (change)='changeAnswerCheck(answer)'
-                                                />
-                                                {{answer.Text}}
-                                        </label>
+                                                        <input type="checkbox" id='checkbox{{answer.Id}}' (change)='changeAnswerCheck(answer)' /> {{answer.Text}}
+                                                </label>
                                         </mat-card-content>
                                         <mat-card-actions>
                                                 <button mat-raised-button (click)="counterMinus(); heapCtrl(); setChecked(); cleanColor();">Previous</button>

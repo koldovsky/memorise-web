@@ -15,10 +15,10 @@ export class DeckService {
 
     getDecks(): Promise<Deck[]> {
         const url = `${this.decksUrl}/GetDecks`;
-         return this.http.get(url)
-        .toPromise()
-        .then(response => response as Deck[])
-        .catch(handleError);
+        return this.http.get(url)
+            .toPromise()
+            .then(response => response as Deck[])
+            .catch(handleError);
     }
 
     getDecksByCourseName(courseName: string) {

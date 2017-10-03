@@ -26,7 +26,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
     on: any;
 
     ngOnInit(): void {
-         if (this.messageService.temp) {
+        if (this.messageService.temp) {
             const category = this.messageService.temp as Category;
             this.categoryService.getCoursesByCategory(category.Linking)
                 .then(courses => this.courses = courses);
@@ -34,12 +34,8 @@ export class CoursesComponent implements OnInit, OnDestroy {
             this.courseService.getCourses()
                 .then(courses => this.courses = courses);
         }
-
         // this.courseService.getCourses()
         //     .then(courses => this.courses = courses);
-
-
-
         this.on = this.messageService.getMessage().subscribe(data => {
             if (data) {
                 const category = data as Category;
@@ -60,5 +56,4 @@ export class CoursesComponent implements OnInit, OnDestroy {
             .then(decks => this.courses
                 .find(course => course.Linking === name).Decks = decks);
     }
-        
 }

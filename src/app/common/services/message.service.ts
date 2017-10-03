@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+
 import { Observable } from 'rxjs/RX';
 import { Subject } from 'rxjs/Subject';
 
@@ -17,4 +18,3 @@ export class MessageService {
         return this.notify$.asObservable();
     }
 }
-

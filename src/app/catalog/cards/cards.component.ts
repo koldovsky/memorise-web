@@ -15,5 +15,5 @@ export class CardsComponent implements OnInit {
     ngOnInit(): void {
         this.cardService.getCards(name)
             .then(cards => this.cards = cards);
-        }
+    }
 }

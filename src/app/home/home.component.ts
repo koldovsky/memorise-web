@@ -1,6 +1,6 @@
 import { Component, OnInit  } from '@angular/core';
-import { MessageService } from '../common/services/message.service';
 
+import { MessageService } from '../common/services/message.service';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +10,8 @@ import { MessageService } from '../common/services/message.service';
 
 export class HomeComponent implements OnInit {
   title = 'Memo Rise';
-  description = 'Here you can improve your knowlage and train your memory by using spaced repetition lerning. Good luck!';
+  description = `Here you can improve your knowledge and train your
+              memory by using spaced repetition learning. Good luck!`;
 
   constructor(
     private messageService: MessageService
