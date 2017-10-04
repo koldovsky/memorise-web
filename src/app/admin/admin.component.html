@@ -1,0 +1,21 @@
+<h1>Administration Panel</h1>
+<div>
+    <div>
+        <button mat-raised-button [routerLink]="['/admin/courses']">Courses</button>
+        <button mat-raised-button [routerLink]="['/admin/decks']">Decks</button>
+    </div>
+    <!-- <div class="container" *ngFor="let course of courses">
+        <mat-table #table [dataSourse]="dataSource">
+            <ng-container matColumnDef="position">
+                <mat-header-cell *mdHeaderCellDef> ID </mat-header-cell>
+                <mat-cell *matCellDef = "let element">{{element.position}}</mat-cell>
+            </ng-container>
+            <ng-container mdColumnDef="name">
+                <md-header-cell *mdHeaderCellDef> Name </md-header-cell>
+                <md-cell *mdCellDef="let element"> {{element.Name}} </md-cell>
+              </ng-container>
+        </mat-table>
+    </div> -->
+</div>
+
+<router-outlet></router-outlet>
