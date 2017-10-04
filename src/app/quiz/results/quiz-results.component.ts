@@ -21,10 +21,10 @@ export class QuizResultsComponent implements OnInit {
   checkAnswer(answer: Answer): string{
      let result = answer.Text;
      if(answer.Checked && answer.IsCorrect){
-         result += ", it is right";
+         result += ", IS RIGHT";
          return result;
      }else if(answer.Checked && !answer.IsCorrect){
-         result += ", it is uncorrect";
+         result += ", IS WRONG";
          return result;
      }
      return "";
