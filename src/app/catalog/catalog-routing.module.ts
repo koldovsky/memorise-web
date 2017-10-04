@@ -18,12 +18,12 @@ const route: Routes = [
                     {
                         path: 'decks',
                         component: DecksComponent
-                    },
-                    {
-                        path: 'courses/:name',
-                        component: CourseDetailsComponent
                     }
                 ]
+    },
+    {
+        path: 'catalog/courses/:name',
+        component: CourseDetailsComponent
     }
 ];
 
