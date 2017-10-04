@@ -4,7 +4,7 @@
             <img src="./assets/images/logo-white.ico"> Memo Rise</a>
 
         <span class="fill-remaining-space"></span>
-        <a mat-button routerLink="/admin" *ngIf="auth.isAuthorized">Admin</a>
+        <a mat-button routerLink="/moderator" *ngIf="auth.isAuthorized">Moderator</a>
         <a mat-button routerLink="/catalog/courses">Courses</a>
         <a mat-button routerLink="/catalog/decks">Decks</a>
         <!-- <button mat-button (click)="openSignUpDialog()" *ngIf="!name">Sign Up</button> -->
