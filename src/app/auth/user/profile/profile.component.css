@@ -1,6 +1,33 @@
-.example-header-image {
-    background-image: url('../../../../assets/images/placeholder-thumb.jpg');
-    background-size: cover;
-    width: 500px;
-    height: 800px;
-  }
+.header-image {
+  background-image: url('../../../../assets/images/placeholder-thumb.jpg');
+  background-size: cover;
+  width: 200px;
+  height: 200px;
+}
+:host{
+  width: 100%;    
+}
+mat-toolbar{
+  background-color: #757de8;
+}
+mat-card{
+  background-color: #C5CAE9;
+  width: 400px;
+  margin: 0 auto; 
+  margin-top: -70px;   
+}
+.mat-card-title{    
+  font-size: 35px;  
+}
+mat-form-field{
+  width: 100%;
+}
+.example-headers-align .mat-expansion-panel-header-title, 
+.example-headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}

@@ -12,6 +12,8 @@ import {
     MatInputModule, MatPaginatorModule,
     MatChipsModule
 } from '@angular/material';
+import {MatDatepickerModule, MatNativeDateModule} from '@angular/material';
+
 import {FormsModule, FormBuilder, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -73,7 +75,7 @@ import {ProfileModule} from './auth/user/profile/profile.module';
         RegisterComponent,
         NavigationComponent,
         FooterComponent,
-        ProfileComponent
+        ProfileComponent        
     ],
     entryComponents: [
         LoginComponent,
@@ -112,7 +114,9 @@ import {ProfileModule} from './auth/user/profile/profile.module';
         MatTabsModule,
         FormsModule,
         ReactiveFormsModule,
-        ProfileModule
+        ProfileModule,
+        MatDatepickerModule,
+        MatNativeDateModule
     ],
     providers: [
         AuthService,
