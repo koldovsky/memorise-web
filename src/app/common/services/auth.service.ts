@@ -10,6 +10,7 @@ import { handleError } from '../functions/functions';
 @Injectable()
 export class AuthService {
     errorMessage = "";
+    isAuthorized: boolean;
 
     private commonUrl = 'http://localhost:37271/';
     constructor(
@@ -43,7 +44,7 @@ export class AuthService {
                 this.valid = true;
                 //console.log(response);
             })
-            .catch(handleError=>{
+            .catch(handleError => {
                 this.valid = false;
             })
 
@@ -63,5 +64,13 @@ export class AuthService {
     }
     setError(message: string) {
         this.errorMessage = message;
+    }
+    checkIfIsAuthorized(): void {
+        if (this.getToken() === "empty") {
+            this.isAuthorized = false;
+        }
+        else {
+            this.isAuthorized = true;
+        }
     }
 }

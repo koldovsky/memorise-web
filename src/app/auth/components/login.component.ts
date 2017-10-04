@@ -47,6 +47,7 @@ export class LoginComponent implements OnInit {
             .then(() => {
                 if (this.authService.validData()) {
                     this.dialogRef.close(this.myForm.controls['login'].value);
+                    this.authService.checkIfIsAuthorized();
                 } else {
                     this.myForm.controls.login.setValue('');
                     this.myForm.controls.password.setValue('');
