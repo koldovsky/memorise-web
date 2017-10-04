@@ -36,7 +36,7 @@ import { UnauthorizedComponent } from './unauthorized/unauthorized-component';
 import { QuizComponent } from './quiz/quiz.component';
 import { RegisterComponent } from './auth/components/register.component';
 import { QuizResultsComponent } from './quiz/results/quiz-results.component';
-import { AdminComponent } from './admin/admin.component';
+import { ModeratorComponent } from './moderator/moderator.component';
 
 import { AuthService } from './common/services/auth.service';
 import { CategoryService } from './common/services/category.service';
@@ -52,7 +52,7 @@ import { QuizModule } from './quiz/quiz.module';
 import { FooterComponent } from './footer/footer.component';
 import { MessageService } from './common/services/message.service';
 import { ProfileModule } from './auth/user/profile/profile.module';
-import { AdminModule } from './admin/admin.module';
+import { ModeratorModule } from './moderator/moderator.module';
 
 @NgModule({
     declarations: [
@@ -78,7 +78,7 @@ import { AdminModule } from './admin/admin.module';
         FooterComponent,
         ProfileComponent,
         QuizResultsComponent,
-        AdminComponent
+        ModeratorComponent
     ],
     entryComponents: [
         LoginComponent,
@@ -110,7 +110,7 @@ import { AdminModule } from './admin/admin.module';
 
         FormsModule,
         ReactiveFormsModule,
-        AdminModule,
+        ModeratorModule,
         CatalogModule,
         QuizModule,
         AppRoutingModule,

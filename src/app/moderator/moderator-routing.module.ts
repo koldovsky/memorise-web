@@ -3,12 +3,12 @@ import { NgModule } from '@angular/core';
 
 import { CoursesComponent } from '../catalog/courses/courses.component';
 import { DecksComponent } from '../catalog/decks/decks.component';
-import { AdminComponent } from './admin.component';
+import { ModeratorComponent } from './moderator.component';
 
-const adminRoute: Routes = [
+const moderatorRoute: Routes = [
     {
-        path: 'admin',
-        component: AdminComponent,
+        path: 'moderator',
+        component: ModeratorComponent,
         children: [
             {
                 path: 'courses',
@@ -24,11 +24,11 @@ const adminRoute: Routes = [
 
 @NgModule({
     imports: [
-        RouterModule.forChild(adminRoute)
+        RouterModule.forChild(moderatorRoute)
     ],
     exports: [
         RouterModule
     ]
 })
 
-export class AdminRoutingModule {}
+export class ModeratorRoutingModule {}

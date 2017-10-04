@@ -10,7 +10,7 @@ import { UnauthorizedComponent} from './unauthorized/unauthorized-component';
 import { QuizComponent } from './quiz/quiz.component';
 import {ProfileComponent} from './auth/user/profile/profile.component';
 import { QuizResultsComponent } from './quiz/results/quiz-results.component';
-import { AdminComponent } from './admin/admin.component';
+import { ModeratorComponent } from './moderator/moderator.component';
 
 const routes: Routes = [
     {

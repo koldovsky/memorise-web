@@ -4,12 +4,12 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
 @Component({
-    selector: 'app-admin',
-    templateUrl: './admin.component.html',
-    styleUrls: ['./admin.component.css']
+    selector: 'app-moderator',
+    templateUrl: './moderator.component.html',
+    styleUrls: ['./moderator.component.css']
   })
 
-export class AdminComponent {}
+export class ModeratorComponent {}
 
 // // extends DataSource<any> {
 // //     connect(): Observable<Element[]> {
