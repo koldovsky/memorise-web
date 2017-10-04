@@ -6,7 +6,7 @@ import { Card, Answer } from '../../common/models/models';
 import { QuizComponent } from '../quiz.component';
 
 @Component({
-  selector: 'quiz-results',
+  selector: 'app-quiz-results',
   templateUrl: './quiz-results.component.html',
   styleUrls: ['./quiz-results.component.css']
 })
@@ -23,10 +23,10 @@ export class QuizResultsComponent implements OnInit {
 
   checkAnswer(answer: Answer): string {
     let result = answer.Text;
-    if (answer.Checked && answer.IsCorrect) {
+    if (answer.IsChecked && answer.IsCorrect) {
       result += ', it is right';
       return result;
-    } else if (answer.Checked && !answer.IsCorrect) {
+    } else if (answer.IsChecked && !answer.IsCorrect) {
       result += ', it is uncorrect';
       return result;
     }

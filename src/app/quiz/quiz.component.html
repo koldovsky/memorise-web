@@ -1,46 +1,62 @@
-<div>
-        <mat-grid-list cols="3" *ngIf='cardCount'>
-                <mat-grid-tile>
-                        <div class="noSelect" id="leftHeap" hidden="hidden" (click)='counterMinus(); heapCtrl(); setChecked(); cleanColor();'>
-                                <h3 class="textCenter">
-                                        {{countPassedQuistions()}} {{passedQuistionOrQuistions()}} passed
-                                </h3>
-                                <img src="../assets/images/{{getImgPreNamePassed()}}cardBackMin.png" alt="card back">
-                        </div>
-                </mat-grid-tile>
-                <mat-grid-tile>
-                        <div class="width95">
-                                <p class="noSelect">
-                                        Question {{cards[counter].Id}} / {{cards.length}}
-                                </p>
-                                <mat-card>
-                                        <mat-card-title id="cardTitle{{cards[counter].Id}}">
-                                                {{cards[counter].Question}}
-                                                <button mat-fab (click)="finishQuiz()" id="btnFinish" [routerLink]="['results']">
-                                                        Finish
-                                                </button>
-                                        </mat-card-title>
-                                        <hr>
-                                        <mat-card-content *ngFor='let answer of cards[counter].Answers'>
-                                                <label id='lable{{answer.Id}}'>
-                                                        <input type="checkbox" id='checkbox{{answer.Id}}' (change)='changeAnswerCheck(answer)' /> {{answer.Text}}
-                                                </label>
-                                        </mat-card-content>
-                                        <mat-card-actions>
-                                                <button mat-raised-button (click)="counterMinus(); heapCtrl(); setChecked(); cleanColor();">Previous</button>
-                                                <button mat-raised-button (click)="counterPlus(); heapCtrl(); setChecked(); cleanColor();">Next</button>
-                                                <button mat-fab (click)="checkQuestion()" id="btnCheck">Check</button>
-                                        </mat-card-actions>
-                                </mat-card>
-                        </div>
-                </mat-grid-tile>
-                <mat-grid-tile>
-                        <div class="noselect" id="RightHeap" (click)="counterPlus(); heapCtrl(); setChecked(); cleanColor();">
-                                <h3 class="textCenter">
-                                        {{countLeftQuistions()}} {{leftQuistionOrQuistions()}} left
-                                </h3>
-                                <img src="../assets/images/{{getImgPreNameLeft()}}cardBackMin.png" alt="card back">
-                        </div>
-                </mat-grid-tile>
-        </mat-grid-list>
+<div class="flex-container" *ngIf="cards">
+    <div class="flex-item">
+        <div class="no-select" id="leftHeap" hidden="hidden" (click)='counterMinus(); heapCtrl(); saveAnswer(); cleanColor();'>
+            <h3 class="textCenter">
+                {{countPassedQuestions()}} {{passedQuestionOrQuestions()}} passed
+            </h3>
+            <img src="../assets/images/{{getImgPreNamePassed()}}cardBackMin.png" alt="card back">
+        </div>
+    </div>
+    <div class="flex-item" id="card">
+        <p class="no-select">
+            Question {{cards[counter].Id}} / {{cards.length}}
+        </p>
+        <div [ngSwitch]="cards[counter].CardType.Name">
+            <div *ngSwitchCase="'One answer'">
+                <mat-card>
+                    <mat-card-title id="cardTitle{{cards[counter].Id}}">
+                        {{cards[counter].Question}}
+                        <button mat-mini-fab (click)="checkQuestion()" id="check-button">Check</button>
+                    </mat-card-title>
+                    <mat-card-content *ngFor="let answer of cards[counter].Answers">
+                        <label id="answer{{answer.Id}}">
+                            <input type="radio" name="radio"(change)="changeAnswerSelect(answer)" /> {{answer.Text}}
+                        </label>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+            <div *ngSwitchCase="'Few answers'">
+                <mat-card>
+                    <mat-card-title id="cardTitle{{cards[counter].Id}}">
+                        {{cards[counter].Question}}
+                        <button mat-mini-fab (click)="checkQuestion()" id="check-button">Check</button>
+                    </mat-card-title>
+                    <mat-card-content *ngFor="let answer of cards[counter].Answers">
+                        <label id="answer{{answer.Id}}">
+                <input type="checkbox" id="checkbox{{answer.Id}}" (change)="changeAnswerCheck(answer)" /> {{answer.Text}}
+                </label>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+        <div class="text-center" id="nav-buttons">
+            <button *ngIf="counter > 0" mat-raised-button (click)="counterMinus(); heapCtrl(); saveAnswer(); cleanColor();">
+                Previous
+            </button>
+            <button *ngIf="counter < cardCount-1" mat-raised-button (click)="counterPlus(); heapCtrl(); saveAnswer(); cleanColor();">
+                Next
+            </button>
+            <button *ngIf="counter === cardCount-1" mat-raised-button (click)="finishQuiz()" id="btnFinish" routerLink="results">
+                Finish
+            </button>
+        </div>
+    </div>
+    <div class="flex-item">
+        <div class="no-select" id="RightHeap" (click)="counterPlus(); heapCtrl(); saveAnswer(); cleanColor();">
+            <h3 class="text-center">
+                {{countLeftQuestions()}} {{leftQuestionOrQuestions()}} left
+            </h3>
+            <img src="../assets/images/{{getImgPreNameLeft()}}cardBackMin.png" alt="card back">
+        </div>
+    </div>
 </div>
