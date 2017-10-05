@@ -4,7 +4,7 @@
         <button mat-raised-button [routerLink]="['/moderator/courses']">Courses</button>
         <button mat-raised-button [routerLink]="['/moderator/decks']">Decks</button>
     </div>
-    <button mat-button (click)="openCreateNewCourseDialog()">Create new course</button>
+    <!-- <button mat-button (click)="openCreateNewCourseDialog()">Create new course</button> -->
 
     <div class="container">
         <mat-table #table [dataSource]="dataSource">
@@ -16,13 +16,13 @@
             <ng-container matColumnDef="Name">
                 <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
                 <mat-cell *matCellDef="let course"> {{course.Name}} </mat-cell>
-            </ng-container>
+            </ng-container>            
             <ng-container matColumnDef="Description">
                 <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
-                <mat-cell *matCellDef="let course">{{course.Description}}</mat-cell>
+                <mat-cell *matCellDef = "let course">{{course.Description}}</mat-cell>
             </ng-container>
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-
+        </mat-table>
     </div>
 </div>
