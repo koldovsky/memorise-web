@@ -7,6 +7,7 @@ import { QuizService } from '../common/services/quiz.service';
 @NgModule({
     imports: [
         QuizRoutingModule
-    ]
+    ],
+    declarations: []
 })
 export class QuizModule { }

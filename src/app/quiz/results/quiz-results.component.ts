@@ -6,7 +6,7 @@ import { Card, Answer } from '../../common/models/models';
 import { QuizComponent } from '../quiz.component';
 
 @Component({
-  selector: 'quiz-results',
+  selector: 'app-quiz-results',
   templateUrl: './quiz-results.component.html',
   styleUrls: ['./quiz-results.component.css']
 })

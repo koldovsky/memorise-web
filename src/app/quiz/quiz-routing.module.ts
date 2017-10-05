@@ -6,13 +6,21 @@ import { QuizResultsComponent } from './results/quiz-results.component';
 
 const route: Routes = [
     {
-        path: 'quiz/:name',
-        component: QuizComponent
+        path: ':from/:name/quiz',
+        component: QuizComponent,
     },
     {
-        path: 'quiz/:name/results',
+        path: ':from/:name/quiz/results',
         component: QuizResultsComponent
     },
+    // {
+    //     path: 'course/:name/quiz',
+    //     component: QuizComponent,
+    // },
+    // {
+    //     path: 'course/:name/quiz/results',
+    //     component: QuizResultsComponent
+    // }
 ];
 
 @NgModule({

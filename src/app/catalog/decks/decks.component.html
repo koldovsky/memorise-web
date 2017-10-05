@@ -22,10 +22,10 @@
             </mat-card-header>
             <mat-card-actions class="center">
                 <div>
-                    <button mat-raised-button>Subscribe</button>
-                    <a mat-raised-button color="primary" [routerLink]="['/quiz', deck.Linking]">
+                    <a mat-raised-button color="primary" [routerLink]="['/', 'deck', deck.Linking, 'quiz']">
                         Try it now
                     </a>
+                    <button mat-raised-button>Subscribe</button>
                 </div>
             </mat-card-actions>
         </mat-card>
