@@ -17,7 +17,7 @@ export class QuizComponent implements OnInit {
     ) { }
 
     cards: Card[] = null;
-    cardCount;
+    cardsCount;
     counter = 0;
     isLoaded = false;
 
@@ -34,7 +34,7 @@ export class QuizComponent implements OnInit {
             })
             .subscribe(cards => {
                 this.cards = cards;
-                this.cardCount = cards.length;
+                this.cardsCount = cards.length;
                 this.cards.forEach(card => {
                     card.Answers.forEach(answer => {
                         this.answerCheck(answer, false);
@@ -165,9 +165,9 @@ export class QuizComponent implements OnInit {
     }
 
     getImgPreNameLeft(): string {
-        if ((this.cardCount - 2) === this.counter) {
+        if ((this.cardsCount - 2) === this.counter) {
             return '1';
-        } else if ((this.cardCount - 3) === this.counter) {
+        } else if ((this.cardsCount - 3) === this.counter) {
             return '2';
         } else {
             return '3';
