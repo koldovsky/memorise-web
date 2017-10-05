@@ -18,7 +18,7 @@ export class AuthService {
         private http: HttpClient,
         private router: Router
     ) { }
-
+    private valid: boolean = true;
     signIn(user) {
         return this.http.post(this.commonUrl + 'memo/login',
             `username=${user.login}&password=${btoa(user.password)}&grant_type=password`)
