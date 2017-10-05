@@ -1,7 +1,7 @@
 <div *ngIf="course">
     <mat-card id="course">
         <mat-card-header>
-            <span>                        
+            <span>
                 <img src="../assets/images/placeholder-thumb.jpg" />
             </span>
             <span class="description">
@@ -16,15 +16,15 @@
         </mat-card-header>
 
         <mat-card-content>
-
             <mat-divider></mat-divider>
-
             <h2>Decks :</h2>
             <div class="flex-container">
                 <div class="flex-item" *ngFor="let deck of course.Decks">
                     <mat-card>
                         <mat-card-header>
-                            <mat-card-title><a [routerLink]="['/courses', course.Linking, deck.Linking]">{{deck.Name}}</a></mat-card-title>
+                            <mat-card-title>
+                                {{deck.Name}}
+                            </mat-card-title>
                             <mat-card-subtitle>{{deck.Description}}</mat-card-subtitle>
                         </mat-card-header>
 
@@ -39,7 +39,7 @@
             <button mat-raised-button (click)="goBack()">
                 <mat-icon>arrow_back</mat-icon>
             </button>
-            <a mat-raised-button color="primary" [routerLink]="['/quiz']">
+            <a mat-raised-button color="primary" [routerLink]="['/', 'course', course.Linking, 'quiz']">
                 Try it now
             </a>
             <button mat-raised-button>
@@ -48,7 +48,3 @@
         </mat-card-actions>
     </mat-card>
 </div>
-
-<!-- <div>
-    <router-outlet></router-outlet>
-</div> -->

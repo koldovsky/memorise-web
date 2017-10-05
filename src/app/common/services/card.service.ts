@@ -18,9 +18,10 @@ export class CardService {
         return this.http.get(URL)
             .toPromise()
             .then(response => {
-                 console.log(response);
                 console.log(response);
-                return response as Card[]; })
+                console.log(response);
+                return response as Card[];
+            })
             .catch(handleError);
     }
 }

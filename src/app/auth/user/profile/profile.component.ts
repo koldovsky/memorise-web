@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {MatCardModule} from '@angular/material';
+import { MatCardModule } from '@angular/material';
 
 import { UserService } from '../../../common/services/user.service';
 import { User } from '../../../common/models/models';
-
 
 @Component({
     selector: 'app-profile',
@@ -13,13 +12,12 @@ import { User } from '../../../common/models/models';
 
 export class ProfileComponent implements OnInit {
     constructor(private userService: UserService,
-        //private user: User
+        // private user: User
     ) {
-
     }
 
     ngOnInit(): void {
-        //this.userService.getUser(this.user.Id)
-            //.then(user => this.user = user);
-    }    
+        // this.userService.getUser(this.user.Id)
+        // .then(user => this.user = user);
+    }
 }

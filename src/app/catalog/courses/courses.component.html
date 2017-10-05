@@ -19,17 +19,14 @@
                     </mat-card-title-group>
                 </mat-card-header>
                 <mat-card-actions align="center">
-                    <a mat-raised-button color="primary" [routerLink]="['/quiz']">
-                            Try it now
-                        </a>
+                    <a mat-raised-button color="primary" [routerLink]="['/course', course.Linking, 'quiz']">
+                        Try it now
+                    </a>
                     <button mat-raised-button>
-                            Subscribe
-                        </button>
+                        Subscribe
+                    </button>
                 </mat-card-actions>
             </mat-card>
         </a>
     </div>
-    <!-- <div>
-    <router-outlet></router-outlet>
-    </div> -->
 </div>
