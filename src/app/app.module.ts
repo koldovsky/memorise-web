@@ -13,8 +13,10 @@ import {
     MatChipsModule,
     MatTableModule
 } from '@angular/material';
-import { FormsModule, FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {MatDatepickerModule, MatNativeDateModule} from '@angular/material';
+
+import {FormsModule, FormBuilder, ReactiveFormsModule} from '@angular/forms';
+import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
@@ -120,7 +122,9 @@ import { ModeratorModule } from './moderator/moderator.module';
         MatTabsModule,
         FormsModule,
         ReactiveFormsModule,
-        ProfileModule
+        ProfileModule,
+        MatDatepickerModule,
+        MatNativeDateModule
     ],
     providers: [
         AuthService,

@@ -28,7 +28,7 @@ const routes: Routes = [
     },
 
     {
-        path: 'profile',
+        path: 'profile/:name',
         component: ProfileComponent
     },
     {
