@@ -1,13 +1,11 @@
 <div class="flex-container">
     <div class="flex-item" *ngFor="let deck of decks">
         <mat-card>
-            <mat-card-content>
-                <span>
-                    <img mat-card-m-image src="{{deck.Photo}}" *ngIf="deck.Photo; else stub"/>
-                    <ng-template #stub>
-                        <img mat-card-m-image  src="../../../assets/images/placeholder-thumb.jpg"/>
-                    </ng-template>
-                </span>
+            <mat-card-content class="fixed-size center">
+                <img mat-card-m-image src="{{deck.Photo}}" *ngIf="deck.Photo; else stub" />
+                <ng-template #stub>
+                    <img mat-card-m-image src="../../../assets/images/placeholder-thumb.jpg" />
+                </ng-template>
             </mat-card-content>
             <mat-card-header>
                 <mat-card-title-group>
@@ -22,7 +20,7 @@
                     </span>
                 </mat-card-title-group>
             </mat-card-header>
-            <mat-card-actions align="center">
+            <mat-card-actions class="center">
                 <div>
                     <button mat-raised-button>Subscribe</button>
                     <a mat-raised-button color="primary" [routerLink]="['/quiz', deck.Linking]">

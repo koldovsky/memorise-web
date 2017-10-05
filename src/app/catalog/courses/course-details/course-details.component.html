@@ -1,8 +1,8 @@
 <div *ngIf="course">
     <mat-card id="course">
-        <mat-card-header>
+        <mat-card-header class="fixed-size center">
             <span>
-                <img src={{course.Photo}} />
+                <img src={{course.Photo}} alt="Course Photo"/>
             </span>
             <span class="description">
                 <mat-card-title>
@@ -22,14 +22,17 @@
                 <div class="flex-item" *ngFor="let deck of course.Decks">
                     <mat-card>
                         <mat-card-header>
-                            <mat-card-title>
+                            <mat-card-title class="center">
                                 <a [routerLink]="['/courses', course.Linking, deck.Linking]">{{deck.Name}}</a>
                             </mat-card-title>
                             <mat-card-subtitle>{{deck.Description}}</mat-card-subtitle>
                         </mat-card-header>
 
-                        <mat-card-content>
-                            <img mat-card-sm-image src={{deck.Photo}}>
+                        <mat-card-content class="small-fixed-size center">
+                            <img mat-card-sm-image src="{{deck.Photo}}" *ngIf="deck.Photo; else stub" />
+                            <ng-template #stub>
+                                <img mat-card-m-image src="../../../assets/images/placeholder-thumb.jpg" />
+                            </ng-template>
                         </mat-card-content>
                     </mat-card>
                 </div>

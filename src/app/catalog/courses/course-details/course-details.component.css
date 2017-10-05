@@ -26,3 +26,21 @@
 .description {
     margin: -3vh auto auto 2vw;
 }
+
+.fixed-size {
+    width: 20vw;
+    height: 25vh;
+}
+
+.small-fixed-size {
+    width: 10vw;
+    height: 15vh;
+}
+.center {
+    text-align: center;
+}
+
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
