@@ -23,7 +23,7 @@
                     <mat-card>
                         <mat-card-header>
                             <mat-card-title>
-                                <a [routerLink]="['/courses', course.Linking, deck.Linking]">{{deck.Name}}</a>
+                                {{deck.Name}}
                             </mat-card-title>
                             <mat-card-subtitle>{{deck.Description}}</mat-card-subtitle>
                         </mat-card-header>
@@ -39,7 +39,7 @@
             <button mat-raised-button (click)="goBack()">
                 <mat-icon>arrow_back</mat-icon>
             </button>
-            <a mat-raised-button color="primary" [routerLink]="['/quiz']">
+            <a mat-raised-button color="primary" [routerLink]="['/', 'course', course.Linking, '/quiz']">
                 Try it now
             </a>
             <button mat-raised-button>
