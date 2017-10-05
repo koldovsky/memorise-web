@@ -22,7 +22,6 @@ import { CatalogComponent } from './catalog/catalog.component';
 import { CoursesComponent } from './catalog/courses/courses.component';
 import { DecksComponent } from './catalog/decks/decks.component';
 import { CourseDetailsComponent } from './catalog/courses/course-details/course-details.component';
-// import { ProfileComponent } from './users/customer/profile.component';
 import { ProfileComponent } from './auth/user/profile/profile.component';
 import { AccountComponent } from './users/customer/account.component';
 import { SecurityComponent } from './users/customer/security.component';
@@ -37,6 +36,7 @@ import { QuizComponent } from './quiz/quiz.component';
 import { RegisterComponent } from './auth/components/register.component';
 import { QuizResultsComponent } from './quiz/results/quiz-results.component';
 import { ModeratorComponent } from './moderator/moderator.component';
+import { CreateCourseComponent } from './catalog/courses/create-course/create-course.component'
 
 import { AuthService } from './common/services/auth.service';
 import { CategoryService } from './common/services/category.service';
@@ -78,12 +78,14 @@ import { ModeratorModule } from './moderator/moderator.module';
         FooterComponent,
         ProfileComponent,
         QuizResultsComponent,
-        ModeratorComponent
+        ModeratorComponent,
+        CreateCourseComponent
     ],
     entryComponents: [
         LoginComponent,
         RegisterComponent,
-        ProfileComponent
+        ProfileComponent,
+        CreateCourseComponent
     ],
     imports: [
         BrowserModule,
@@ -115,8 +117,6 @@ import { ModeratorModule } from './moderator/moderator.module';
         QuizModule,
         AppRoutingModule,
         MatTabsModule,
-        FormsModule,
-        ReactiveFormsModule,
         ProfileModule
     ],
     providers: [

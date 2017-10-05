@@ -1,0 +1,32 @@
+<h2 mat-dialog-title>{{action}}</h2>
+<mat-dialog-actions align='center'>
+    <form class="main-form" [formGroup]="myForm">
+        <mat-dialog-content layout="column">
+            <mat-form-field class="full-width">
+                <input name="name" matInput placeholder="Name" [formControl]="myForm.controls['name']">
+                <mat-error *ngIf="myForm.controls['name'].hasError('required')">
+                    Name is <strong>required</strong>
+                </mat-error>
+                <mat-error *ngIf="myForm.controls['name'].hasError('maxlength')">
+                    Name <strong>must</strong> be less then 18 symbols
+                </mat-error>
+            </mat-form-field>
+        </mat-dialog-content>
+        <mat-dialog-content layout="column">
+            <mat-form-field class="full-width">
+                <input name="description" matInput placeholder="Description" type="description" [formControl]="myForm.controls['password']">
+                <mat-error *ngIf="myForm.controls['description'].hasError('required')">
+                    Description is <strong>required</strong>
+                </mat-error>
+                <mat-error *ngIf="myForm.controls['description'].hasError('minlength')">
+                    Description length <strong>must</strong> be at least 6
+                </mat-error>
+            </mat-form-field>
+        </mat-dialog-content>
+    </form>
+
+    <mat-dialog-content layout="column">
+        <button mat-button type="submit" [disabled]="!myForm.valid" mat-raised-button (click)="Create(myForm.value)">Create</button>
+        <button mat-button mat-dialog-close>Cancel</button>
+    </mat-dialog-content>
+</mat-dialog-actions>

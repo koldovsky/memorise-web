@@ -4,6 +4,7 @@
         <button mat-raised-button [routerLink]="['/moderator/courses']">Courses</button>
         <button mat-raised-button [routerLink]="['/moderator/decks']">Decks</button>
     </div>
+    <button mat-button (click)="openCreateNewCourseDialog()" >Create new course</button>
     <!-- <div class="container" *ngFor="let course of courses">
         <mat-table #table [dataSourse]="dataSource">
             <ng-container matColumnDef="position">
