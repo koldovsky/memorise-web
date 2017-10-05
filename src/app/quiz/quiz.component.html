@@ -1,5 +1,5 @@
 <div *ngIf="isLoaded; else loading">
-    <div class="flex-container" *ngIf="cardCount !== 0; else noCardsInQuiz">
+    <div class="flex-container" *ngIf="cardsCount !== 0; else noCardsInQuiz">
         <div class="flex-item">
             <div class="no-select" id="leftHeap" hidden="hidden" (click)='counterMinus(); heapCtrl(); saveAnswer(); cleanColor();'>
                 <h3 class="textCenter">
@@ -44,10 +44,10 @@
                 <button *ngIf="counter > 0" mat-raised-button (click)="counterMinus(); heapCtrl(); saveAnswer(); cleanColor();">
                 Previous
             </button>
-                <button *ngIf="counter < cardCount-1" mat-raised-button (click)="counterPlus(); heapCtrl(); saveAnswer(); cleanColor();">
+                <button *ngIf="counter < cardsCount-1" mat-raised-button (click)="counterPlus(); heapCtrl(); saveAnswer(); cleanColor();">
                 Next
             </button>
-                <button *ngIf="counter === cardCount-1" mat-raised-button (click)="finishQuiz()" id="btnFinish" routerLink="results">
+                <button *ngIf="counter === cardsCount-1" mat-raised-button (click)="finishQuiz()" id="btnFinish" routerLink="results">
                 Finish
             </button>
             </div>
