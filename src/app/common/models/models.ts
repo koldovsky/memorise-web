@@ -37,6 +37,7 @@ export interface Comment extends BaseEntity {
 }
 
 export interface Course extends BaseEntity {
+    Position: number;
     Name: string;
     Linking: string;
     Description: string;
