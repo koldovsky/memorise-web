@@ -1,5 +1,5 @@
 <div *ngIf='cards' class="center">
-    <h1>You choose:</h1>
+    <h1>Quiz results:</h1>
     <div *ngFor="let card of cards" class="center">
         <p>Your answers on {{card.Question}}: </p>
         <div *ngFor="let answer of card.Answers">

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { Router } from '@angular/router';
-
 import { RegisterComponent } from '../auth/components/register.component';
 import { LoginComponent } from '../auth/components/login.component';
+import { Router } from '@angular/router';
+import { AuthService } from '../common/services/auth.service';
 
 @Component({
   selector: 'app-navigation',
@@ -11,10 +11,14 @@ import { LoginComponent } from '../auth/components/login.component';
   styleUrls: ['./navigation.component.css']
 })
 
+  
+  
 export class NavigationComponent implements OnInit {
+  isAuthorized: boolean;
   name: string;
   private router: Router;
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog,
+              private auth:AuthService) { }
 
   openSignUpDialog(): void {
     const dialogRef = this.dialog.open(RegisterComponent, {
@@ -46,8 +50,12 @@ export class NavigationComponent implements OnInit {
 
   signOut(): void {
     this.name = undefined;
-    localStorage.setItem('token', 'empty');
+    localStorage.setItem("token", "empty");
+    this.auth.checkIfIsAuthorized();
   }
-
-  ngOnInit() { }
+  ngOnInit() {
+    this.auth.checkIfIsAuthorized();
+  }
+   
+   
 }

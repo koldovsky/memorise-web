@@ -10,6 +10,7 @@ import { UnauthorizedComponent } from './unauthorized/unauthorized-component';
 import { QuizComponent } from './quiz/quiz.component';
 import { ProfileComponent } from './auth/user/profile/profile.component';
 import { QuizResultsComponent } from './quiz/results/quiz-results.component';
+import { ModeratorComponent } from './moderator/moderator.component';
 
 const routes: Routes = [
     {
@@ -27,7 +28,7 @@ const routes: Routes = [
     },
 
     {
-        path: 'profile',
+        path: 'profile/:name',
         component: ProfileComponent
     },
     {

@@ -23,7 +23,6 @@ export class CoursesComponent implements OnInit, OnDestroy {
 
     courses: Course[];
     subscription: Subscription;
-    on: any;
 
     ngOnInit(): void {
         if (this.messageService.temp) {
@@ -36,7 +35,10 @@ export class CoursesComponent implements OnInit, OnDestroy {
         }
         // this.courseService.getCourses()
         //     .then(courses => this.courses = courses);
-        this.on = this.messageService.getMessage().subscribe(data => {
+
+
+
+        this.messageService.getMessage().subscribe(data => {
             if (data) {
                 const category = data as Category;
                 this.categoryService.getCoursesByCategory(category.Linking)

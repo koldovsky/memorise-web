@@ -2,8 +2,8 @@
     <div class="flex-item" *ngFor="let course of courses">
         <a [routerLink]="['/catalog/courses', course.Linking]">
             <mat-card>
-                <mat-card-content>
-                    <img mat-card-m-image src="../assets/images/placeholder-thumb.jpg" />
+                <mat-card-content class="fixed-size center">
+                    <img mat-card-m-image src={{course.Photo}} />
                 </mat-card-content>
                 <mat-card-header>
                     <mat-card-title-group>
@@ -18,7 +18,7 @@
                         </mat-card-subtitle>
                     </mat-card-title-group>
                 </mat-card-header>
-                <mat-card-actions align="center">
+                <mat-card-actions class="center">
                     <a mat-raised-button color="primary" [routerLink]="['/course', course.Linking, 'quiz']">
                         Try it now
                     </a>

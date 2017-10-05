@@ -2,6 +2,15 @@ mat-card-header {
     margin: -2vh 0;
 }
 
+.fixed-size {
+    width: 20vw;
+    height: 35vh;
+}
+
+.center {
+    text-align: center;
+}
+
 .flex-container {
     display: flex;
     flex-direction: row;
@@ -16,4 +25,5 @@ mat-card-header {
 .flex-item {
     order: 1;
     margin: 2vh 1vw;
+    align-self: stretch;
 }

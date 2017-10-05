@@ -15,7 +15,8 @@
 
 .flex-item {
     order: 1;
-    margin: 2vh 1vw;
+    margin: 0 auto;
+    min-width: 25%;
 }
 
 .no-select {

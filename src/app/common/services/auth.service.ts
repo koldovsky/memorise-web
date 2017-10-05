@@ -9,15 +9,16 @@ import { handleError } from '../functions/functions';
 
 @Injectable()
 export class AuthService {
-    errorMessage = '';
-    private valid = true;
+    errorMessage = "";
+    isAuthorized: boolean;
+
     private commonUrl = 'http://localhost:37271/';
 
     constructor(
         private http: HttpClient,
         private router: Router
     ) { }
-
+    private valid: boolean = true;
     signIn(user) {
         return this.http.post(this.commonUrl + 'memo/login',
             `username=${user.login}&password=${btoa(user.password)}&grant_type=password`)
@@ -67,5 +68,13 @@ export class AuthService {
 
     setError(message: string) {
         this.errorMessage = message;
+    }
+    checkIfIsAuthorized(): void {
+        if (this.getToken() === "empty") {
+            this.isAuthorized = false;
+        }
+        else {
+            this.isAuthorized = true;
+        }
     }
 }

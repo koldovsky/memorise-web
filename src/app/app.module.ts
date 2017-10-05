@@ -10,10 +10,13 @@ import {
     MatExpansionModule, MatLineModule,
     MatGridListModule, MatTabsModule, MatDialogModule,
     MatInputModule, MatPaginatorModule,
-    MatChipsModule
+    MatChipsModule,
+    MatTableModule
 } from '@angular/material';
-import { FormsModule, FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {MatDatepickerModule, MatNativeDateModule} from '@angular/material';
+
+import {FormsModule, FormBuilder, ReactiveFormsModule} from '@angular/forms';
+import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
@@ -22,7 +25,6 @@ import { CatalogComponent } from './catalog/catalog.component';
 import { CoursesComponent } from './catalog/courses/courses.component';
 import { DecksComponent } from './catalog/decks/decks.component';
 import { CourseDetailsComponent } from './catalog/courses/course-details/course-details.component';
-// import { ProfileComponent } from './users/customer/profile.component';
 import { ProfileComponent } from './auth/user/profile/profile.component';
 import { AccountComponent } from './users/customer/account.component';
 import { SecurityComponent } from './users/customer/security.component';
@@ -36,6 +38,8 @@ import { UnauthorizedComponent } from './unauthorized/unauthorized-component';
 import { QuizComponent } from './quiz/quiz.component';
 import { RegisterComponent } from './auth/components/register.component';
 import { QuizResultsComponent } from './quiz/results/quiz-results.component';
+import { ModeratorComponent } from './moderator/moderator.component';
+import { CreateCourseComponent } from './catalog/courses/create-course/create-course.component'
 
 import { AuthService } from './common/services/auth.service';
 import { CategoryService } from './common/services/category.service';
@@ -51,6 +55,7 @@ import { QuizModule } from './quiz/quiz.module';
 import { FooterComponent } from './footer/footer.component';
 import { MessageService } from './common/services/message.service';
 import { ProfileModule } from './auth/user/profile/profile.module';
+import { ModeratorModule } from './moderator/moderator.module';
 
 @NgModule({
     declarations: [
@@ -75,12 +80,15 @@ import { ProfileModule } from './auth/user/profile/profile.module';
         NavigationComponent,
         FooterComponent,
         ProfileComponent,
-        QuizResultsComponent
+        QuizResultsComponent,
+        ModeratorComponent,
+        CreateCourseComponent
     ],
     entryComponents: [
         LoginComponent,
         RegisterComponent,
-        ProfileComponent
+        ProfileComponent,
+        CreateCourseComponent
     ],
     imports: [
         BrowserModule,
@@ -102,19 +110,21 @@ import { ProfileModule } from './auth/user/profile/profile.module';
         MatGridListModule,
         MatTabsModule,
         MatPaginatorModule,
-        MatTabsModule,
         MatChipsModule,
+        MatTableModule,
 
         FormsModule,
         ReactiveFormsModule,
-
+        ModeratorModule,
         CatalogModule,
         QuizModule,
         AppRoutingModule,
         MatTabsModule,
         FormsModule,
         ReactiveFormsModule,
-        ProfileModule
+        ProfileModule,
+        MatDatepickerModule,
+        MatNativeDateModule
     ],
     providers: [
         AuthService,
