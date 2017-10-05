@@ -13,12 +13,14 @@
             <mat-expansion-panel>
                 <mat-expansion-panel-header>
                     <mat-panel-title>
-                        <p><i>{{name}}</i></p>
-                    </mat-panel-title>                        
+                        <p>
+                            <i>{{name}}</i>
+                        </p>
+                    </mat-panel-title>
                 </mat-expansion-panel-header>
                 <button mat-button routerLink="/profile">Profile</button>
-                <button mat-button (click)="signOut()">Sign Out</button>                    
+                <button mat-button (click)="signOut()">Sign Out</button>
             </mat-expansion-panel>
-        </div>            
+        </div>
     </mat-toolbar>
 </nav>

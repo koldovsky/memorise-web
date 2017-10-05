@@ -9,7 +9,7 @@ import { handleError } from '../functions/functions';
 @Injectable()
 export class QuizService {
     private QuizUrl = 'http://localhost:37271/Quiz/';
-    cards : Card[];
+    cards: Card[];
 
     constructor(private http: HttpClient) { }
 
@@ -19,9 +19,10 @@ export class QuizService {
         return this.http.get(URL)
             .toPromise()
             .then(response => {
-                 console.log(response);
                 console.log(response);
-                return response as Card[]; })
+                console.log(response);
+                return response as Card[];
+            })
             .catch(handleError);
     }
 }

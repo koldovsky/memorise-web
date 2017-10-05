@@ -3,7 +3,7 @@
         <a [routerLink]="['/catalog/courses', course.Linking]">
             <mat-card>
                 <mat-card-content>
-                    <img mat-card-m-image src="../assets/images/placeholder-thumb.jpg" />
+                    <img mat-card-m-image src={{course.Photo}} />
                 </mat-card-content>
                 <mat-card-header>
                     <mat-card-title-group>
@@ -20,16 +20,13 @@
                 </mat-card-header>
                 <mat-card-actions align="center">
                     <a mat-raised-button color="primary" [routerLink]="['/quiz']">
-                            Try it now
-                        </a>
+                        Try it now
+                    </a>
                     <button mat-raised-button>
-                            Subscribe
-                        </button>
+                        Subscribe
+                    </button>
                 </mat-card-actions>
             </mat-card>
         </a>
     </div>
-    <!-- <div>
-    <router-outlet></router-outlet>
-    </div> -->
 </div>

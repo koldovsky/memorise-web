@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
+
 import { AuthService } from '../common/services/auth.service';
 
 @Component({
@@ -9,9 +10,8 @@ import { AuthService } from '../common/services/auth.service';
 })
 
 export class UnauthorizedComponent implements OnInit {
-    
-    message:string;
-        
+    message: string;
+
     constructor(
         private auth: AuthService,
         private location: Location,
@@ -21,9 +21,8 @@ export class UnauthorizedComponent implements OnInit {
     goHome(): void {
         this.router.navigate(['/home']);
     }
-    ngOnInit(): void {
-       this.message=this.auth.getError();
-    }
 
-    
+    ngOnInit(): void {
+        this.message = this.auth.getError();
+    }
 }

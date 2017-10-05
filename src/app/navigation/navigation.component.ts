@@ -10,10 +10,12 @@ import { AuthService } from '../common/services/auth.service';
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.css']
 })
-export class NavigationComponent implements OnInit {
 
-  name:string;
-  isAuthorized:boolean;
+  
+  
+export class NavigationComponent implements OnInit {
+  isAuthorized: boolean;
+  name: string;
   private router: Router;
   constructor(private dialog: MatDialog,
               private auth:AuthService) { }
@@ -28,8 +30,6 @@ export class NavigationComponent implements OnInit {
         password: ''
       }
     });
-
-    
   }
 
   openSignInDialog(): void {
@@ -43,13 +43,10 @@ export class NavigationComponent implements OnInit {
         signUp: this.dialog
       }
     });
-
     dialogRef.afterClosed().subscribe(result => {
       this.name = result;
     });
   }
-
-
 
   signOut(): void {
     this.name = undefined;

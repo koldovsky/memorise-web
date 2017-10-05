@@ -1,20 +1,22 @@
-import { Component,ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
+import { ParamMap, ActivatedRoute } from '@angular/router';
+
 import { QuizService } from '../../common/services/quiz.service';
 import { Card, Answer } from '../../common/models/models';
-import { ParamMap, ActivatedRoute } from '@angular/router';
 import { QuizComponent } from '../quiz.component';
 
 @Component({
-    selector: 'quiz-results',
-    templateUrl: './quiz-results.component.html',
-    styleUrls: ['./quiz-results.component.css']
-  })
+  selector: 'quiz-results',
+  templateUrl: './quiz-results.component.html',
+  styleUrls: ['./quiz-results.component.css']
+})
 export class QuizResultsComponent implements OnInit {
 
-  cards : Card[];
+  cards: Card[];
   constructor(
     private quizService: QuizService
-) { }
+  ) { }
+
   ngOnInit(): void {
     this.cards = this.quizService.cards;
   }

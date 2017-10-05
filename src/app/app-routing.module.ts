@@ -6,9 +6,9 @@ import { CoursesComponent } from './catalog/courses/courses.component';
 import { DecksComponent } from './catalog/decks/decks.component';
 import { CourseDetailsComponent } from './catalog/courses/course-details/course-details.component';
 import { PageNotFoundComponent } from './not-found/not-found.component';
-import { UnauthorizedComponent} from './unauthorized/unauthorized-component';
+import { UnauthorizedComponent } from './unauthorized/unauthorized-component';
 import { QuizComponent } from './quiz/quiz.component';
-import {ProfileComponent} from './auth/user/profile/profile.component';
+import { ProfileComponent } from './auth/user/profile/profile.component';
 import { QuizResultsComponent } from './quiz/results/quiz-results.component';
 import { ModeratorComponent } from './moderator/moderator.component';
 
@@ -26,7 +26,7 @@ const routes: Routes = [
         path: 'unauthorized',
         component: UnauthorizedComponent
     },
-    
+
     {
         path: 'profile',
         component: ProfileComponent

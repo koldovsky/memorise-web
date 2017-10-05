@@ -1,8 +1,8 @@
 <div *ngIf="course">
     <mat-card id="course">
         <mat-card-header>
-            <span>                        
-                <img src="../assets/images/placeholder-thumb.jpg" />
+            <span>
+                <img src={{course.Photo}} />
             </span>
             <span class="description">
                 <mat-card-title>
@@ -16,20 +16,20 @@
         </mat-card-header>
 
         <mat-card-content>
-
             <mat-divider></mat-divider>
-
             <h2>Decks :</h2>
             <div class="flex-container">
                 <div class="flex-item" *ngFor="let deck of course.Decks">
                     <mat-card>
                         <mat-card-header>
-                            <mat-card-title><a [routerLink]="['/courses', course.Linking, deck.Linking]">{{deck.Name}}</a></mat-card-title>
+                            <mat-card-title>
+                                <a [routerLink]="['/courses', course.Linking, deck.Linking]">{{deck.Name}}</a>
+                            </mat-card-title>
                             <mat-card-subtitle>{{deck.Description}}</mat-card-subtitle>
                         </mat-card-header>
 
                         <mat-card-content>
-                            <img mat-card-sm-image src="../assets/images/placeholder-thumb.jpg">
+                            <img mat-card-sm-image src={{deck.Photo}}>
                         </mat-card-content>
                     </mat-card>
                 </div>
@@ -48,7 +48,3 @@
         </mat-card-actions>
     </mat-card>
 </div>
-
-<!-- <div>
-    <router-outlet></router-outlet>
-</div> -->

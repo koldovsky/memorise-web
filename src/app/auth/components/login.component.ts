@@ -5,7 +5,6 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { RegisterComponent } from './register.component';
 import { AuthService } from '../../common/services/auth.service';
 
-
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
@@ -14,7 +13,7 @@ import { AuthService } from '../../common/services/auth.service';
 
 export class LoginComponent implements OnInit {
     action: string;
-    clicked: boolean = false;
+    clicked = false;
     myForm: FormGroup;
     Matdialog: MatDialog;
 
@@ -23,7 +22,6 @@ export class LoginComponent implements OnInit {
         @Inject(MAT_DIALOG_DATA) public data: any,
         public fb: FormBuilder,
         private authService: AuthService
-
     ) {
         this.action = data.action;
         this.Matdialog = data.signUp;
@@ -38,6 +36,7 @@ export class LoginComponent implements OnInit {
             ])
         });
     }
+
     onNoClick(): void {
         this.dialogRef.close();
     }
@@ -53,7 +52,7 @@ export class LoginComponent implements OnInit {
                     this.myForm.controls.password.setValue('');
                 }
             });
-            this.clicked = true;
+        this.clicked = true;
     }
 
     Register(): void {
@@ -71,7 +70,5 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit(): void {
-
     }
 }
-

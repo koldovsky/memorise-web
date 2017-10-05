@@ -1,4 +1,4 @@
-import { FormControl} from '@angular/forms';
+import { FormControl } from '@angular/forms';
 
 export function passwordMatchValidator(otherControlName: string) {
     let thisControl: FormControl;
@@ -26,5 +26,5 @@ export function passwordMatchValidator(otherControlName: string) {
             };
         }
         return null;
-    }
+    };
 }

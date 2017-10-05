@@ -7,7 +7,7 @@ const route: Routes = [
     {
         path: 'profile',
         component: ProfileComponent
-    }  
+    }
 ];
 
 @NgModule({

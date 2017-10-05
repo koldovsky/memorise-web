@@ -25,7 +25,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
     subscription: Subscription;
 
     ngOnInit(): void {
-         if (this.messageService.temp) {
+        if (this.messageService.temp) {
             const category = this.messageService.temp as Category;
             this.categoryService.getCoursesByCategory(category.Linking)
                 .then(courses => this.courses = courses);
@@ -33,7 +33,6 @@ export class CoursesComponent implements OnInit, OnDestroy {
             this.courseService.getCourses()
                 .then(courses => this.courses = courses);
         }
-
         // this.courseService.getCourses()
         //     .then(courses => this.courses = courses);
 
