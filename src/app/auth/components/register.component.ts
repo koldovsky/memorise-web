@@ -65,7 +65,7 @@ export class RegisterComponent implements OnInit {
                     this.dialogRef.close();
                     // this.snackBar.open(this.message, this.action, {
                     // duration: 2000,
-                    // });                      
+                    // });
                 } else {
                     this.myForm.controls.login.setValue('');
                     this.myForm.controls.email.setValue('');

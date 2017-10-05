@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy} from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatCardModule } from '@angular/material';
 import { MatIconModule } from '@angular/material';
 import { ActivatedRoute, ParamMap } from '@angular/router';
@@ -15,16 +15,9 @@ import { User } from '../../../common/models/models';
 
 export class ProfileComponent implements OnInit {
   constructor(private userService: UserService,
-    // private router: Router,
     private route: ActivatedRoute
-  ) {
-    // this.sub = this.route
-    //   .params
-    //   .subscribe(params => {
-    //     // Defaults to 0 if no query param provided.
-    //     this.name = params['name'];
-    //   });
-  }
+  ) { }
+
   step = 0;
   user: User;
   name: string;
@@ -50,13 +43,10 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap
       .switchMap((params: ParamMap) => this.userService
-      .getUserByLogin(params.get('name')))
+        .getUserByLogin(params.get('name')))
       .subscribe(user => {
-        // this.user = user;
         this.login = user.Login,
-        this.email = user.Email
-      }); 
-
+          this.email = user.Email;
+      });
   }
-  
 }

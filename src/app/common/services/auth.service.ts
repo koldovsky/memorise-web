@@ -9,16 +9,17 @@ import { handleError } from '../functions/functions';
 
 @Injectable()
 export class AuthService {
-    errorMessage = "";
+    errorMessage = '';
     isAuthorized: boolean;
 
     private commonUrl = 'http://localhost:37271/';
+    private IsValid = true;
 
     constructor(
         private http: HttpClient,
         private router: Router
     ) { }
-    private valid: boolean = true;
+
     signIn(user) {
         return this.http.post(this.commonUrl + 'memo/login',
             `username=${user.login}&password=${btoa(user.password)}&grant_type=password`)
@@ -26,11 +27,11 @@ export class AuthService {
             .then(response => {
                 const token = response as Token;
                 localStorage.setItem('token', token.access_token);
-                this.valid = true;
+                this.IsValid = true;
             })
             .catch(
             error => {
-                this.valid = false;
+                this.IsValid = false;
                 this.errorMessage = 'input, please try again!';
                 // this.router.navigate(['/unauthorized']);
             });
@@ -41,17 +42,15 @@ export class AuthService {
         return this.http.post(this.commonUrl + 'Account/SignUp', user)
             .toPromise()
             .then(response => {
-                // var response = response;
-                this.valid = true;
-                // console.log(response);
+                this.IsValid = true;
             })
             .catch(handleError => {
-                this.valid = false;
+                this.IsValid = false;
             });
     }
 
     validData(): boolean {
-        return this.valid;
+        return this.IsValid;
     }
 
     getToken() {
@@ -69,11 +68,11 @@ export class AuthService {
     setError(message: string) {
         this.errorMessage = message;
     }
+
     checkIfIsAuthorized(): void {
-        if (this.getToken() === "empty") {
+        if (this.getToken() === 'empty') {
             this.isAuthorized = false;
-        }
-        else {
+        } else {
             this.isAuthorized = true;
         }
     }

@@ -10,7 +10,7 @@ import 'rxjs/add/observable/of';
 import { Course } from '../common/models/models';
 import { CourseService } from '../common/services/course.service';
 import { MatDialog } from '@angular/material';
-import { CreateCourseComponent } from '../catalog/courses/create-course/create-course.component'
+import { CreateCourseComponent } from '../catalog/courses/create-course/create-course.component';
 
 import { AuthService } from '../common/services/auth.service';
 
@@ -25,7 +25,6 @@ export class ModeratorComponent implements OnInit {
   dataSource: CoursesDataSource;
 
   key = 0;
-
   numbers: number[];
 
   constructor(private courseService: CourseService,
@@ -36,9 +35,9 @@ export class ModeratorComponent implements OnInit {
     this.courseService.getCourses().then(courses => {
       this.addPosition(courses);
       this.dataSource = new CoursesDataSource(courses);
-    }
-    );
+    });
   }
+
   addPosition(courses: Course[]) {
     for (let i = 0; i < courses.length; i++) {
       courses[i].Position = i + 1;
@@ -48,8 +47,7 @@ export class ModeratorComponent implements OnInit {
   openCreateNewCourseDialog(): void {
     const dialogRef = this.dialog.open(CreateCourseComponent, {
       width: '400px',
-      data:
-      {
+      data: {
         action: 'Create new course',
         name: '',
         description: '',
@@ -59,16 +57,13 @@ export class ModeratorComponent implements OnInit {
 }
 
 export class CoursesDataSource extends DataSource<Course> {
-      constructor(private courses: Course[]) {
-        super();
-      }
+  constructor(private courses: Course[]) {
+    super();
+  }
 
-      connect(): Observable<Course[]> {
-        return Observable.of(this.courses);
-      }
+  connect(): Observable<Course[]> {
+    return Observable.of(this.courses);
+  }
 
-      disconnect() { }
-    }
-
-  
-
+  disconnect() { }
+}

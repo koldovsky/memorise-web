@@ -20,15 +20,16 @@ export class QuizResultsComponent implements OnInit {
   ngOnInit(): void {
     this.cards = this.quizService.cards;
   }
-  checkAnswer(answer: Answer): string{
-     let result = answer.Text;
-     if(answer.IsChecked && answer.IsCorrect){
-         result += ", IS RIGHT";
-         return result;
-     }else if(answer.IsChecked && !answer.IsCorrect){
-         result += ", IS WRONG";
-         return result;
-     }
-     return "";
+
+  checkAnswer(answer: Answer): string {
+    let result = answer.Text;
+    if (answer.IsChecked && answer.IsCorrect) {
+      result += ', IS RIGHT';
+      return result;
+    } else if (answer.IsChecked && !answer.IsCorrect) {
+      result += ', IS WRONG';
+      return result;
+    }
+    return '';
   }
 }

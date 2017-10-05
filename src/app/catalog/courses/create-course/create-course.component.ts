@@ -11,7 +11,7 @@ import { AuthService } from '../../../common/services/auth.service';
 
 export class CreateCourseComponent implements OnInit {
     action: string;
-    clicked: boolean = false;
+    clicked = false;
     myForm: FormGroup;
     Matdialog: MatDialog;
 
@@ -33,7 +33,7 @@ export class CreateCourseComponent implements OnInit {
                 Validators.minLength(6)
             ])
         });
-   } 
+   }
     onNoClick(): void {
         this.dialogRef.close();
     }
@@ -53,7 +53,5 @@ export class CreateCourseComponent implements OnInit {
         console.log(course);
     }
 
-
-    ngOnInit(): void {}
-        
+    ngOnInit(): void { }
 }

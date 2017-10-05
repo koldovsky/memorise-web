@@ -11,14 +11,12 @@ import { AuthService } from '../common/services/auth.service';
   styleUrls: ['./navigation.component.css']
 })
 
-  
-  
 export class NavigationComponent implements OnInit {
   isAuthorized: boolean;
   name: string;
   private router: Router;
   constructor(private dialog: MatDialog,
-              private auth:AuthService) { }
+    private auth: AuthService) { }
 
   openSignUpDialog(): void {
     const dialogRef = this.dialog.open(RegisterComponent, {
@@ -50,12 +48,10 @@ export class NavigationComponent implements OnInit {
 
   signOut(): void {
     this.name = undefined;
-    localStorage.setItem("token", "empty");
+    localStorage.setItem('token', 'empty');
     this.auth.checkIfIsAuthorized();
   }
   ngOnInit() {
     this.auth.checkIfIsAuthorized();
   }
-   
-   
 }

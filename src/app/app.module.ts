@@ -3,20 +3,28 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {
-    MatButtonModule, MatCardModule,
-    MatMenuModule, MatToolbarModule,
-    MatIconModule, MatListModule,
-    MatButtonToggleModule, MatSidenavModule,
-    MatExpansionModule, MatLineModule,
-    MatGridListModule, MatTabsModule, MatDialogModule,
-    MatInputModule, MatPaginatorModule,
+    MatButtonModule,
+    MatCardModule,
+    MatMenuModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatListModule,
+    MatButtonToggleModule,
+    MatSidenavModule,
+    MatExpansionModule,
+    MatLineModule,
+    MatGridListModule,
+    MatTabsModule,
+    MatDialogModule,
+    MatInputModule,
+    MatPaginatorModule,
     MatChipsModule,
     MatTableModule
 } from '@angular/material';
 import {MatDatepickerModule, MatNativeDateModule} from '@angular/material';
 
 import {FormsModule, FormBuilder, ReactiveFormsModule} from '@angular/forms';
-import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
@@ -39,7 +47,7 @@ import { QuizComponent } from './quiz/quiz.component';
 import { RegisterComponent } from './auth/components/register.component';
 import { QuizResultsComponent } from './quiz/results/quiz-results.component';
 import { ModeratorComponent } from './moderator/moderator.component';
-import { CreateCourseComponent } from './catalog/courses/create-course/create-course.component'
+import { CreateCourseComponent } from './catalog/courses/create-course/create-course.component';
 
 import { AuthService } from './common/services/auth.service';
 import { CategoryService } from './common/services/category.service';
