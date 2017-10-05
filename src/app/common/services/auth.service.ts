@@ -18,7 +18,6 @@ export class AuthService {
     ) { }
     private valid: boolean = true;
     signIn(user) {
-
         return this.http.post(this.commonUrl + "memo/login",
             `username=${user.login}&password=${btoa(user.password)}&grant_type=password`)
             .toPromise()

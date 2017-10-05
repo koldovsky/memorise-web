@@ -16,8 +16,8 @@
                         <p><i>{{name}}</i></p>
                     </mat-panel-title>                        
                 </mat-expansion-panel-header>
-                <button mat-button color="primary" routerLink="/profile">Profile</button><br>
-                <button mat-button color="primary" (click)="signOut()">Sign Out</button>                    
+                <button mat-button color="primary" [routerLink]="['/profile', name]">Profile</button><br>
+                <button mat-button color="primary" routerLink="/home" (click)="signOut()">Sign Out</button>                    
             </mat-expansion-panel>
         </div>            
     </mat-toolbar>

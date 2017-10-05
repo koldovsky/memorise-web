@@ -10,7 +10,7 @@ import { handleError } from '../functions/functions';
 export class UserService {
     private UsersUrl = 'http://localhost:37271/Catalog/GetUsers';
     private AccountUrl= 'http://localhost:37271/Account/';
-
+    private UserProfile = 'http://localhost:37271/UserProfile/GetUserByLogin';
     constructor(private http: HttpClient) { }
 
     getUsers(): Promise<User[]> {
@@ -35,6 +35,15 @@ export class UserService {
         return this.http.get(URL)
             .toPromise()
             .then(response => response as Statistic)
+            .catch(handleError);
+    }
+
+    getUserByLogin(login: string): Promise<User> {
+        const URL = `${this.UserProfile}/${login}`;
+
+        return this.http.get(URL)
+            .toPromise()
+            .then(response => response as User)
             .catch(handleError);
     }
     

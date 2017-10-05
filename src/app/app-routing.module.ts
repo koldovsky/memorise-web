@@ -25,7 +25,7 @@ const routes: Routes = [
         component: UnauthorizedComponent
     },
     {
-        path: 'profile',
+        path: 'profile/:name',
         component: ProfileComponent
     },
     {

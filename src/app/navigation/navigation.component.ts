@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class NavigationComponent implements OnInit {
 
-  name:string;
+  name: string;
   private router: Router;
   constructor(private dialog: MatDialog) { }
 
@@ -26,7 +26,7 @@ export class NavigationComponent implements OnInit {
       }
     });
 
-    
+
   }
 
   openSignInDialog(): void {
@@ -53,5 +53,5 @@ export class NavigationComponent implements OnInit {
     localStorage.setItem("token", "empty");
   }
   ngOnInit() { }
-  
+
 }
