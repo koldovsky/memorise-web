@@ -16,9 +16,10 @@ export class QuizComponent implements OnInit {
         private route: ActivatedRoute
     ) { }
 
-    cards: Card[];
+    cards: Card[] = null;
     cardCount;
     counter = 0;
+    isLoaded = false;
 
     ngOnInit(): void {
         this.route.paramMap
@@ -39,6 +40,7 @@ export class QuizComponent implements OnInit {
                         this.answerCheck(answer, false);
                     });
                 });
+                this.isLoaded = true;
             });
     }
 

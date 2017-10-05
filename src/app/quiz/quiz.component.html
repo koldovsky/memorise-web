@@ -1,62 +1,68 @@
-<div class="flex-container" *ngIf="cards">
-    <div class="flex-item">
-        <div class="no-select" id="leftHeap" hidden="hidden" (click)='counterMinus(); heapCtrl(); saveAnswer(); cleanColor();'>
-            <h3 class="textCenter">
-                {{countPassedQuestions()}} {{passedQuestionOrQuestions()}} passed
-            </h3>
-            <img src="../assets/images/{{getImgPreNamePassed()}}cardBackMin.png" alt="card back">
+<div *ngIf="isLoaded; else loading">
+    <div class="flex-container" *ngIf="cardCount !== 0; else noCardsInQuiz">
+        <div class="flex-item">
+            <div class="no-select" id="leftHeap" hidden="hidden" (click)='counterMinus(); heapCtrl(); saveAnswer(); cleanColor();'>
+                <h3 class="textCenter">
+                    {{countPassedQuestions()}} {{passedQuestionOrQuestions()}} passed
+                </h3>
+                <img src="../assets/images/{{getImgPreNamePassed()}}cardBackMin.png" alt="card back">
+            </div>
         </div>
-    </div>
-    <div class="flex-item" id="card">
-        <p class="no-select">
-            Question {{cards[counter].Id}} / {{cards.length}}
-        </p>
-        <div [ngSwitch]="cards[counter].CardType.Name">
-            <div *ngSwitchCase="'One answer'">
-                <mat-card>
-                    <mat-card-title id="cardTitle{{cards[counter].Id}}">
-                        {{cards[counter].Question}}
-                        <button mat-mini-fab (click)="checkQuestion()" id="check-button">Check</button>
-                    </mat-card-title>
-                    <mat-card-content *ngFor="let answer of cards[counter].Answers">
-                        <label id="answer{{answer.Id}}">
+        <div class="flex-item" id="card">
+            <p class="no-select">
+                Question {{cards[counter].Id}} / {{cardsCount}}
+            </p>
+            <div [ngSwitch]="cards[counter].CardType.Name">
+                <div *ngSwitchCase="'One answer'">
+                    <mat-card>
+                        <mat-card-title id="cardTitle{{cards[counter].Id}}">
+                            {{cards[counter].Question}}
+                            <button mat-mini-fab (click)="checkQuestion()" id="check-button">Check</button>
+                        </mat-card-title>
+                        <mat-card-content *ngFor="let answer of cards[counter].Answers">
+                            <label id="answer{{answer.Id}}">
                             <input type="radio" name="radio"(change)="changeAnswerSelect(answer)" /> {{answer.Text}}
                         </label>
-                    </mat-card-content>
-                </mat-card>
-            </div>
-            <div *ngSwitchCase="'Few answers'">
-                <mat-card>
-                    <mat-card-title id="cardTitle{{cards[counter].Id}}">
-                        {{cards[counter].Question}}
-                        <button mat-mini-fab (click)="checkQuestion()" id="check-button">Check</button>
-                    </mat-card-title>
-                    <mat-card-content *ngFor="let answer of cards[counter].Answers">
-                        <label id="answer{{answer.Id}}">
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div *ngSwitchCase="'Few answers'">
+                    <mat-card>
+                        <mat-card-title id="cardTitle{{cards[counter].Id}}">
+                            {{cards[counter].Question}}
+                            <button mat-mini-fab (click)="checkQuestion()" id="check-button">Check</button>
+                        </mat-card-title>
+                        <mat-card-content *ngFor="let answer of cards[counter].Answers">
+                            <label id="answer{{answer.Id}}">
                 <input type="checkbox" id="checkbox{{answer.Id}}" (change)="changeAnswerCheck(answer)" /> {{answer.Text}}
                 </label>
-                    </mat-card-content>
-                </mat-card>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
             </div>
-        </div>
-        <div class="text-center" id="nav-buttons">
-            <button *ngIf="counter > 0" mat-raised-button (click)="counterMinus(); heapCtrl(); saveAnswer(); cleanColor();">
+            <div class="text-center" id="nav-buttons">
+                <button *ngIf="counter > 0" mat-raised-button (click)="counterMinus(); heapCtrl(); saveAnswer(); cleanColor();">
                 Previous
             </button>
-            <button *ngIf="counter < cardCount-1" mat-raised-button (click)="counterPlus(); heapCtrl(); saveAnswer(); cleanColor();">
+                <button *ngIf="counter < cardCount-1" mat-raised-button (click)="counterPlus(); heapCtrl(); saveAnswer(); cleanColor();">
                 Next
             </button>
-            <button *ngIf="counter === cardCount-1" mat-raised-button (click)="finishQuiz()" id="btnFinish" routerLink="results">
+                <button *ngIf="counter === cardCount-1" mat-raised-button (click)="finishQuiz()" id="btnFinish" routerLink="results">
                 Finish
             </button>
+            </div>
+        </div>
+        <div class="flex-item">
+            <div class="no-select" id="RightHeap" (click)="counterPlus(); heapCtrl(); saveAnswer(); cleanColor();">
+                <h3 class="text-center">
+                    {{countLeftQuestions()}} {{leftQuestionOrQuestions()}} left
+                </h3>
+                <img src="../assets/images/{{getImgPreNameLeft()}}cardBackMin.png" alt="card back">
+            </div>
         </div>
     </div>
-    <div class="flex-item">
-        <div class="no-select" id="RightHeap" (click)="counterPlus(); heapCtrl(); saveAnswer(); cleanColor();">
-            <h3 class="text-center">
-                {{countLeftQuestions()}} {{leftQuestionOrQuestions()}} left
-            </h3>
-            <img src="../assets/images/{{getImgPreNameLeft()}}cardBackMin.png" alt="card back">
-        </div>
-    </div>
+    <ng-template #noCardsInQuiz>
+        <h1 class="text-center">Sorry, there are no cards in quiz(</h1>
+    </ng-template>
 </div>
+<ng-template #loading>Loading...</ng-template>
