@@ -10,7 +10,8 @@ import {
     MatExpansionModule, MatLineModule,
     MatGridListModule, MatTabsModule, MatDialogModule,
     MatInputModule, MatPaginatorModule,
-    MatChipsModule
+    MatChipsModule,
+    MatTableModule
 } from '@angular/material';
 import { FormsModule, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -107,8 +108,8 @@ import { ModeratorModule } from './moderator/moderator.module';
         MatGridListModule,
         MatTabsModule,
         MatPaginatorModule,
-        MatTabsModule,
         MatChipsModule,
+        MatTableModule,
 
         FormsModule,
         ReactiveFormsModule,
@@ -117,6 +118,8 @@ import { ModeratorModule } from './moderator/moderator.module';
         QuizModule,
         AppRoutingModule,
         MatTabsModule,
+        FormsModule,
+        ReactiveFormsModule,
         ProfileModule
     ],
     providers: [
