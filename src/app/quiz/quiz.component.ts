@@ -5,7 +5,7 @@ import { QuizService } from '../common/services/quiz.service';
 import { Card, Answer } from '../common/models/models';
 
 @Component({
-    selector: 'quiz',
+    selector: 'app-quiz',
     templateUrl: './quiz.component.html',
     styleUrls: ['./quiz.component.css']
 })
@@ -15,14 +15,23 @@ export class QuizComponent implements OnInit {
         private quizService: QuizService,
         private route: ActivatedRoute
     ) { }
-    cards: Card[];
+
+    cards: Card[] = null;
     cardCount;
     counter = 0;
+    isLoaded = false;
 
     ngOnInit(): void {
         this.route.paramMap
-            .switchMap((params: ParamMap) => this.quizService
-                .GetCardsByDeck(decodeURIComponent(params.get('name'))))
+            .switchMap((params: ParamMap) => {
+                if (params.get('from') === 'course') {
+                    return this.quizService
+                        .GetCardsByCourse(decodeURIComponent(params.get('name')));
+                } else {
+                    return this.quizService
+                        .GetCardsByDeck(decodeURIComponent(params.get('name')));
+                }
+            })
             .subscribe(cards => {
                 this.cards = cards;
                 this.cardCount = cards.length;
@@ -31,6 +40,7 @@ export class QuizComponent implements OnInit {
                         this.answerCheck(answer, false);
                     });
                 });
+                this.isLoaded = true;
             });
     }
 
@@ -60,43 +70,44 @@ export class QuizComponent implements OnInit {
     }
 
     finishQuiz() {
-        console.log('You choose:');
         this.cards.forEach(card => {
             this.check(card);
         });
         this.quizService.cards = this.cards;
     }
 
-    countPassedQuistions(): number {
+    countPassedQuestions(): number {
         return this.counter;
     }
 
-    countLeftQuistions(): number {
+    countLeftQuestions(): number {
         return (this.cards.length - 1) - this.counter;
     }
 
-    passedQuistionOrQuistions(): string {
-        if (this.countPassedQuistions() === 1) {
-            return 'question';
-        } else {
-            return 'questions';
-        }
+    passedQuestionOrQuestions(): string {
+        return this.countPassedQuestions() === 1
+            ? 'question'
+            : 'questions';
     }
 
-    leftQuistionOrQuistions(): string {
-        if (this.countLeftQuistions() === 1) {
-            return 'question';
-        } else {
-            return 'questions';
-        }
+    leftQuestionOrQuestions(): string {
+        return this.countPassedQuestions() === 1
+            ? 'question'
+            : 'questions';
     }
 
     changeAnswerCheck(answer: Answer) {
-        answer.Checked = !answer.Checked;
+        answer.IsChecked = !answer.IsChecked;
+    }
+
+    changeAnswerSelect(answer: Answer) {
+        this.cards[this.counter].Answers.forEach(ans => {
+            ans.IsChecked = answer === ans;
+        });
     }
 
     answerCheck(answer: Answer, IsChecked: boolean) {
-        answer.Checked = IsChecked;
+        answer.IsChecked = IsChecked;
     }
 
     checkQuestion() {
@@ -105,48 +116,48 @@ export class QuizComponent implements OnInit {
         let correctAnswersCount = 0;
         let checkedAnswersCount = 0;
         card.Answers.forEach(answer => {
-            const lable = <HTMLInputElement>document.getElementById('lable' + answer.Id);
-            if (answer.Checked) {
+            const lable = <HTMLInputElement>document.getElementById('answer' + answer.Id);
+            if (answer.IsChecked) {
                 checkedAnswersCount++;
-            } if (answer.IsCorrect) {
-                lable.style.color = 'green';
-                correctAnswersCount++;
-            } else if (answer.Checked && !answer.IsCorrect) {
-                lable.style.color = 'red';
-                isUncorrectChecked = true;
+                switch (answer.IsCorrect) {
+                    case true:
+                        lable.style.color = 'green';
+                        correctAnswersCount++;
+                        break;
+                    case false:
+                        lable.style.color = 'red';
+                        isUncorrectChecked = true;
+                        break;
+                }
             } else {
-                lable.style.color = 'black'
+                lable.style.color = 'black';
             }
+
             const cardTitle = <HTMLInputElement>document.getElementById('cardTitle' + card.Id);
-            if (!isUncorrectChecked && correctAnswersCount === checkedAnswersCount) {
-                cardTitle.style.color = 'green';
-            } else {
-                cardTitle.style.color = 'red';
-            }
+            cardTitle.style.color = !isUncorrectChecked
+                && correctAnswersCount === checkedAnswersCount
+                ? 'green'
+                : 'red';
         });
     }
 
     check(card: Card) {
-        console.log(card.Question);
-        console.log('Your answers on ' + card.Question + ': ');
         card.Answers.forEach(answer => {
             let result;
-            if (answer.Checked && answer.IsCorrect) {
+            if (answer.IsChecked && answer.IsCorrect) {
                 result = '. And it is right';
-                console.log(answer.Text + ' - ' + answer.Checked + result);
-            } else if (answer.Checked && !answer.IsCorrect) {
+            } else if (answer.IsChecked && !answer.IsCorrect) {
                 result = '. And it is uncorrect';
-                console.log(answer.Text + ' - ' + answer.Checked + result);
             }
         });
     }
 
-    setChecked() {
+    saveAnswer() {
         const card: Card = this.cards[this.counter];
         setTimeout(function () {
             card.Answers.forEach(answer => {
                 const checkbox = <HTMLInputElement>document.getElementById('checkbox' + answer.Id);
-                if (answer.Checked) {
+                if (answer.IsChecked) {
                     checkbox.checked = true;
                 }
             });
@@ -154,9 +165,9 @@ export class QuizComponent implements OnInit {
     }
 
     getImgPreNameLeft(): string {
-        if ((this.cardCount - 2) == this.counter) {
+        if ((this.cardCount - 2) === this.counter) {
             return '1';
-        } else if ((this.cardCount - 3) == this.counter) {
+        } else if ((this.cardCount - 3) === this.counter) {
             return '2';
         } else {
             return '3';
@@ -164,12 +175,10 @@ export class QuizComponent implements OnInit {
     }
 
     getImgPreNamePassed(): string {
-        if (this.counter == 1) {
-            return '1';
-        } else if (this.counter == 2) {
-            return '2';
-        } else {
-            return '3';
+        switch (this.counter) {
+            case 1: return '1';
+            case 2: return '2';
+            default: return '3';
         }
     }
 

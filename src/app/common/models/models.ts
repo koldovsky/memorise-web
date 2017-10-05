@@ -6,7 +6,7 @@ export interface Answer extends BaseEntity {
     Text: string;
     IsCorrect?: boolean;
     Card?: Card;
-    Checked?: boolean;
+    IsChecked?: boolean;
 }
 
 export interface Card extends BaseEntity {
@@ -15,6 +15,7 @@ export interface Card extends BaseEntity {
     Deck: Deck;
     Comments: Comment[];
     Answers: Answer[];
+    IsPassed?: boolean;
 }
 
 export interface CardType extends BaseEntity {

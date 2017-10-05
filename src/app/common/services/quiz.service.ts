@@ -13,16 +13,21 @@ export class QuizService {
 
     constructor(private http: HttpClient) { }
 
+    GetCardsByCourse(name: string): Promise<Card[]> {
+        const URL = `${this.QuizUrl}GetCardsByCourse/${name}`;
+
+        return this.http.get(URL)
+            .toPromise()
+            .then(response => response as Card[])
+            .catch(handleError);
+    }
+
     GetCardsByDeck(name: string): Promise<Card[]> {
         const URL = `${this.QuizUrl}GetCardsByDeck/${name}`;
 
         return this.http.get(URL)
             .toPromise()
-            .then(response => {
-                console.log(response);
-                console.log(response);
-                return response as Card[];
-            })
+            .then(response => response as Card[])
             .catch(handleError);
     }
 }
