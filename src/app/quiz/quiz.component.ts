@@ -70,9 +70,6 @@ export class QuizComponent implements OnInit {
     }
 
     finishQuiz() {
-        this.cards.forEach(card => {
-            this.check(card);
-        });
         this.quizService.cards = this.cards;
     }
 
@@ -91,7 +88,7 @@ export class QuizComponent implements OnInit {
     }
 
     leftQuestionOrQuestions(): string {
-        return this.countPassedQuestions() === 1
+        return this.countLeftQuestions() === 1
             ? 'question'
             : 'questions';
     }
@@ -129,7 +126,9 @@ export class QuizComponent implements OnInit {
                         isUncorrectChecked = true;
                         break;
                 }
-            } else {
+            }else if(answer.IsCorrect){
+                lable.style.color = 'green';
+            }else {
                 lable.style.color = 'black';
             }
 
@@ -140,23 +139,12 @@ export class QuizComponent implements OnInit {
                 : 'red';
         });
     }
-
-    check(card: Card) {
-        card.Answers.forEach(answer => {
-            let result;
-            if (answer.IsChecked && answer.IsCorrect) {
-                result = '. And it is right';
-            } else if (answer.IsChecked && !answer.IsCorrect) {
-                result = '. And it is uncorrect';
-            }
-        });
-    }
-
+    
     saveAnswer() {
         const card: Card = this.cards[this.counter];
         setTimeout(function () {
             card.Answers.forEach(answer => {
-                const checkbox = <HTMLInputElement>document.getElementById('checkbox' + answer.Id);
+                const checkbox = <HTMLInputElement>document.getElementById('item' + answer.Id);
                 if (answer.IsChecked) {
                     checkbox.checked = true;
                 }

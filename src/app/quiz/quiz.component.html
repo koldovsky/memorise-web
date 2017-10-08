@@ -21,7 +21,7 @@
                         </mat-card-title>
                         <mat-card-content *ngFor="let answer of cards[counter].Answers">
                             <label id="answer{{answer.Id}}">
-                            <input type="radio" name="radio"(change)="changeAnswerSelect(answer)" /> {{answer.Text}}
+                            <input type="radio" id="item{{answer.Id}}" name="radio"(change)="changeAnswerSelect(answer)" /> {{answer.Text}}
                         </label>
                         </mat-card-content>
                     </mat-card>
@@ -34,8 +34,8 @@
                         </mat-card-title>
                         <mat-card-content *ngFor="let answer of cards[counter].Answers">
                             <label id="answer{{answer.Id}}">
-                <input type="checkbox" id="checkbox{{answer.Id}}" (change)="changeAnswerCheck(answer)" /> {{answer.Text}}
-                </label>
+                            <input type="checkbox" id="item{{answer.Id}}" (change)="changeAnswerCheck(answer)" /> {{answer.Text}}
+                            </label>
                         </mat-card-content>
                     </mat-card>
                 </div>
