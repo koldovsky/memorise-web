@@ -1,8 +1,8 @@
 <div *ngIf="isLoaded; else loading">
     <div class="flex-container" *ngIf="cardsCount !== 0; else noCardsInQuiz">
         <div class="flex-item">
-            <div class="no-select" id="leftHeap" hidden="hidden" (click)='counterMinus(); heapCtrl(); saveAnswer(); cleanColor();'>
-                <h3 class="textCenter">
+            <div class="no-select text-center" id="leftHeap" hidden="hidden" (click)='counterMinus(); heapCtrl(); saveAnswer(); cleanColor();'>
+                <h3 class="text-center">
                     {{countPassedQuestions()}} {{passedQuestionOrQuestions()}} passed
                 </h3>
                 <img src="../assets/images/{{getImgPreNamePassed()}}cardBackMin.png" alt="card back">
