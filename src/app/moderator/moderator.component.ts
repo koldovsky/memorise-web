@@ -1,4 +1,4 @@
-import { Component, OnInit, Pipe, PipeTransform, NgModule, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Pipe, PipeTransform, NgModule } from '@angular/core';
 import { FilterPipe } from '../catalog/courses/course-filter/course.pipe';
 import { SortingPipe } from '../catalog/courses/course-filter/course-sort.pipe';
 
