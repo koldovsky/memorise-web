@@ -1,32 +1,50 @@
-<h2 mat-dialog-title>{{action}}</h2>
-<mat-dialog-actions align='center'>
-    <form class="main-form" [formGroup]="myForm">
-        <mat-dialog-content layout="column">
-            <mat-form-field class="full-width">
-                <input name="name" matInput placeholder="Name" [formControl]="myForm.controls['name']">
-                <mat-error *ngIf="myForm.controls['name'].hasError('required')">
-                    Name is <strong>required</strong>
-                </mat-error>
-                <mat-error *ngIf="myForm.controls['name'].hasError('maxlength')">
-                    Name <strong>must</strong> be less then 18 symbols
-                </mat-error>
-            </mat-form-field>
-        </mat-dialog-content>
-        <mat-dialog-content layout="column">
-            <mat-form-field class="full-width">
-                <input name="description" matInput placeholder="Description" type="description" [formControl]="myForm.controls['password']">
-                <mat-error *ngIf="myForm.controls['description'].hasError('required')">
-                    Description is <strong>required</strong>
-                </mat-error>
-                <mat-error *ngIf="myForm.controls['description'].hasError('minlength')">
-                    Description length <strong>must</strong> be at least 6
-                </mat-error>
-            </mat-form-field>
-        </mat-dialog-content>
-    </form>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createCourseFormModal" data-whatever="createCourse">
+ Create new course
+</button>
 
-    <mat-dialog-content layout="column">
-        <button mat-button type="submit" [disabled]="!myForm.valid" mat-raised-button (click)="Create(myForm.value)">Create</button>
-        <button mat-button mat-dialog-close>Cancel</button>
-    </mat-dialog-content>
-</mat-dialog-actions>
+<div class="modal fade" id="createCourseFormModal" tabindex="-1" role="dialog" aria-labelledby="createCourseFormModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createCourseFormModalLabel">Create new course</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body">
+                <form #courseForm="ngForm">
+                    <div  *ngIf="isLoaded" class="form-group">
+                        <label for="category">Category</label>
+                        <select class="form-control" id="category" required>
+                          <option *ngFor="let category of categories"
+                          [value]="category.Name">
+                          {{category.Name}}
+                        </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="name" class="form-control-label">Title:</label>
+                        <input type="text" class="form-control" id="name" 
+                        required
+                        [(ngModel)]='course.Name' name="Name" placeholder="Title">
+                    </div>
+                    <div class="form-group">
+                        <label for="description" class="form-control-label">Description:</label>
+                        <textarea class="form-control" 
+                        [(ngModel)]='course.Description' name="Description" id="description">
+                    </textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="photo">Course image</label>
+                        <input type="file" class="form-control-file" id="photo">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Send message</button>
+            </div>
+        </div>
+    </div>
+</div>

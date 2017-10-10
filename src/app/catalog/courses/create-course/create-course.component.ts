@@ -1,59 +1,44 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Course, Category } from '../../../common/models/models';
+
 import { AuthService } from '../../../common/services/auth.service';
+import { CategoryService } from '../../../common/services/category.service';
 
 @Component({
-    selector: 'app-create-course',
+    selector: 'create-course',
     templateUrl: './create-course.component.html',
     styleUrls: ['./create-course.component.css']
 })
 
 export class CreateCourseComponent implements OnInit {
-    action: string;
-    clicked: boolean = false;
-    myForm: FormGroup;
-    Matdialog: MatDialog;
+   course:Course;
+   categories: Category[];
+   isLoaded:boolean=false;
 
     constructor(
-        public dialogRef: MatDialogRef<CreateCourseComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: any,
-        public fb: FormBuilder,
-        private authService: AuthService
+        private authService: AuthService,
+        private categoryServide:CategoryService
+    ) { 
+        this.course = {
+            Name: "",
+            Linking: "",
+            Description: "",
+            Price: 0
+        };
+      }
 
-    ) {
-        this.action = data.action;
-        this.myForm = this.fb.group({
-            'name': new FormControl('', [
-                Validators.required,
-                Validators.maxLength(18)
-            ]),
-            'description': new FormControl('', [
-                Validators.required,
-                Validators.minLength(6)
-            ])
+    submitted = false;
+    
+    onSubmit() { this.submitted = true; }
+
+    ngOnInit(): void {
+        this.categoryServide.getCategories()
+        .then(categories => {
+            this.categories = categories;
+            this.isLoaded = true;
+            console.log("service is done")
         });
-   } 
-    onNoClick(): void {
-        this.dialogRef.close();
     }
-
-    Create(course): void {
-        // this.authService.signIn(user)
-        //     .then(() => {
-        //         if (this.authService.validData()) {
-        //             this.dialogRef.close(this.myForm.controls['login'].value);
-        //             this.authService.checkIfIsAuthorized();
-        //         } else {
-        //             this.myForm.controls.login.setValue('');
-        //             this.myForm.controls.password.setValue('');
-        //         }
-        //     });
-        // this.clicked = true;
-        console.log(course);
-    }
-
-
-    ngOnInit(): void {}
         
 }

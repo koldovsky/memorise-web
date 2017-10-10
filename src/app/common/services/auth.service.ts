@@ -32,7 +32,7 @@ export class AuthService {
             error => {
                 this.valid = false;
                 this.errorMessage = 'input, please try again!';
-                // this.router.navigate(['/unauthorized']);
+                
             });
     }
 
@@ -41,9 +41,7 @@ export class AuthService {
         return this.http.post(this.commonUrl + 'Account/SignUp', user)
             .toPromise()
             .then(response => {
-                // var response = response;
                 this.valid = true;
-                // console.log(response);
             })
             .catch(handleError => {
                 this.valid = false;
