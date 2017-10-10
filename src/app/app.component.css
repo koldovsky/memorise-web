@@ -3,10 +3,10 @@ header {
     z-index: 10;
 }
 
-main {
+/* main {
     overflow-y: auto;
     display: flex;
-}
+} */
 
 footer {
     position: relative;

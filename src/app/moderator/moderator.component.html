@@ -1,28 +1,39 @@
-<h1>Moderation Panel</h1>
-<div>
-    <div>
-        <button mat-raised-button [routerLink]="['/moderator/courses']">Courses</button>
-        <button mat-raised-button [routerLink]="['/moderator/decks']">Decks</button>
-    </div>
-    <!-- <button mat-button (click)="openCreateNewCourseDialog()">Create new course</button> -->
-
-    <div class="container">
-        <mat-table #table [dataSource]="dataSource">
-            <ng-container matColumnDef="Position">
-                <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
-                <mat-cell *matCellDef='let course'>{{course.Position}}</mat-cell>
-                <!-- <mat-cell *matCellDef = "let numbers">{{numbers[]}}</mat-cell> -->
-            </ng-container>
-            <ng-container matColumnDef="Name">
-                <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-                <mat-cell *matCellDef="let course"> {{course.Name}} </mat-cell>
-            </ng-container>            
-            <ng-container matColumnDef="Description">
-                <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
-                <mat-cell *matCellDef = "let course">{{course.Description}}</mat-cell>
-            </ng-container>
-            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-        </mat-table>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <div class="col-md-12">
+                    <input type="text" [(ngModel)]="queryString" placeholder="Search by Course Name" />
+                </div>
+            </div>
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>
+                            <a href (click)="sortTable('Name')">Course Name</a>
+                        </th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let course of courses | FilterPipe: queryString: searchableList 
+                                                      | sorting : path: order  ; let i = index">
+                        <th scope="row">{{i+1}}</th>
+                        <td>{{course.Name}}</td>
+                        <td>{{course.Description}}</td>
+                        <td>
+                            <button class="btn btn-primary">Edit</button>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary">Delete</button>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary">Details</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
