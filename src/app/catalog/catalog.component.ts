@@ -15,7 +15,7 @@ export class CatalogComponent implements OnInit {
         private messageService: MessageService) { }
 
     categories: Category[];
-
+    
     ngOnInit(): void {
         this.categoryService.getCategories()
             .then(categories => this.categories = categories);

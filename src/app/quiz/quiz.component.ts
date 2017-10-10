@@ -20,6 +20,9 @@ export class QuizComponent implements OnInit {
     cardsCount;
     counter = 0;
     isLoaded = false;
+    correctColor = "limeGreen";
+    uncorrectColor = "red";
+
 
     ngOnInit(): void {
         this.route.paramMap
@@ -70,9 +73,6 @@ export class QuizComponent implements OnInit {
     }
 
     finishQuiz() {
-        this.cards.forEach(card => {
-            this.check(card);
-        });
         this.quizService.cards = this.cards;
     }
 
@@ -91,7 +91,7 @@ export class QuizComponent implements OnInit {
     }
 
     leftQuestionOrQuestions(): string {
-        return this.countPassedQuestions() === 1
+        return this.countLeftQuestions() === 1
             ? 'question'
             : 'questions';
     }
@@ -121,42 +121,41 @@ export class QuizComponent implements OnInit {
                 checkedAnswersCount++;
                 switch (answer.IsCorrect) {
                     case true:
-                        lable.style.color = 'green';
+                        lable.style.color = this.correctColor;
+                        lable.style.fontWeight = "bold";
                         correctAnswersCount++;
                         break;
                     case false:
-                        lable.style.color = 'red';
+                        lable.style.color = this.uncorrectColor;
+                        lable.style.fontWeight = "bold";
                         isUncorrectChecked = true;
                         break;
                 }
-            } else {
+            }else if(answer.IsCorrect){
+                lable.style.color = this.correctColor;;
+                lable.style.fontWeight = "bold";
+                correctAnswersCount++;
+            }else {
                 lable.style.color = 'black';
             }
 
             const cardTitle = <HTMLInputElement>document.getElementById('cardTitle' + card.Id);
-            cardTitle.style.color = !isUncorrectChecked
-                && correctAnswersCount === checkedAnswersCount
-                ? 'green'
-                : 'red';
-        });
-    }
-
-    check(card: Card) {
-        card.Answers.forEach(answer => {
-            let result;
-            if (answer.IsChecked && answer.IsCorrect) {
-                result = '. And it is right';
-            } else if (answer.IsChecked && !answer.IsCorrect) {
-                result = '. And it is uncorrect';
+            
+            if(!isUncorrectChecked && correctAnswersCount === checkedAnswersCount){
+                cardTitle.style.color = this.correctColor;;
+                cardTitle.style.fontWeight = "bold";
+            }else{
+                cardTitle.style.color = this.uncorrectColor;
+                cardTitle.style.fontWeight = "bold";
             }
         });
     }
-
+    
     saveAnswer() {
         const card: Card = this.cards[this.counter];
         setTimeout(function () {
             card.Answers.forEach(answer => {
-                const checkbox = <HTMLInputElement>document.getElementById('checkbox' + answer.Id);
+                const checkbox = <HTMLInputElement>document.getElementById('item' + answer.Id);
                 if (answer.IsChecked) {
                     checkbox.checked = true;
                 }
