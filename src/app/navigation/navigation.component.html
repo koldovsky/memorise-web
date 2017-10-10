@@ -1,26 +1,27 @@
-<nav>
-    <mat-toolbar color="primary">
-        <a mat-button routerLink="/">
-            <img src="./assets/images/logo-white.ico"> Memo Rise</a>
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
+    <a mat-button routerLink="/">
+        <img src="./assets/images/logo-white.ico">
+        Memo Rise
+    </a>
 
-        <span class="fill-remaining-space"></span>
-        <a mat-button routerLink="/moderator" *ngIf="auth.isAuthorized">Moderator</a>
-        <a mat-button routerLink="/catalog/courses">Courses</a>
-        <a mat-button routerLink="/catalog/decks">Decks</a>
-        <!-- <button mat-button (click)="openSignUpDialog()" *ngIf="!name">Sign Up</button> -->
-        <button mat-button (click)="openSignInDialog()" *ngIf="!name">Sign In</button>
-        <div *ngIf="name" class="position-expension-panel">
-            <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        <p>
-                            <i>{{name}}</i>
-                        </p>
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-                <button mat-button color="primary" [routerLink]="['/profile', name]">Profile</button><br>
-                <button mat-button color="primary" routerLink="/home" (click)="signOut()">Sign Out</button>                    
-            </mat-expansion-panel>
-        </div>
-    </mat-toolbar>
+    <span class="fill-remaining-space"></span>
+    <a mat-button routerLink="/moderator" *ngIf="auth.isAuthorized">Moderator</a>
+    <a mat-button routerLink="/catalog/courses">Courses</a>
+    <a mat-button routerLink="/catalog/decks">Decks</a>
+    <!-- <button mat-button (click)="openSignUpDialog()" *ngIf="!name">Sign Up</button> -->
+    <button mat-button (click)="openSignInDialog()" *ngIf="!name">Sign In</button>
+    <div *ngIf="name" class="position-expension-panel">
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <p>
+                        <i>{{name}}</i>
+                    </p>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <button mat-button color="primary" [routerLink]="['/profile', name]">Profile</button>
+            <br>
+            <button mat-button color="primary" routerLink="/home" (click)="signOut()">Sign Out</button>
+        </mat-expansion-panel>
+    </div>
 </nav>
