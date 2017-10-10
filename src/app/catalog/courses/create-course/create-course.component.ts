@@ -21,15 +21,14 @@ export class CreateCourseComponent implements OnInit {
         private categoryServide:CategoryService
     ) { 
         this.course = {
-            Name: "",
-            Linking: "",
-            Description: "",
+            Name: '',
+            Linking: '',
+            Description: '',
             Price: 0
         };
       }
 
     submitted = false;
-    
     onSubmit() { this.submitted = true; }
 
     ngOnInit(): void {
@@ -37,8 +36,7 @@ export class CreateCourseComponent implements OnInit {
         .then(categories => {
             this.categories = categories;
             this.isLoaded = true;
-            console.log("service is done")
+            console.log('service is done');
         });
     }
-        
 }

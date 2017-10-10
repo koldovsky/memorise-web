@@ -1,6 +1,7 @@
-.marginTop{
-  margin-top: 5%;
+.material-icons {
+  font-size: 100%;
 }
-.btn{
-  margin-right:2%; 
+
+.btn {
+  cursor: pointer;
 }

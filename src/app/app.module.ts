@@ -49,6 +49,7 @@ import { RegisterComponent } from './auth/components/register.component';
 import { QuizResultsComponent } from './quiz/results/quiz-results.component';
 import { ModeratorComponent } from './moderator/moderator.component';
 import { CreateCourseComponent } from './catalog/courses/create-course/create-course.component';
+import { PaginationComponent } from './pagination/pagination.component';
 
 import { AuthService } from './common/services/auth.service';
 import { CategoryService } from './common/services/category.service';
@@ -57,6 +58,7 @@ import { DeckService } from './common/services/deck.service';
 import { UserService } from './common/services/user.service';
 import { QuizService } from './common/services/quiz.service';
 import { InterceptorService } from './common/services/interceptor.service';
+import { PagerService } from './common/services/pager.service';
 
 import { CatalogModule } from './catalog/catalog.module';
 import { AppRoutingModule } from './app-routing.module';
@@ -65,8 +67,10 @@ import { FooterComponent } from './footer/footer.component';
 import { MessageService } from './common/services/message.service';
 import { ProfileModule } from './auth/user/profile/profile.module';
 import { ModeratorModule } from './moderator/moderator.module';
+
 import { FilterPipe } from './pipes/filter.pipe';
 import { SortingPipe } from './pipes/sorting.pipe';
+
 
 
 
@@ -98,6 +102,7 @@ import { SortingPipe } from './pipes/sorting.pipe';
         QuizResultsComponent,
         ModeratorComponent,
         CreateCourseComponent,
+        PaginationComponent
     ],
     entryComponents: [
         LoginComponent,
@@ -147,6 +152,7 @@ import { SortingPipe } from './pipes/sorting.pipe';
         DeckService,
         UserService,
         QuizService,
+        PagerService,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: InterceptorService,
