@@ -1,6 +1,6 @@
 import { Component, OnInit, Pipe, PipeTransform, NgModule } from '@angular/core';
-import { FilterPipe } from '../catalog/courses/course-filter/course.pipe';
-import { SortingPipe } from '../catalog/courses/course-filter/course-sort.pipe';
+import { FilterPipe } from '../pipes/filter.pipe';
+import { SortingPipe } from '../pipes/sorting.pipe';
 
 import { Course } from '../common/models/models';
 import { CourseService } from '../common/services/course.service';
@@ -36,8 +36,8 @@ export class ModeratorComponent implements OnInit {
 
   sortTable(prop: string) {
     this.path = prop.split('.');
-    this.order = this.order * (-1); // change order
-    return false; // do not reload
+    this.order = this.order * (-1);
+    return false;
   }
 
   onClick(event) {

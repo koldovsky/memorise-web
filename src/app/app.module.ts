@@ -65,8 +65,9 @@ import { FooterComponent } from './footer/footer.component';
 import { MessageService } from './common/services/message.service';
 import { ProfileModule } from './auth/user/profile/profile.module';
 import { ModeratorModule } from './moderator/moderator.module';
-import { FilterPipe } from './catalog/courses/course-filter/course.pipe';
-import { SortingPipe } from './catalog/courses/course-filter/course-sort.pipe';
+import { FilterPipe } from './pipes/filter.pipe';
+import { SortingPipe } from './pipes/sorting.pipe';
+
 
 
 @NgModule({
