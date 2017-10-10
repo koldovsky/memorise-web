@@ -1,35 +1,26 @@
 <h1>Moderation Panel</h1>
 <div class="container-fluid">
     <div class="row">
-    <button class="btn" 
-    [class.btn-primary]="whichButtonIsClicked=='categories'" 
-    [class.btn-outline-primary]="whichButtonIsClicked!='categories'"
-    id="categories" 
-    (click)="onClick($event)" >
-        Categories
-    </button>
-    <button class="btn btn-outline-primary" 
-    [class.btn-primary]="whichButtonIsClicked=='courses'"
-    [class.btn-outline-primary]="whichButtonIsClicked!='courses'"  
-    id="courses" 
-    (click)="onClick($event)">
-        Courses
-    </button>
-    <button class="btn btn-outline-primary" 
-    [class.btn-primary]="whichButtonIsClicked=='decks'"
-    [class.btn-outline-primary]="whichButtonIsClicked!='decks'"  
-    id="decks" 
-    (click)="onClick($event)" >
-        Decks
-    </button>
+        <button class="btn" [class.btn-primary]="whichButtonIsClicked=='categories'" [class.btn-outline-primary]="whichButtonIsClicked!='categories'"
+            id="categories" (click)="onClick($event)">
+            Categories
+        </button>
+        <button class="btn btn-outline-primary" [class.btn-primary]="whichButtonIsClicked=='courses'" [class.btn-outline-primary]="whichButtonIsClicked!='courses'"
+            id="courses" (click)="onClick($event)">
+            Courses
+        </button>
+        <button class="btn btn-outline-primary" [class.btn-primary]="whichButtonIsClicked=='decks'" [class.btn-outline-primary]="whichButtonIsClicked!='decks'"
+            id="decks" (click)="onClick($event)">
+            Decks
+        </button>
     </div>
 
-    <div class="row marginTop"  *ngIf="whichButtonIsClicked=='categories'">
-            Categories
-            <!-- Table -->
-       </div>
-    <div class="row marginTop"  *ngIf="whichButtonIsClicked=='courses'">
-         <create-course></create-course>
+    <div class="row marginTop" *ngIf="whichButtonIsClicked=='categories'">
+        Categories
+        <!-- Table -->
+    </div>
+    <div class="row marginTop" *ngIf="whichButtonIsClicked=='courses'">
+        <create-course></create-course>
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -74,9 +65,15 @@
                                     <span class="sr-only">Previous</span>
                                 </a>
                             </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">1</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">2</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">3</a>
+                            </li>
                             <li class="page-item">
                                 <a class="page-link" href="#" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
@@ -89,9 +86,9 @@
             </div>
         </div>
     </div>
-    <div class="row marginTop"  *ngIf="whichButtonIsClicked=='decks'">
-           Decks
-            <!-- Table -->
-       </div>
-    
+    <div class="row marginTop" *ngIf="whichButtonIsClicked=='decks'">
+        Decks
+        <!-- Table -->
+    </div>
+
 </div>

@@ -15,22 +15,15 @@ import { AuthService } from '../common/services/auth.service';
 })
 
 export class ModeratorComponent implements OnInit {
-  displayedColumns = ['Position', 'Name', 'Description'];
-  dataSource: CoursesDataSource;
-
-  key = 0;
-
-export class ModeratorComponent implements OnInit {
   searchableList: string[];
   courses: Course[];
   copyCourses: Course;
   path: string[] = ['Name'];
-  order: number = 1;
-  whichButtonIsClicked: string = "categories";
-  isActive: boolean = false; 
- 
+  order = 1;
+  whichButtonIsClicked = 'categories';
+  isActive = false;
+
   constructor(private courseService: CourseService,
-    private dialog: MatDialog,
     private auth: AuthService,
   ) {
     this.searchableList = ['Name'];
@@ -42,26 +35,13 @@ export class ModeratorComponent implements OnInit {
   }
 
   sortTable(prop: string) {
-    this.path = prop.split('.')
+    this.path = prop.split('.');
     this.order = this.order * (-1); // change order
     return false; // do not reload
   }
 
   onClick(event) {
-      let clickedButton = event.target;
+      const clickedButton = event.target;
       this.whichButtonIsClicked = clickedButton.id;
   }
-  openCreateNewCourseDialog(): void {
-    const dialogRef = this.dialog.open(CreateCourseComponent, {
-      width: '400px',
-      data: {
-        action: 'Create new course',
-        name: '',
-        description: '',
-      }
-    });
   }
-
-
-  
-

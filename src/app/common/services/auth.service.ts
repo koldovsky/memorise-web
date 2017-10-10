@@ -9,6 +9,7 @@ import { handleError } from '../functions/functions';
 
 @Injectable()
 export class AuthService {
+    valid: boolean;
     errorMessage = '';
     isAuthorized: boolean;
 

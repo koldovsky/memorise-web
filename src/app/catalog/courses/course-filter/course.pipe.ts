@@ -8,7 +8,7 @@ export class FilterPipe implements PipeTransform {
         if (input) {
             input = input.toLowerCase();
             return value.filter(function (el: any) {
-                var isTrue = false;
+                let isTrue = false;
                 for (var k in searchableList) {
                     if (el[searchableList[k]].toLowerCase().indexOf(input) > -1) {
                         isTrue = true;
@@ -17,7 +17,7 @@ export class FilterPipe implements PipeTransform {
                         return el;
                     }
                 }
-            })
+            });
         }
         return value;
     }
