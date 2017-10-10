@@ -20,6 +20,9 @@ export class QuizComponent implements OnInit {
     cardsCount;
     counter = 0;
     isLoaded = false;
+    correctColor = "limeGreen";
+    uncorrectColor = "red";
+
 
     ngOnInit(): void {
         this.route.paramMap
@@ -118,25 +121,33 @@ export class QuizComponent implements OnInit {
                 checkedAnswersCount++;
                 switch (answer.IsCorrect) {
                     case true:
-                        lable.style.color = 'green';
+                        lable.style.color = this.correctColor;
+                        lable.style.fontWeight = "bold";
                         correctAnswersCount++;
                         break;
                     case false:
-                        lable.style.color = 'red';
+                        lable.style.color = this.uncorrectColor;
+                        lable.style.fontWeight = "bold";
                         isUncorrectChecked = true;
                         break;
                 }
             }else if(answer.IsCorrect){
-                lable.style.color = 'green';
+                lable.style.color = this.correctColor;;
+                lable.style.fontWeight = "bold";
+                correctAnswersCount++;
             }else {
                 lable.style.color = 'black';
             }
 
             const cardTitle = <HTMLInputElement>document.getElementById('cardTitle' + card.Id);
-            cardTitle.style.color = !isUncorrectChecked
-                && correctAnswersCount === checkedAnswersCount
-                ? 'green'
-                : 'red';
+            
+            if(!isUncorrectChecked && correctAnswersCount === checkedAnswersCount){
+                cardTitle.style.color = this.correctColor;;
+                cardTitle.style.fontWeight = "bold";
+            }else{
+                cardTitle.style.color = this.uncorrectColor;
+                cardTitle.style.fontWeight = "bold";
+            }
         });
     }
     
