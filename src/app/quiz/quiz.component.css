@@ -45,3 +45,13 @@
 #nav-buttons {
     margin-top: 3vh;
 }
+
+.hight10{
+    padding: 7vh;
+}
+
+@media (max-width: 991px) { 
+    .cards{
+        display: none;
+    }
+}
