@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { CourseService } from '../../common/services/course.service';
 import { DeckService } from '../../common/services/deck.service';
@@ -14,8 +14,9 @@ import { Subscription } from 'rxjs/Subscription';
     styleUrls: ['./courses.component.css']
 })
 
-export class CoursesComponent implements OnInit, OnDestroy {
-    constructor(private courseService: CourseService,
+export class CoursesComponent implements OnInit {
+    constructor(
+        private courseService: CourseService,
         private deckService: DeckService,
         private messageService: MessageService,
         private categoryService: CategoryService) {
@@ -33,10 +34,6 @@ export class CoursesComponent implements OnInit, OnDestroy {
             this.courseService.getCourses()
                 .then(courses => this.courses = courses);
         }
-        // this.courseService.getCourses()
-        //     .then(courses => this.courses = courses);
-
-
 
         this.messageService.getMessage().subscribe(data => {
             if (data) {
@@ -48,9 +45,6 @@ export class CoursesComponent implements OnInit, OnDestroy {
                     .then(courses => this.courses = courses);
             }
         });
-    }
-
-    ngOnDestroy(): void {
     }
 
     getCourseDecks(name: string) {

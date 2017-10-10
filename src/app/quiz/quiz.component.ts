@@ -117,8 +117,6 @@ export class QuizComponent implements OnInit {
         let checkedAnswersCount = 0;
         card.Answers.forEach(answer => {
             const lable = <HTMLInputElement>document.getElementById('answer' + answer.Id);
-            if (answer.IsChecked) {
-                checkedAnswersCount++;
                 switch (answer.IsCorrect) {
                     case true:
                         lable.style.color = 'green';
@@ -126,11 +124,11 @@ export class QuizComponent implements OnInit {
                         break;
                     case false:
                         lable.style.color = 'red';
-                        isUncorrectChecked = true;
                         break;
                 }
-            } else {
-                lable.style.color = 'black';
+            if (answer.IsChecked) {
+                checkedAnswersCount++;
+                isUncorrectChecked = answer.IsCorrect ? isUncorrectChecked : true;
             }
 
             const cardTitle = <HTMLInputElement>document.getElementById('cardTitle' + card.Id);
