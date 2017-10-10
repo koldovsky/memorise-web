@@ -19,8 +19,8 @@ export class CategoryService {
             .catch(handleError);
     }
 
-    getCoursesByCategory(categoryName: string): Promise<Course[]> {
-        const URL = `http://localhost:37271/Catalog/GetCoursesByCategory/${categoryName}`;
+    getCoursesByCategory(categoryLiking: string): Promise<Course[]> {
+        const URL = `http://localhost:37271/Catalog/GetCoursesByCategory/${categoryLiking}`;
 
         return this.http.get(URL)
             .toPromise()
@@ -28,8 +28,8 @@ export class CategoryService {
             .catch(handleError);
     }
 
-    getDecksByCategory(categoryName: string): Promise<Course[]> {
-        const URL = `http://localhost:37271/Catalog/GetDecksByCategory/${categoryName}`;
+    getDecksByCategory(categoryLiking: string): Promise<Course[]> {
+        const URL = `http://localhost:37271/Catalog/GetDecksByCategory/${categoryLiking}`;
 
         return this.http.get(URL)
             .toPromise()

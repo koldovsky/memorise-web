@@ -26,8 +26,9 @@ p {
     flex-direction: column;
 } */
 
-a:not(.mat-button) {
+
+/* a:not(.mat-button) {
     color: inherit;
     text-decoration: inherit;
     font-weight: inherit;
-}
+} */

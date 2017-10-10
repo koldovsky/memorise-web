@@ -1,6 +1,6 @@
 <div class="flex-container">
     <div class="flex-item" *ngFor="let course of courses">
-        <a [routerLink]="['/catalog/courses', course.Linking]">
+        <a [routerLink]="['/catalog/course', course.Linking]">
             <mat-card>
                 <mat-card-content class="fixed-size center">
                     <img mat-card-m-image src={{course.Photo}} />

@@ -1,11 +1,11 @@
-header {
+/* header {
     position: relative;
     z-index: 10;
 }
 
 main {
     overflow-y: auto;
-    display: flex;
+     display: flex;
 }
 
 footer {
@@ -15,4 +15,4 @@ footer {
     padding: 1vh 1vw;
     margin: 0 auto;
     bottom: 0;
-}
+} */

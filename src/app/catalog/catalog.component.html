@@ -1,4 +1,23 @@
-<mat-sidenav-container>
+<div class="row">
+    <div class="col-3">
+        <nav class="nav flex-column">
+            <a class="nav-link active" [routerLink]="['/catalog/courses/Any']">
+                Any
+            </a>
+            <a *ngFor="let category of categories" class="nav-link" [routerLink]="['/catalog/courses', category.Linking]">
+                {{category.Name}}
+            </a>
+        </nav>
+        <!-- <a href="/catalog/courses">Active</a> -->
+    </div>
+    <div class="col-9">
+        <router-outlet></router-outlet>
+        <!-- <app-footer></app-footer> -->
+    </div>
+</div>
+
+
+<!-- <mat-sidenav-container>
     <mat-sidenav #sidenav>
         <mat-button-toggle-group vertical #group="matButtonToggleGroup">
             <h3 id="categories">Categories</h3>
@@ -26,4 +45,4 @@
     </mat-toolbar>
     <router-outlet></router-outlet>
     <app-footer></app-footer>
-</mat-sidenav-container>
+</mat-sidenav-container> -->

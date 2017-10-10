@@ -12,17 +12,17 @@ const route: Routes = [
         component: CatalogComponent,
         children: [
                     {
-                        path: 'courses',
+                        path: 'courses/:category',
                         component: CoursesComponent
                     },
                     {
-                        path: 'decks',
+                        path: 'decks/:category',
                         component: DecksComponent
                     }
                 ]
     },
     {
-        path: 'catalog/courses/:name',
+        path: 'catalog/course/:name',
         component: CourseDetailsComponent
     }
 ];
