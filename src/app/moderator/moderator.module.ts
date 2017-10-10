@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { ModeratorRoutingModule } from './moderator-routing.module';
-//import { CreateCourseComponent } from '../catalog/courses/create-course/create-course.component';
-//import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+// import { CreateCourseComponent } from '../catalog/courses/create-course/create-course.component';
 
 @NgModule({
     // declarations:[
@@ -10,7 +9,6 @@ import { ModeratorRoutingModule } from './moderator-routing.module';
     // ],
     imports: [
         ModeratorRoutingModule
-        
     ]
 })
 

@@ -1,22 +1,31 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Pipe, PipeTransform } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+
 import {
-    MatButtonModule, MatCardModule,
-    MatMenuModule, MatToolbarModule,
-    MatIconModule, MatListModule,
-    MatButtonToggleModule, MatSidenavModule,
-    MatExpansionModule, MatLineModule,
-    MatGridListModule, MatTabsModule, MatDialogModule,
-    MatInputModule, MatPaginatorModule,
+    MatButtonModule,
+    MatCardModule,
+    MatMenuModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatListModule,
+    MatButtonToggleModule,
+    MatSidenavModule,
+    MatExpansionModule,
+    MatLineModule,
+    MatGridListModule,
+    MatTabsModule,
+    MatDialogModule,
+    MatInputModule,
+    MatPaginatorModule,
     MatChipsModule,
     MatTableModule
 } from '@angular/material';
 import {MatDatepickerModule, MatNativeDateModule} from '@angular/material';
 
 import {FormsModule, FormBuilder, ReactiveFormsModule} from '@angular/forms';
-import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
@@ -39,7 +48,7 @@ import { QuizComponent } from './quiz/quiz.component';
 import { RegisterComponent } from './auth/components/register.component';
 import { QuizResultsComponent } from './quiz/results/quiz-results.component';
 import { ModeratorComponent } from './moderator/moderator.component';
-import { CreateCourseComponent } from './catalog/courses/create-course/create-course.component'
+import { CreateCourseComponent } from './catalog/courses/create-course/create-course.component';
 
 import { AuthService } from './common/services/auth.service';
 import { CategoryService } from './common/services/category.service';
@@ -56,6 +65,9 @@ import { FooterComponent } from './footer/footer.component';
 import { MessageService } from './common/services/message.service';
 import { ProfileModule } from './auth/user/profile/profile.module';
 import { ModeratorModule } from './moderator/moderator.module';
+import { FilterPipe } from './catalog/courses/course-filter/course.pipe';
+import { SortingPipe } from './catalog/courses/course-filter/course-sort.pipe';
+
 
 @NgModule({
     declarations: [
@@ -72,6 +84,8 @@ import { ModeratorModule } from './moderator/moderator.module';
         LoginComponent,
         CardsComponent,
         AppComponent,
+        FilterPipe,
+        SortingPipe,
         HomeComponent,
         PageNotFoundComponent,
         UnauthorizedComponent,
@@ -82,7 +96,7 @@ import { ModeratorModule } from './moderator/moderator.module';
         ProfileComponent,
         QuizResultsComponent,
         ModeratorComponent,
-        CreateCourseComponent
+        CreateCourseComponent,
     ],
     entryComponents: [
         LoginComponent,
@@ -94,7 +108,6 @@ import { ModeratorModule } from './moderator/moderator.module';
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
-
         MatButtonModule,
         MatCardModule,
         MatMenuModule,

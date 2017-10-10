@@ -13,14 +13,6 @@ const route: Routes = [
         path: ':from/:name/quiz/results',
         component: QuizResultsComponent
     },
-    // {
-    //     path: 'course/:name/quiz',
-    //     component: QuizComponent,
-    // },
-    // {
-    //     path: 'course/:name/quiz/results',
-    //     component: QuizResultsComponent
-    // }
 ];
 
 @NgModule({
