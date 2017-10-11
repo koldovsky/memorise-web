@@ -52,7 +52,8 @@
                                 <td>{{course.Name}}</td>
                                 <td>{{course.Description}}</td>
                                 <td>
-                                    <button class="btn btn-primary btn-block buttonWidth mx-auto">
+                                    <button class="btn btn-primary btn-block buttonWidth mx-auto" 
+                                    (click)="onBtnInfoClick({{course.Linking}})">
                                         <i class="material-icons">info_outline</i>
                                     </button>
                                 </td>

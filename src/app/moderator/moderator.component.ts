@@ -27,7 +27,8 @@ export class ModeratorComponent implements OnInit {
   pagedItems: any[];
   damn: number[];
 
-  constructor(private courseService: CourseService,
+  constructor(
+    private courseService: CourseService,
     private pagerService: PagerService
   ) {
     this.searchableList = ['Name'];
@@ -56,5 +57,9 @@ export class ModeratorComponent implements OnInit {
   onClick(event) {
     const clickedButton = event.target;
     this.whichButtonIsClicked = clickedButton.id;
+  }
+
+  onBtnInfoClick(btnInfoLinking: string){
+    this.courseService.btnInfoLinking = btnInfoLinking;
   }
 }

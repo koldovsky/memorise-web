@@ -12,6 +12,8 @@ export class CourseService {
     private coursesUrl = 'http://localhost:37271/Catalog/GetCourses';
     private courseUrl = 'http://localhost:37271/Catalog/GetCourse';
     private courseModeratorUrl='http://localhost:37271/Moderator/'
+    
+    btnInfoLinking: string = "";
 
     constructor(private http: HttpClient) { }
 
