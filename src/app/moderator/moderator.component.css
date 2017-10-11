@@ -1,13 +1,9 @@
-.material-icons {
-    font-size: 100%;
-}
 .marginTopAndBottom{
   margin-top: 2%;
   margin-bottom: 2%;
 }
 
 .btn {
-    cursor: pointer;
     margin-right: 2%;
 }
 .buttonWidth{
