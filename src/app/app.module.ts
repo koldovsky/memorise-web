@@ -71,6 +71,8 @@ import { ModeratorModule } from './moderator/moderator.module';
 import { FilterPipe } from './pipes/filter.pipe';
 import { SortingPipe } from './pipes/sorting.pipe';
 import { CourseTableComponent } from './catalog/courses/course-table/course-table.component';
+import { DeckTableComponent } from './catalog/decks/deck-table/deck-table.component';
+import { CatalogTableComponent } from './catalog/catalog-table/catalog-table.component';
 
 
 
@@ -104,7 +106,9 @@ import { CourseTableComponent } from './catalog/courses/course-table/course-tabl
         ModeratorComponent,
         CreateCourseComponent,
         PaginationComponent,
-        CourseTableComponent
+        CourseTableComponent,
+        DeckTableComponent,
+        CatalogTableComponent
     ],
     entryComponents: [
         LoginComponent,
