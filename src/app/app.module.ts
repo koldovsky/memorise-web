@@ -70,6 +70,7 @@ import { ModeratorModule } from './moderator/moderator.module';
 
 import { FilterPipe } from './pipes/filter.pipe';
 import { SortingPipe } from './pipes/sorting.pipe';
+import { CourseTableComponent } from './catalog/courses/course-table/course-table.component';
 
 
 
@@ -102,7 +103,8 @@ import { SortingPipe } from './pipes/sorting.pipe';
         QuizResultsComponent,
         ModeratorComponent,
         CreateCourseComponent,
-        PaginationComponent
+        PaginationComponent,
+        CourseTableComponent
     ],
     entryComponents: [
         LoginComponent,
