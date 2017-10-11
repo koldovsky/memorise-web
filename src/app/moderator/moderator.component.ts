@@ -28,7 +28,4 @@ export class ModeratorComponent implements OnInit {
     this.whichButtonIsClicked = clickedButton.id;
   }
 
-  onBtnInfoClick(btnInfoLinking: string){
-    this.courseService.btnInfoLinking = btnInfoLinking;
-  }
 }

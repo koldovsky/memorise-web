@@ -1,0 +1,56 @@
+<div class="hight10hv"></div>
+<div class="row" *ngIf="isLoaded">
+    <div class="col-xs-12 col-sm-1 col-md-2 col-lg-3"></div>
+    <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
+        <h2 class="text-center">Course details</h2>
+        <form>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" 
+                    placeholder="Course name" value="{{course.Name}}">
+                </div>
+
+                <div class="form-group">
+                    <label for="selectId">Category</label>
+                    <select class="form-control form-control-lg" id="selectId">
+                        <option *ngFor="let category of categories" 
+                        value="category.Name" 
+                        [attr.selected]="category.Name===course.Category.Name ? true : null"
+                        >
+                        {{category.Name}}
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                        <label for="price">Price</label>
+                        <input type="text" class="form-control" id="price" 
+                        placeholder="Course price" value="{{course.Price}}">
+                </div>
+
+                <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" id="description" 
+                        rows="3" value="{{course.Description}}"
+                        placeholder="Course description"></textarea>
+                </div>
+
+                <div class="form-group">
+                        <label for="multipleselectId">Decks</label>
+                                <select multiple class="form-control form-control-lg" id="multipleselectId">
+                                        <option *ngFor="let deck of course.Decks" 
+                                        value="deck.Name" 
+                                        >
+                                        {{deck.Name}}
+                                        </option>
+                                </select>
+                </div>
+
+                <button class="btn btn-primary" [routerLink]="['/moderator']">Back</button>
+                <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+    </div>
+    <div class="col-xs-12 col-sm-1 col-md-2 col-lg-3"></div>
+</div>
+<div class="hight10hv"></div>
+            

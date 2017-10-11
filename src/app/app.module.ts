@@ -50,6 +50,7 @@ import { QuizResultsComponent } from './quiz/results/quiz-results.component';
 import { ModeratorComponent } from './moderator/moderator.component';
 import { CreateCourseComponent } from './catalog/courses/create-course/create-course.component';
 import { PaginationComponent } from './pagination/pagination.component';
+import { EditCourseComponent } from './catalog/courses/edit-course/edit-course.component';
 
 import { AuthService } from './common/services/auth.service';
 import { CategoryService } from './common/services/category.service';
@@ -104,7 +105,8 @@ import { CourseTableComponent } from './catalog/courses/course-table/course-tabl
         ModeratorComponent,
         CreateCourseComponent,
         PaginationComponent,
-        CourseTableComponent
+        CourseTableComponent,
+        EditCourseComponent
     ],
     entryComponents: [
         LoginComponent,

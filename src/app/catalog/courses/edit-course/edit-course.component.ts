@@ -7,12 +7,11 @@ import { CategoryService } from '../../../common/services/category.service';
 import { CourseService } from '../../../common/services/course.service';
 
 @Component({
-    selector: 'create-course',
-    templateUrl: './create-course.component.html',
-    styleUrls: ['./create-course.component.css']
+    selector: 'edit-course',
+    templateUrl: './edit-course.component.html',
+    styleUrls: ['./edit-course.component.css']
 })
-
-export class CreateCourseComponent implements OnInit {
+export class EditCourseComponent implements OnInit {
    course:Course;
    categories: Category[];
    isLoaded: boolean=false;
@@ -22,33 +21,21 @@ export class CreateCourseComponent implements OnInit {
         private authService: AuthService,
         private categoryService:CategoryService,
         private courseService: CourseService
-    ) { 
-        this.course = {
-            Name: '',
-            Linking: '',
-            Description: '',
-            Price: 0
-        };
-      }
-
-    onSubmit() { 
-        console.log(this.course);
-        this.courseService.createCourse(this.course);
-    }
+    ) { };
 
     ngOnInit(): void {
         this.categoryService.getCategories()
-        .then(categories => {
-            this.categories = categories;
+        .then(categories => this.categories = categories);
+
+        this.courseService.getCourse(this.courseService.btnInfoLinking)
+        .then(c => {
+            this.course = c;
+            this.courseLinking = c.Linking;
+            this.isLoaded = true;
+            console.log(this.course);
         });
-        this.courseLinking = this.courseService.btnInfoLinking;
-        this.courseService.getCourse(this.courseLinking)
-        .then(c => this.course = c);
-        this.isLoaded = true;
-    }
-    checkName(){
-        let result=this.courseService.checkIfCourseExists(this.course.Name);
-        console.log(result);
-    }
-        
+    }; 
+
+    // const select = document.getElementById("selectCategoryId");
+    // var categoryName = select.options[select.selectedIndex].value;
 }

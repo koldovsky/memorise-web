@@ -34,4 +34,8 @@ export class CourseTableComponent implements OnInit {
         this.order = this.order * (-1);
         return false;
     }
+
+    onBtnInfoClick(btnInfoLinking: string){
+        this.courseService.btnInfoLinking = btnInfoLinking;
+      }
 }
