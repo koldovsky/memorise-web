@@ -1,9 +1,10 @@
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createCourseFormModal" data-whatever="createCourse">
+<button type="button" class="btn btn-primary" data-toggle="modal" 
+data-target="#createCourseFormModal" data-whatever="createCourse">
  Create new course
 </button>
 
-<div class="modal fade" id="createCourseFormModal" tabindex="-1" role="dialog" aria-labelledby="createCourseFormModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="createCourseFormModal" tabindex="-1" role="dialog" 
+aria-labelledby="createCourseFormModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -13,27 +14,77 @@
         </button>
             </div>
             <div class="modal-body">
-                <form #courseForm="ngForm">
-                    <div  *ngIf="isLoaded" class="form-group">
-                        <label for="category">Category</label>
-                        <select class="form-control" id="category" required>
+                <form (ngSubmit)="onSubmit()" #courseForm="ngForm">
+                    <div *ngIf="isLoaded" class="form-group">
+                        <label for="category">Category:</label>
+                        <select class="form-control" id="category" 
+                        required 
+                        [(ngModel)]="course.Category"
+                        #category="ngModel" 
+                        name="Category">
                           <option *ngFor="let category of categories"
                           [value]="category.Name">
                           {{category.Name}}
                         </option>
                         </select>
+                        <div *ngIf="category.invalid && (category.dirty || category.touched)"
+                        class="alert alert-danger">
+                          <div *ngIf="category.errors.required">
+                           Please chose the category.
+                          </div>
+                     </div>
                     </div>
                     <div class="form-group">
-                        <label for="name" class="form-control-label">Title:</label>
-                        <input type="text" class="form-control" id="name" 
-                        required
-                        [(ngModel)]='course.Name' name="Name" placeholder="Title">
+                        <label for="name" class="form-control-label">Course name:</label>
+                        <div class="input-group">
+                                <input type="text" class="form-control" placeholder="course name" 
+                                id="name" 
+                                required 
+                                [(ngModel)]='course.Name' 
+                                name="Name" #name="ngModel">
+                                <span class="input-group-btn">
+                                  <button class="btn btn-outline-primary" type="button" 
+                                  [disabled]="name.invalid"
+                                  (click)="checkName()">
+                                  Check
+                                </button>
+                                </span>
+                        </div>
+                        <small id="nameHelp" class="form-text text-muted">
+                            Please check if course name is unique.
+                        </small>
+                        <div *ngIf="name.invalid && (name.dirty || name.touched)"
+                           class="alert alert-danger">
+                             <div *ngIf="name.errors.required">
+                              Name is required.
+                             </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                            <label for="linking">New course URL:</label>
+                            <div class="input-group">
+                              <span class="input-group-addon" id="basic-addon">https://memorise.com/catalog/courses/</span>
+                              <input type="text" class="form-control" id="linking" aria-describedby="basic-addon"
+                              required 
+                              [(ngModel)]='course.linking' 
+                              name="Linking" 
+                              readonly>
+                            </div>
                     </div>
                     <div class="form-group">
                         <label for="description" class="form-control-label">Description:</label>
-                        <textarea class="form-control" 
-                        [(ngModel)]='course.Description' name="Description" id="description">
-                    </textarea>
+                        <textarea class="form-control"
+                        required 
+                        [(ngModel)]='course.Description' 
+                        name="Description" id="description"
+                        maxlength="250" #description="ngModel">
+                        </textarea>
+                        <div *ngIf="description.invalid && (description.dirty || description.touched)"
+                        class="alert alert-danger">
+                          <div *ngIf="description.errors.required">
+                                Description is required.
+                          </div>
+                       </div>
                     </div>
                     <div class="form-group">
                         <label for="photo">Course image</label>
@@ -43,7 +94,11 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Send message</button>
+                <!-- <button type="button" class="btn btn-primary">Send message</button> -->
+                <button type="submit" class="btn btn-primary" 
+                [disabled]="!courseForm.form.valid" (click)="onSubmit()">
+                Create
+                </button>
             </div>
         </div>
     </div>

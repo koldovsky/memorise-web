@@ -4,6 +4,7 @@ import { Course, Category } from '../../../common/models/models';
 
 import { AuthService } from '../../../common/services/auth.service';
 import { CategoryService } from '../../../common/services/category.service';
+import { CourseService } from '../../../common/services/course.service';
 
 @Component({
     selector: 'create-course',
@@ -18,7 +19,8 @@ export class CreateCourseComponent implements OnInit {
 
     constructor(
         private authService: AuthService,
-        private categoryServide:CategoryService
+        private categoryService:CategoryService,
+        private courseService: CourseService
     ) { 
         this.course = {
             Name: "",
@@ -28,17 +30,21 @@ export class CreateCourseComponent implements OnInit {
         };
       }
 
-    submitted = false;
-    
-    onSubmit() { this.submitted = true; }
+    onSubmit() { 
+        console.log(this.course);
+        this.courseService.createCourse(this.course);
+    }
 
     ngOnInit(): void {
-        this.categoryServide.getCategories()
+        this.categoryService.getCategories()
         .then(categories => {
             this.categories = categories;
             this.isLoaded = true;
-            console.log("service is done")
         });
+    }
+    checkName(){
+        let result=this.courseService.checkIfCourseExists(this.course.Name);
+        console.log(result);
     }
         
 }

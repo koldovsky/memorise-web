@@ -1,5 +1,5 @@
 <h1>Moderation Panel</h1>
-<div class="container-fluid">
+<div class="container">
     <div class="row">
         <button class="btn" [class.btn-primary]="whichButtonIsClicked=='categories'" [class.btn-outline-primary]="whichButtonIsClicked!='categories'"
             id="categories" (click)="onClick($event)">
@@ -19,9 +19,10 @@
         Categories
         <!-- Table -->
     </div>
-    <div class="row marginTop" *ngIf="whichButtonIsClicked=='courses'">
-        <create-course></create-course>
+    <div class="row" *ngIf="whichButtonIsClicked=='courses'">
         <div class="container">
+        <create-course class="row col-12 marginTopAndBottom"></create-course>
+        
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
@@ -37,6 +38,8 @@
                                     <a href (click)="sortTable('Name')">Course Name</a>
                                 </th>
                                 <th>Description</th>
+                                <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -49,7 +52,7 @@
                                     <button class="btn btn-primary">Details</button>
                                 </td>
                                 <td>
-                                    <button class="btn btn-primary">Delete</button>
+                                    <button class="btn btn-danger">Delete</button>
                                 </td>
                             </tr>
                         </tbody>

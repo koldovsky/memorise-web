@@ -11,6 +11,7 @@ import { handleError } from '../functions/functions';
 export class CourseService {
     private coursesUrl = 'http://localhost:37271/Catalog/GetCourses';
     private courseUrl = 'http://localhost:37271/Catalog/GetCourse';
+    private courseModeratorUrl='http://localhost:37271/Moderator/'
 
     constructor(private http: HttpClient) { }
 
@@ -28,5 +29,21 @@ export class CourseService {
             .toPromise()
             .then(response => response as Course)
             .catch(handleError);
+    }
+
+    createCourse(course: Course):void{
+        this.http.post(this.courseModeratorUrl+"CreateCourse",course)
+        .toPromise()
+        .catch(handleError);
+        
+    }
+
+    checkIfCourseExists(courseName: string): Promise<boolean>{
+        return this.http.get(this.courseModeratorUrl+"CheckIfCourseExists/"+courseName)
+        .toPromise()
+        .then(r=>r as boolean)
+        .catch(handleError);
+        
+        
     }
 }
