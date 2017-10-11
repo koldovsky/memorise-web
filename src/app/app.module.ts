@@ -52,6 +52,7 @@ import { CreateCourseComponent } from './catalog/courses/create-course/create-co
 import { CreateDeckComponent } from './catalog/decks/create-deck/create-deck.component';
 import { CreateCategoryComponent } from './catalog/create-category/create-category.component';
 import { PaginationComponent } from './pagination/pagination.component';
+import { EditCourseComponent } from './catalog/courses/edit-course/edit-course.component';
 
 import { AuthService } from './common/services/auth.service';
 import { CategoryService } from './common/services/category.service';
@@ -111,6 +112,7 @@ import { CatalogTableComponent } from './catalog/catalog-table/catalog-table.com
         CreateDeckComponent,
         PaginationComponent,
         CourseTableComponent,
+        EditCourseComponent,
         DeckTableComponent,
         CatalogTableComponent
     ],

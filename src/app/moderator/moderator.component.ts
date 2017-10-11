@@ -36,4 +36,5 @@ export class ModeratorComponent implements OnInit {
     const clickedButton = event.target;
     this.whichButtonIsClicked = clickedButton.id;
   }
+
 }

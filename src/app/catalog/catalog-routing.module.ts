@@ -5,6 +5,7 @@ import { CoursesComponent } from './courses/courses.component';
 import { CatalogComponent } from './catalog.component';
 import { DecksComponent } from './decks/decks.component';
 import { CourseDetailsComponent } from './courses/course-details/course-details.component';
+import { EditCourseComponent } from './courses/edit-course/edit-course.component';
 
 const route: Routes = [
     {
@@ -24,6 +25,10 @@ const route: Routes = [
     {
         path: 'catalog/courses/:name',
         component: CourseDetailsComponent
+    },
+    {
+        path: 'moderator/courses/edit/:name',
+        component: EditCourseComponent
     }
 ];
 

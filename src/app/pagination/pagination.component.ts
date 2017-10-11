@@ -19,7 +19,7 @@ export class PaginationComponent implements OnInit {
     pager: any = {};
     pagedItems: any[];
     damn: number[];
-    isLoaded: boolean=false;
+    isLoaded : boolean = false;
 
     constructor(private courseService: CourseService,
         private pagerService: PagerService) { }
@@ -27,7 +27,7 @@ export class PaginationComponent implements OnInit {
     ngOnInit() {
         this.courseService.getCourses()
             .then(courses => { this.courses = courses; this.setPage(1); this.damn = _.range(1, this.courses.length + 1); });
-            this.isLoaded=true;
+        this.isLoaded = true;
     }
 
     setPage(page: number) {
