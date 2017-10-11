@@ -23,9 +23,9 @@ export class CreateCourseComponent implements OnInit {
         private courseService: CourseService
     ) { 
         this.course = {
-            Name: "",
-            Linking: "",
-            Description: "",
+            Name: '',
+            Linking: '',
+            Description: '',
             Price: 0
         };
       }

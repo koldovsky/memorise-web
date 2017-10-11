@@ -26,11 +26,14 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <div>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="material-icons">search</i>
+                            </span>
                             <input type="text" [(ngModel)]="queryString" placeholder="Search by Course Name" />
                         </div>
                     </div>
-                    <table class="table table-bordered table-hover">
+                    <table class="table table-bordered table-hover table-responsive">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -43,45 +46,46 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let course of courses | filter: queryString: searchableList
-                                                              | sorting : path: order  ; let i = index">
+                            <tr *ngFor="let course of pagedItems | filter: queryString: searchableList
+                                                                 | sorting : path: order; let i = index">
                                 <th scope="row">{{i+1}}</th>
                                 <td>{{course.Name}}</td>
                                 <td>{{course.Description}}</td>
-                                <td>
-                                    <button class="btn btn-primary">Details</button>
-                                </td>
-                                <td>
-                                    <button class="btn btn-danger">Delete</button>
+                                <td class="btn-group">
+                                    <button class="btn btn-primary">
+                                        <i class="material-icons">info_outline</i>
+                                    </button>
+                                    <button class="btn btn-primary">
+                                        <i class="material-icons">delete_forever</i>
+                                    </button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                    <nav>
-                        <ul class="pagination">
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
+                    <ul *ngIf="pager.pages.length" class="pagination">
+                        <div class="btn-group">
+                            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                <button (click)="setPage(1)" class="btn btn-info">First</button>
                             </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">1</a>
+                            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                <button (click)="setPage(pager.currentPage - 1)" class="btn btn-info">
+                                    <i class="material-icons">navigate_before</i>
+                                </button>
                             </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">2</a>
+                            <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                                <button class="page-link-number" (click)="setPage(page)" class="btn btn-primary">{{page}}</button>
                             </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">3</a>
+                            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                <button (click)="setPage(pager.currentPage + 1)" class="btn btn-info">
+                                    <i class="material-icons">navigate_next</i>
+                                </button>
                             </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                    <span class="sr-only">Next</span>
-                                </a>
+                            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                <button (click)="setPage(pager.totalPages)" class="btn btn-info">Last</button>
                             </li>
-                        </ul>
-                    </nav>
+                        </div>
+                    </ul>
+                    <!-- <app-pagination></app-pagination> -->
                 </div>
             </div>
         </div>
