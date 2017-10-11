@@ -22,7 +22,6 @@
     <div class="row" *ngIf="whichButtonIsClicked=='courses'">
         <div class="container">
         <create-course class="row col-12 marginTopAndBottom"></create-course>
-        
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
@@ -43,19 +42,22 @@
                                 <th>Description</th>
                                 <th></th>
                                 <th></th>
+                                
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let course of pagedItems | filter: queryString: searchableList
+                            <tr *ngFor="let course of courses | filter: queryString: searchableList
                                                                  | sorting : path: order; let i = index">
                                 <th scope="row">{{i+1}}</th>
                                 <td>{{course.Name}}</td>
                                 <td>{{course.Description}}</td>
-                                <td class="btn-group">
-                                    <button class="btn btn-primary">
+                                <td>
+                                    <button class="btn btn-primary btn-block buttonWidth mx-auto">
                                         <i class="material-icons">info_outline</i>
                                     </button>
-                                    <button class="btn btn-primary">
+                                </td>
+                                <td>
+                                    <button class="btn btn-danger btn-block buttonWidth mx-auto">
                                         <i class="material-icons">delete_forever</i>
                                     </button>
                                 </td>
