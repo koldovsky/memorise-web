@@ -1,8 +1,10 @@
+<div class="container marginTopAndBottom">
 <button type="button" class="btn btn-primary" data-toggle="modal" 
 data-target="#createCourseFormModal" data-whatever="createCourse">
  Create new course
 </button>
-
+</div>
+<!-- Modal Form -->
 <div class="modal fade" id="createCourseFormModal" tabindex="-1" role="dialog" 
 aria-labelledby="createCourseFormModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -58,10 +60,11 @@ aria-labelledby="createCourseFormModalLabel" aria-hidden="true">
                              <div *ngIf="name.errors.required">
                               Name is required.
                              </div>
-                             <div *ngIf="name.errors.maxlength">
-                                The maximum number of characters is 15.
-                               </div>
                         </div>
+                        <div *ngIf="!isUnique && afterCheck && (name.dirty || name.touched)"
+                        class="alert alert-danger">
+                            Course with such name already exists! Please try anouther.
+                           </div>
                     </div>
                     <div class="form-group">
                             <label for="linking">New course URL:</label>
@@ -94,13 +97,37 @@ aria-labelledby="createCourseFormModalLabel" aria-hidden="true">
                         <label for="photo">Course image</label>
                         <input type="file" class="form-control-file" id="photo">
                     </div>
+                    <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="checkbox" class="form-check-input" name="isPaid"
+                          [(ngModel)]='isPaid'
+                          >
+                          Paid course
+                        </label>
+                    </div>
+                    <div class="form-group" *ngIf="isPaid">
+                        <label for="price" class="form-control-label">Price:</label>
+                        <div class="input-group">
+                                <input type="number" class="form-control" placeholder="price" 
+                                id="price" 
+                                required max="100" min="0"
+                                [(ngModel)]='course.Price' 
+                                name="Price" #price="ngModel">
+                        </div>
+                        <div *ngIf="price.invalid && (price.dirty || price.touched)"
+                           class="alert alert-danger">
+                             <div *ngIf="price.errors.required">
+                              Price is required.
+                             </div>
+                        </div>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <!-- <button type="button" class="btn btn-primary">Send message</button> -->
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary" 
-                [disabled]="!courseForm.form.valid" (click)="onSubmit()">
+                [disabled]="!courseForm.form.valid" (click)="onSubmit(); courseForm.reset()"
+                >
                 Create
                 </button>
             </div>

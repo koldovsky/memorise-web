@@ -10,6 +10,7 @@ import { handleError } from '../functions/functions';
 export class DeckService {
     private decksUrl = 'http://localhost:37271/Catalog';
     private decksDetailsUrl = 'http://localhost:37271/DeckDetails';
+    private deckModeratorUrl='http://localhost:37271/Moderator/'
 
     constructor(private http: HttpClient) { }
 
@@ -33,6 +34,20 @@ export class DeckService {
         const URL = `${this.decksDetailsUrl}/GetDeckWithDetails/${deckName}`;
 
         return this.http.get(URL)
+            .toPromise()
+            .then(response => response as Deck)
+            .catch(handleError);
+    }
+    createDeck(deck: Deck):void{
+        this.http.post(this.deckModeratorUrl+"CreateDeck",deck)
+        .toPromise()
+        .then()
+        .catch(handleError);
+        
+    }
+
+    checkIfDeckExists(deckName: string): Promise<Deck> {
+         return this.http.get(this.deckModeratorUrl+"FindDeckByName/"+deckName)
             .toPromise()
             .then(response => response as Deck)
             .catch(handleError);

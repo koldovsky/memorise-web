@@ -49,6 +49,8 @@ import { RegisterComponent } from './auth/components/register.component';
 import { QuizResultsComponent } from './quiz/results/quiz-results.component';
 import { ModeratorComponent } from './moderator/moderator.component';
 import { CreateCourseComponent } from './catalog/courses/create-course/create-course.component';
+import { CreateDeckComponent } from './catalog/decks/create-deck/create-deck.component';
+import { CreateCategoryComponent } from './catalog/create-category/create-category.component';
 import { PaginationComponent } from './pagination/pagination.component';
 
 import { AuthService } from './common/services/auth.service';
@@ -105,6 +107,8 @@ import { CatalogTableComponent } from './catalog/catalog-table/catalog-table.com
         QuizResultsComponent,
         ModeratorComponent,
         CreateCourseComponent,
+        CreateCategoryComponent,
+        CreateDeckComponent,
         PaginationComponent,
         CourseTableComponent,
         DeckTableComponent,

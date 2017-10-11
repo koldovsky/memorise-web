@@ -34,6 +34,7 @@ export class CourseService {
     createCourse(course: Course):void{
         this.http.post(this.courseModeratorUrl+"CreateCourse",course)
         .toPromise()
+        .then()
         .catch(handleError);
         
     }

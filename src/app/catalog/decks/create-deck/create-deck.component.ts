@@ -1,19 +1,19 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { Course, Category } from '../../../common/models/models';
+import { Deck, Category } from '../../../common/models/models';
 
 import { AuthService } from '../../../common/services/auth.service';
 import { CategoryService } from '../../../common/services/category.service';
-import { CourseService } from '../../../common/services/course.service';
+import { DeckService } from '../../../common/services/deck.service';
 
 @Component({
-    selector: 'create-course',
-    templateUrl: './create-course.component.html',
-    styleUrls: ['./create-course.component.css']
+    selector: 'create-deck',
+    templateUrl: './create-deck.component.html',
+    styleUrls: ['./create-deck.component.css']
 })
 
-export class CreateCourseComponent implements OnInit {
-   course:Course;
+export class CreateDeckComponent implements OnInit {
+   deck:Deck;
    categories: Category[];
    isLoaded:boolean = false;
    isUnique:boolean = false;
@@ -23,19 +23,18 @@ export class CreateCourseComponent implements OnInit {
     constructor(
         private authService: AuthService,
         private categoryService:CategoryService,
-        private courseService: CourseService
+        private deckService: DeckService
     ) { 
-        this.course = {
+        this.deck = {
             Name: '',
             Linking: '',
-            Description: '',
             Price: 0
         };
       }
 
     onSubmit() { 
-        console.log(this.course);
-        this.courseService.createCourse(this.course);
+        console.log(this.deck);
+        this.deckService.createDeck(this.deck);
     }
 
     ngOnInit(): void {
@@ -47,7 +46,7 @@ export class CreateCourseComponent implements OnInit {
     }
 
     checkName(){
-     this.courseService.checkIfCourseExists(this.course.Name)
+     this.deckService.checkIfDeckExists(this.deck.Name)
      .then(() =>{
           this.isUnique = false;
           this.afterCheck=true;
@@ -59,7 +58,7 @@ export class CreateCourseComponent implements OnInit {
            
     }
     createLinking():void{
-        this.course.Linking = this.course.Name.replace(/[^a-zA-Z0-9]/g, "");
+        this.deck.Linking = this.deck.Name.replace(/[^a-zA-Z0-9]/g, "");
     }
     
         

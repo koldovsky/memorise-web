@@ -9,6 +9,7 @@ import { handleError } from '../functions/functions';
 @Injectable()
 export class CategoryService {
     private categoryUrl = 'http://localhost:37271/Catalog/GetCategories';
+    private categoryModeratorUrl='http://localhost:37271/Moderator/'
 
     constructor(private http: HttpClient) { }
 
@@ -34,6 +35,21 @@ export class CategoryService {
         return this.http.get(URL)
             .toPromise()
             .then(response => response as Course[])
+            .catch(handleError);
+    }
+
+    createCategory(category: Category):void{
+        this.http.post(this.categoryModeratorUrl+"CreateCategory",category)
+        .toPromise()
+        .then()
+        .catch(handleError);
+        
+    }
+
+    checkIfCategoryExists(categoryName: string): Promise<Category> {
+         return this.http.get(this.categoryModeratorUrl+"FindCategoryByName/"+categoryName)
+            .toPromise()
+            .then(response => response as Category)
             .catch(handleError);
     }
 }
