@@ -99,3 +99,7 @@ export interface Token extends BaseEntity {
     expires_in: User;
     token_type: Course;
 }
+
+export interface Exists {
+    value: boolean;
+}
