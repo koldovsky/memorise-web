@@ -100,6 +100,3 @@ export interface Token extends BaseEntity {
     token_type: Course;
 }
 
-export interface Exists {
-    value: boolean;
-}

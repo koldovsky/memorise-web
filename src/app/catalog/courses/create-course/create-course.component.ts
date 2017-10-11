@@ -15,7 +15,8 @@ import { CourseService } from '../../../common/services/course.service';
 export class CreateCourseComponent implements OnInit {
    course:Course;
    categories: Category[];
-   isLoaded:boolean=false;
+   isLoaded:boolean = false;
+   isUnique:boolean = false;
 
     constructor(
         private authService: AuthService,
@@ -42,9 +43,20 @@ export class CreateCourseComponent implements OnInit {
             this.isLoaded = true;
         });
     }
+
     checkName(){
-        let result=this.courseService.checkIfCourseExists(this.course.Name);
-        console.log(result);
+     this.courseService.checkIfCourseExists(this.course.Name)
+     .then(() =>{
+          this.isUnique = false;
+     })
+     .catch(()=>{
+        this.isUnique = true;
+        this.createLinking();
+     });
+           
+    }
+    createLinking():void{
+        this.course.Linking = this.course.Name.replace(/[^a-zA-Z0-9]/g, "");
     }
         
 }
