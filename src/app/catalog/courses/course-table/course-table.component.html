@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                            <i class="material-icons">search</i>  
+                    </span>
+                    <input type="text" [(ngModel)]="queryString" placeholder="Search by Course Name" />
+                </div>
+            </div>
+            <table class="table table-bordered table-hover table-responsive">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>
+                            <a href (click)="sortTable('Name')">Course Name</a>
+                        </th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let course of courses | filter: queryString: searchableList
+                                                         | sorting : path: order; let i = index">
+                        <th scope="row">{{i+1}}</th>
+                        <td>{{course.Name}}</td>
+                        <td>{{course.Description}}</td>
+                        <td class="btn-group">
+                            <button class="btn btn-primary">
+                                <i class="material-icons">info_outline</i>
+                            </button>
+                            <button class="btn btn-danger">
+                                <i class="material-icons">delete_forever</i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

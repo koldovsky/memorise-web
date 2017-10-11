@@ -20,78 +20,9 @@
         Categories
         <!-- Table -->
     </div>
-    <div class="row" *ngIf="whichButtonIsClicked=='courses'">
-        <div class="container">
-        <create-course class="row col-12 marginTopAndBottom"></create-course>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                                <i class="material-icons">search</i>
-                            </span>
-                            <input type="text" [(ngModel)]="queryString" placeholder="Search by Course Name" />
-                        </div>
-                    </div>
-                    <table class="table table-bordered table-hover table-responsive">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>
-                                    <a href (click)="sortTable('Name')">Course Name</a>
-                                </th>
-                                <th>Description</th>
-                                <th></th>
-                                <th></th>
-                                
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let course of courses | filter: queryString: searchableList
-                                                                 | sorting : path: order; let i = index">
-                                <th scope="row">{{i+1}}</th>
-                                <td>{{course.Name}}</td>
-                                <td>{{course.Description}}</td>
-                                <td>
-                                    <button class="btn btn-primary btn-block buttonWidth mx-auto">
-                                        <i class="material-icons">info_outline</i>
-                                    </button>
-                                </td>
-                                <td>
-                                    <button class="btn btn-danger btn-block buttonWidth mx-auto">
-                                        <i class="material-icons">delete_forever</i>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <ul *ngIf="pager.pages.length" class="pagination">
-                        <div class="btn-group">
-                            <li [ngClass]="{disabled:pager.currentPage === 1}">
-                                <button (click)="setPage(1)" class="btn btn-info">First</button>
-                            </li>
-                            <li [ngClass]="{disabled:pager.currentPage === 1}">
-                                <button (click)="setPage(pager.currentPage - 1)" class="btn btn-info">
-                                    <i class="material-icons">navigate_before</i>
-                                </button>
-                            </li>
-                            <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
-                                <button class="page-link-number" (click)="setPage(page)" class="btn btn-primary">{{page}}</button>
-                            </li>
-                            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-                                <button (click)="setPage(pager.currentPage + 1)" class="btn btn-info">
-                                    <i class="material-icons">navigate_next</i>
-                                </button>
-                            </li>
-                            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-                                <button (click)="setPage(pager.totalPages)" class="btn btn-info">Last</button>
-                            </li>
-                        </div>
-                    </ul>
-                    <!-- <app-pagination></app-pagination> -->
-                </div>
-            </div>
-        </div>
+    <div class="row marginTop" *ngIf="whichButtonIsClicked=='courses'">
+        <create-course></create-course>
+        <app-course-table></app-course-table>
     </div>
     <div class="row marginTop" *ngIf="whichButtonIsClicked=='decks'">
         Decks
