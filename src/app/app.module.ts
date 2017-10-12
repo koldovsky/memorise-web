@@ -77,6 +77,7 @@ import { SortingPipe } from './pipes/sorting.pipe';
 import { CourseTableComponent } from './catalog/courses/course-table/course-table.component';
 import { DeckTableComponent } from './catalog/decks/deck-table/deck-table.component';
 import { CatalogTableComponent } from './catalog/catalog-table/catalog-table.component';
+import { AddDeckComponent } from './catalog/decks/add-deck/add-deck.component';
 
 
 
@@ -115,7 +116,8 @@ import { CatalogTableComponent } from './catalog/catalog-table/catalog-table.com
         CourseTableComponent,
         EditCourseComponent,
         DeckTableComponent,
-        CatalogTableComponent
+        CatalogTableComponent,
+        AddDeckComponent,
     ],
     entryComponents: [
         LoginComponent,

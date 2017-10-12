@@ -37,21 +37,42 @@
                             placeholder="Course description"></textarea>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-10 col-md-9 col-lg-8">
-                    <div class="form-group">
-                            <label for="multipleselectId">Decks</label>
-                                    <select multiple class="form-control" id="multipleselectId">
-                                            <option *ngFor="let deck of course.Decks" 
-                                            value="deck.Name" 
-                                            >
-                                            {{deck.Name}}
-                                            </option>
-                                    </select>
-                    </div>
+                <div class="row">
+                    <div class="col-xs-1 col-sm-1"></div>
+                        <div class="col-xs-9 col-sm-8">
+                            <div class="form-group">
+                                    <label for="multipleselectId">Decks</label>
+                                            <select multiple class="form-control" id="multipleselectId">
+                                                    <option *ngFor="let deck of course.Decks" 
+                                                    value="deck.Name" 
+                                                    >
+                                                    {{deck.Name}}
+                                                    </option>
+                                            </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-2 col-sm-3 col-md-3">
+                            <br>
+                            <br>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12">
+                                    <button type="button" class="btn btn-danger">
+                                        <i class="material-icons">delete_forever</i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                    <div class="col-xs-12 col-sm-12">
+                                        <button type="button" class="btn btn-primary"
+                                        (click)="openAddDecksDialog()"
+                                        >
+                                                <i class="material-icons">add</i>
+                                        </button>
+                                    </div>
+                            </div>
+                        </div>
                 </div>
-                <div class="col-xs-12 col-sm-2 col-md-3 col-lg-4">
-                    
-                </div>
+                <br>
                 <div class="col-xs-12 col-sm-12">
                     <button type="button" class="btn btn-primary" (click)="setWhichButtonIsClicked()" [routerLink]="['/moderator']">Back</button>
                     <button type="submit" class="btn btn-primary">Update</button>
