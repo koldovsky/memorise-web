@@ -62,6 +62,7 @@ import { UserService } from './common/services/user.service';
 import { QuizService } from './common/services/quiz.service';
 import { InterceptorService } from './common/services/interceptor.service';
 import { PagerService } from './common/services/pager.service';
+import { ComunicationService } from './common/services/comunication.service';
 
 import { CatalogModule } from './catalog/catalog.module';
 import { AppRoutingModule } from './app-routing.module';
@@ -164,6 +165,8 @@ import { CatalogTableComponent } from './catalog/catalog-table/catalog-table.com
         DeckService,
         UserService,
         QuizService,
+        ComunicationService,
+        ModeratorComponent,
         PagerService,
         {
             provide: HTTP_INTERCEPTORS,

@@ -2,9 +2,10 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Course, Category } from '../../../common/models/models';
 
-import { AuthService } from '../../../common/services/auth.service';
 import { CategoryService } from '../../../common/services/category.service';
+import { ComunicationService } from '../../../common/services/comunication.service';
 import { CourseService } from '../../../common/services/course.service';
+import { ModeratorComponent } from '../../../moderator/moderator.component';
 
 @Component({
     selector: 'edit-course',
@@ -18,9 +19,10 @@ export class EditCourseComponent implements OnInit {
    courseLinking : string = '';
 
     constructor(
-        private authService: AuthService,
         private categoryService:CategoryService,
-        private courseService: CourseService
+        private courseService: CourseService,
+        private moderatorComponent: ModeratorComponent,
+        private comunicationService: ComunicationService,
     ) { };
 
     ngOnInit(): void {
@@ -32,10 +34,12 @@ export class EditCourseComponent implements OnInit {
             this.course = c;
             this.courseLinking = c.Linking;
             this.isLoaded = true;
-            console.log(this.course);
         });
     }; 
 
+    setWhichButtonIsClicked(){
+        this.comunicationService.whichButtonIsClicked = "courses";
+    }
     // const select = document.getElementById("selectCategoryId");
     // var categoryName = select.options[select.selectedIndex].value;
 }
