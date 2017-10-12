@@ -17,6 +17,7 @@
                             <a href (click)="sortTable('Name')">Course Name</a>
                         </th>
                         <th>Description</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -25,7 +26,8 @@
                         <th scope="row">{{i+1}}</th>
                         <td>{{course.Name}}</td>
                         <td>{{course.Description}}</td>
-                        <td class="btn-group">
+                        <td>
+                            <div class="btn-group">
                             <button class="btn btn-primary" (click)="onBtnInfoClick(course.Linking)"
                             [routerLink]="['/moderator/courses/edit', course.Linking]"
                             >
@@ -34,6 +36,7 @@
                             <button class="btn btn-danger">
                                 <i class="material-icons">delete_forever</i>
                             </button>
+                        </div>
                         </td>
                     </tr>
                 </tbody>

@@ -4,7 +4,7 @@ data-target="#createCourseFormModal" data-whatever="createCourse">
  Create new course
 </button>
 </div>
-<!-- Modal Form -->
+<!-- Modal Window -->
 <div class="modal fade" id="createCourseFormModal" tabindex="-1" role="dialog" 
 aria-labelledby="createCourseFormModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -16,12 +16,15 @@ aria-labelledby="createCourseFormModalLabel" aria-hidden="true">
         </button>
             </div>
             <div class="modal-body">
+                    <!-- Snackbar -->
+                    <div id="snackbar">{{submitMessage}}</div>
+                    <!-- Form -->
                 <form (ngSubmit)="onSubmit()" #courseForm="ngForm">
                     <div *ngIf="isLoaded" class="form-group">
                         <label for="category">Category:</label>
                         <select class="form-control" id="category" 
                         required 
-                        [(ngModel)]="course.Category"
+                        [(ngModel)]="course.CategoryName"
                         #category="ngModel" 
                         name="Category">
                           <option *ngFor="let category of categories"

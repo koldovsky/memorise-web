@@ -33,10 +33,10 @@ export class CourseService {
             .catch(handleError);
     }
 
-    createCourse(course: Course):void{
-        this.http.post(this.courseModeratorUrl+"CreateCourse",course)
+    createCourse(course: Course):Promise<Course>{
+        return this.http.post(this.courseModeratorUrl+"CreateCourse",course)
         .toPromise()
-        .then()
+        .then(response => response as Course)
         .catch(handleError);
         
     }

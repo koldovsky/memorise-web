@@ -46,6 +46,7 @@ export interface Course extends BaseEntity {
     Category?: Category;
     Decks?: Deck[];
     Comments?: Comment[];
+    CategoryName?:string;
 }
 
 export interface Deck extends BaseEntity {

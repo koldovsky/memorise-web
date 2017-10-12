@@ -19,7 +19,7 @@ import { CatalogTableComponent } from '../catalog/catalog-table/catalog-table.co
 export class ModeratorComponent implements OnInit {
   courses: Course[];
   decks: Deck[];
-  whichButtonIsClicked = 'categories';
+  whichButtonIsClicked = 'courses';
 
   constructor(private courseService: CourseService,
               private deckService: DeckService
