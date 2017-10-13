@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Course, Category } from '../../../common/models/models';
 
@@ -8,7 +8,6 @@ import { CourseService } from '../../../common/services/course.service';
 
 import { handleError } from '../../../common/functions/functions';
 
-
 @Component({
     selector: 'create-course',
     templateUrl: './create-course.component.html',
@@ -16,6 +15,7 @@ import { handleError } from '../../../common/functions/functions';
 })
 
 export class CreateCourseComponent implements OnInit {
+    
    course:Course;
    categories: Category[];
    isLoaded:boolean = false;
@@ -40,9 +40,10 @@ export class CreateCourseComponent implements OnInit {
     onSubmit() { 
         console.log(this.course);
         this.courseService.createCourse(this.course)
-        .then(()=>{
+        .then(course=>{
             this.submitMessage = "Course was created successfully";
             this.showSnackbar();
+            this.afterCourseAdded.emit(course);
         })
         .catch(()=>{
             this.submitMessage = "Error occurred. Please try again.";
@@ -86,5 +87,7 @@ export class CreateCourseComponent implements OnInit {
         this.course.Linking = this.course.Name.replace(/[^a-zA-Z0-9]/g, "");
     }
     
+    @Output() 
+    afterCourseAdded: EventEmitter<Course>=new EventEmitter<Course>();
         
 }

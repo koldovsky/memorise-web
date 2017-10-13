@@ -4,50 +4,79 @@
     <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
         <h2 class="text-center">Course details</h2>
         <form>
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" 
-                    placeholder="Course name" value="{{course.Name}}">
-                </div>
+                <div class="col-xs-12 col-sm-8 col-md-6">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" 
+                        placeholder="Course name" value="{{course.Name}}">
+                    </div>
 
-                <div class="form-group">
-                    <label for="selectId">Category</label>
-                    <select class="form-control form-control-lg" id="selectId">
-                        <option *ngFor="let category of categories" 
-                        value="category.Name" 
-                        [attr.selected]="category.Name===course.Category.Name ? true : null"
-                        >
-                        {{category.Name}}
-                        </option>
-                    </select>
-                </div>
+                    <div class="form-group">
+                        <label for="selectId">Category</label>
+                        <select class="form-control" id="selectId">
+                            <option *ngFor="let category of categories" 
+                            value="category.Name" 
+                            [attr.selected]="category.Name===course.Category.Name ? true : null"
+                            >
+                            {{category.Name}}
+                            </option>
+                        </select>
+                    </div>
 
-                <div class="form-group">
-                        <label for="price">Price</label>
-                        <input type="text" class="form-control" id="price" 
-                        placeholder="Course price" value="{{course.Price}}">
+                    <div class="form-group">
+                            <label for="price">Price</label>
+                            <input type="number" min="0" class="form-control" id="price" 
+                            placeholder="Course price" value="{{course.Price}}">
+                    </div>
                 </div>
-
-                <div class="form-group">
-                        <label for="description">Description</label>
-                        <textarea class="form-control" id="description" 
-                        rows="3" value="{{course.Description}}"
-                        placeholder="Course description"></textarea>
+                <div class="col-xs-12 col-sm-12">
+                    <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea class="form-control" id="description" 
+                            rows="3" value="{{course.Description}}"
+                            placeholder="Course description"></textarea>
+                    </div>
                 </div>
-
-                <div class="form-group">
-                        <label for="multipleselectId">Decks</label>
-                                <select multiple class="form-control form-control-lg" id="multipleselectId">
-                                        <option *ngFor="let deck of course.Decks" 
-                                        value="deck.Name" 
+                <div class="row">
+                    <div class="col-xs-1 col-sm-1"></div>
+                        <div class="col-xs-9 col-sm-8">
+                            <div class="form-group">
+                                    <label for="multipleselectId">Decks</label>
+                                            <select multiple class="form-control" id="multipleselectId">
+                                                    <option *ngFor="let deck of course.Decks" 
+                                                    value="deck.Name" 
+                                                    >
+                                                    {{deck.Name}}
+                                                    </option>
+                                            </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-2 col-sm-3 col-md-3">
+                            <br>
+                            <br>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12">
+                                    <button type="button" class="btn btn-danger">
+                                        <i class="material-icons">delete_forever</i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                    <div class="col-xs-12 col-sm-12">
+                                        <button type="button" class="btn btn-primary"
+                                        (click)="openAddDecksDialog()"
                                         >
-                                        {{deck.Name}}
-                                        </option>
-                                </select>
+                                                <i class="material-icons">add</i>
+                                        </button>
+                                    </div>
+                            </div>
+                        </div>
                 </div>
-
-                <button class="btn btn-primary" [routerLink]="['/moderator']">Back</button>
-                <button type="submit" class="btn btn-primary">Update</button>
+                <br>
+                <div class="col-xs-12 col-sm-12">
+                    <button type="button" class="btn btn-primary" (click)="setWhichButtonIsClicked()" [routerLink]="['/moderator']">Back</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
         </form>
     </div>
     <div class="col-xs-12 col-sm-1 col-md-2 col-lg-3"></div>

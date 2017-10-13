@@ -2,9 +2,12 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Course, Category } from '../../../common/models/models';
 
-import { AuthService } from '../../../common/services/auth.service';
 import { CategoryService } from '../../../common/services/category.service';
+import { ModerationService } from '../../../common/services/moderation.service';
 import { CourseService } from '../../../common/services/course.service';
+import { ModeratorComponent } from '../../../moderator/moderator.component';
+import { MatDialog } from '@angular/material';
+import { AddDeckComponent } from '../../decks/add-deck/add-deck.component';
 
 @Component({
     selector: 'edit-course',
@@ -18,9 +21,11 @@ export class EditCourseComponent implements OnInit {
    courseLinking : string = '';
 
     constructor(
-        private authService: AuthService,
         private categoryService:CategoryService,
-        private courseService: CourseService
+        private courseService: CourseService,
+        private moderatorComponent: ModeratorComponent,
+        private moderationService: ModerationService,
+        private dialog: MatDialog,
     ) { };
 
     ngOnInit(): void {
@@ -32,10 +37,21 @@ export class EditCourseComponent implements OnInit {
             this.course = c;
             this.courseLinking = c.Linking;
             this.isLoaded = true;
-            console.log(this.course);
         });
     }; 
 
+    setWhichButtonIsClicked(){
+        this.moderationService.whichButtonIsClicked = "courses";
+    }
     // const select = document.getElementById("selectCategoryId");
     // var categoryName = select.options[select.selectedIndex].value;
+    openAddDecksDialog(): void {
+        const dialogRef = this.dialog.open(AddDeckComponent, {
+          width: '400px',
+          data:
+          {
+            
+          }
+        });
+      }
 }
