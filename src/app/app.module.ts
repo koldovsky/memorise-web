@@ -78,6 +78,7 @@ import { CourseTableComponent } from './catalog/courses/course-table/course-tabl
 import { DeckTableComponent } from './catalog/decks/deck-table/deck-table.component';
 import { CatalogTableComponent } from './catalog/catalog-table/catalog-table.component';
 import { AddDeckComponent } from './catalog/decks/add-deck/add-deck.component';
+import { NumberToArrayPipeComponent } from './pipes/number-to-array.pipe';
 
 
 
@@ -99,6 +100,7 @@ import { AddDeckComponent } from './catalog/decks/add-deck/add-deck.component';
         AppComponent,
         FilterPipe,
         SortingPipe,
+        NumberToArrayPipeComponent,
         HomeComponent,
         PageNotFoundComponent,
         UnauthorizedComponent,

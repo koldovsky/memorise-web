@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 
 import 'rxjs/add/operator/toPromise';
 
-import { Deck } from '../models/models';
+import { Deck, PageResponse } from '../models/models';
 import { handleError } from '../functions/functions';
 
 @Injectable()
 export class DeckService {
     private decksUrl = 'http://localhost:37271/Catalog';
+    private decksPageUrl = 'http://localhost:37271/Catalog/GetDecksByPage';
     private decksDetailsUrl = 'http://localhost:37271/DeckDetails';
     private deckModeratorUrl='http://localhost:37271/Moderator/'
 
@@ -21,6 +22,22 @@ export class DeckService {
             .then(response => response as Deck[])
             .catch(handleError);
     }
+
+    getDecksByPage(page: number, pageSize: number): Promise<PageResponse<Deck>> {
+        const url = this.decksPageUrl + '/' + page + '/' + pageSize;
+        return this.http.get(url)
+            .toPromise()
+            .then(response => response as PageResponse<Deck>)
+            .catch(handleError);
+    }
+
+    // getSortedDecks(page: number, pageSize: number, sorted: boolean): Promise<PageResponse<Deck>> {
+    //     const url = this.decksPageUrl + '/' + page + '/' + pageSize + '/' + sorted;
+    //     return this.http.get(url)
+    //     .toPromise()
+    //     .then(response => response as PageResponse<Deck>)
+    //     .catch(handleError);
+    // }
 
     getDecksByCourseName(courseName: string) {
         const URL = `${this.decksUrl}/GetAllDecksByCourse/${courseName}`;

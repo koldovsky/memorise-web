@@ -100,3 +100,7 @@ export interface Token extends BaseEntity {
     token_type: Course;
 }
 
+export class PageResponse<T> {
+    items: T[];    
+}
+
