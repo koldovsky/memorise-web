@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+<<<<<<< HEAD
 import { ActivatedRoute, ParamMap } from '@angular/router';
+=======
+>>>>>>> ec8f12a4a9364d4b80d8e5353bff8774491473f0
 
 import { CourseService } from '../../common/services/course.service';
 import { DeckService } from '../../common/services/deck.service';
@@ -26,6 +29,7 @@ export class CoursesComponent implements OnInit {
     subscription: Subscription;
 
     ngOnInit(): void {
+<<<<<<< HEAD
         this.route.paramMap
         .switchMap((params: ParamMap) => {
             const category = params.get('category');
@@ -35,6 +39,26 @@ export class CoursesComponent implements OnInit {
         })
         .subscribe(courses => {
             this.courses = courses;
+=======
+        if (this.messageService.temp) {
+            const category = this.messageService.temp as Category;
+            this.categoryService.getCoursesByCategory(category.Linking)
+                .then(courses => this.courses = courses);
+        } else {
+            this.courseService.getCourses()
+                .then(courses => this.courses = courses);
+        }
+
+        this.messageService.getMessage().subscribe(data => {
+            if (data) {
+                const category = data as Category;
+                this.categoryService.getCoursesByCategory(category.Linking)
+                    .then(courses => this.courses = courses);
+            } else {
+                this.courseService.getCourses()
+                    .then(courses => this.courses = courses);
+            }
+>>>>>>> ec8f12a4a9364d4b80d8e5353bff8774491473f0
         });
     }
 
