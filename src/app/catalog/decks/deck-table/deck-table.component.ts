@@ -18,10 +18,17 @@ export class DeckTableComponent implements OnInit {
     decks: Deck[];
     path: string[] = ['Name'];
     order = 1;
+    currentDeck: Deck;
 
     constructor(private deckService: DeckService
     ) {
         this.searchableList = ['Name'];
+        this.currentDeck = {
+            Name: '',
+            Linking: '',
+            Description: '',
+            Price: 0
+        };
     }
 
     ngOnInit() {
@@ -33,5 +40,23 @@ export class DeckTableComponent implements OnInit {
         this.path = prop.split('.');
         this.order = this.order * (-1);
         return false;
+    }
+
+    onDeckAdded(newDeck:Deck):void{
+        this.decks.pop();
+        this.decks.unshift(newDeck);
+    }
+
+    onDelete(deck: Deck):void{
+        this.currentDeck = deck;
+    }
+
+    confirmDelete():void{
+        this.deckService.deleteDeck(this.currentDeck.Id)
+        .subscribe(()=>{
+        this.decks = this.decks.filter(x=>x.Id!==this.currentDeck.Id); 
+        },
+        (err)=>console.log(err)
+        );
     }
 }

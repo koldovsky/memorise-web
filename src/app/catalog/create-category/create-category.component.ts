@@ -1,9 +1,10 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Category } from '../../common/models/models';
 
 import { AuthService } from '../../common/services/auth.service';
 import { CategoryService } from '../../common/services/category.service';
+import { handleError } from '../../common/functions/functions';
 
 
 @Component({
@@ -15,8 +16,8 @@ import { CategoryService } from '../../common/services/category.service';
 export class CreateCategoryComponent implements OnInit {
    category:Category;
    isUnique:boolean = false;
-   isPaid:boolean = false;
    afterCheck:boolean = false;
+   submitMessage:string='';
 
     constructor(
         private authService: AuthService,
@@ -28,29 +29,49 @@ export class CreateCategoryComponent implements OnInit {
         };
       }
 
-    onSubmit() { 
-        console.log(this.category);
-        this.categoryService.createCategory(this.category);
-        
-    }
-
     ngOnInit(): void {}
 
+    onSubmit() { 
+        this.categoryService.createCategory(this.category)
+        .then(category=>{
+            this.submitMessage = "Category was created successfully";
+            this.showSnackbar();
+            this.afterCategoryAdded.emit(category);
+        })
+        .catch(()=>{
+            this.submitMessage = "Error occurred. Please try again.";
+            this.showSnackbar();
+        })
+        
+    }
+    
+    showSnackbar(){
+        var x = document.getElementById("snackbar")
+        x.className = "show";
+        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+    }
+    
     checkName(){
      this.categoryService.checkIfCategoryExists(this.category.Name)
-     .then(() =>{
-          this.isUnique = false;
-          this.afterCheck=true;
-     })
-     .catch(()=>{
-        this.isUnique = true;
-        this.createLinking();
-     });
-           
+     .then(response =>{
+        if(response.Name=='unique'){
+           this.isUnique = true;
+           this.createLinking();
+        }
+        else{
+           this.isUnique = false;
+           this.category.Linking="";
+           this.afterCheck=true;
+        }
+    })
+    .catch(handleError);
     }
+
     createLinking():void{
         this.category.Linking = this.category.Name.replace(/[^a-zA-Z0-9]/g, "");
     }
-    
+
+    @Output() 
+    afterCategoryAdded: EventEmitter<Category>=new EventEmitter<Category>();
         
 }

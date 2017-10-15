@@ -37,8 +37,15 @@ export class CreateCourseComponent implements OnInit {
         };
       }
 
+    ngOnInit(): void {
+        this.categoryService.getCategories()
+        .then(categories => {
+            this.categories = categories;
+            this.isLoaded = true;
+        });
+    }
+
     onSubmit() { 
-        console.log(this.course);
         this.courseService.createCourse(this.course)
         .then(course=>{
             this.submitMessage = "Course was created successfully";
@@ -49,21 +56,11 @@ export class CreateCourseComponent implements OnInit {
             this.submitMessage = "Error occurred. Please try again.";
             this.showSnackbar();
         })
-       
-        
     }
     showSnackbar(){
         var x = document.getElementById("snackbar")
         x.className = "show";
         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-    }
-
-    ngOnInit(): void {
-        this.categoryService.getCategories()
-        .then(categories => {
-            this.categories = categories;
-            this.isLoaded = true;
-        });
     }
 
     checkName(){
@@ -81,8 +78,8 @@ export class CreateCourseComponent implements OnInit {
           
      })
      .catch(handleError);
-           
     }
+
     createLinking():void{
         this.course.Linking = this.course.Name.replace(/[^a-zA-Z0-9]/g, "");
     }

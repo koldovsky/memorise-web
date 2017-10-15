@@ -12,7 +12,8 @@ export class AuthService {
     valid: boolean;
     errorMessage = '';
     isAuthorized: boolean;
-
+    
+       
     private commonUrl = 'http://localhost:37271/';
     private IsValid = true;
 
@@ -28,6 +29,8 @@ export class AuthService {
             .then(response => {
                 const token = response as Token;
                 localStorage.setItem('token', token.access_token);
+                let expiresDate = this.calcExpirationDate( token.expires_in);
+                localStorage.setItem('tokenExpiresDate', expiresDate.toString());
                 this.IsValid = true;
             })
             .catch(
@@ -36,6 +39,12 @@ export class AuthService {
                 this.errorMessage = 'input, please try again!';
                 
             });
+    }
+
+    calcExpirationDate(seconds:number):Date {
+         const currentDate = new Date();
+         currentDate.setSeconds(currentDate.getSeconds()+seconds);
+         return currentDate;
     }
 
     signUp(user) {
@@ -71,10 +80,13 @@ export class AuthService {
     }
 
     checkIfIsAuthorized(): void {
-        if (this.getToken() === 'empty') {
-            this.isAuthorized = false;
-        } else {
+        let currentDate = new Date();
+        let expiresDate = new Date(localStorage.getItem('tokenExpiresDate'));
+        
+        if (this.getToken() !== 'empty' && currentDate < expiresDate) {
             this.isAuthorized = true;
+        } else {
+            this.isAuthorized = false;
         }
     }
 }

@@ -38,13 +38,17 @@ export class DeckService {
             .then(response => response as Deck)
             .catch(handleError);
     }
-    createDeck(deck: Deck):void{
-        this.http.post(this.deckModeratorUrl+"CreateDeck",deck)
+    createDeck(deck: Deck):Promise<Deck>{
+        return this.http.post(this.deckModeratorUrl+"CreateDeck",deck)
         .toPromise()
-        .then()
+        .then(response => response as Deck)
         .catch(handleError);
         
     }
+
+    deleteDeck(id: number){
+        return this.http.delete(this.deckModeratorUrl+"DeleteDeck/"+id);
+     }
 
     checkIfDeckExists(deckName: string): Promise<Deck> {
          return this.http.get(this.deckModeratorUrl+"FindDeckByName/"+deckName)

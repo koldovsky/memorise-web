@@ -17,14 +17,12 @@
     </div>
 
     <div class="marginTopAndBottom" *ngIf="whichButtonIsClicked=='categories'">
-        <create-category></create-category>
         <app-catalog-table></app-catalog-table>
     </div>
     <div class="marginTopAndBottom" *ngIf="whichButtonIsClicked=='courses'">
         <app-course-table></app-course-table>
     </div>
     <div class="marginTopAndBottom" *ngIf="whichButtonIsClicked=='decks'">
-        <create-deck></create-deck>
         <app-deck-table></app-deck-table>
     </div>
 

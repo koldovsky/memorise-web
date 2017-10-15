@@ -2,7 +2,7 @@ import { Component, OnInit, Pipe, PipeTransform, NgModule } from '@angular/core'
 import { FilterPipe } from '../../../pipes/filter.pipe';
 import { SortingPipe } from '../../../pipes/sorting.pipe';
 import { PaginationComponent } from '../../../pagination/pagination.component';
-import { ModerationService} from '../../../common/services/moderation.service';
+//import { ModerationService} from '../../../common/services/moderation.service';
 
 import { Course } from '../../../common/models/models';
 import { CourseService } from '../../../common/services/course.service';
@@ -23,8 +23,9 @@ export class CourseTableComponent implements OnInit {
     path: string[] = ['Name'];
     order = 1;
     currentCourse: Course;
-    constructor(private courseService: CourseService,
-                private moderationService: ModerationService
+    //
+    constructor(private courseService: CourseService
+                //private moderationService: ModerationService
     ) {
         this.searchableList = ['Name'];
         

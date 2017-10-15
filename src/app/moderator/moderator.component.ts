@@ -10,6 +10,9 @@ import { CreateCategoryComponent } from '../catalog/create-category/create-categ
 import { CourseTableComponent } from '../catalog/courses/course-table/course-table.component';
 import { DeckTableComponent } from '../catalog/decks/deck-table/deck-table.component';
 import { CatalogTableComponent } from '../catalog/catalog-table/catalog-table.component';
+import { Router } from '@angular/router';
+import { AuthService } from '../common/services/auth.service';
+
 
 @Component({
   selector: 'app-moderator',
@@ -21,19 +24,30 @@ export class ModeratorComponent implements OnInit {
   courses: Course[];
   decks: Deck[];
   whichButtonIsClicked: string;
+  
 
   constructor(private courseService: CourseService,
               private deckService: DeckService,
               private moderationService: ModerationService,
+              private authService: AuthService,
+              private router: Router
   ) { }
 
   ngOnInit() {
+    this.authService.checkIfIsAuthorized();
+    if(this.authService.isAuthorized)
+    {
     this.courseService.getCourses()
       .then(courses => this.courses = courses );
     this.deckService.getDecks()
       .then(decks => this.decks = decks );
     this.whichButtonIsClicked = this.moderationService.whichButtonIsClicked;
-      }
+    }
+    else{
+      this.authService.setError('Access denied! You need to SignIn.');
+      this.router.navigate(['/unauthorized']);
+    }
+  }
 
   onClick(event) {
     const clickedButton = event.target;

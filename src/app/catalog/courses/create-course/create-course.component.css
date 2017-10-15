@@ -2,7 +2,8 @@
     margin-top: 2%;
     margin-bottom: 2%;
   }
-  #snackbar {
+  
+#snackbar {
     visibility: hidden;
     min-width: 250px;
     margin-left: -125px;

@@ -53,11 +53,13 @@ export interface Deck extends BaseEntity {
     Name: string;
     Linking: string;
     Price: number;
+    Description?: string;
     CardsNumber?: number;
     Rating?: number;
     Photo?: string;
     Category?: Category;
     Cards?: Card[];
+    CategoryName?:string;
 }
 
 export interface Report extends BaseEntity {
@@ -97,7 +99,7 @@ export interface UserCourse extends BaseEntity {
 
 export interface Token extends BaseEntity {
     access_token: string;
-    expires_in: User;
-    token_type: Course;
+    expires_in: number;
+    token_type: string;
 }
 
