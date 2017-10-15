@@ -5,7 +5,7 @@
         <h2 class="text-center">Course details</h2>
         <br>
         
-        <form #mainForm="ngForm" name="courseMainForm">
+        <form #mainForm="ngForm" (ngSubmit)="onSubmit()" name="courseMainForm">
                 <div class="row">
                     <div class="col-xs-12 col-sm-8 col-md-6">
                         <div class="form-group">
@@ -42,7 +42,7 @@
                     </div>
                     <div class="col-xs-12 col-sm-4 col-md-6">
                         <img src="../../../../assets/images/placeholder-thumb.jpg" 
-                        alt="Deck photo" class="rounded mx-auto d-block">
+                        alt="Deck photo" class="mx-auto img-thumbnail">
                     </div>
                 </div>
 
@@ -124,7 +124,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form (ngSubmit)="onSubmit()" #addDecksForm="ngForm">
+        <form (ngSubmit)="onModalSubmit()" #addDecksForm="ngForm">
         <div class="modal-body">
             <div class="form-group">
                 <label for="multipleselectId">ALL decks</label>

@@ -17,6 +17,7 @@ import $ from 'jquery';
     styleUrls: ['./edit-course.component.css']
 })
 export class EditCourseComponent implements OnInit {
+    courseBeforeChanges : Course;
    course: Course;
    categories: Category[];
    courseLinking : string = '';
@@ -49,8 +50,13 @@ export class EditCourseComponent implements OnInit {
         this.courseService.getCourse(this.courseService.btnInfoLinking)
         .then(c => {
             this.course = c;
+            this.courseBeforeChanges = c;
+            this.courseBeforeChanges.DeckNames = [];
+            c.Decks.forEach(x => this.courseBeforeChanges.DeckNames.push(x.Name));
+            this.courseBeforeChanges.CategoryName = c.Category.Name;
             this.courseLinking = c.Linking;
             this.isLoadedCourse = true;
+            console.log("course Id" + c.Id);
         })
         .then(c => {
             this.deckService.getDecks()
@@ -73,7 +79,7 @@ export class EditCourseComponent implements OnInit {
         this.comunicationService.whichButtonIsClicked = "courses";
     }
     
-    onSubmit(){
+    onModalSubmit(){
         for(let i=0; i < this.addedDecksLinking.length; i++) {
            this.deckService.getDeckByLinking(this.addedDecksLinking[i])
            .then(x => {
@@ -82,6 +88,35 @@ export class EditCourseComponent implements OnInit {
             });
         }
     };
+
+    onSubmit() { 
+        this.course.CategoryName = this.course.Category.Name;
+        this.course.Decks.forEach(x => this.course.DeckNames.push(x.Name));
+        console.log("this.courseBeforeChanges.Decks: " + this.courseBeforeChanges.Decks);
+        if(
+            this.course.Category.Linking === this.courseBeforeChanges.Category.Linking &&
+            this.course.Description.trim() === this.course.Description.trim() &&
+            this.course.Linking === this.courseBeforeChanges.Linking &&
+            this.course.Name === this.courseBeforeChanges.Name &&
+            this.course.Price === this.courseBeforeChanges.Price &&
+            this.course.DeckNames.length === this.courseBeforeChanges.Decks.length
+        )
+        {
+            let countConcidences: number = 0;
+            this.course.DeckNames.forEach(x => {
+                this.courseBeforeChanges.Decks.forEach(y => {
+                    if(x === y.Name){
+                        countConcidences++;
+                    }
+                })
+            })
+            if(countConcidences === this.courseBeforeChanges.Decks.length){
+                return;
+            }
+        }else{
+            this.courseService.updateCourse(this.course);
+        }
+    }
 
     deleteDecks(){
         console.log(this.chosenDecksLinking.length);
