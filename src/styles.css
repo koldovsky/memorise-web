@@ -2,7 +2,8 @@
 
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-h1,
+
+/* h1,
 h2,
 h3,
 h4,
@@ -13,7 +14,7 @@ h6 {
 
 p {
     font-family: 'Montserrat', sans-serif;
-}
+} */
 
 
 /* app-root {

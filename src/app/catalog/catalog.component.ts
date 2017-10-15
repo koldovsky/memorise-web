@@ -19,8 +19,4 @@ export class CatalogComponent implements OnInit {
         this.categoryService.getCategories()
             .then(categories => this.categories = categories);
     }
-
-    // select(category: Category): void {
-    //     this.messageService.notify(category);
-    // }
 }
