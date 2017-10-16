@@ -9,7 +9,6 @@ import { CourseService } from '../../../common/services/course.service';
 import { ModeratorComponent } from '../../../moderator/moderator.component';
 import { MatDialog } from '@angular/material';
 import { AddDeckComponent } from '../../decks/add-deck/add-deck.component';
-import $ from 'jquery';
 
 @Component({
     selector: 'edit-course',
@@ -22,6 +21,7 @@ export class EditCourseComponent implements OnInit {
    categories: Category[];
    courseLinking : string = '';
    decks: Deck[];
+   deckNames: string[] = [];
    addedDecksLinking: string[];
    chosenDecksLinking: string[];
    newCategory: string;
@@ -50,13 +50,11 @@ export class EditCourseComponent implements OnInit {
         this.courseService.getCourse(this.courseService.btnInfoLinking)
         .then(c => {
             this.course = c;
-            this.courseBeforeChanges = c;
-            this.courseBeforeChanges.DeckNames = [];
-            c.Decks.forEach(x => this.courseBeforeChanges.DeckNames.push(x.Name));
-            this.courseBeforeChanges.CategoryName = c.Category.Name;
+            this.course.DeckNames = [];
+            c.Decks.forEach(x => this.course.DeckNames.push(x.Name));
+            this.course.CategoryName = c.Category.Name;
             this.courseLinking = c.Linking;
             this.isLoadedCourse = true;
-            console.log("course Id" + c.Id);
         })
         .then(c => {
             this.deckService.getDecks()
@@ -68,11 +66,22 @@ export class EditCourseComponent implements OnInit {
                             isMap = false;
                         }
                     });
+                    if(isMap){
+                        this.deckNames.push(x.Name);
+                    }
                     return isMap;
                 });
                 this.isLoadedDecks = true;
             }); 
         });
+
+        this.courseService.getCourse(this.courseService.btnInfoLinking)
+        .then(c => {
+            this.courseBeforeChanges = c;
+            this.courseBeforeChanges.DeckNames = [];
+            c.Decks.forEach(x => this.courseBeforeChanges.DeckNames.push(x.Name));
+            this.courseBeforeChanges.CategoryName = c.Category.Name;
+        })
     };
 
     setWhichButtonIsClicked(){
@@ -81,27 +90,26 @@ export class EditCourseComponent implements OnInit {
     
     onModalSubmit(){
         for(let i=0; i < this.addedDecksLinking.length; i++) {
-           this.deckService.getDeckByLinking(this.addedDecksLinking[i])
-           .then(x => {
-               this.course.Decks.push(x); 
-               this.decks = this.decks.filter(d => d.Linking.toLowerCase() !== x.Linking.toLowerCase());
-            });
+            this.deckNames = this.deckNames.filter(x => x !== this.addedDecksLinking[i]);
+            this.course.DeckNames.push(this.addedDecksLinking[i]);
         }
     };
 
     onSubmit() { 
-        this.course.CategoryName = this.course.Category.Name;
-        this.course.Decks.forEach(x => this.course.DeckNames.push(x.Name));
-        console.log("this.courseBeforeChanges.Decks: " + this.courseBeforeChanges.Decks);
         if(
-            this.course.Category.Linking === this.courseBeforeChanges.Category.Linking &&
-            this.course.Description.trim() === this.course.Description.trim() &&
-            this.course.Linking === this.courseBeforeChanges.Linking &&
-            this.course.Name === this.courseBeforeChanges.Name &&
-            this.course.Price === this.courseBeforeChanges.Price &&
-            this.course.DeckNames.length === this.courseBeforeChanges.Decks.length
-        )
-        {
+            this.course.CategoryName !== this.courseBeforeChanges.CategoryName ||
+            this.course.Description.trim() !== this.courseBeforeChanges.Description.trim() ||
+            this.course.Name !== this.courseBeforeChanges.Name ||
+            this.course.Linking !== this.courseBeforeChanges.Linking ||
+            this.course.Price !== this.courseBeforeChanges.Price ||
+            this.course.DeckNames.length !== this.courseBeforeChanges.Decks.length
+        ){  
+            
+            console.log("I am in first IF");
+            this.courseService.updateCourse(this.course);
+            this.ngOnInit();
+        }else{
+            console.log("I am in else");
             let countConcidences: number = 0;
             this.course.DeckNames.forEach(x => {
                 this.courseBeforeChanges.Decks.forEach(y => {
@@ -111,24 +119,20 @@ export class EditCourseComponent implements OnInit {
                 })
             })
             if(countConcidences === this.courseBeforeChanges.Decks.length){
+                console.log("Here is return");
                 return;
             }
-        }else{
+            console.log("Here is  NOT return");
             this.courseService.updateCourse(this.course);
+            this.ngOnInit();
         }
     }
 
     deleteDecks(){
-        console.log(this.chosenDecksLinking.length);
         for(let i = 0; i < this.chosenDecksLinking.length; i++){
-            this.course.Decks = this.course.Decks
-            .filter(x => x.Linking.toLowerCase() !== this.chosenDecksLinking[i].toLowerCase());
-        }
-        for(let i = 0; i < this.chosenDecksLinking.length; i++){
-            this.deckService.getDeckByLinking(this.chosenDecksLinking[i])
-            .then(x => {
-                this.decks.push(x); 
-             });
+            this.course.DeckNames = this.course.DeckNames
+            .filter(x => x.toLowerCase() !== this.chosenDecksLinking[i].toLowerCase());
+            this.deckNames.push(this.chosenDecksLinking[i]);
         }
     }
 }

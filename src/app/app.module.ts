@@ -78,6 +78,8 @@ import { CourseTableComponent } from './catalog/courses/course-table/course-tabl
 import { DeckTableComponent } from './catalog/decks/deck-table/deck-table.component';
 import { CatalogTableComponent } from './catalog/catalog-table/catalog-table.component';
 import { AddDeckComponent } from './catalog/decks/add-deck/add-deck.component';
+import { EditDeckComponent } from './catalog/decks/edit-deck/edit-deck.component';
+import { CardService } from './common/services/card.service';
 
 
 
@@ -115,6 +117,7 @@ import { AddDeckComponent } from './catalog/decks/add-deck/add-deck.component';
         PaginationComponent,
         CourseTableComponent,
         EditCourseComponent,
+        EditDeckComponent,
         DeckTableComponent,
         CatalogTableComponent,
         AddDeckComponent,
@@ -167,6 +170,7 @@ import { AddDeckComponent } from './catalog/decks/add-deck/add-deck.component';
         DeckService,
         UserService,
         QuizService,
+        CardService,
         ComunicationService,
         ModeratorComponent,
         PagerService,

@@ -19,7 +19,7 @@ export class DeckTableComponent implements OnInit {
     path: string[] = ['Name'];
     order = 1;
 
-    constructor(private deckService: DeckService
+    constructor(private deckService: DeckService,
     ) {
         this.searchableList = ['Name'];
     }
@@ -34,4 +34,8 @@ export class DeckTableComponent implements OnInit {
         this.order = this.order * (-1);
         return false;
     }
+
+    onBtnInfoClick(btnInfoLinking: string){
+        this.deckService.btnInfoLinking = btnInfoLinking;
+      }
 }

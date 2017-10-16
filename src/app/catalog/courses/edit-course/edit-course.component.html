@@ -17,10 +17,18 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="linkingId">Linking</label>
+                            <input type="text" class="form-control" id="linkingId" 
+                            placeholder="Course linking" [(ngModel)]="course.Linking"
+                            name="courseLinking"
+                            >
+                        </div>
+
+                        <div class="form-group">
                             <label for="selectId">Category</label>
                             <select class="form-control" id="selectId"
                             name="categoryName"
-                            [(ngModel)] ="course.Category.Name"
+                            [(ngModel)] ="course.CategoryName"
                             >
                                 <option *ngFor="let category of categories" 
  
@@ -42,7 +50,7 @@
                     </div>
                     <div class="col-xs-12 col-sm-4 col-md-6">
                         <img src="../../../../assets/images/placeholder-thumb.jpg" 
-                        alt="Deck photo" class="mx-auto img-thumbnail">
+                        alt="Course photo" class="img-thumbnail">
                     </div>
                 </div>
 
@@ -67,11 +75,11 @@
                                                     id="courseDecksId" name="courseDecks"
                                                     [(ngModel)]="chosenDecksLinking"
                                                     >
-                                                    <option *ngFor="let deck of course.Decks" 
-                                                    [(ngValue)]="deck.Linking" 
-                                                    id="deck.Id"
+                                                    <option *ngFor="let deckName of course.DeckNames" 
+                                                    
+                                                    id="deckName"
                                                     >
-                                                    {{deck.Name}}
+                                                    {{deckName}}
                                                     </option>
                                             </select>
                             </div>
@@ -132,17 +140,16 @@
                         id="multipleselectId" name="selectedDeck"
                         [(ngModel)]="addedDecksLinking"
                         >
-                                <option *ngFor="let deck of decks" 
-                                [(ngValue)]="deck.Linking"
-                                id="deck.Id"
+                                <option *ngFor="let deckName of deckNames" 
+                                id="deckName"
                                 >
-                                {{deck.Name}}
+                                {{deckName}}
                                 </option>
                         </select>
             </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Add selected</button>
+          <button type="submit" class="btn btn-primary" >Add selected</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
         </form>

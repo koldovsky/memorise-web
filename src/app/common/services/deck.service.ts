@@ -12,6 +12,8 @@ export class DeckService {
     //private decksDetailsUrl = 'http://localhost:37271/DeckDetails';
     private deckModeratorUrl='http://localhost:37271/Moderator/'
 
+    btnInfoLinking: string = "";
+
     constructor(private http: HttpClient) { }
 
     getDecks(): Promise<Deck[]> {
@@ -53,6 +55,13 @@ export class DeckService {
         .then()
         .catch(handleError);
         
+    }
+
+    updateDeck(deck: Deck):void{
+        this.http.post(this.deckModeratorUrl+"UpdateDeck",deck)
+        .toPromise()
+        .then()
+        .catch(handleError);
     }
 
     checkIfDeckExists(deckName: string): Promise<Deck> {
