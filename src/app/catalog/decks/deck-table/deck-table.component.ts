@@ -23,7 +23,7 @@ export class DeckTableComponent implements OnInit {
     pageResponse: PageResponse<Deck>;
     sorted: boolean;
 
-    constructor(private deckService: DeckService
+    constructor(private deckService: DeckService,
     ) {
         this.pageResponse = new PageResponse<Deck>();
         this.pageResponse.items = [];
@@ -68,4 +68,8 @@ export class DeckTableComponent implements OnInit {
             .then(decks => this.decks = decks);
         return this.decks;
     }
+
+    onBtnInfoClick(btnInfoLinking: string){
+        this.deckService.btnInfoLinking = btnInfoLinking;
+      }
 }

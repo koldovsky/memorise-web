@@ -14,6 +14,8 @@ export class DeckService {
     private decksDetailsUrl = 'http://localhost:37271/DeckDetails';
     private deckModeratorUrl = 'http://localhost:37271/Moderator/';
 
+    btnInfoLinking: string = "";
+
     constructor(private http: HttpClient) { }
 
     getDecks(): Promise<Deck[]> {
@@ -48,20 +50,36 @@ export class DeckService {
             .then(response => response as Deck[])
             .catch(handleError);
     }
-    getDeckWithDetails(deckName: string): Promise<Deck> {
-        const URL = `${this.decksDetailsUrl}/GetDeckWithDetails/${deckName}`;
+
+    getDeckByLinking(linking: string) {
+        const URL = `${this.decksUrl}/GetDeckByLinking/${linking}`;
 
         return this.http.get(URL)
             .toPromise()
             .then(response => response as Deck)
             .catch(handleError);
     }
-    createDeck(deck: Deck): void {
-        this.http.post(this.deckModeratorUrl + 'CreateDeck', deck)
-            .toPromise()
-            .then()
-            .catch(handleError);
+    // getDeckWithDetails(deckName: string): Promise<Deck> {
+    //     const URL = `${this.decksDetailsUrl}/GetDeckWithDetails/${deckName}`;
 
+    //     return this.http.get(URL)
+    //         .toPromise()
+    //         .then(response => response as Deck)
+    //         .catch(handleError);
+    // }
+    createDeck(deck: Deck):void{
+        this.http.post(this.deckModeratorUrl+"CreateDeck",deck)
+        .toPromise()
+        .then()
+        .catch(handleError);
+        
+    }
+
+    updateDeck(deck: Deck):void{
+        this.http.post(this.deckModeratorUrl+"UpdateDeck",deck)
+        .toPromise()
+        .then()
+        .catch(handleError);
     }
 
     checkIfDeckExists(deckName: string): Promise<Deck> {

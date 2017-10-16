@@ -23,7 +23,7 @@ export class CourseService {
             .toPromise()
             .then(response => response as Course[])
             .catch(handleError);
-    }
+    };
 
     getCoursesByPage(page: number, pageSize: number, sorted: boolean): Promise<PageResponse<Course>> {
         const url = this.coursesPageUrl + '/' + page + '/' + pageSize + '/' + sorted;
@@ -40,20 +40,27 @@ export class CourseService {
             .toPromise()
             .then(response => response as Course)
             .catch(handleError);
-    }
+    };
 
-    createCourse(course: Course): void {
-        this.http.post(this.courseModeratorUrl + 'CreateCourse', course)
-            .toPromise()
-            .then()
-            .catch(handleError);
+    createCourse(course: Course):void{
+        this.http.post(this.courseModeratorUrl+"CreateCourse",course)
+        .toPromise()
+        .then()
+        .catch(handleError);
+        
+    };
 
-    }
+    updateCourse(course: Course):void{
+        this.http.put(this.courseModeratorUrl+"UpdateCourse",course)
+        .toPromise()
+        .then()
+        .catch(handleError);
+    };
 
     checkIfCourseExists(courseName: string): Promise<Course> {
         return this.http.get(this.courseModeratorUrl + 'FindCourseByName/' + courseName)
             .toPromise()
             .then(response => response as Course)
             .catch(handleError);
-    }
+    };
 }

@@ -79,6 +79,8 @@ import { DeckTableComponent } from './catalog/decks/deck-table/deck-table.compon
 import { CatalogTableComponent } from './catalog/catalog-table/catalog-table.component';
 import { AddDeckComponent } from './catalog/decks/add-deck/add-deck.component';
 import { NumberToArrayPipeComponent } from './pipes/number-to-array.pipe';
+import { EditDeckComponent } from './catalog/decks/edit-deck/edit-deck.component';
+import { CardService } from './common/services/card.service';
 
 
 
@@ -117,6 +119,7 @@ import { NumberToArrayPipeComponent } from './pipes/number-to-array.pipe';
         PaginationComponent,
         CourseTableComponent,
         EditCourseComponent,
+        EditDeckComponent,
         DeckTableComponent,
         CatalogTableComponent,
         AddDeckComponent,
@@ -169,6 +172,7 @@ import { NumberToArrayPipeComponent } from './pipes/number-to-array.pipe';
         DeckService,
         UserService,
         QuizService,
+        CardService,
         ComunicationService,
         ModeratorComponent,
         PagerService,
