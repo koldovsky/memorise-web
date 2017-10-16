@@ -16,32 +16,29 @@ import * as _ from 'underscore';
 
 export class DeckTableComponent implements OnInit {
 
-    searchableList: string[];
     decks: Deck[];
-    position: number[];
-    path: string[] = ['Name'];
     totalCount: number;
-    page = 0; pageSize = 3;
+    page = 0; pageSize = 5;
     index = 1;
-    order = 1;
     pageResponse: PageResponse<Deck>;
     sorted: boolean;
 
     constructor(private deckService: DeckService
     ) {
-        this.searchableList = ['Name'];
         this.pageResponse = new PageResponse<Deck>();
         this.pageResponse.items = [];
     }
 
     ngOnInit() {
-        this.onNotify(this.page);
+        this.sortTable();
+        // this.onNotify(this.page);
         this.deckService.getDecks()
             .then(decks => this.totalCount = decks.length);
+        console.log(this.searchList('X'));
     }
 
     onNotify(index: number): void {
-        this.deckService.getDecksByPage(index + 1, this.pageSize)
+        this.deckService.getDecksByPage(index + 1, this.pageSize, this.sorted)
             .then(decks => {
                 this.pageResponse = decks;
                 this.page = index;
@@ -56,12 +53,19 @@ export class DeckTableComponent implements OnInit {
         this.onNotify(this.page - this.index);
     }
 
-    // sortTable() {
-    //     this.deckService.getSortedDecks(this.sorted)
-    //         .then( temp => {
-    //             temp = temp.reverse();
-    //             this.decks = temp;
-    //         }
-    //         );
-    // }
+    sortTable() {
+        if (this.sorted === false) {
+            this.sorted = true;
+        } else {
+            this.sorted = false;
+        }
+        this.onNotify(this.page);
+        return this.sorted;
+    }
+
+    searchList(searchText: string) {
+        this.deckService.getSearchDecks(searchText)
+            .then(decks => this.decks = decks);
+        return this.decks;
+    }
 }

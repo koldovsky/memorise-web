@@ -101,6 +101,6 @@ export interface Token extends BaseEntity {
 }
 
 export class PageResponse<T> {
-    items: T[];    
+    items: T[];
 }
 

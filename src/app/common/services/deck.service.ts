@@ -10,8 +10,9 @@ import { handleError } from '../functions/functions';
 export class DeckService {
     private decksUrl = 'http://localhost:37271/Catalog';
     private decksPageUrl = 'http://localhost:37271/Catalog/GetDecksByPage';
+    private decksSearchUrl = 'http://localhost:37271/Catalog/GetDeckBySearch';
     private decksDetailsUrl = 'http://localhost:37271/DeckDetails';
-    private deckModeratorUrl='http://localhost:37271/Moderator/'
+    private deckModeratorUrl = 'http://localhost:37271/Moderator/';
 
     constructor(private http: HttpClient) { }
 
@@ -23,21 +24,21 @@ export class DeckService {
             .catch(handleError);
     }
 
-    getDecksByPage(page: number, pageSize: number): Promise<PageResponse<Deck>> {
-        const url = this.decksPageUrl + '/' + page + '/' + pageSize;
+    getDecksByPage(page: number, pageSize: number, sorted: boolean): Promise<PageResponse<Deck>> {
+        const url = this.decksPageUrl + '/' + page + '/' + pageSize + '/' + sorted;
         return this.http.get(url)
             .toPromise()
             .then(response => response as PageResponse<Deck>)
             .catch(handleError);
     }
 
-    // getSortedDecks(page: number, pageSize: number, sorted: boolean): Promise<PageResponse<Deck>> {
-    //     const url = this.decksPageUrl + '/' + page + '/' + pageSize + '/' + sorted;
-    //     return this.http.get(url)
-    //     .toPromise()
-    //     .then(response => response as PageResponse<Deck>)
-    //     .catch(handleError);
-    // }
+    getSearchDecks(search: string): Promise<Deck[]> {
+        const url = this.decksSearchUrl + '/' + search;
+        return this.http.get(url)
+            .toPromise()
+            .then(response => response as Deck[])
+            .catch(handleError);
+    }
 
     getDecksByCourseName(courseName: string) {
         const URL = `${this.decksUrl}/GetAllDecksByCourse/${courseName}`;
@@ -55,16 +56,16 @@ export class DeckService {
             .then(response => response as Deck)
             .catch(handleError);
     }
-    createDeck(deck: Deck):void{
-        this.http.post(this.deckModeratorUrl+"CreateDeck",deck)
-        .toPromise()
-        .then()
-        .catch(handleError);
-        
+    createDeck(deck: Deck): void {
+        this.http.post(this.deckModeratorUrl + 'CreateDeck', deck)
+            .toPromise()
+            .then()
+            .catch(handleError);
+
     }
 
     checkIfDeckExists(deckName: string): Promise<Deck> {
-         return this.http.get(this.deckModeratorUrl+"FindDeckByName/"+deckName)
+        return this.http.get(this.deckModeratorUrl + 'FindDeckByName/' + deckName)
             .toPromise()
             .then(response => response as Deck)
             .catch(handleError);

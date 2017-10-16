@@ -4,16 +4,17 @@ import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
 
 import { COURSES } from '../mocks/courses';
-import { Course } from '../models/models';
+import { Course, PageResponse } from '../models/models';
 import { handleError } from '../functions/functions';
 
 @Injectable()
 export class CourseService {
     private coursesUrl = 'http://localhost:37271/Catalog/GetCourses';
+    private coursesPageUrl = 'http://localhost:37271/Catalog/GetCoursesByPage';
     private courseUrl = 'http://localhost:37271/Catalog/GetCourse';
-    private courseModeratorUrl='http://localhost:37271/Moderator/'
-    
-    btnInfoLinking: string = "";
+    private courseModeratorUrl = 'http://localhost:37271/Moderator/';
+
+    btnInfoLinking: string = '';
 
     constructor(private http: HttpClient) { }
 
@@ -21,6 +22,14 @@ export class CourseService {
         return this.http.get(this.coursesUrl)
             .toPromise()
             .then(response => response as Course[])
+            .catch(handleError);
+    }
+
+    getCoursesByPage(page: number, pageSize: number, sorted: boolean): Promise<PageResponse<Course>> {
+        const url = this.coursesPageUrl + '/' + page + '/' + pageSize + '/' + sorted;
+        return this.http.get(url)
+            .toPromise()
+            .then(response => response as PageResponse<Course>)
             .catch(handleError);
     }
 
@@ -33,16 +42,16 @@ export class CourseService {
             .catch(handleError);
     }
 
-    createCourse(course: Course):void{
-        this.http.post(this.courseModeratorUrl+"CreateCourse",course)
-        .toPromise()
-        .then()
-        .catch(handleError);
-        
+    createCourse(course: Course): void {
+        this.http.post(this.courseModeratorUrl + 'CreateCourse', course)
+            .toPromise()
+            .then()
+            .catch(handleError);
+
     }
 
     checkIfCourseExists(courseName: string): Promise<Course> {
-         return this.http.get(this.courseModeratorUrl+"FindCourseByName/"+courseName)
+        return this.http.get(this.courseModeratorUrl + 'FindCourseByName/' + courseName)
             .toPromise()
             .then(response => response as Course)
             .catch(handleError);

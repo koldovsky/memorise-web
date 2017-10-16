@@ -13,53 +13,53 @@ import { DeckService } from '../../../common/services/deck.service';
 })
 
 export class CreateDeckComponent implements OnInit {
-   deck:Deck;
-   categories: Category[];
-   isLoaded:boolean = false;
-   isUnique:boolean = false;
-   isPaid:boolean = false;
-   afterCheck:boolean = false;
+    deck: Deck;
+    categories: Category[];
+    isLoaded: boolean = false;
+    isUnique: boolean = false;
+    isPaid: boolean = false;
+    afterCheck: boolean = false;
 
     constructor(
         private authService: AuthService,
-        private categoryService:CategoryService,
+        private categoryService: CategoryService,
         private deckService: DeckService
-    ) { 
+    ) {
         this.deck = {
             Name: '',
             Linking: '',
             Price: 0
         };
-      }
+    }
 
-    onSubmit() { 
+    onSubmit() {
         console.log(this.deck);
         this.deckService.createDeck(this.deck);
     }
 
     ngOnInit(): void {
         this.categoryService.getCategories()
-        .then(categories => {
-            this.categories = categories;
-            this.isLoaded = true;
-        });
+            .then(categories => {
+                this.categories = categories;
+                this.isLoaded = true;
+            });
     }
 
-    checkName(){
-     this.deckService.checkIfDeckExists(this.deck.Name)
-     .then(() =>{
-          this.isUnique = false;
-          this.afterCheck=true;
-     })
-     .catch(()=>{
-        this.isUnique = true;
-        this.createLinking();
-     });
-           
+    checkName() {
+        this.deckService.checkIfDeckExists(this.deck.Name)
+            .then(() => {
+                this.isUnique = false;
+                this.afterCheck = true;
+            })
+            .catch(() => {
+                this.isUnique = true;
+                this.createLinking();
+            });
+
     }
-    createLinking():void{
+    createLinking(): void {
         this.deck.Linking = this.deck.Name.replace(/[^a-zA-Z0-9]/g, "");
     }
-    
-        
+
+
 }

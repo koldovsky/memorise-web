@@ -6,7 +6,7 @@
                     <span class="input-group-addon">
                         <i class="material-icons">search</i>
                     </span>
-                    <!-- <input type="text" [(ngModel)]="queryString" placeholder="Search by Deck Name" /> -->
+                    <input type="text" placeholder="Search by Deck Name" [(ngModel)]="filterQuery" />
                 </div>
             </div>
             <table class="table table-bordered table-hover table-responsive">
@@ -14,14 +14,14 @@
                     <tr>
                         <th>#</th>
                         <th>
-                            <button>Course Name</button>
+                            <a class="btn btn-primary" (click)="sortTable()">Deck Name</a>
                         </th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody *ngFor="let deck of pageResponse.items; let i=index" >
                     <tr>
-                        <td>{{i+1}}</td>
+                        <td>{{pageSize * page + i + 1}}</td>
                         <td>{{deck.Name}}</td>
                         <td class="btn-group">
                             <button class="btn btn-primary">
