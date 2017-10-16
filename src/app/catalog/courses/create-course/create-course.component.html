@@ -45,6 +45,7 @@ aria-labelledby="createCourseFormModalLabel" aria-hidden="true">
                                 <input type="text" class="form-control" placeholder="course name" 
                                 id="name" 
                                 required maxlength="15" 
+                                pattern="[a-zA-Z0-9]+$"
                                 [(ngModel)]='course.Name' 
                                 name="Name" #name="ngModel">
                                 <span class="input-group-btn">
@@ -62,6 +63,9 @@ aria-labelledby="createCourseFormModalLabel" aria-hidden="true">
                            class="alert alert-danger">
                              <div *ngIf="name.errors.required">
                               Name is required.
+                             </div>
+                             <div *ngIf="name.errors.pattern">
+                                Only numbers and alpabets are allowed!
                              </div>
                         </div>
                         <div *ngIf="!isUnique && afterCheck && (name.dirty || name.touched)"
@@ -92,7 +96,7 @@ aria-labelledby="createCourseFormModalLabel" aria-hidden="true">
                         <div *ngIf="description.invalid && (description.dirty || description.touched)"
                         class="alert alert-danger">
                           <div *ngIf="description.errors.required">
-                                Description is required.
+                                Description is required!
                           </div>
                        </div>
                     </div>
@@ -118,6 +122,7 @@ aria-labelledby="createCourseFormModalLabel" aria-hidden="true">
                                 <input type="number" class="form-control" placeholder="price" 
                                 id="price" 
                                 required max="100" min="0"
+                                pattern="[0-9]+$"
                                 [(ngModel)]='course.Price' 
                                 name="Price" #price="ngModel">
                         </div>
@@ -126,6 +131,9 @@ aria-labelledby="createCourseFormModalLabel" aria-hidden="true">
                              <div *ngIf="price.errors.required">
                               Price is required.
                              </div>
+                             <div *ngIf="price.errors.pattern">
+                                Not allowed symbols present in price field!
+                               </div>
                         </div>
                     </div>
                 </form>

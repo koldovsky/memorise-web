@@ -17,8 +17,7 @@ export class CreateCategoryComponent implements OnInit {
    category:Category;
    isUnique:boolean = false;
    afterCheck:boolean = false;
-   submitMessage:string='';
-
+   
     constructor(
         private authService: AuthService,
         private categoryService:CategoryService
@@ -34,21 +33,9 @@ export class CreateCategoryComponent implements OnInit {
     onSubmit() { 
         this.categoryService.createCategory(this.category)
         .then(category=>{
-            this.submitMessage = "Category was created successfully";
-            this.showSnackbar();
-            this.afterCategoryAdded.emit(category);
+           this.afterCategoryAdded.emit(category);
         })
-        .catch(()=>{
-            this.submitMessage = "Error occurred. Please try again.";
-            this.showSnackbar();
-        })
-        
-    }
-    
-    showSnackbar(){
-        var x = document.getElementById("snackbar")
-        x.className = "show";
-        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+        .catch(handleError);
     }
     
     checkName(){
