@@ -79,8 +79,8 @@ export class DeckTableComponent implements OnInit {
    
 
     onDeckAdded(newDeck:Deck):void{
-        this.decks.pop();
-        this.decks.unshift(newDeck);
+        this.pageResponse.items.pop();
+        this.pageResponse.items.unshift(newDeck);
     }
 
     onDelete(deck: Deck):void{
@@ -90,7 +90,7 @@ export class DeckTableComponent implements OnInit {
     confirmDelete():void{
         this.deckService.deleteDeck(this.currentDeck.Id)
         .subscribe(()=>{
-        this.decks = this.decks.filter(x=>x.Id!==this.currentDeck.Id); 
+        this.pageResponse.items = this.pageResponse.items.filter(x=>x.Id!==this.currentDeck.Id); 
         },
         (err)=>console.log(err)
         );

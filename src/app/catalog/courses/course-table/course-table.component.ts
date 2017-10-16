@@ -76,9 +76,8 @@ export class CourseTableComponent implements OnInit {
       }
 
     onCourseAdded(newCourse:Course):void{
-        this.courses.pop();
-        console.log(newCourse);
-        this.courses.unshift(newCourse);
+        this.pageResponse.items.pop();
+        this.pageResponse.items.unshift(newCourse);
     }
     onDelete(course: Course):void{
         this.currentCourse = course;
@@ -86,7 +85,7 @@ export class CourseTableComponent implements OnInit {
     confirmDelete():void{
         this.courseService.deleteCourse(this.currentCourse.Id)
         .subscribe(()=>{
-        this.courses = this.courses.filter(x=>x.Id!==this.currentCourse.Id); 
+        this.pageResponse.items = this.pageResponse.items.filter(x=>x.Id!==this.currentCourse.Id); 
         },
         (err)=>console.log(err)
         );

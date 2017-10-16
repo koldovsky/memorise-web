@@ -106,8 +106,14 @@ export class EditCourseComponent implements OnInit {
         ){  
             
             console.log("I am in first IF");
-            this.courseService.updateCourse(this.course);
-            this.ngOnInit();
+            // 
+            this.courseService.updateCourse(this.course)
+            .subscribe(response=>{
+                console.log(response);
+            },
+            (err)=>console.log(err)
+        );
+            
         }else{
             console.log("I am in else");
             let countConcidences: number = 0;

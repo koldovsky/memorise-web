@@ -67,11 +67,9 @@ export class DeckService {
         
     }
 
-    updateDeck(deck: Deck):void{
-        this.http.post(this.deckModeratorUrl+"UpdateDeck",deck)
-        .toPromise()
-        .then()
-        .catch(handleError);
+    updateDeck(deck: Deck){
+        return this.http.put(this.deckModeratorUrl+"UpdateDeck",deck);
+        
     }
 
     deleteDeck(id: number) {

@@ -25,7 +25,7 @@ export class CatalogTableComponent implements OnInit {
     sorted: boolean;
     currentCategory: Category;
 
-    constructor(private courseService: CategoryService
+    constructor(private categoryService: CategoryService
     ) {
         this.pageResponse = new PageResponse<Category>();
         this.pageResponse.items = [];
@@ -38,12 +38,12 @@ export class CatalogTableComponent implements OnInit {
     ngOnInit() {
         this.sortTable();
         // this.onNotify(this.page);
-        this.courseService.getCategories()
+        this.categoryService.getCategories()
             .then(categories => this.totalCount = categories.length);
     }
 
     onNotify(index: number): void {
-        this.courseService.getCategoriesByPage(index + 1, this.pageSize, this.sorted)
+        this.categoryService.getCategoriesByPage(index + 1, this.pageSize, this.sorted)
             .then(categories => {
                 this.pageResponse = categories;
                 this.page = index;
@@ -69,9 +69,8 @@ export class CatalogTableComponent implements OnInit {
     }
 
     onCategoryAdded(newCategory:Category):void{
-        this.categories.pop();
-        console.log(newCategory);
-        this.categories.unshift(newCategory);
+        this.pageResponse.items.pop();
+        this.pageResponse.items.unshift(newCategory);
     }
 
     onDelete(category: Category):void{
@@ -81,7 +80,7 @@ export class CatalogTableComponent implements OnInit {
     confirmDelete():void{
         this.categoryService.deleteCategory(this.currentCategory.Id)
         .subscribe(()=>{
-        this.categories = this.categories.filter(x=>x.Id!==this.currentCategory.Id); 
+        this.pageResponse.items = this.pageResponse.items.filter(x=>x.Id!==this.currentCategory.Id); 
         },
         (err)=>console.log(err)
         );

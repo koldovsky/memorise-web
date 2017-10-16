@@ -52,11 +52,15 @@ export class CourseService {
         
     };
 
-    updateCourse(course: Course):void{
-        this.http.put(this.courseModeratorUrl+"UpdateCourse",course)
-        .toPromise()
-        .then()
-        .catch(handleError);
+    // updateCourse(course: Course):void{
+    //     this.http.put(this.courseModeratorUrl+"UpdateCourse",course)
+    //     .toPromise()
+    //     .then()
+    //     .catch(handleError);
+    // };
+    updateCourse(course: Course){
+       return this.http.put(this.courseModeratorUrl+"UpdateCourse",course);
+        
     };
 
     deleteCourse(id: number){

@@ -15,12 +15,14 @@ import { handleError } from '../../../common/functions/functions';
 })
 
 export class CreateDeckComponent implements OnInit {
+    submitMessage: string;
     deck: Deck;
     categories: Category[];
     isLoaded: boolean = false;
     isUnique: boolean = false;
     isPaid: boolean = false;
     afterCheck: boolean = false;
+    
 
     constructor(
         private authService: AuthService,
