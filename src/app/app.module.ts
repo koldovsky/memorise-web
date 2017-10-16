@@ -34,11 +34,7 @@ import { CoursesComponent } from './catalog/courses/courses.component';
 import { DecksComponent } from './catalog/decks/decks.component';
 import { CourseDetailsComponent } from './catalog/courses/course-details/course-details.component';
 import { ProfileComponent } from './auth/user/profile/profile.component';
-import { AccountComponent } from './users/customer/account.component';
-import { SecurityComponent } from './users/customer/security.component';
-import { UserCoursesComponent } from './users/customer/user-courses.component';
-import { UserDecksComponent } from './users/customer/user-decks.component';
-import { StatisticsComponent } from './users/customer/statistics.component';
+import { StatisticsComponent } from './auth/user/statistics/statistics.component';
 import { LoginComponent } from './auth/components/login.component';
 import { CardsComponent } from './catalog/cards/cards.component';
 import { PageNotFoundComponent } from './not-found/not-found.component';
@@ -54,7 +50,9 @@ import { CategoryService } from './common/services/category.service';
 import { CourseService } from './common/services/course.service';
 import { DeckService } from './common/services/deck.service';
 import { UserService } from './common/services/user.service';
+import { UserSubscriptionsService } from './common/services/user-subscriptions.service';
 import { QuizService } from './common/services/quiz.service';
+import { StatisticsService } from './common/services/statistics.service';
 import { InterceptorService } from './common/services/interceptor.service';
 
 import { CatalogModule } from './catalog/catalog.module';
@@ -62,7 +60,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { QuizModule } from './quiz/quiz.module';
 import { FooterComponent } from './footer/footer.component';
 import { MessageService } from './common/services/message.service';
-import { ProfileModule } from './auth/user/profile/profile.module';
+import { UserModule } from './auth/user/user.module';
 import { ModeratorModule } from './moderator/moderator.module';
 
 @NgModule({
@@ -72,11 +70,6 @@ import { ModeratorModule } from './moderator/moderator.module';
         CoursesComponent,
         DecksComponent,
         ProfileComponent,
-        AccountComponent,
-        SecurityComponent,
-        UserCoursesComponent,
-        UserDecksComponent,
-        StatisticsComponent,
         LoginComponent,
         CardsComponent,
         AppComponent,
@@ -88,6 +81,7 @@ import { ModeratorModule } from './moderator/moderator.module';
         NavigationComponent,
         FooterComponent,
         ProfileComponent,
+        StatisticsComponent,
         QuizResultsComponent,
         ModeratorComponent,
         CreateCourseComponent
@@ -120,19 +114,17 @@ import { ModeratorModule } from './moderator/moderator.module';
         MatPaginatorModule,
         MatChipsModule,
         MatTableModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatTabsModule,
 
+        AppRoutingModule,
         FormsModule,
         ReactiveFormsModule,
         ModeratorModule,
         CatalogModule,
         QuizModule,
-        AppRoutingModule,
-        MatTabsModule,
-        FormsModule,
-        ReactiveFormsModule,
-        ProfileModule,
-        MatDatepickerModule,
-        MatNativeDateModule
+        UserModule,
     ],
     providers: [
         AuthService,
@@ -140,7 +132,9 @@ import { ModeratorModule } from './moderator/moderator.module';
         CourseService,
         DeckService,
         UserService,
+        UserSubscriptionsService,
         QuizService,
+        StatisticsService,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: InterceptorService,

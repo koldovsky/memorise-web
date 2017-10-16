@@ -27,14 +27,14 @@ const routes: Routes = [
         component: UnauthorizedComponent
     },
 
-    {
-        path: 'profile/:name',
-        component: ProfileComponent
-    },
-    {
-        path: '**',
-        component: PageNotFoundComponent
-    }
+    // {
+    //     path: 'profile/:name',
+    //     component: ProfileComponent
+    // },
+    // {
+    //     path: '**',
+    //     component: PageNotFoundComponent
+    // }
 ];
 
 @NgModule({
