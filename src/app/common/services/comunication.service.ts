@@ -1,3 +1,3 @@
-export class ComunicationService{
-    whichButtonIsClicked = "categories";
+export class ComunicationService {
+    whichButtonIsClicked = 'categories';
 }

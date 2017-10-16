@@ -108,5 +108,12 @@ export interface Token extends BaseEntity {
 
 export class PageResponse<T> {
     items: T[];
+    totalCount: number;
 }
 
+export class SearchDataModel {
+    page: number;
+    pageSize: number;
+    sort: boolean;
+    searchString: string;
+}

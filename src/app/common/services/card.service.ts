@@ -12,16 +12,15 @@ export class CardService {
 
     constructor(private http: HttpClient) { }
 
-    getCards(deckName: string): Promise<Card[]> {
-        const URL = `${this.CardUrl}/GetCardsByDeck${deckName}`;
-
+    getCards(deckName: string[]): Promise<Card[]> {
+        let param = '';
+        for ( let i = 0; i < deckName.length; i++) {
+            param = param + ',' + deckName[i];
+        }
+        const URL = `${this.CardUrl}/GetCardsByDeckArray/${param}`;
         return this.http.get(URL)
-            .toPromise()
-            .then(response => {
-                console.log(response);
-                console.log(response);
-                return response as Card[];
-            })
-            .catch(handleError);
+        .toPromise()
+        .then(response => {console.log(response); return response as Card[];  })
+        .catch(handleError);
     }
 }

@@ -6,7 +6,8 @@
                     <span class="input-group-addon">
                         <i class="material-icons">search</i>
                     </span>
-                    <input type="text" placeholder="Search by Deck Name" [(ngModel)]="filterQuery" />
+                    <input type="text" placeholder="Search by Deck Name" [(ngModel)]="searchText" 
+                        (ngModelChange)="onChange($event)"/>
                 </div>
             </div>
             <table class="table table-bordered table-hover table-responsive">
@@ -19,14 +20,13 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody *ngFor="let deck of pageResponse.items; let i=index" >
+                <tbody *ngFor="let deck of decks; let i=index" >
                     <tr>
                         <td>{{pageSize * page + i + 1}}</td>
                         <td>{{deck.Name}}</td>
                         <td class="btn-group">
                             <button class="btn btn-primary" (click)="onBtnInfoClick(deck.Linking)"
-                            [routerLink]="['/moderator/decks/edit', deck.Linking]"
-                            >
+                            [routerLink]="['/moderator/decks/edit', deck.Linking]">
                                 <i class="material-icons">info_outline</i>
                             </button>
                             <button class="btn btn-danger">

@@ -24,7 +24,7 @@ export class CatalogTableComponent implements OnInit {
     constructor(private courseService: CategoryService
     ) {
         this.pageResponse = new PageResponse<Category>();
-        this.pageResponse.items = [];
+        // this.pageResponse.items = [];
     }
 
     ngOnInit() {

@@ -81,6 +81,7 @@ import { AddDeckComponent } from './catalog/decks/add-deck/add-deck.component';
 import { NumberToArrayPipeComponent } from './pipes/number-to-array.pipe';
 import { EditDeckComponent } from './catalog/decks/edit-deck/edit-deck.component';
 import { CardService } from './common/services/card.service';
+import { CardTableComponent } from './catalog/cards/card-table/card-table.component';
 
 
 
@@ -122,6 +123,7 @@ import { CardService } from './common/services/card.service';
         EditDeckComponent,
         DeckTableComponent,
         CatalogTableComponent,
+        CardTableComponent,
         AddDeckComponent,
     ],
     entryComponents: [

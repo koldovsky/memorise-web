@@ -19,9 +19,10 @@ export class DeckTableComponent implements OnInit {
     decks: Deck[];
     totalCount: number;
     page = 0; pageSize = 5;
-    index = 1;
+    // index = 1;
     pageResponse: PageResponse<Deck>;
     sorted: boolean;
+    searchText: string;
 
     constructor(private deckService: DeckService,
     ) {
@@ -32,25 +33,23 @@ export class DeckTableComponent implements OnInit {
     ngOnInit() {
         this.sortTable();
         // this.onNotify(this.page);
-        this.deckService.getDecks()
-            .then(decks => this.totalCount = decks.length);
-        console.log(this.searchList('X'));
     }
 
     onNotify(index: number): void {
-        this.deckService.getDecksByPage(index + 1, this.pageSize, this.sorted)
-            .then(decks => {
-                this.pageResponse = decks;
+        this.deckService.getDecksByPage(index + 1, this.pageSize, this.sorted, this.searchText)
+            .then(pageResponse => {
+                this.decks = pageResponse.items;
                 this.page = index;
+                this.totalCount = pageResponse.totalCount;
             });
     }
 
     onNext(): void {
-        this.onNotify(this.page + this.index);
+        this.onNotify(this.page + 1);
     }
 
     onPrev(): void {
-        this.onNotify(this.page - this.index);
+        this.onNotify(this.page - 1);
     }
 
     sortTable() {
@@ -63,11 +62,15 @@ export class DeckTableComponent implements OnInit {
         return this.sorted;
     }
 
-    searchList(searchText: string) {
-        this.deckService.getSearchDecks(searchText)
-            .then(decks => this.decks = decks);
-        return this.decks;
+    onChange(event: any) {
+        this.onNotify(0);
     }
+
+    // searchList(searchText: string) {
+    //     this.deckService.getSearchDecks(searchText)
+    //         .then(decks => this.decks = decks);
+    //     return this.decks;
+    // }
 
     onBtnInfoClick(btnInfoLinking: string){
         this.deckService.btnInfoLinking = btnInfoLinking;
