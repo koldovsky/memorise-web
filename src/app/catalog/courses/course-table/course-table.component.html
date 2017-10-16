@@ -15,16 +15,15 @@
                     <tr>
                         <th>#</th>
                         <th>
-                            <a href (click)="sortTable('Name')">Course Name</a>
+                            <a class="btn btn-primary" (click)="sortTable()">Course Name</a>
                         </th>
                         <th>Description</th>
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr *ngFor="let course of courses | filter: queryString: searchableList
-                                                         | sorting : path: order; let i = index">
-                        <th scope="row">{{i+1}}</th>
+                <tbody *ngFor="let course of pageResponse.items; let i=index" >
+                    <tr>
+                        <td>{{pageSize * page + i + 1}}</td>
                         <td>{{course.Name}}</td>
                         <td>{{course.Description}}</td>
                         <td>
@@ -43,6 +42,8 @@
                     </tr>
                 </tbody>
             </table>
+            <app-pagination [page-size]="pageSize" [total-count]="totalCount" [page]="page" (page-index)="onNotify($event)" (goNext)="onNext()"
+            (goPrev)="onPrev()"></app-pagination>
         </div>
     </div>
      <!-- Modal Alert -->

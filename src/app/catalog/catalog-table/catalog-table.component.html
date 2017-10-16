@@ -15,15 +15,14 @@
                     <tr>
                         <th>#</th>
                         <th>
-                            <a href (click)="sortTable('Name')">Category Name</a>
+                            <a class="btn btn-primary" (click)="sortTable()">Category Name</a>
                         </th>
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr *ngFor="let category of categories | filter: queryString: searchableList
-                                                         | sorting : path: order; let i = index">
-                        <th scope="row">{{i+1}}</th>
+                <tbody *ngFor="let category of pageResponse.items; let i=index" >
+                    <tr>
+                        <td>{{pageSize * page + i + 1}}</td>
                         <td>{{category.Name}}</td>
                         <td>
                             <div class="btn-group">
@@ -39,6 +38,8 @@
                     </tr>
                 </tbody>
             </table>
+            <app-pagination [page-size]="pageSize" [total-count]="totalCount" [page]="page" (page-index)="onNotify($event)" (goNext)="onNext()"
+            (goPrev)="onPrev()"></app-pagination>
         </div>
     </div>
     <!-- Modal Alert -->

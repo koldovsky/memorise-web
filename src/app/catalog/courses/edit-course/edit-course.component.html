@@ -1,70 +1,106 @@
 <div class="hight10hv"></div>
-<div class="row" *ngIf="isLoaded">
+<div class="row" *ngIf="isLoadedCourse && isLoadedCategories && isLoadedDecks">
     <div class="col-xs-12 col-sm-1 col-md-2 col-lg-3"></div>
     <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
         <h2 class="text-center">Course details</h2>
-        <form>
-                <div class="col-xs-12 col-sm-8 col-md-6">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" 
-                        placeholder="Course name" value="{{course.Name}}">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="selectId">Category</label>
-                        <select class="form-control" id="selectId">
-                            <option *ngFor="let category of categories" 
-                            value="category.Name" 
-                            [attr.selected]="category.Name===course.Category.Name ? true : null"
-                            >
-                            {{category.Name}}
-                            </option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                            <label for="price">Price</label>
-                            <input type="number" min="0" class="form-control" id="price" 
-                            placeholder="Course price" value="{{course.Price}}">
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12">
-                    <div class="form-group">
-                            <label for="description">Description</label>
-                            <textarea class="form-control" id="description" 
-                            rows="3" value="{{course.Description}}"
-                            placeholder="Course description"></textarea>
-                    </div>
-                </div>
+        <br>
+        
+        <form #mainForm="ngForm" (ngSubmit)="onSubmit()" name="courseMainForm">
                 <div class="row">
-                    <div class="col-xs-1 col-sm-1"></div>
-                        <div class="col-xs-9 col-sm-8">
+                    <div class="col-xs-12 col-sm-8 col-md-6">
+                        <div class="form-group">
+                            <label for="nameId">Name</label>
+                            <input type="text" class="form-control" id="nameId" 
+                            placeholder="Course name" [(ngModel)]="course.Name"
+                            name="courseName"
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="linkingId">Linking</label>
+                            <input type="text" class="form-control" id="linkingId" 
+                            placeholder="Course linking" [(ngModel)]="course.Linking"
+                            name="courseLinking"
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="selectId">Category</label>
+                            <select class="form-control" id="selectId"
+                            name="categoryName"
+                            [(ngModel)] ="course.CategoryName"
+                            >
+                                <option *ngFor="let category of categories" 
+ 
+                                [attr.selected]="category.Name===course.Category.Name ? true : null"
+                                [(ngValue)]="category.Name" 
+                                >
+                                {{category.Name}}
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                                <label for="price">Price</label>
+                                <input type="number" min="0" class="form-control" id="price" 
+                                placeholder="Course price" [(ngModel)]="course.Price"
+                                name="price"
+                                >
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-6">
+                        <img src="../../../../assets/images/placeholder-thumb.jpg" 
+                        alt="Course photo" class="img-thumbnail">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12">
+                        <div class="form-group">
+                                <label for="description">Description</label>
+                                <textarea class="form-control" id="description" 
+                                rows="3" [(ngModel)]="course.Description"
+                                placeholder="Course description"
+                                name="courseDescription"
+                                ></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                        <div class="col-xs-9 col-sm-8 col-md-9 col-lg-10">
                             <div class="form-group">
-                                    <label for="multipleselectId">Decks</label>
-                                            <select multiple class="form-control" id="multipleselectId">
-                                                    <option *ngFor="let deck of course.Decks" 
-                                                    value="deck.Name" 
+                                    <label for="courseDecksId">Decks</label>
+                                            <select multiple class="form-control" 
+                                                    id="courseDecksId" name="courseDecks"
+                                                    [(ngModel)]="chosenDecksLinking"
                                                     >
-                                                    {{deck.Name}}
+                                                    <option *ngFor="let deckName of course.DeckNames" 
+                                                    
+                                                    id="deckName"
+                                                    >
+                                                    {{deckName}}
                                                     </option>
                                             </select>
                             </div>
                         </div>
-                        <div class="col-xs-2 col-sm-3 col-md-3">
+                        <div class="col-xs-3 col-sm-4 col-md-3 col-lg-2">
                             <br>
                             <br>
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12">
-                                    <button type="button" class="btn btn-danger">
+                                    <button type="button" class="btn btn-danger"
+                                    (click)="deleteDecks();"
+                                    >
                                         <i class="material-icons">delete_forever</i>
                                     </button>
                                 </div>
                             </div>
                             <div class="row">
                                     <div class="col-xs-12 col-sm-12">
-                                        <button type="button" class="btn btn-primary"
-                                        (click)="openAddDecksDialog()"
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" 
+                                        data-target="#addDecksFormModal" data-whatever="addDecks"
+                                        (click) = "addDecksForm.reset()"
                                         >
                                                 <i class="material-icons">add</i>
                                         </button>
@@ -73,13 +109,55 @@
                         </div>
                 </div>
                 <br>
-                <div class="col-xs-12 col-sm-12">
-                    <button type="button" class="btn btn-primary" (click)="setWhichButtonIsClicked()" [routerLink]="['/moderator']">Back</button>
-                    <button type="submit" class="btn btn-primary">Update</button>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12">
+                        <button type="button" class="btn btn-outline-secondary btn-lg float-left" (click)="setWhichButtonIsClicked()" [routerLink]="['/moderator']">Cancel</button>
+                        <button type="submit" class="btn btn-primary btn-lg float-right">Update</button>
+                    </div>
                 </div>
         </form>
     </div>
     <div class="col-xs-12 col-sm-1 col-md-2 col-lg-3"></div>
 </div>
+
+
+
+<!-- Modal Form -->
+<div class="modal fade" id="addDecksFormModal"> 
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add decks</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form (ngSubmit)="onModalSubmit()" #addDecksForm="ngForm">
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="multipleselectId">ALL decks</label>
+                        <select multiple class="form-control" 
+                        id="multipleselectId" name="selectedDeck"
+                        [(ngModel)]="addedDecksLinking"
+                        >
+                                <option *ngFor="let deckName of deckNames" 
+                                id="deckName"
+                                >
+                                {{deckName}}
+                                </option>
+                        </select>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" >Add selected</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
 <div class="hight10hv"></div>
+
             

@@ -7,7 +7,7 @@
                     <span class="input-group-addon">
                         <i class="material-icons">search</i>
                     </span>
-                    <input type="text" [(ngModel)]="queryString" placeholder="Search by Deck Name" />
+                    <input type="text" placeholder="Search by Deck Name" [(ngModel)]="filterQuery" />
                 </div>
             </div>
             <table class="table table-bordered table-hover table-responsive">
@@ -15,19 +15,19 @@
                     <tr>
                         <th>#</th>
                         <th>
-                            <a href (click)="sortTable('Name')">Deck Name</a>
+                            <a class="btn btn-primary" (click)="sortTable()">Deck Name</a>
                         </th>
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr *ngFor="let deck of decks | filter: queryString: searchableList
-                                                         | sorting : path: order; let i = index">
-                        <th scope="row">{{i+1}}</th>
+                <tbody *ngFor="let deck of pageResponse.items; let i=index" >
+                    <tr>
+                        <td>{{pageSize * page + i + 1}}</td>
                         <td>{{deck.Name}}</td>
-                        <td>
-                            <div class="btn-group">
-                            <button class="btn btn-primary">
+                        <td class="btn-group">
+                            <button class="btn btn-primary" (click)="onBtnInfoClick(deck.Linking)"
+                            [routerLink]="['/moderator/decks/edit', deck.Linking]"
+                            >
                                 <i class="material-icons">info_outline</i>
                             </button>
                             <button class="btn btn-danger" data-toggle="modal" 
@@ -39,6 +39,8 @@
                     </tr>
                 </tbody>
             </table>
+            <app-pagination [page-size]="pageSize" [total-count]="totalCount" [page]="page" (page-index)="onNotify($event)" (goNext)="onNext()"
+                (goPrev)="onPrev()"></app-pagination>
         </div>
     </div>
     <!-- Modal Alert -->

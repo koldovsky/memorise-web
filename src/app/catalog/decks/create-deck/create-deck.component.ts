@@ -15,33 +15,32 @@ import { handleError } from '../../../common/functions/functions';
 })
 
 export class CreateDeckComponent implements OnInit {
-   deck:Deck;
-   categories: Category[];
-   isLoaded:boolean = false;
-   isUnique:boolean = false;
-   isPaid:boolean = false;
-   afterCheck:boolean = false;
-   submitMessage:string='';
+    deck: Deck;
+    categories: Category[];
+    isLoaded: boolean = false;
+    isUnique: boolean = false;
+    isPaid: boolean = false;
+    afterCheck: boolean = false;
 
     constructor(
         private authService: AuthService,
-        private categoryService:CategoryService,
+        private categoryService: CategoryService,
         private deckService: DeckService
-    ) { 
+    ) {
         this.deck = {
             Name: '',
             Linking: '',
             Description: '',
             Price: 0
         };
-      }
+    }
 
     ngOnInit(): void {
         this.categoryService.getCategories()
-        .then(categories => {
-            this.categories = categories;
-            this.isLoaded = true;
-        });
+            .then(categories => {
+                this.categories = categories;
+                this.isLoaded = true;
+            });
     }
     
     onSubmit() { 
