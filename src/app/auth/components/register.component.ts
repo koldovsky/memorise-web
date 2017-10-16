@@ -23,13 +23,10 @@ export class RegisterComponent implements OnInit {
     snackBar: MatSnackBar;
     myForm: FormGroup;
 
-    constructor(
-        public dialogRef: MatDialogRef<RegisterComponent>,
+    constructor(        
         private authService: AuthService,
-        public fb: FormBuilder,
-        // public snackBar: MatSnackBar,
-        @Inject(MAT_DIALOG_DATA) public data: any) {
-        this.action = data.action;
+        public fb: FormBuilder        
+        ) {        
         this.myForm = this.fb.group({
             'login': new FormControl('', [
                 Validators.required,
@@ -52,7 +49,7 @@ export class RegisterComponent implements OnInit {
     }
 
     onNoClick(): void {
-        this.dialogRef.close();
+        //this.dialogRef.close();
     }
 
     ngOnInit(): void {
@@ -62,7 +59,7 @@ export class RegisterComponent implements OnInit {
         this.authService.signUp(user)
             .then(() => {
                 if (this.authService.validData()) {
-                    this.dialogRef.close();
+                    //this.dialogRef.close();
                     // this.snackBar.open(this.message, this.action, {
                     // duration: 2000,
                     // });

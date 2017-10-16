@@ -5,6 +5,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 
 import { UserService } from '../../../common/services/user.service';
 import { User } from '../../../common/models/models';
+import { AuthService } from '../../../common/services/auth.service';
 
 
 @Component({
@@ -15,6 +16,7 @@ import { User } from '../../../common/models/models';
 
 export class ProfileComponent implements OnInit {
   constructor(private userService: UserService,
+    private authService: AuthService,
     private route: ActivatedRoute
   ) { }
 
@@ -41,12 +43,26 @@ export class ProfileComponent implements OnInit {
   setValueEmail() { this.email = 'user@gmail.com'; }
 
   ngOnInit(): void {
-    this.route.paramMap
+    /* this.route.paramMap
       .switchMap((params: ParamMap) => this.userService
         .getUserByLogin(params.get('name')))
       .subscribe(user => {
         this.login = user.Login,
           this.email = user.Email;
+      }); */
+      /* console.log('THIS '+this.authService.getCurrentUser().Login);
+      this.user = this.authService.getCurrentUser();
+      this.login=this.user.Login;
+      this.email = this.user.Email; */
+      this.login = this.authService.getCurrentUserLogin();
+      this.route.paramMap
+      .switchMap((params: ParamMap) => this.userService
+        .getUserByLogin(this.login))
+      .subscribe(user => {
+        this.login = user.Login,
+          this.email = user.Email;
       });
+
+      
   }
 }

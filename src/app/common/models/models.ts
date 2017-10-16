@@ -89,6 +89,13 @@ export interface User extends BaseEntity {
     Reports?: Report[];
 }
 
+export interface RegisterExternalBindingModel {
+    UserName: string;
+    Email?: string;
+    Provider: string;
+    ExternalAccessToken: string;
+}
+
 export interface UserCourse extends BaseEntity {
     Rating: number;
     User: User;
@@ -96,6 +103,7 @@ export interface UserCourse extends BaseEntity {
 }
 
 export interface Token extends BaseEntity {
+    userName: string;
     access_token: string;
     expires_in: User;
     token_type: Course;

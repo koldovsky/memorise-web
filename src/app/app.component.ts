@@ -16,7 +16,7 @@ export class AppComponent {
   description = 'Some description';
   name: string;
 
-  constructor(private dialog: MatDialog) { }
+  constructor() { }
 
 }
 
