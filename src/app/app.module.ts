@@ -65,14 +65,14 @@ import { FooterComponent } from './footer/footer.component';
 import { MessageService } from './common/services/message.service';
 import { ProfileModule } from './auth/user/profile/profile.module';
 import { ModeratorModule } from './moderator/moderator.module';
+import { RegisterModule } from './auth/components/register.module';
 
 @NgModule({
     declarations: [
         CatalogComponent,
         CourseDetailsComponent,
         CoursesComponent,
-        DecksComponent,
-        ProfileComponent,
+        DecksComponent,        
         AccountComponent,
         SecurityComponent,
         UserCoursesComponent,
@@ -134,7 +134,8 @@ import { ModeratorModule } from './moderator/moderator.module';
         ReactiveFormsModule,
         ProfileModule,
         MatDatepickerModule,
-        MatNativeDateModule
+        MatNativeDateModule,
+        RegisterModule
     ],
     providers: [
         AuthService,
