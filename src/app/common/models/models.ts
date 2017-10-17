@@ -16,6 +16,8 @@ export interface Card extends BaseEntity {
     Comments: Comment[];
     Answers: Answer[];
     IsPassed?: boolean;
+    RightAnswersText?: string;
+    CustomerAnswersText?: string;
 }
 
 export interface CardType extends BaseEntity {
@@ -104,5 +106,11 @@ export interface Token extends BaseEntity {
     access_token: string;
     expires_in: User;
     token_type: Course;
+}
+
+export interface WordInput extends BaseEntity {
+    CardId: number;
+    CustomerAnswer: string;
+    RightAnswers: string[];
 }
 
