@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit } from '@angular/core';
 import { ParamMap, ActivatedRoute } from '@angular/router';
 
 import { QuizService } from '../common/services/quiz.service';
-import { Card, Answer } from '../common/models/models';
+import { Card, Answer, WordInput } from '../common/models/models';
 
 @Component({
     selector: 'app-quiz',
@@ -22,7 +22,8 @@ export class QuizComponent implements OnInit {
     isLoaded = false;
     correctColor = "limeGreen";
     uncorrectColor = "red";
-
+    customerAnswer: string = '';
+    wordInput: WordInput[];
 
     ngOnInit(): void {
         this.route.paramMap
@@ -112,6 +113,27 @@ export class QuizComponent implements OnInit {
 
     checkQuestion() {
         const card: Card = this.cards[this.counter];
+        if (this.cards[this.counter].CardType.Name === "Words input") {
+            if (this.customerAnswer) {
+                let isRight = false;
+                this.cards[this.counter].Answers
+                    .forEach(x => {
+                        if (x.Text.trim() === this.customerAnswer.trim()) {
+                            isRight = true;
+                        }
+                    });
+                const cardTitle = <HTMLInputElement>document.getElementById('cardTitle' + card.Id);
+                if (isRight) {
+                    cardTitle.style.color = this.correctColor;;
+                    cardTitle.style.fontWeight = "bold";
+                } else {
+                    cardTitle.style.color = this.uncorrectColor;
+                    cardTitle.style.fontWeight = "bold";
+                }
+            } else {
+                return;
+            }
+        }
         let isUncorrectChecked = false;
         let correctAnswersCount = 0;
         let checkedAnswersCount = 0;
@@ -131,26 +153,26 @@ export class QuizComponent implements OnInit {
                         isUncorrectChecked = true;
                         break;
                 }
-            }else if(answer.IsCorrect){
+            } else if (answer.IsCorrect) {
                 lable.style.color = this.correctColor;;
                 lable.style.fontWeight = "bold";
                 correctAnswersCount++;
-            }else {
+            } else {
                 lable.style.color = 'black';
             }
 
             const cardTitle = <HTMLInputElement>document.getElementById('cardTitle' + card.Id);
-            
-            if(!isUncorrectChecked && correctAnswersCount === checkedAnswersCount){
+
+            if (!isUncorrectChecked && correctAnswersCount === checkedAnswersCount) {
                 cardTitle.style.color = this.correctColor;;
                 cardTitle.style.fontWeight = "bold";
-            }else{
+            } else {
                 cardTitle.style.color = this.uncorrectColor;
                 cardTitle.style.fontWeight = "bold";
             }
         });
     }
-    
+
     saveAnswer() {
         const card: Card = this.cards[this.counter];
         setTimeout(function () {
@@ -189,5 +211,12 @@ export class QuizComponent implements OnInit {
                 .getElementById('cardTitle' + cardId);
             cardTitle.style.color = 'black';
         }, 20);
+    }
+
+    cleanCustomerAnswerInput() {
+        this.customerAnswer = '';
+    }
+    wordInputAdd() {
+
     }
 }

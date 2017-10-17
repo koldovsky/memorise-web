@@ -14,7 +14,8 @@ import { User } from '../../../common/models/models';
 })
 
 export class ProfileComponent implements OnInit {
-  constructor(private userService: UserService,
+  constructor(
+    private userService: UserService,
     private route: ActivatedRoute
   ) { }
 

@@ -1,6 +1,8 @@
 <div class="container">
-        <h1><span class="badge badge-primary">Moderation Panel</span></h1>
-        <br/>
+    <h1>
+        <span class="badge badge-primary">Moderation Panel</span>
+    </h1>
+    <br/>
     <div class="row">
         <button class="btn" [class.btn-primary]="whichButtonIsClicked=='categories'" [class.btn-outline-primary]="whichButtonIsClicked!='categories'"
             id="categories" (click)="onClick($event)">
@@ -14,6 +16,10 @@
             id="decks" (click)="onClick($event)">
             Decks
         </button>
+        <button class="btn btn-outline-primary" [class.btn-primary]="whichButtonIsClicked=='cards'" [class.btn-outline-primary]="whichButtonIsClicked!='cards'"
+            id="cards" (click)="onClick($event)">
+            Cards
+        </button>
     </div>
 
     <div class="marginTopAndBottom" *ngIf="whichButtonIsClicked=='categories'">
@@ -24,6 +30,10 @@
     </div>
     <div class="marginTopAndBottom" *ngIf="whichButtonIsClicked=='decks'">
         <app-deck-table></app-deck-table>
+    </div>
+    <div class="marginTopAndBottom" *ngIf="whichButtonIsClicked=='cards'">
+        
+        <app-card-table></app-card-table>
     </div>
 
 </div>

@@ -4,8 +4,9 @@ import { Router } from '@angular/router';
 
 import 'rxjs/add/operator/toPromise';
 
-import { User, Token } from '../models/models';
+import { User, Token, Deck, PageResponse } from '../models/models';
 import { handleError } from '../functions/functions';
+
 
 @Injectable()
 export class AuthService {

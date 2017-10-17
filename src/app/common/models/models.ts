@@ -16,6 +16,8 @@ export interface Card extends BaseEntity {
     Comments: Comment[];
     Answers: Answer[];
     IsPassed?: boolean;
+    RightAnswersText?: string;
+    CustomerAnswersText?: string;
 }
 
 export interface CardType extends BaseEntity {
@@ -77,10 +79,10 @@ export interface Role extends BaseEntity {
     Name: string;
 }
 
-export interface Statistic extends BaseEntity {
-    SuccessPercent: number;
-    User: User;
-    Deck: Deck;
+export interface Statistics extends BaseEntity {
+    CardStatus: number;
+    UserLogin: User;
+    CardId: Card;
 }
 
 export interface User extends BaseEntity {
@@ -109,5 +111,18 @@ export interface Token extends BaseEntity {
 
 export class PageResponse<T> {
     items: T[];
+    totalCount: number;
+}
+
+export class SearchDataModel {
+    page: number;
+    pageSize: number;
+    sort: boolean;
+    searchString: string;
+}
+export interface WordInput extends BaseEntity {
+    CardId: number;
+    CustomerAnswer: string;
+    RightAnswers: string[];
 }
 

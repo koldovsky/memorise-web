@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 
 import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/map';
 
-import { Deck, PageResponse } from '../models/models';
+import { Deck, PageResponse, SearchDataModel } from '../models/models';
 import { handleError } from '../functions/functions';
+import { RequestOptions } from '@angular/http';
 
 @Injectable()
 export class DeckService {
@@ -14,7 +17,7 @@ export class DeckService {
     private decksDetailsUrl = 'http://localhost:37271/DeckDetails';
     private deckModeratorUrl = 'http://localhost:37271/Moderator/';
 
-    btnInfoLinking: string = "";
+    btnInfoLinking = '';
 
     constructor(private http: HttpClient) { }
 
@@ -26,21 +29,24 @@ export class DeckService {
             .catch(handleError);
     }
 
-    getDecksByPage(page: number, pageSize: number, sorted: boolean): Promise<PageResponse<Deck>> {
-        const url = this.decksPageUrl + '/' + page + '/' + pageSize + '/' + sorted;
-        return this.http.get(url)
+    getDecksByPage(page: number, pageSize: number, sorted: boolean, search: string): Promise<PageResponse<Deck>> {
+        let postData = new SearchDataModel;
+        postData.page = page; postData.pageSize = pageSize;
+        postData.searchString = search; postData.sort = sorted;
+        const url = this.decksPageUrl;
+        return this.http.post(url, postData)
             .toPromise()
             .then(response => response as PageResponse<Deck>)
             .catch(handleError);
-    }
+        }
 
-    getSearchDecks(search: string): Promise<Deck[]> {
-        const url = this.decksSearchUrl + '/' + search;
-        return this.http.get(url)
-            .toPromise()
-            .then(response => response as Deck[])
-            .catch(handleError);
-    }
+    // getSearchDecks(search: string): Promise<Deck[]> {
+    //     const url = this.decksSearchUrl + '/' + search;
+    //     return this.http.get(url)
+    //         .toPromise()
+    //         .then(response => response as Deck[])
+    //         .catch(handleError);
+    // }
 
     getDecksByCourseName(courseName: string) {
         const URL = `${this.decksUrl}/GetAllDecksByCourse/${courseName}`;

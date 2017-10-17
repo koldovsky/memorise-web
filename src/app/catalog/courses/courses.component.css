@@ -1,29 +1,9 @@
-mat-card-header {
-    margin: -2vh 0;
+.crop {
+    height: 14rem;
+    overflow: hidden;
 }
 
-.fixed-size {
-    width: 20vw;
-    height: 35vh;
-}
-
-.center {
-    text-align: center;
-}
-
-.flex-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: stretch;
-    width: 90vw;
-    margin: 0 auto;
-    min-height: 75vh;
-}
-
-.flex-item {
-    order: 1;
-    margin: 2vh 1vw;
-    align-self: stretch;
+.crop img {
+    height: auto;
+    width: 100%;
 }

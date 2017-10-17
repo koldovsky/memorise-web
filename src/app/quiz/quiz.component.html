@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-lg-4 col-xl-4 cards">
             <div class="no-select text-center" id="leftHeap" hidden="hidden" 
-            (click)='counterMinus(); heapCtrl(); saveAnswer(); cleanColor();'>
+            (click)='counterMinus(); heapCtrl(); saveAnswer(); cleanColor(); cleanCustomerAnswerInput();'>
                 <h3>
                     {{countPassedQuestions()}} {{passedQuestionOrQuestions()}} passed
                 </h3>
@@ -60,13 +60,38 @@
                         </div>
                     </div>
                 </div>
+
+                <div *ngSwitchCase="'Words input'">
+                    <div class="card bg-light mb-3">
+                        <div class="card-header no-select" id="cardTitle{{cards[counter].Id}}">
+                            <div class="row">
+                                Question {{cards[counter].Id}} / {{cardsCount}}
+                                <button class="btn btn-primary" (click)="checkQuestion()" id="check-button">Check</button>
+                            </div>
+                        </div>
+                                    
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                {{cards[counter].Question}}
+                            </h4>
+                            <br>
+                            <div>
+                                <label for="customerAnswerId">Type your answer</label>
+                                <input type="text" id="customerAnswerId" 
+                                placeholder="Type your answer here" [(ngModel)]="customerAnswer"
+                                name="customerAnswerName"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="text-center" id="nav-buttons">
-                    <button *ngIf="counter" class="btn btn-light" (click)="counterMinus(); heapCtrl(); saveAnswer(); cleanColor();">
+                    <button *ngIf="counter" class="btn btn-light" (click)="counterMinus(); heapCtrl(); saveAnswer(); cleanColor(); cleanCustomerAnswerInput();">
                         Previous
                     </button>
-                    <button *ngIf="counter < cardsCount-1" class="btn btn-light" (click)="counterPlus(); heapCtrl(); saveAnswer(); cleanColor();">
+                    <button *ngIf="counter < cardsCount-1" class="btn btn-light" (click)="counterPlus(); heapCtrl(); saveAnswer(); cleanColor(); cleanCustomerAnswerInput();">
                         Next
                     </button>
                     <button *ngIf="counter === cardsCount-1" class="btn btn-light" (click)="finishQuiz()" id="btnFinish" routerLink="results">
@@ -77,7 +102,7 @@
 
         <div class="col-lg-4 col-xl-4 cards">
             <div class="no-select  text-center" id="RightHeap" 
-            (click)="counterPlus(); heapCtrl(); saveAnswer(); cleanColor();">
+            (click)="counterPlus(); heapCtrl(); saveAnswer(); cleanColor(); cleanCustomerAnswerInput();">
                 <h3>
                     {{countLeftQuestions()}} {{leftQuestionOrQuestions()}} left
                 </h3>
