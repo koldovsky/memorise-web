@@ -33,14 +33,25 @@ export class PaginationComponent implements OnInit {
     paging(page: number) {
         this.pageIndex.next(page);
         this.page = page;
-        console.log(this.page);
     }
 
 
     lastPage(): boolean {
+        if (this.page === 0 && this.pageSize === 0) {
+            return true;
+        }
         return this.pageSize * (this.page + 1) >= this.totalCount;
     }
 
+    isOnePage() {
+        let isOnePage: boolean;
+        isOnePage = this.pageSize === 0 ? true :
+            this.pageSize >= this.totalCount ? true : false;
+        return isOnePage;
+    }
 
+    isEllipsis() {
 
+    }
 }
+

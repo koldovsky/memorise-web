@@ -7,6 +7,7 @@ import { NumberToArrayPipeComponent } from '../../../pipes/number-to-array.pipe'
 import { Deck, PageResponse } from '../../../common/models/models';
 import { DeckService } from '../../../common/services/deck.service';
 import * as _ from 'underscore';
+import { MessageService } from '../../../common/services/message.service';
 
 @Component({
     selector: 'app-deck-table',
@@ -17,15 +18,16 @@ import * as _ from 'underscore';
 export class DeckTableComponent implements OnInit {
 
     decks: Deck[];
+    arrayOfElementByPage = [5, 10, 'All'];
     totalCount: number;
-    page = 0; pageSize = 5;
-    // index = 1;
+    page = 0; pageSize = this.arrayOfElementByPage[0];
     pageResponse: PageResponse<Deck>;
     sorted: boolean;
     searchText: string;
     currentDeck: Deck;
 
     constructor(private deckService: DeckService,
+        private messageService: MessageService
     ) {
         this.pageResponse = new PageResponse<Deck>();
         this.pageResponse.items = [];
@@ -39,15 +41,15 @@ export class DeckTableComponent implements OnInit {
 
     ngOnInit() {
         this.sortTable();
-        // this.onNotify(this.page);
     }
 
     onNotify(index: number): void {
-        this.deckService.getDecksByPage(index + 1, this.pageSize, this.sorted, this.searchText)
+        this.deckService.getDecksByPage(index + 1, +this.pageSize, this.sorted, this.searchText)
             .then(pageResponse => {
                 this.decks = pageResponse.items;
                 this.page = index;
                 this.totalCount = pageResponse.totalCount;
+                console.log(this.page);
             });
     }
 
@@ -73,27 +75,35 @@ export class DeckTableComponent implements OnInit {
         this.onNotify(0);
     }
 
-   
 
-    onDeckAdded(newDeck:Deck):void{
+
+    onDeckAdded(newDeck: Deck): void {
         this.pageResponse.items.pop();
         this.pageResponse.items.unshift(newDeck);
     }
 
-    onDelete(deck: Deck):void{
+    onDelete(deck: Deck): void {
         this.currentDeck = deck;
     }
 
-    confirmDelete():void{
+    confirmDelete(): void {
         this.deckService.deleteDeck(this.currentDeck.Id)
-        .subscribe(()=>{
-        this.pageResponse.items = this.pageResponse.items.filter(x=>x.Id!==this.currentDeck.Id); 
-        },
-        (err)=>console.log(err)
-        );
+            .subscribe(() => {
+                this.pageResponse.items = this.pageResponse.items.filter(x => x.Id !== this.currentDeck.Id);
+            },
+            (err) => console.log(err)
+            );
     }
 
     onBtnInfoClick(btnInfoLinking: string) {
         this.deckService.btnInfoLinking = btnInfoLinking;
+    }
+
+    onSelectFilter(numberFilter: any): void {
+        if (numberFilter === 'All') {
+            numberFilter = 0;
+        }
+        this.pageSize = numberFilter;
+        this.onNotify(0);
     }
 }

@@ -8,6 +8,9 @@ export class NumberToArrayPipeComponent implements PipeTransform {
 
     transform(array: number[], totalCount: number, pageSize: number): number[] {
         array = [];
+        if (pageSize === 0) {
+            pageSize = totalCount;
+        }
         const pagesCount = totalCount / pageSize;
         let temp = Math.floor(pagesCount);
         if (temp < pagesCount) {
