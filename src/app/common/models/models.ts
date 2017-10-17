@@ -79,10 +79,10 @@ export interface Role extends BaseEntity {
     Name: string;
 }
 
-export interface Statistic extends BaseEntity {
-    SuccessPercent: number;
-    User: User;
-    Deck: Deck;
+export interface Statistics extends BaseEntity {
+    CardStatus: number;
+    UserLogin: User;
+    CardId: Card;
 }
 
 export interface User extends BaseEntity {

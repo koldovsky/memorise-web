@@ -1,32 +1,22 @@
-<div class="flex-container">
-    <div class="flex-item" *ngFor="let course of courses">
-        <a [routerLink]="['/catalog/courses', course.Linking]">
-            <mat-card>
-                <mat-card-content class="fixed-size center">
-                    <img mat-card-m-image src={{course.Photo}} />
-                </mat-card-content>
-                <mat-card-header>
-                    <mat-card-title-group>
-                        <mat-card-title>
-                            <h2>
-                                {{course.Name}}
-                            </h2>
-                        </mat-card-title>
-                        <mat-card-subtitle>{{course.Price ? course.Price : 'FREE'}}</mat-card-subtitle>
-                        <mat-card-subtitle>
-                            <p>{{course.Description}}</p>
-                        </mat-card-subtitle>
-                    </mat-card-title-group>
-                </mat-card-header>
-                <mat-card-actions class="center">
-                    <a mat-raised-button color="primary" [routerLink]="['/course', course.Linking, 'quiz']">
+<div class="d-flex flex-row flex-wrap align-items-stretch justify-content-center">
+    <div *ngFor="let course of courses" class="p-2">
+        <div class="card" style="width: 15rem;" [routerLink]="['/catalog/course', course.Linking]">
+            <div class="crop">
+                <img class="card-img-top" src="{{course.Photo}}" alt="{{course.Name}}">
+            </div>
+            <div class="card-body mt-auto">
+                <h4 class="card-title">{{course.Name}}</h4>
+                <p class="card-subtitle mb-2 text-muted">{{course.Price ? course.Price : 'FREE'}}</p>
+                <!-- <p class="card-text">{{course.Description}}</p> -->
+                <div class="text-center">
+                    <a class="btn btn-primary" [routerLink]="['/course', course.Linking, 'quiz']">
                         Try it now
                     </a>
-                    <button mat-raised-button>
+                    <button class="btn">
                         Subscribe
                     </button>
-                </mat-card-actions>
-            </mat-card>
-        </a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

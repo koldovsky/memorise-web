@@ -11,19 +11,12 @@ import { MessageService } from '../common/services/message.service';
 })
 
 export class CatalogComponent implements OnInit {
-    constructor(private categoryService: CategoryService,
-        private messageService: MessageService) { }
+    constructor(private categoryService: CategoryService) { }
 
     categories: Category[];
     
     ngOnInit(): void {
         this.categoryService.getCategories()
             .then(categories => this.categories = categories);
-    }
-
-    select(category: Category, sidenav: any): void {
-        this.messageService.notify(category);
-        sidenav.close();
-        console.log(category.Linking);
     }
 }

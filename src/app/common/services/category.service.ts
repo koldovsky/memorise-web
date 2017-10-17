@@ -65,5 +65,4 @@ export class CategoryService {
             .then(response => response as Category)
             .catch(handleError);
     }
-
 }

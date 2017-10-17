@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import 'rxjs/add/operator/toPromise';
 
-import { User, Statistic } from '../models/models';
+import { User, Statistics } from '../models/models';
 import { handleError } from '../functions/functions';
 
 @Injectable()
@@ -26,15 +26,6 @@ export class UserService {
         return this.http.get(URL)
             .toPromise()
             .then(response => response as User)
-            .catch(handleError);
-    }
-
-    getUserStatisctic(userId: number, courseId: number): Promise<Statistic> {
-        const URL = `${this.UsersUrl}/${userId}/courses/${courseId}`;
-
-        return this.http.get(URL)
-            .toPromise()
-            .then(response => response as Statistic)
             .catch(handleError);
     }
 
