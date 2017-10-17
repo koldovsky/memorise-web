@@ -87,7 +87,7 @@ export class EditDeckComponent implements OnInit {
             (err)=>console.log(err)
         );
              //this.ngOnInit();
-        }
+    }
 
     // deleteDecks(){
     //     for(let i = 0; i < this.chosenDecksLinking.length; i++){
