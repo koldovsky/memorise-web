@@ -27,7 +27,7 @@ import {MatDatepickerModule, MatNativeDateModule} from '@angular/material';
 import {FormsModule, FormBuilder, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { AppComponent } from './app.component';
+
 import { NavigationComponent } from './navigation/navigation.component';
 import { HomeComponent } from './home/home.component';
 import { CatalogComponent } from './catalog/catalog.component';
@@ -68,7 +68,7 @@ import { QuizModule } from './quiz/quiz.module';
 import { FooterComponent } from './footer/footer.component';
 import { MessageService } from './common/services/message.service';
 import { UserModule } from './auth/user/user.module';
-import { ProfileModule } from './auth/user/profile/profile.module';
+// import { ProfileModule } from './auth/user/profile/profile.module';
 import { ModeratorModule } from './moderator/moderator.module';
 
 import { FilterPipe } from './pipes/filter.pipe';
@@ -81,6 +81,8 @@ import { NumberToArrayPipeComponent } from './pipes/number-to-array.pipe';
 import { EditDeckComponent } from './catalog/decks/edit-deck/edit-deck.component';
 import { CardService } from './common/services/card.service';
 import { CardTableComponent } from './catalog/cards/card-table/card-table.component';
+
+import { AppComponent } from './app.component';
 
 
 
