@@ -4,7 +4,7 @@ import { Course, Category, Deck } from '../../../common/models/models';
 
 import { CategoryService } from '../../../common/services/category.service';
 import { DeckService } from '../../../common/services/deck.service';
-import { ComunicationService } from '../../../common/services/comunication.service';
+import { ModerationService } from '../../../common/services/moderation.service';
 import { CourseService } from '../../../common/services/course.service';
 import { ModeratorComponent } from '../../../moderator/moderator.component';
 import { MatDialog } from '@angular/material';
@@ -36,7 +36,7 @@ export class EditCourseComponent implements OnInit {
         private deckService: DeckService,        
         private courseService: CourseService,
         private moderatorComponent: ModeratorComponent,
-        private comunicationService: ComunicationService,
+        private moderationService: ModerationService,
         private dialog: MatDialog,
     ) { };
 
@@ -85,7 +85,7 @@ export class EditCourseComponent implements OnInit {
     };
 
     setWhichButtonIsClicked(){
-        this.comunicationService.whichButtonIsClicked = "courses";
+        this.moderationService.whichButtonIsClicked = "courses";
     }
     
     onModalSubmit(){
@@ -106,8 +106,14 @@ export class EditCourseComponent implements OnInit {
         ){  
             
             console.log("I am in first IF");
-            this.courseService.updateCourse(this.course);
-            this.ngOnInit();
+            // 
+            this.courseService.updateCourse(this.course)
+            .subscribe(response=>{
+                console.log(response);
+            },
+            (err)=>console.log(err)
+        );
+            
         }else{
             console.log("I am in else");
             let countConcidences: number = 0;

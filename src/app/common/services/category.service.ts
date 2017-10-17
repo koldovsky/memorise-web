@@ -47,13 +47,17 @@ export class CategoryService {
             .catch(handleError);
     }
 
-    createCategory(category: Category):void{
-        this.http.post(this.categoryModeratorUrl+"CreateCategory",category)
+    createCategory(category: Category):Promise<Category>{
+        return this.http.post(this.categoryModeratorUrl+"CreateCategory",category)
         .toPromise()
-        .then()
+        .then(response => response as Category)
         .catch(handleError);
         
     }
+
+    deleteCategory(id: number){
+        return this.http.delete(this.categoryModeratorUrl+"DeleteCategory/"+id);
+     }
 
     checkIfCategoryExists(categoryName: string): Promise<Category> {
          return this.http.get(this.categoryModeratorUrl+"FindCategoryByName/"+categoryName)
@@ -61,4 +65,5 @@ export class CategoryService {
             .then(response => response as Category)
             .catch(handleError);
     }
+
 }

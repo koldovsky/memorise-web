@@ -65,29 +65,22 @@ export class DeckService {
             .then(response => response as Deck)
             .catch(handleError);
     }
-    // getDeckWithDetails(deckName: string): Promise<Deck> {
-    //     const URL = `${this.decksDetailsUrl}/GetDeckWithDetails/${deckName}`;
-
-    //     return this.http.get(URL)
-    //         .toPromise()
-    //         .then(response => response as Deck)
-    //         .catch(handleError);
-    // }
-    createDeck(deck: Deck): void {
-        this.http.post(this.deckModeratorUrl + 'CreateDeck', deck)
-            .toPromise()
-            .then()
-            .catch(handleError);
-
+    createDeck(deck: Deck):Promise<Deck>{
+        return this.http.post(this.deckModeratorUrl+"CreateDeck",deck)
+        .toPromise()
+        .then(response => response as Deck)
+        .catch(handleError);
+        
     }
 
-    updateDeck(deck: Deck): void {
-        this.http.post(this.deckModeratorUrl + 'UpdateDeck', deck)
-            .toPromise()
-            .then()
-            .catch(handleError);
+    updateDeck(deck: Deck){
+        return this.http.put(this.deckModeratorUrl+"UpdateDeck",deck);
+        
     }
 
+    deleteDeck(id: number) {
+        return this.http.delete(this.deckModeratorUrl + "DeleteDeck/" + id);
+    }
     checkIfDeckExists(deckName: string): Promise<Deck> {
         return this.http.get(this.deckModeratorUrl + 'FindDeckByName/' + deckName)
             .toPromise()

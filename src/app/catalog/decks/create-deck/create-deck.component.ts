@@ -1,10 +1,12 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Deck, Category } from '../../../common/models/models';
 
 import { AuthService } from '../../../common/services/auth.service';
 import { CategoryService } from '../../../common/services/category.service';
 import { DeckService } from '../../../common/services/deck.service';
+
+import { handleError } from '../../../common/functions/functions';
 
 @Component({
     selector: 'create-deck',
@@ -13,12 +15,14 @@ import { DeckService } from '../../../common/services/deck.service';
 })
 
 export class CreateDeckComponent implements OnInit {
+    submitMessage: string;
     deck: Deck;
     categories: Category[];
     isLoaded: boolean = false;
     isUnique: boolean = false;
     isPaid: boolean = false;
     afterCheck: boolean = false;
+    
 
     constructor(
         private authService: AuthService,
@@ -28,13 +32,9 @@ export class CreateDeckComponent implements OnInit {
         this.deck = {
             Name: '',
             Linking: '',
+            Description: '',
             Price: 0
         };
-    }
-
-    onSubmit() {
-        console.log(this.deck);
-        this.deckService.createDeck(this.deck);
     }
 
     ngOnInit(): void {
@@ -44,22 +44,47 @@ export class CreateDeckComponent implements OnInit {
                 this.isLoaded = true;
             });
     }
-
-    checkName() {
-        this.deckService.checkIfDeckExists(this.deck.Name)
-            .then(() => {
-                this.isUnique = false;
-                this.afterCheck = true;
-            })
-            .catch(() => {
-                this.isUnique = true;
-                this.createLinking();
-            });
-
+    
+    onSubmit() { 
+        this.deckService.createDeck(this.deck)
+        .then(deck=>{
+            this.submitMessage = "Deck was created successfully";
+            this.showSnackbar();
+            this.afterDeckAdded.emit(deck);
+        })
+        .catch(()=>{
+            this.submitMessage = "Error occurred. Please try again.";
+            this.showSnackbar();
+        })
     }
-    createLinking(): void {
+
+    showSnackbar(){
+        var x = document.getElementById("snackbar")
+        x.className = "show";
+        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+    }
+
+    checkName(){
+     this.deckService.checkIfDeckExists(this.deck.Name)
+     .then(response =>{
+         if(response.Name=='unique'){
+            this.isUnique = true;
+            this.createLinking();
+         }
+         else{
+            this.isUnique = false;
+            this.deck.Linking="";
+            this.afterCheck=true;
+         }
+          
+     })
+     .catch(handleError);
+    }
+
+    createLinking():void{
         this.deck.Linking = this.deck.Name.replace(/[^a-zA-Z0-9]/g, "");
     }
-
-
+    
+     @Output() 
+    afterDeckAdded: EventEmitter<Deck>=new EventEmitter<Deck>();    
 }

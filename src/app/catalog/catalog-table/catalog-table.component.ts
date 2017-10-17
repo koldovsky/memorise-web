@@ -5,6 +5,9 @@ import { PaginationComponent } from '../../pagination/pagination.component';
 
 import { Category, PageResponse } from '../../common/models/models';
 import { CategoryService } from '../../common/services/category.service';
+import { CreateCategoryComponent} from '../create-category/create-category.component';
+
+import { Observable } from 'rxjs/Observable';
 
 @Component({
     selector: 'app-catalog-table',
@@ -20,22 +23,27 @@ export class CatalogTableComponent implements OnInit {
     index = 1;
     pageResponse: PageResponse<Category>;
     sorted: boolean;
+    currentCategory: Category;
 
-    constructor(private courseService: CategoryService
+    constructor(private categoryService: CategoryService
     ) {
         this.pageResponse = new PageResponse<Category>();
-        // this.pageResponse.items = [];
+        this.pageResponse.items = [];
+        this.currentCategory = {
+            Name: '',
+            Linking: ''
+        };
     }
 
     ngOnInit() {
         this.sortTable();
         // this.onNotify(this.page);
-        this.courseService.getCategories()
+        this.categoryService.getCategories()
             .then(categories => this.totalCount = categories.length);
     }
 
     onNotify(index: number): void {
-        this.courseService.getCategoriesByPage(index + 1, this.pageSize, this.sorted)
+        this.categoryService.getCategoriesByPage(index + 1, this.pageSize, this.sorted)
             .then(categories => {
                 this.pageResponse = categories;
                 this.page = index;
@@ -58,5 +66,23 @@ export class CatalogTableComponent implements OnInit {
         }
         this.onNotify(this.page);
         return this.sorted;
+    }
+
+    onCategoryAdded(newCategory:Category):void{
+        this.pageResponse.items.pop();
+        this.pageResponse.items.unshift(newCategory);
+    }
+
+    onDelete(category: Category):void{
+        this.currentCategory = category;
+    }
+
+    confirmDelete():void{
+        this.categoryService.deleteCategory(this.currentCategory.Id)
+        .subscribe(()=>{
+        this.pageResponse.items = this.pageResponse.items.filter(x=>x.Id!==this.currentCategory.Id); 
+        },
+        (err)=>console.log(err)
+        );
     }
 }

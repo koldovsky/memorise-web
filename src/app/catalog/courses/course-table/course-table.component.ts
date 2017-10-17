@@ -2,10 +2,13 @@ import { Component, OnInit, Pipe, PipeTransform, NgModule } from '@angular/core'
 import { FilterPipe } from '../../../pipes/filter.pipe';
 import { SortingPipe } from '../../../pipes/sorting.pipe';
 import { PaginationComponent } from '../../../pagination/pagination.component';
-import { NumberToArrayPipeComponent } from '../../../pipes/number-to-array.pipe';
+//import { ModerationService} from '../../../common/services/moderation.service';
 
 import { Course, PageResponse } from '../../../common/models/models';
 import { CourseService } from '../../../common/services/course.service';
+import { CreateCourseComponent} from '../create-course/create-course.component';
+
+import { Observable } from 'rxjs/Observable';
 
 @Component({
     selector: 'app-course-table',
@@ -21,11 +24,18 @@ export class CourseTableComponent implements OnInit {
     index = 1;
     pageResponse: PageResponse<Course>;
     sorted: boolean;
-
+    currentCourse: Course;
     constructor(private courseService: CourseService
+                //private moderationService: ModerationService
     ) {
         this.pageResponse = new PageResponse<Course>();
         this.pageResponse.items = [];
+        this.currentCourse = {
+            Name: '',
+            Linking: '',
+            Description: '',
+            Price: 0
+        };
     }
 
     ngOnInit() {
@@ -63,5 +73,21 @@ export class CourseTableComponent implements OnInit {
 
     onBtnInfoClick(btnInfoLinking: string) {
         this.courseService.btnInfoLinking = btnInfoLinking;
+      }
+
+    onCourseAdded(newCourse:Course):void{
+        this.pageResponse.items.pop();
+        this.pageResponse.items.unshift(newCourse);
+    }
+    onDelete(course: Course):void{
+        this.currentCourse = course;
+    }
+    confirmDelete():void{
+        this.courseService.deleteCourse(this.currentCourse.Id)
+        .subscribe(()=>{
+        this.pageResponse.items = this.pageResponse.items.filter(x=>x.Id!==this.currentCourse.Id); 
+        },
+        (err)=>console.log(err)
+        );
     }
 }

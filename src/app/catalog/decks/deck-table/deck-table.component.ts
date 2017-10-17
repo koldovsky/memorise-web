@@ -23,11 +23,18 @@ export class DeckTableComponent implements OnInit {
     pageResponse: PageResponse<Deck>;
     sorted: boolean;
     searchText: string;
+    currentDeck: Deck;
 
     constructor(private deckService: DeckService,
     ) {
         this.pageResponse = new PageResponse<Deck>();
         this.pageResponse.items = [];
+        this.currentDeck = {
+            Name: '',
+            Linking: '',
+            Description: '',
+            Price: 0
+        };
     }
 
     ngOnInit() {
@@ -66,13 +73,27 @@ export class DeckTableComponent implements OnInit {
         this.onNotify(0);
     }
 
-    // searchList(searchText: string) {
-    //     this.deckService.getSearchDecks(searchText)
-    //         .then(decks => this.decks = decks);
-    //     return this.decks;
-    // }
+   
 
-    onBtnInfoClick(btnInfoLinking: string){
+    onDeckAdded(newDeck:Deck):void{
+        this.pageResponse.items.pop();
+        this.pageResponse.items.unshift(newDeck);
+    }
+
+    onDelete(deck: Deck):void{
+        this.currentDeck = deck;
+    }
+
+    confirmDelete():void{
+        this.deckService.deleteDeck(this.currentDeck.Id)
+        .subscribe(()=>{
+        this.pageResponse.items = this.pageResponse.items.filter(x=>x.Id!==this.currentDeck.Id); 
+        },
+        (err)=>console.log(err)
+        );
+    }
+
+    onBtnInfoClick(btnInfoLinking: string) {
         this.deckService.btnInfoLinking = btnInfoLinking;
-      }
+    }
 }
