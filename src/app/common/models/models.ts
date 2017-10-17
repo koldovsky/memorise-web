@@ -56,6 +56,7 @@ export interface Deck extends BaseEntity {
     Name: string;
     Linking: string;
     Price: number;
+    Description?: string;
     CardsNumber?: number;
     Rating?: number;
     Photo?: string;
@@ -104,8 +105,12 @@ export interface UserCourse extends BaseEntity {
 
 export interface Token extends BaseEntity {
     access_token: string;
-    expires_in: User;
-    token_type: Course;
+    expires_in: number;
+    token_type: string;
+}
+
+export class PageResponse<T> {
+    items: T[];
 }
 
 export interface WordInput extends BaseEntity {

@@ -62,7 +62,7 @@ import { UserService } from './common/services/user.service';
 import { QuizService } from './common/services/quiz.service';
 import { InterceptorService } from './common/services/interceptor.service';
 import { PagerService } from './common/services/pager.service';
-import { ComunicationService } from './common/services/comunication.service';
+import { ModerationService } from './common/services/moderation.service';
 
 import { CatalogModule } from './catalog/catalog.module';
 import { AppRoutingModule } from './app-routing.module';
@@ -78,6 +78,7 @@ import { CourseTableComponent } from './catalog/courses/course-table/course-tabl
 import { DeckTableComponent } from './catalog/decks/deck-table/deck-table.component';
 import { CatalogTableComponent } from './catalog/catalog-table/catalog-table.component';
 import { AddDeckComponent } from './catalog/decks/add-deck/add-deck.component';
+import { NumberToArrayPipeComponent } from './pipes/number-to-array.pipe';
 import { EditDeckComponent } from './catalog/decks/edit-deck/edit-deck.component';
 import { CardService } from './common/services/card.service';
 
@@ -101,6 +102,7 @@ import { CardService } from './common/services/card.service';
         AppComponent,
         FilterPipe,
         SortingPipe,
+        NumberToArrayPipeComponent,
         HomeComponent,
         PageNotFoundComponent,
         UnauthorizedComponent,
@@ -170,9 +172,9 @@ import { CardService } from './common/services/card.service';
         DeckService,
         UserService,
         QuizService,
-        CardService,
-        ComunicationService,
+        ModerationService,
         ModeratorComponent,
+        CardService,
         PagerService,
         {
             provide: HTTP_INTERCEPTORS,

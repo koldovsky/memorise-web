@@ -3,8 +3,11 @@ import { FilterPipe } from '../../pipes/filter.pipe';
 import { SortingPipe } from '../../pipes/sorting.pipe';
 import { PaginationComponent } from '../../pagination/pagination.component';
 
-import { Category } from '../../common/models/models';
+import { Category, PageResponse } from '../../common/models/models';
 import { CategoryService } from '../../common/services/category.service';
+import { CreateCategoryComponent} from '../create-category/create-category.component';
+
+import { Observable } from 'rxjs/Observable';
 
 @Component({
     selector: 'app-catalog-table',
@@ -14,24 +17,72 @@ import { CategoryService } from '../../common/services/category.service';
 
 export class CatalogTableComponent implements OnInit {
 
-    searchableList: string[];
     categories: Category[];
-    path: string[] = ['Name'];
-    order = 1;
+    totalCount: number;
+    page = 0; pageSize = 2;
+    index = 1;
+    pageResponse: PageResponse<Category>;
+    sorted: boolean;
+    currentCategory: Category;
 
     constructor(private categoryService: CategoryService
     ) {
-        this.searchableList = ['Name'];
+        this.pageResponse = new PageResponse<Category>();
+        this.pageResponse.items = [];
+        this.currentCategory = {
+            Name: '',
+            Linking: ''
+        };
     }
 
     ngOnInit() {
+        this.sortTable();
+        // this.onNotify(this.page);
         this.categoryService.getCategories()
-            .then(categories => { this.categories = categories; });
+            .then(categories => this.totalCount = categories.length);
     }
 
-    sortTable(prop: string) {
-        this.path = prop.split('.');
-        this.order = this.order * (-1);
-        return false;
+    onNotify(index: number): void {
+        this.categoryService.getCategoriesByPage(index + 1, this.pageSize, this.sorted)
+            .then(categories => {
+                this.pageResponse = categories;
+                this.page = index;
+            });
+    }
+
+    onNext(): void {
+        this.onNotify(this.page + this.index);
+    }
+
+    onPrev(): void {
+        this.onNotify(this.page - this.index);
+    }
+
+    sortTable() {
+        if (this.sorted === false) {
+            this.sorted = true;
+        } else {
+            this.sorted = false;
+        }
+        this.onNotify(this.page);
+        return this.sorted;
+    }
+
+    onCategoryAdded(newCategory:Category):void{
+        this.pageResponse.items.pop();
+        this.pageResponse.items.unshift(newCategory);
+    }
+
+    onDelete(category: Category):void{
+        this.currentCategory = category;
+    }
+
+    confirmDelete():void{
+        this.categoryService.deleteCategory(this.currentCategory.Id)
+        .subscribe(()=>{
+        this.pageResponse.items = this.pageResponse.items.filter(x=>x.Id!==this.currentCategory.Id); 
+        },
+        (err)=>console.log(err)
+        );
     }
 }

@@ -6,11 +6,11 @@ import { Course } from '../common/models/models';
 })
 export class SortingPipe implements PipeTransform {
 
-  transform(companies: Course[], path: string[], order: number = 1): Course[] {
+  transform(value: Course[], path: string[], order: number = 1): Course[] {
 
-    if (!companies || !path || !order) return companies;
+    if (!value || !path || !order) return value;
 
-    return companies.sort((a: Course, b: Course) => {
+    return value.sort((a: Course, b: Course) => {
       path.forEach(property => {
         a = a[property];
         b = b[property];

@@ -4,7 +4,7 @@ import { Course, Category, Deck, Card } from '../../../common/models/models';
 
 import { CategoryService } from '../../../common/services/category.service';
 import { DeckService } from '../../../common/services/deck.service';
-import { ComunicationService } from '../../../common/services/comunication.service';
+import { ModerationService } from '../../../common/services/moderation.service';
 import { CourseService } from '../../../common/services/course.service';
 import { ModeratorComponent } from '../../../moderator/moderator.component';
 import { MatDialog } from '@angular/material';
@@ -41,7 +41,7 @@ export class EditDeckComponent implements OnInit {
         private courseService: CourseService,
         private cardService: CardService,
         private moderatorComponent: ModeratorComponent,
-        private comunicationService: ComunicationService,
+        private moderationService: ModerationService,
         private dialog: MatDialog,
     ) { };
 
@@ -57,16 +57,17 @@ export class EditDeckComponent implements OnInit {
             this.deck = c;
             this.deckLinking = c.Linking;
             this.isLoadedDeck = true;
-        })
-
-        this.deckService.getDeckByLinking(this.courseService.btnInfoLinking)
-        .then(c => {
             this.deckBeforeChanges = c;
         })
+
+        // this.deckService.getDeckByLinking(this.courseService.btnInfoLinking)
+        // .then(c => {
+        //     this.deckBeforeChanges = c;
+        // })
     };
 
     setWhichButtonIsClicked(){
-        this.comunicationService.whichButtonIsClicked = "decks";
+        this.moderationService.whichButtonIsClicked = "decks";
     }
 
     // onModalSubmit(){
@@ -78,8 +79,14 @@ export class EditDeckComponent implements OnInit {
 
      onSubmit() {
              console.log("I am in onSubmit");
-             this.deckService.updateDeck(this.deck);
-             this.ngOnInit();
+             console.log(this.deck);
+             this.deckService.updateDeck(this.deck)
+             .subscribe(response=>{
+                console.log(response);
+            },
+            (err)=>console.log(err)
+        );
+             //this.ngOnInit();
         }
 
     // deleteDecks(){

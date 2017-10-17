@@ -2,9 +2,11 @@ import { Component, OnInit, Pipe, PipeTransform, NgModule } from '@angular/core'
 import { FilterPipe } from '../../../pipes/filter.pipe';
 import { SortingPipe } from '../../../pipes/sorting.pipe';
 import { PaginationComponent } from '../../../pagination/pagination.component';
+import { NumberToArrayPipeComponent } from '../../../pipes/number-to-array.pipe';
 
-import { Deck } from '../../../common/models/models';
+import { Deck, PageResponse } from '../../../common/models/models';
 import { DeckService } from '../../../common/services/deck.service';
+import * as _ from 'underscore';
 
 @Component({
     selector: 'app-deck-table',
@@ -14,28 +16,87 @@ import { DeckService } from '../../../common/services/deck.service';
 
 export class DeckTableComponent implements OnInit {
 
-    searchableList: string[];
     decks: Deck[];
-    path: string[] = ['Name'];
-    order = 1;
+    totalCount: number;
+    page = 0; pageSize = 5;
+    index = 1;
+    pageResponse: PageResponse<Deck>;
+    sorted: boolean;
+    currentDeck: Deck;
 
     constructor(private deckService: DeckService,
     ) {
-        this.searchableList = ['Name'];
+        this.pageResponse = new PageResponse<Deck>();
+        this.pageResponse.items = [];
+        this.currentDeck = {
+            Name: '',
+            Linking: '',
+            Description: '',
+            Price: 0
+        };
     }
 
     ngOnInit() {
+        this.sortTable();
+        // this.onNotify(this.page);
         this.deckService.getDecks()
-            .then(decks => { this.decks = decks; });
+            .then(decks => this.totalCount = decks.length);
+        console.log(this.searchList('X'));
     }
 
-    sortTable(prop: string) {
-        this.path = prop.split('.');
-        this.order = this.order * (-1);
-        return false;
+    onNotify(index: number): void {
+        this.deckService.getDecksByPage(index + 1, this.pageSize, this.sorted)
+            .then(decks => {
+                this.pageResponse = decks;
+                this.page = index;
+            });
     }
 
-    onBtnInfoClick(btnInfoLinking: string){
+    onNext(): void {
+        this.onNotify(this.page + this.index);
+    }
+
+    onPrev(): void {
+        this.onNotify(this.page - this.index);
+    }
+
+    sortTable() {
+        if (this.sorted === false) {
+            this.sorted = true;
+        } else {
+            this.sorted = false;
+        }
+        this.onNotify(this.page);
+        return this.sorted;
+    }
+
+    searchList(searchText: string) {
+        this.deckService.getSearchDecks(searchText)
+            .then(decks => this.decks = decks);
+        return this.decks;
+    }
+
+   
+
+    onDeckAdded(newDeck:Deck):void{
+        this.pageResponse.items.pop();
+        this.pageResponse.items.unshift(newDeck);
+    }
+
+    onDelete(deck: Deck):void{
+        this.currentDeck = deck;
+    }
+
+    confirmDelete():void{
+        this.deckService.deleteDeck(this.currentDeck.Id)
+        .subscribe(()=>{
+        this.pageResponse.items = this.pageResponse.items.filter(x=>x.Id!==this.currentDeck.Id); 
+        },
+        (err)=>console.log(err)
+        );
+    }
+
+    onBtnInfoClick(btnInfoLinking: string) {
         this.deckService.btnInfoLinking = btnInfoLinking;
-      }
+    }
 }
