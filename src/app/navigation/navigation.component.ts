@@ -15,7 +15,9 @@ export class NavigationComponent implements OnInit {
   isAuthorized: boolean;
   name: string;
   private router: Router;
-  constructor(private dialog: MatDialog,
+
+  constructor(
+    private dialog: MatDialog,
     private auth: AuthService) { }
 
   openSignUpDialog(): void {
@@ -51,6 +53,7 @@ export class NavigationComponent implements OnInit {
     localStorage.setItem('token', 'empty');
     this.auth.checkIfIsAuthorized();
   }
+
   ngOnInit() {
     this.auth.checkIfIsAuthorized();
   }
