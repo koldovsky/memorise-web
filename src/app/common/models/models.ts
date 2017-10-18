@@ -136,4 +136,6 @@ export interface WordInput extends BaseEntity {
     CustomerAnswer: string;
     RightAnswers: string[];
 }
-
+export interface CodeAnswer extends BaseEntity {
+    CodeAnswerText: string;
+}
