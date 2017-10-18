@@ -12,6 +12,7 @@ export interface Answer extends BaseEntity {
 export interface Card extends BaseEntity {
     Question: string;
     CardType: CardType;
+    CardTypeName?: string;
     Deck: Deck;
     Comments?: Comment[];
     Answers: Answer[];
@@ -22,7 +23,7 @@ export interface Card extends BaseEntity {
 
 export interface CardType extends BaseEntity {
     Name: string;
-    Cards: Card[];
+    Cards?: Card[];
 }
 
 export interface Category extends BaseEntity {
@@ -50,6 +51,7 @@ export interface Course extends BaseEntity {
     Decks?: Deck[];
     DeckNames?: string[];
     Comments?: Comment[];
+    IsSubscribed?: boolean;
 }
 
 export interface Deck extends BaseEntity {
@@ -66,6 +68,7 @@ export interface Deck extends BaseEntity {
     Courses? : Course[];
     CardIds?: string[];
     CourseNames?: string[];
+    IsSubscribed?: boolean;
 }
 
 export interface Report extends BaseEntity {

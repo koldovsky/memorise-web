@@ -28,6 +28,7 @@ export class NavigationComponent implements OnInit {
     localStorage.setItem('token', 'empty');
     this.auth.checkIfIsAuthorized();
   }
+
   ngOnInit() {
     this.auth.checkIfIsAuthorized();    
   }

@@ -24,135 +24,101 @@
                                 <label for="cardType">Card Type:</label>
                                 <select class="form-control" id="cardType" 
                                 required 
-                                [(ngModel)]="card.CardType"
-                                #category="ngModel" 
-                                name="Category">
-                                  <option *ngFor="let category of categories"
-                                  [value]="category.Name">
-                                  {{category.Name}}
+                                [(ngModel)]="card.CardTypeName"
+                                #cardType="ngModel" 
+                                name="CardType">
+                                  <option *ngFor="let cardType of cardTypes"
+                                  [value]="cardType.Name">
+                                  {{cardType.Name}}
                                 </option>
                                 </select>
-                                <div *ngIf="category.invalid && (category.dirty || category.touched)"
+                                <div *ngIf="cardType.invalid && (cardType.dirty || cardType.touched)"
                                 class="alert alert-danger">
-                                  <div *ngIf="category.errors.required">
+                                  <div *ngIf="cardType.errors.required">
                                    {{error.REQUIRED}}
                                   </div>
                                 </div>
                             </div>
-                            <div class="dropdown col-md-2">
+                            <!-- Question numbers-->
+                            <div *ngIf="card.CardTypeName=='One answer' || card.CardTypeName=='Few answers'" class=" form-group dropdown col-md-2">
                                 <button class="btn btn-outline-primary dropdown-toggle" id="questionNumber" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Answers
+                                    Number of answers
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="questionNumber">
-                                    <button *ngFor="let item of numbersOfQuestions" class="dropdown-item" type="button" (click)="onSelectNumber(item)">{{item}}</button>
+                                    <button *ngFor="let item of numbersOfAnswers" class="dropdown-item" type="button" (click)="onSelectNumber(item)">{{item}}</button>
                                 </div>
                             </div>
-
+                             <!-- Question -->
                             <div class="form-group">
-                                <label for="name" class="form-control-label">Course name:</label>
-                                <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="course name" 
-                                        id="name" 
-                                        required maxlength={{regex.MAX_LENGTH_INPUT}} 
-                                        pattern={{regex.INPUT_REGEX}}
-                                        [(ngModel)]='course.Name' 
-                                        name="Name" #name="ngModel">
-                                        <span class="input-group-btn">
-                                          <button class="btn btn-outline-primary" type="button" 
-                                          [disabled]="name.invalid"
-                                          (click)="checkName()">
-                                          Check
-                                        </button>
-                                        </span>
-                                </div>
-                                <small id="nameHelp" class="form-text text-muted">
-                                    Please check if course name is unique.
-                                </small>
-                                <div *ngIf="name.invalid && (name.dirty || name.touched)"
-                                   class="alert alert-danger">
-                                     <div *ngIf="name.errors.required">
-                                        {{error.REQUIRED}}
-                                     </div>
-                                     <div *ngIf="name.errors.pattern">
-                                        {{error.INCORRECT_INPUT}}
-                                     </div>
-                                </div>
-                                <div *ngIf="!isUnique && afterCheck && (name.dirty || name.touched)"
-                                class="alert alert-danger">
-                                {{error.NAME_EXISTS}}
-                                   </div>
-                            </div>
-                            <div class="form-group">
-                                    <label for="linking">New course URL:</label>
-                                    <div class="input-group">
-                                      <span class="input-group-addon" id="basic-addon">https://memorise.com/catalog/courses/</span>
-                                      <input type="text" class="form-control" id="linking" aria-describedby="basic-addon"
-                                      [(ngModel)]='course.Linking' 
-                                      name="Linking" 
-                                      readonly
-                                      >
-                                    </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="description" class="form-control-label">Description:</label>
+                                <label for="question" class="form-control-label">Question:</label>
                                 <textarea class="form-control"
                                 required 
                                 pattern={{regex.INPUT_REGEX}}
-                                [(ngModel)]='course.Description' 
-                                name="Description" id="description"
-                                maxlength={{regex.MAX_LENGTH_TEXTAREA}} #description="ngModel">
+                                [(ngModel)]='card.Question' 
+                                name="Question" id="question"
+                                maxlength={{regex.MAX_LENGTH_TEXTAREA}} #question="ngModel">
                                 </textarea>
-                                <div *ngIf="description.invalid && (description.dirty || description.touched)"
+                                <div *ngIf="question.invalid && (question.dirty || question.touched)"
                                 class="alert alert-danger">
-                                  <div *ngIf="description.errors.required">
+                                  <div *ngIf="question.errors.required">
                                     {{error.REQUIRED}}
                                   </div>
-                                  <div *ngIf="description.errors.pattern">
+                                  <div *ngIf="question.errors.pattern">
                                     {{error.INCORRECT_INPUT}}
                                  </div>
                                </div>
                             </div>
-                            <div class="form-group">
-                                    <label class="custom-file">
-                                            <input type="file" accept="image/*" id="photo" class="custom-file-input"
-                                            name="Photo"
-                                            [(ngModel)]='course.Photo' >
-                                            <span class="custom-file-control"></span>
-                                    </label>
-                            </div>
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                  <input type="checkbox" class="form-check-input" name="isPaid"
-                                  [(ngModel)]='isPaid'>
-                                  Paid course
-                                </label>
-                            </div>
-                            <div class="form-group" *ngIf="isPaid">
-                                <label for="price" class="form-control-label">Price:</label>
+                            <!-- Answers -->
+                            <!-- Answer One -->
+                            <div *ngIf="card.CardTypeName=='One answer' && chosenNumbersOfAnswers!==0 " >
+                            <div *ngFor="let answer of answersArray" class="form-group">
+                                <label class="form-control-label">Answers:</label>
                                 <div class="input-group">
-                                        <input type="number" class="form-control" placeholder="price" 
-                                        id="price" 
-                                        required max="999" min="0"
-                                        pattern={{regex.ONLY_NUMBERS}}
-                                        [(ngModel)]='course.Price' 
-                                        name="Price" #price="ngModel">
+                                  <input type="text" class="form-control" aria-label="Search for...">
+                                  <span class="input-group-addon">
+                                    <input type="radio" aria-label="Radio button for following text input">
+                                  </span>
                                 </div>
-                                <div *ngIf="price.invalid && (price.dirty || price.touched)"
-                                   class="alert alert-danger">
-                                     <div *ngIf="price.errors.required">
-                                        {{error.REQUIRED}}
-                                     </div>
-                                     <div *ngIf="price.errors.pattern">
-                                        {{error.ONLY_NUMBERS}}
-                                       </div>
+                              </div>
+                            </div>
+                            <!-- Answer Few -->
+                            <div *ngIf="card.CardTypeName=='Few answers' && chosenNumbersOfAnswers!==0 ">
+                                <div *ngFor="let answer of answersArray" class="form-group" >
+                                <label class="form-control-label">Answers:</label>
+                                <div class="input-group">
+                                  <input type="text" class="form-control"  aria-label="Search for...">
+                                  <span class="input-group-addon">
+                                    <input type="checkbox" aria-label="Checkbox for following text input">
+                                  </span>
                                 </div>
+                              </div>
+                            </div>
+                            <!-- Words Input -->
+                            <div *ngIf="card.CardTypeName=='Words input'" class="form-group">
+                                <label for="correctAnswer" class="form-control-label">Correct answer:</label>
+                                <textarea class="form-control"
+                                required 
+                                pattern={{regex.INPUT_REGEX}}
+                                [(ngModel)]='card.Answers' 
+                                name="correctAnswer" id="correctAnswer"
+                                maxlength={{regex.MAX_LENGTH_TEXTAREA}} #correctAnswer="ngModel">
+                                </textarea>
+                                <div *ngIf="correctAnswer.invalid && (correctAnswer.dirty || correctAnswer.touched)"
+                                class="alert alert-danger">
+                                  <div *ngIf="correctAnswer.errors.required">
+                                    {{error.REQUIRED}}
+                                  </div>
+                                  <div *ngIf="correctAnswer.errors.pattern">
+                                    {{error.INCORRECT_INPUT}}
+                                 </div>
+                               </div>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary" 
-                        [disabled]="!courseForm.form.valid" (click)="onSubmit(courseForm)"
+                        [disabled]="!cardForm.form.valid" (click)="onSubmit(cardForm)"
                         >
                         Create
                         </button>
