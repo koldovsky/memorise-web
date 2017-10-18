@@ -19,6 +19,7 @@ import { CardService } from '../../../common/services/card.service';
 export class EditDeckComponent implements OnInit {
     deckBeforeChanges: Deck;
     deck: Deck;
+    decks: Deck[];
     categories: Category[];
     deckLinking: string = '';
 
@@ -67,7 +68,7 @@ export class EditDeckComponent implements OnInit {
     };
 
     setWhichButtonIsClicked() {
-        this.moderationService.whichButtonIsClicked = "decks";
+        this.moderationService.whichButtonIsClicked = 'decks';
     }
 
     // onModalSubmit(){
@@ -87,6 +88,11 @@ export class EditDeckComponent implements OnInit {
             (err) => console.log(err)
             );
         //this.ngOnInit();
+    }
+    saveDeck() {
+        this.deckService.getDeckByLinking(this.deck.Linking)
+            .then(deck => this.deck = deck);
+        this.moderationService.setCurrentDeck(this.deck);
     }
 
     // deleteDecks(){

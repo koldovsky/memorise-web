@@ -40,14 +40,6 @@ export class DeckService {
             .catch(handleError);
         }
 
-    // getSearchDecks(search: string): Promise<Deck[]> {
-    //     const url = this.decksSearchUrl + '/' + search;
-    //     return this.http.get(url)
-    //         .toPromise()
-    //         .then(response => response as Deck[])
-    //         .catch(handleError);
-    // }
-
     getDecksByCourseName(courseName: string) {
         const URL = `${this.decksUrl}/GetAllDecksByCourse/${courseName}`;
 
@@ -65,6 +57,8 @@ export class DeckService {
             .then(response => response as Deck)
             .catch(handleError);
     }
+
+    
     createDeck(deck: Deck):Promise<Deck>{
         return this.http.post(this.deckModeratorUrl+"CreateDeck",deck)
         .toPromise()

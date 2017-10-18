@@ -2,6 +2,8 @@ import { Component, OnInit, NgModule } from '@angular/core';
 import { CardService } from '../../../common/services/card.service';
 import { Card, Deck, CardType } from '../../../common/models/models';
 import { DeckService } from '../../../common/services/deck.service';
+import { QuizService } from '../../../common/services/quiz.service';
+import { ModerationService } from '../../../common/services/moderation.service';
 
 @Component({
     selector: 'app-card-table',
@@ -12,31 +14,30 @@ import { DeckService } from '../../../common/services/deck.service';
 export class CardTableComponent implements OnInit {
 
     cards: Card[];
-    deckName: Deck;
+    deck: Deck;
     decks: Deck[];
 
     constructor(
         private cardService: CardService,
-        private deckService: DeckService
+        private quizeService: QuizService,
+        private moderationService: ModerationService
     ) { }
 
     ngOnInit() {
-        this.deckService.getDecks()
-            .then(decks => {
-                this.decks = decks;
-                let tempArr = [];
-                for (let i = 0; i < this.decks.length; i++) {
-                    tempArr.push(decks[i].Linking);
-                    // this.cardService.getCards('/' + this.decks[i].Linking)
-                    //     .then(cards => this.cards = cards);
-                }
-                this.cardService.getCards(tempArr)
-                    .then(cards => this.cards = cards);
-            });
-        // this.cardService.getCards('Arrays')
-        //     .then(cards => this.cards = cards);
-        // ngOnInit() {
-        //     this.deckService.getDecks()
-        // }
+        // this.deckService.getDecks()
+        //     .then(decks => {
+        //         this.decks = decks;
+        //         let tempArr = [];
+        //         for (let i = 0; i < this.decks.length; i++) {
+        //             tempArr.push(decks[i].Linking);
+        //             // this.cardService.getCards('/' + this.decks[i].Linking)
+        //             //     .then(cards => this.cards = cards);
+        //         }
+        //         this.cardService.getCards(tempArr)
+        //             .then(cards => this.cards = cards);
+        //     });
+        this.deck = this.moderationService.getCurrentDeck();
+        this.quizeService.GetCardsByDeck(this.deck.Linking)
+            .then(cards => this.cards = cards);
     }
 }
