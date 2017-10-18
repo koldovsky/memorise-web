@@ -47,6 +47,7 @@ export interface Course extends BaseEntity {
     Category?: Category;
     Decks?: Deck[];
     Comments?: Comment[];
+    IsSubscribed?: boolean;
 }
 
 export interface Deck extends BaseEntity {
@@ -58,6 +59,7 @@ export interface Deck extends BaseEntity {
     Photo?: string;
     Category?: Category;
     Cards?: Card[];
+    IsSubscribed?: boolean;
 }
 
 export interface Report extends BaseEntity {

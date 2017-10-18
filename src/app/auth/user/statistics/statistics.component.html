@@ -5,16 +5,16 @@
                <input class="form-check-input" type="radio"
                       [(ngModel)]="dependency"
                       name="dependency" [value]="d"
-                      (change)="setNamesInfo()"/>
+                      (change)="setNamesInfo(); setSuccessPercent()"/>
                {{ d }}
             </label>
         </div>
         <select class="custom-select d-block m-3" name="nameSelect" [(ngModel)]="nameInfo" (change)="setSuccessPercent()" required>
             <div *ngIf="dependency === 'Course'; then courseSelect; else deckSelect"></div>
-                <option *ngIf="dependency === 'Course'" [value]="null" selected>
+                <option *ngIf="dependency === 'Course'" [value]="null">
                     Choose Course
                 </option>
-                <option *ngIf="dependency === 'Deck'" [value]="null" selected>
+                <option *ngIf="dependency === 'Deck'" [value]="null">
                     Choose Deck
                 </option>
                 <option *ngFor="let name of namesInfo" [value]="name">{{name}}</option>
