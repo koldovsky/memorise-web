@@ -73,7 +73,7 @@ export class LoginComponent implements OnInit {
         .then(() => {
             if (this.authService.validData()) {                                
                 this.authService.checkIfIsAuthorized();
-                this.router.navigate(['catalog/courses']);                          
+                this.router.navigate(['catalog/courses/Any']);                          
             } else {
                 this.myForm.controls.login.setValue('');
                 this.myForm.controls.password.setValue('');

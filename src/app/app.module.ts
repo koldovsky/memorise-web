@@ -70,7 +70,7 @@ import { QuizModule } from './quiz/quiz.module';
 import { FooterComponent } from './footer/footer.component';
 import { MessageService } from './common/services/message.service';
 import { UserModule } from './auth/user/user.module';
-// import { ProfileModule } from './auth/user/profile/profile.module';
+import { ProfileModule } from './auth/user/profile/profile.module';
 import { ModeratorModule } from './moderator/moderator.module';
 import { RegisterModule } from './auth/components/register/register.module';
 
@@ -172,7 +172,7 @@ import { AppComponent } from './app.component';
         MatDatepickerModule,
         MatNativeDateModule,
         RegisterModule,
-        //UserModule
+        UserModule
     ],
     providers: [
         AuthService,

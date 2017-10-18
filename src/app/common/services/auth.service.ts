@@ -81,7 +81,7 @@ export class AuthService {
                 localStorage.setItem('token', token.access_token);
                 localStorage.setItem('login', token.userName);
                 console.log(token.access_token);
-                window.location.href = 'http://localhost:4200/catalog/courses';
+                window.location.href = 'http://localhost:4200/catalog/courses/Any';
                 //this.router.navigate(['catalog/courses']);                
             })
             .catch(handleError => {
