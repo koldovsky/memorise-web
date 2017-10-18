@@ -17,14 +17,16 @@ import { Observable } from 'rxjs/Observable';
 export class CourseTableComponent implements OnInit {
 
     courses: Course[];
+    arrayOfElementByPage = [5, 10, 'All'];
     totalCount: number;
-    page = 0; pageSize = 3;
-    index = 1;
+    page = 0; pageSize = this.arrayOfElementByPage[0];
     pageResponse: PageResponse<Course>;
     sorted: boolean;
+    searchText: string;
     currentCourse: Course;
 
-    constructor(private courseService: CourseService) {
+    constructor(private courseService: CourseService
+    ) {
         this.pageResponse = new PageResponse<Course>();
         this.pageResponse.items = [];
         this.currentCourse = {
@@ -37,24 +39,23 @@ export class CourseTableComponent implements OnInit {
 
     ngOnInit() {
         this.sortTable();
-        this.courseService.getCourses()
-            .then(courses => this.totalCount = courses.length);
     }
 
     onNotify(index: number): void {
-        this.courseService.getCoursesByPage(index + 1, this.pageSize, this.sorted)
-            .then(courses => {
-                this.pageResponse = courses;
+        this.courseService.getCoursesByPage(index + 1, +this.pageSize, this.sorted, this.searchText)
+            .then(pageResponse => {
+                this.courses = pageResponse.items;
                 this.page = index;
+                this.totalCount = pageResponse.totalCount;
             });
     }
 
     onNext(): void {
-        this.onNotify(this.page + this.index);
+        this.onNotify(this.page + 1);
     }
 
     onPrev(): void {
-        this.onNotify(this.page - this.index);
+        this.onNotify(this.page - 1);
     }
 
     sortTable() {
@@ -67,9 +68,9 @@ export class CourseTableComponent implements OnInit {
         return this.sorted;
     }
 
-    onBtnInfoClick(btnInfoLinking: string) {
-        this.courseService.btnInfoLinking = btnInfoLinking;
-      }
+    onChange(event: any) {
+        this.onNotify(0);
+    }
 
     onCourseAdded(newCourse:Course):void{
         // this.courses.pop();
@@ -77,10 +78,12 @@ export class CourseTableComponent implements OnInit {
         this.pageResponse.items.pop();
         this.pageResponse.items.unshift(newCourse);
     }
-    onDelete(course: Course):void{
+
+    onDelete(course: Course): void {
         this.currentCourse = course;
     }
-    confirmDelete():void{
+
+    confirmDelete(): void {
         this.courseService.deleteCourse(this.currentCourse.Id)
         .subscribe(()=>{
       //this.courses = this.courses.filter(x=>x.Id!==this.currentCourse.Id); 
@@ -88,5 +91,17 @@ export class CourseTableComponent implements OnInit {
         },
         (err)=>console.log(err)
         );
+    }
+
+    onBtnInfoClick(btnInfoLinking: string) {
+        this.courseService.btnInfoLinking = btnInfoLinking;
+    }
+
+    onSelectFilter(numberFilter: any): void {
+        if (numberFilter === 'All') {
+            numberFilter = 0;
+        }
+        this.pageSize = numberFilter;
+        this.onNotify(0);
     }
 }

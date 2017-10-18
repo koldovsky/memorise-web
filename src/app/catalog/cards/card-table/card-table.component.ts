@@ -23,8 +23,8 @@ export class CardTableComponent implements OnInit {
     ngOnInit() {
         this.deckService.getDecks()
             .then(decks => {
-            this.decks = decks;
-            let tempArr = [];
+                this.decks = decks;
+                let tempArr = [];
                 for (let i = 0; i < this.decks.length; i++) {
                     tempArr.push(decks[i].Linking);
                     // this.cardService.getCards('/' + this.decks[i].Linking)
@@ -35,5 +35,8 @@ export class CardTableComponent implements OnInit {
             });
         // this.cardService.getCards('Arrays')
         //     .then(cards => this.cards = cards);
+        // ngOnInit() {
+        //     this.deckService.getDecks()
+        // }
     }
 }
