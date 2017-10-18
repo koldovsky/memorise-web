@@ -13,7 +13,7 @@ export interface Card extends BaseEntity {
     Question: string;
     CardType: CardType;
     Deck: Deck;
-    Comments: Comment[];
+    Comments?: Comment[];
     Answers: Answer[];
     IsPassed?: boolean;
     RightAnswersText?: string;
