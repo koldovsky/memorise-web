@@ -17,7 +17,7 @@
                     <div class="card bg-light mb-3">
                         <div class="card-header no-select" id="cardTitle{{cards[counter].Id}}">
                             <div class="row">
-                                Question {{cards[counter].Id}} / {{cardsCount}}
+                                Question {{counter+1}} / {{cardsCount}}
                                 <button class="btn btn-primary" (click)="checkQuestion()" id="check-button">Check</button>
                             </div>
                         </div>
@@ -42,7 +42,7 @@
                     <div class="card bg-light mb-3">
                         <div class="card-header no-select" id="cardTitle{{cards[counter].Id}}">
                             <div class="row">
-                                Question {{cards[counter].Id}} / {{cardsCount}}
+                                Question {{counter+1}} / {{cardsCount}}
                                 <button class="btn btn-primary" (click)="checkQuestion()" id="check-button">Check</button>
                             </div>
                         </div>
@@ -65,7 +65,7 @@
                     <div class="card bg-light mb-3">
                         <div class="card-header no-select" id="cardTitle{{cards[counter].Id}}">
                             <div class="row">
-                                Question {{cards[counter].Id}} / {{cardsCount}}
+                                Question {{counter+1}} / {{cardsCount}}
                                 <button class="btn btn-primary" (click)="checkQuestion()" id="check-button">Check</button>
                             </div>
                         </div>
@@ -81,6 +81,47 @@
                                 placeholder="Type your answer here" [(ngModel)]="customerAnswer"
                                 name="customerAnswerName"
                                 >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngSwitchCase="'Code input'">
+                    <div class="card bg-light mb-3">
+                        <div class="card-header no-select" id="cardTitle{{cards[counter].Id}}">
+                            <div class="row">
+                                Question {{counter+1}} / {{cardsCount}}
+                                <button class="btn btn-primary" 
+                                (click)="codeAnswerCheck()" 
+                                id="check-button">Check</button>
+                            </div>
+                        </div>
+                                    
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                {{cards[counter].Question}}
+                            </h4>
+                            <br>
+                            <div>
+                                <label for="customerCodeAnswerId">Type your answer</label>
+                                <br>
+                                <textarea id="customerAnswerTextareaId" 
+                                placeholder="Type your answer here"
+                                [(ngModel)]="cards[counter].Answers[0].Text"
+                                name="customerCodeAnswerName"
+                                rows="12" cols="50"
+                                >
+                                </textarea>
+                            </div>
+                            <div>
+                                <label for="codeResultId">Result</label>
+                                <br>
+                                <textarea id="codeResultId" 
+                                [(ngModel)]="codeResult"
+                                name="codeResult"
+                                rows="4" cols="50"
+                                >
+                                </textarea>
                             </div>
                         </div>
                     </div>
