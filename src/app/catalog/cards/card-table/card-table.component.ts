@@ -4,6 +4,7 @@ import { Card, Deck, CardType } from '../../../common/models/models';
 import { DeckService } from '../../../common/services/deck.service';
 import { QuizService } from '../../../common/services/quiz.service';
 import { ModerationService } from '../../../common/services/moderation.service';
+import { CreateCardComponent } from '../create-card/create-card.component';
 
 @Component({
     selector: 'app-card-table',
@@ -41,9 +42,8 @@ export class CardTableComponent implements OnInit {
             .then(cards => this.cards = cards);
     }
     onCardAdded(newCard:Card):void{
-        // this.courses.pop();
-        // this.courses.unshift(newCourse);
-        //this.pageResponse.items.pop();
-        //this.pageResponse.items.unshift(newCourse);
+        this.cards.pop();
+        this.cards.unshift(newCard);
+        
     }
 }
