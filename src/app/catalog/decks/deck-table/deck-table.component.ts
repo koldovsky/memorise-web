@@ -75,7 +75,7 @@ export class DeckTableComponent implements OnInit {
 
 
 
-    onDeckAdded(newDeck:Deck):void{
+    onDeckAdded(newDeck: Deck): void {
         this.decks.pop();
         this.decks.unshift(newDeck);
     }
@@ -86,11 +86,11 @@ export class DeckTableComponent implements OnInit {
 
     confirmDelete(): void {
         this.deckService.deleteDeck(this.currentDeck.Id)
-        .subscribe(()=>{
-        this.decks = this.decks.filter(x=>x.Id!==this.currentDeck.Id); 
-        },
-        (err)=>console.log(err)
-        );
+            .subscribe(() => {
+                this.decks = this.decks.filter(x => x.Id !== this.currentDeck.Id);
+            },
+            (err) => console.log(err)
+            );
     }
 
     onBtnInfoClick(btnInfoLinking: string) {

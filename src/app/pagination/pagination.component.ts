@@ -20,28 +20,24 @@ export class PaginationComponent implements OnInit {
     @Input() page: number;
 
     previousNumber = 0;
-
+    pagesCount: number;
     ngOnInit() {
-        
     }
 
     onPrev(): void {
         this.goPrev.emit(true);
-        this.previousNumber--;
+        // this.previousNumber--;
     }
 
     onNext(next: boolean): void {
         this.goNext.emit(next);
-        this.previousNumber++;
+        // this.previousNumber++;
     }
 
     paging(page: number) {
         this.pageIndex.next(page);
         this.page = page;
-        console.log(page);
-        // this.temp = this.totalCount / this.pageSize;
     }
-
 
     lastPage(): boolean {
         if (this.page === 0 && this.pageSize === 0) {
@@ -51,9 +47,13 @@ export class PaginationComponent implements OnInit {
     }
 
     isEllipsis() {
-        for (let i = 5; i < 9; i++) {
-            return true;
+        this.pagesCount = this.totalCount / this.pageSize;
+        const temp = Math.floor(this.pagesCount);
+        if (temp < this.pagesCount) {
+            this.pagesCount = temp;
+            this.pagesCount++;
         }
+        return this.pagesCount;
     }
 }
 

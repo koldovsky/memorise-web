@@ -12,38 +12,28 @@ export class NumberToArrayPipeComponent implements PipeTransform {
         if (pageSize === 0) {
             pageSize = totalCount;
         }
-        let pagesCount: number;
-        if (page === 0 && totalCount / pageSize > 5) {
-             pagesCount = 3;
-        } else {
-             pagesCount = totalCount / pageSize;
+        let pagesCount = totalCount / pageSize;
+        const temp = Math.floor(pagesCount);
+        if (temp < pagesCount) {
+            pagesCount = temp;
+            pagesCount++;
+        }
+        if (page === 0 && pagesCount > 5) {
+            pagesCount = 3;
         }
 
-        let temp = Math.floor(pagesCount);
-        if (temp < pagesCount) {
-            temp++;
-        }
-        
         if (page === 0) {
-           
             page = 1;
-            for (let i = page; count < 3 && i < temp; i++) {
+            for (let i = page; count < 3 && i < pagesCount - 1; i++) {
                 array.push(i);
+                count++;
             }
         } else {
-            for (let i = page; count < 3 && i < temp; i++) {
+            for (let i = page; count < 3 && i < pagesCount - 1; i++) {
                 array.push(i);
                 count++;
             }
         }
-
-
-        // for (let i = 1; i <= 3; i++) {
-        //     for (let j = i; j <= temp + i - 3; j++) {
-        //         array.push(j);
-        //     }
-        // }
-
         return array;
     }
 }

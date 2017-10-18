@@ -5,18 +5,15 @@
     <li class="page-item">
         <button class="btn btn-primary" (click)="paging(0)">1</button>
     </li>
-    <!-- <li class="page-item">
-        <button class="btn btn-primary" [disabled]="true">...</button>
-    </li> -->
+
     <li class="page-item" *ngFor="let i of [] | numberToArray: totalCount: pageSize: page">
         <button class="btn btn-primary" (click)="paging(i)">{{i+1}}</button>
     </li>
-    <!-- <li class="page-item">
-        <button class="btn btn-primary" (click)="paging()">{{}}</button>
-    </li> -->
-    <!-- <li class="page-item">
-        <button class="btn btn-primary" [disabled]="true">...</button>
-    </li> -->
+
+    <li class="page-item">
+        <button class="btn btn-primary" (click)="paging(isEllipsis() - 1)">{{isEllipsis()}}</button>
+    </li>
+
     <li class="page-item">
         <button class="btn btn-primary" (click)="onNext(true)" [disabled]="lastPage()">Next</button>
     </li>
