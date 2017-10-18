@@ -76,10 +76,8 @@ export class CatalogTableComponent implements OnInit {
     }
 
     onCategoryAdded(newCategory:Category):void{
-        // this.categories.pop();
-        // this.categories.unshift(newCourse);
-        this.pageResponse.items.pop();
-        this.pageResponse.items.unshift(newCategory);
+        this.categories.pop();
+        this.categories.unshift(newCategory);
     }
 
     onDelete(category: Category): void {
@@ -89,8 +87,7 @@ export class CatalogTableComponent implements OnInit {
     confirmDelete(): void {
         this.categoryService.deleteCategory(this.currentCategory.Id)
         .subscribe(()=>{
-        //this.categories = this.categories.filter(x=>x.Id!==this.currentCategory.Id);
-        this.pageResponse.items = this.pageResponse.items.filter(x=>x.Id!==this.currentCategory.Id); 
+        this.categories = this.categories.filter(x=>x.Id!==this.currentCategory.Id);
         },
         (err)=>console.log(err)
         );
