@@ -2,7 +2,6 @@ import { Component, OnInit, Pipe, PipeTransform, NgModule } from '@angular/core'
 import { FilterPipe } from '../../../pipes/filter.pipe';
 import { SortingPipe } from '../../../pipes/sorting.pipe';
 import { PaginationComponent } from '../../../pagination/pagination.component';
-
 import { Course, PageResponse } from '../../../common/models/models';
 import { CourseService } from '../../../common/services/course.service';
 import { CreateCourseComponent} from '../create-course/create-course.component';
@@ -73,9 +72,9 @@ export class CourseTableComponent implements OnInit {
         this.onNotify(0);
     }
 
-
-
-    onDeckAdded(newCourse: Course): void {
+    onCourseAdded(newCourse:Course):void{
+        // this.courses.pop();
+        // this.courses.unshift(newCourse);
         this.pageResponse.items.pop();
         this.pageResponse.items.unshift(newCourse);
     }
@@ -86,11 +85,12 @@ export class CourseTableComponent implements OnInit {
 
     confirmDelete(): void {
         this.courseService.deleteCourse(this.currentCourse.Id)
-            .subscribe(() => {
-                this.pageResponse.items = this.pageResponse.items.filter(x => x.Id !== this.currentCourse.Id);
-            },
-            (err) => console.log(err)
-            );
+        .subscribe(()=>{
+      //this.courses = this.courses.filter(x=>x.Id!==this.currentCourse.Id); 
+      this.pageResponse.items = this.pageResponse.items.filter(x=>x.Id!==this.currentCourse.Id); 
+        },
+        (err)=>console.log(err)
+        );
     }
 
     onBtnInfoClick(btnInfoLinking: string) {

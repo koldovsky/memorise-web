@@ -1,12 +1,14 @@
 // import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
 // import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-// import { Card, CardType, Deck} from '../../../common/models/models';
+// import { Card, CardType, Deck, Answer} from '../../../common/models/models';
 
 // import { AuthService } from '../../../common/services/auth.service';
-// import { CategoryService } from '../../../common/services/category.service';
-// import { CourseService } from '../../../common/services/course.service';
+
 
 // import { handleError } from '../../../common/functions/functions';
+// import { regexExpression } from '../../../common/helpers/regexExpression';
+// import { errorMessages } from '../../../common/helpers/errorMessages';
+// import { Observable } from 'rxjs/Observable';
 
 // @Component({
 //     selector: 'create-card',
@@ -16,47 +18,86 @@
 
 // export class CreateCardComponent implements OnInit {
     
-//    course:Course;
-//    categories: Category[];
+//     regex;
+//     error; 
+//    card: Card;
+//    deck: Deck;
 //    isLoaded:boolean = false;
 //    isUnique:boolean = false;
 //    isPaid:boolean = false;
 //    afterCheck:boolean = false;
 //    submitMessage:string='';
+//    numbersOfQuestions: number[];
+//    chosenNumbersOfQuestion:number;
 
 //     constructor(
 //         private authService: AuthService,
 //         private categoryService:CategoryService,
 //         private courseService: CourseService
 //     ) { 
-//         this.course = {
-//             Name: '',
-//             Linking: '',
-//             Description: '',
-//             Price: 0
+//         this.card = {
+//             Question: '',
+//             CardType: null,
+//             Deck: null,
+//             Answers: null
 //         };
+//         this.numbersOfQuestions = [1,2,3,4,5,6];
 //       }
 
-//     ngOnInit(): void {
-//         this.categoryService.getCategories()
-//         .then(categories => {
-//             this.categories = categories;
-//             this.isLoaded = true;
-//         });
+//       ngOnInit(): void {
+//         this.regex = regexExpression;
+//         this.error = errorMessages;
+
+//         // this.categoryService.getCategories()
+//         // .then(categories => {
+//         //     this.categories = categories;
+//         //     this.isLoaded = true;
+//         // });
 //     }
 
-//     onSubmit() { 
-//         this.courseService.createCourse(this.course)
-//         .then(course=>{
-//             this.submitMessage = "Course was created successfully";
-//             this.showSnackbar();
-//             this.afterCourseAdded.emit(course);
-//         })
-//         .catch(()=>{
-//             this.submitMessage = "Error occurred. Please try again.";
-//             this.showSnackbar();
-//         })
+//     onSubmit(form: NgForm) {
+//         if(this.isUnique){
+//             this.createCourse();
+//             form.reset();
+//             this.isUnique=false;
+//         }
+        
+//         else{
+//             this.courseService.checkIfCourseExists(this.course.Name)
+//            .subscribe(response =>{
+//                let result=response as Course;
+//                if(result.Name=='unique'){
+//                   this.isUnique = true;
+//                   this.createLinking();
+//                   this.createCourse();
+//                   form.reset();
+//                   this.isUnique=false;
+//                }
+//                else{
+//                   this.isUnique = false;
+//                   this.course.Linking="";
+//                   this.afterCheck=true;
+//                }
+//              },
+//              err=>(handleError)
+//             );
+//         }
 //     }
+
+//     createCourse(){
+//                 this.courseService.createCourse(this.course)
+//                 .subscribe(course=>{
+//                     this.submitMessage = "Course was created successfully";
+//                     this.showSnackbar();
+//                     this.afterCourseAdded.emit(course as Course);
+//                 },
+//                 err=>{
+//                     this.submitMessage = this.error.ERROR;
+//                     this.showSnackbar();
+//                 }
+//                 );
+//     }
+
 //     showSnackbar(){
 //         var x = document.getElementById("snackbar")
 //         x.className = "show";
@@ -65,8 +106,9 @@
 
 //     checkName(){
 //      this.courseService.checkIfCourseExists(this.course.Name)
-//      .then(response =>{
-//          if(response.Name=='unique'){
+//      .subscribe(response =>{
+//          let result=response as Course;
+//          if(result.Name=='unique'){
 //             this.isUnique = true;
 //             this.createLinking();
 //          }
@@ -75,16 +117,16 @@
 //             this.course.Linking="";
 //             this.afterCheck=true;
 //          }
-          
-//      })
-//      .catch(handleError);
+//        },
+//        err=>(handleError)
+//       );
 //     }
 
 //     createLinking():void{
-//         this.course.Linking = this.course.Name.replace(/[^a-zA-Z0-9]/g, "");
+//         this.course.Linking = this.course.Name.replace(this.regex.LINKING, "");
 //     }
     
 //     @Output() 
-//     afterCourseAdded: EventEmitter<Course>=new EventEmitter<Course>();
+//     afterCardAdded: EventEmitter<Card>=new EventEmitter<Card>();
         
 // }

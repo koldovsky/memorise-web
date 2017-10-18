@@ -1,11 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MatCardModule } from '@angular/material';
-import { MatIconModule } from '@angular/material';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
 import { UserService } from '../../../common/services/user.service';
 import { User } from '../../../common/models/models';
+import { AuthService } from '../../../common/services/auth.service';
 
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
@@ -14,40 +14,36 @@ import { User } from '../../../common/models/models';
 })
 
 export class ProfileComponent implements OnInit {
-  constructor(
-    private userService: UserService,
+  constructor(private userService: UserService,
+    private authService: AuthService,
+    private formBuilder: FormBuilder,
     private route: ActivatedRoute
   ) { }
 
-  step = 0;
+  public radioGroupForm: FormGroup;
   user: User;
   name: string;
   login: string;
   email: string;
-  private sub: any;
 
-  setStep(index: number) {
-    this.step = index;
+
+  preSet():void{
+    this.radioGroupForm = this.formBuilder.group({
+      'model': 'Male'
+    });
   }
-
-  nextStep() {
-    this.step++;
-  }
-
-  prevStep() {
-    this.step--;
-  }
-
-  setValueLogin() { this.login = 'user'; }
-  setValueEmail() { this.email = 'user@gmail.com'; }
 
   ngOnInit(): void {
+    this.preSet();
+
+    this.login = this.authService.getCurrentUserLogin();
     this.route.paramMap
       .switchMap((params: ParamMap) => this.userService
-        .getUserByLogin(params.get('name')))
+        .getUserByLogin(this.login))
       .subscribe(user => {
         this.login = user.Login,
-          this.email = user.Email;
-      });
+          this.email = user.Email,
+          this.user = user
+      });     
   }
 }

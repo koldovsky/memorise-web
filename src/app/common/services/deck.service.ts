@@ -8,6 +8,7 @@ import 'rxjs/add/operator/map';
 import { Deck, PageResponse, SearchDataModel } from '../models/models';
 import { handleError } from '../functions/functions';
 import { RequestOptions } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class DeckService {
@@ -57,28 +58,28 @@ export class DeckService {
             .then(response => response as Deck)
             .catch(handleError);
     }
-
-    
-    createDeck(deck: Deck):Promise<Deck>{
-        return this.http.post(this.deckModeratorUrl+"CreateDeck",deck)
-        .toPromise()
-        .then(response => response as Deck)
-        .catch(handleError);
-        
+    createDeck(deck: Deck):Observable<Object>{
+        deck = this.encodeDeck(deck);
+        return this.http.post(`${this.deckModeratorUrl}CreateDeck`,deck)
     }
 
     updateDeck(deck: Deck){
-        return this.http.put(this.deckModeratorUrl+"UpdateDeck",deck);
-        
+        deck = this.encodeDeck(deck);
+        return this.http.put(`${this.deckModeratorUrl}UpdateDeck`,deck);
     }
 
     deleteDeck(id: number) {
-        return this.http.delete(this.deckModeratorUrl + "DeleteDeck/" + id);
+        return this.http.delete(`${this.deckModeratorUrl}DeleteDeck/${id}`);
     }
-    checkIfDeckExists(deckName: string): Promise<Deck> {
-        return this.http.get(this.deckModeratorUrl + 'FindDeckByName/' + deckName)
-            .toPromise()
-            .then(response => response as Deck)
-            .catch(handleError);
+
+    checkIfDeckExists(deckName: string): Observable<Object> {
+        return this.http.get(`${this.deckModeratorUrl}FindDeckByName/${btoa(deckName)}`);
     }
+
+    encodeDeck(deck: Deck): Deck{
+        deck.Name = btoa(deck.Name);
+        deck.Linking = btoa(deck.Linking);
+        deck.Description = btoa(deck.Description);
+        return deck;
+    };
 }

@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-import { User } from './common/models/models';
-import { LoginComponent } from './auth/components/login.component';
-import { RegisterComponent } from './auth/components/register.component';
-import { MatDialog } from '@angular/material';
 import { AuthService } from './common/services/auth.service';
 
 @Component({
@@ -17,8 +13,7 @@ export class AppComponent {
   description = 'Some description';
   name: string;
 
-  constructor(private dialog: MatDialog,
-              private authService: AuthService
+  constructor(private authService: AuthService
   ) { }
 
   ngOnInit(){

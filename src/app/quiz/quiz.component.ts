@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit } from '@angular/core';
 import { ParamMap, ActivatedRoute } from '@angular/router';
 
 import { QuizService } from '../common/services/quiz.service';
-import { Card, Answer, WordInput } from '../common/models/models';
+import { Card, Answer, WordInput, CodeAnswer } from '../common/models/models';
 
 @Component({
     selector: 'app-quiz',
@@ -22,8 +22,13 @@ export class QuizComponent implements OnInit {
     isLoaded = false;
     correctColor = "limeGreen";
     uncorrectColor = "red";
-    customerAnswer: string = '';
+    customerAnswer = '';
     wordInput: WordInput[];
+    customerCodeAnswer = '';
+    codeAnswer: CodeAnswer = {
+        CodeAnswerText : '',
+    };
+    codeResult: string;
 
     ngOnInit(): void {
         this.route.paramMap
@@ -218,5 +223,13 @@ export class QuizComponent implements OnInit {
     }
     wordInputAdd() {
 
+    }
+
+    codeAnswerCheck(){
+        this.codeResult = '';
+        console.log("In codeAnswerCheck()");
+        this.codeAnswer.CodeAnswerText = this.cards[this.counter].Answers[0].Text;
+        this.quizService.codeAnswer(this.codeAnswer)
+        .then(codeAnswer => this.codeResult = codeAnswer.CodeAnswerText);
     }
 }

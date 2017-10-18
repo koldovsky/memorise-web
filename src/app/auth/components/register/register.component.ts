@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 
-import { AuthService } from '../../common/services/auth.service';
+import { AuthService } from '../../../common/services/auth.service';
 import { passwordMatchValidator } from './password-matcher';
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -16,20 +16,15 @@ const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA
     styleUrls: ['./register.component.css']
 })
 
-export class RegisterComponent implements OnInit {
-    action: string;
+export class RegisterComponent implements OnInit {    
     clicked = false;
-    message: 'Congratulation, you successfully registered!';
-    snackBar: MatSnackBar;
+    message: 'Congratulation, you successfully registered!';    
     myForm: FormGroup;
 
-    constructor(
-        public dialogRef: MatDialogRef<RegisterComponent>,
+    constructor(        
         private authService: AuthService,
-        public fb: FormBuilder,
-        // public snackBar: MatSnackBar,
-        @Inject(MAT_DIALOG_DATA) public data: any) {
-        this.action = data.action;
+        public fb: FormBuilder        
+        ) {        
         this.myForm = this.fb.group({
             'login': new FormControl('', [
                 Validators.required,
@@ -49,11 +44,7 @@ export class RegisterComponent implements OnInit {
                 passwordMatchValidator('password')
             ])
         });
-    }
-
-    onNoClick(): void {
-        this.dialogRef.close();
-    }
+    }    
 
     ngOnInit(): void {
     }
@@ -62,7 +53,7 @@ export class RegisterComponent implements OnInit {
         this.authService.signUp(user)
             .then(() => {
                 if (this.authService.validData()) {
-                    this.dialogRef.close();
+                    //this.dialogRef.close();
                     // this.snackBar.open(this.message, this.action, {
                     // duration: 2000,
                     // });

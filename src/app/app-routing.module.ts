@@ -11,6 +11,8 @@ import { QuizComponent } from './quiz/quiz.component';
 import { ProfileComponent } from './auth/user/profile/profile.component';
 import { QuizResultsComponent } from './quiz/results/quiz-results.component';
 import { ModeratorComponent } from './moderator/moderator.component';
+import { LoginComponent } from './auth/components/login.component';
+import { RegisterComponent } from './auth/components/register/register.component';
 
 const routes: Routes = [
     {
@@ -27,14 +29,22 @@ const routes: Routes = [
         component: UnauthorizedComponent
     },
 
-    // {
-    //     path: 'profile/:name',
-    //     component: ProfileComponent
-    // },
-    // {
-    //     path: '**',
-    //     component: PageNotFoundComponent
-    // }
+    {
+        path: 'profile/:name',
+        component: ProfileComponent
+    },
+    {
+        path: 'login',
+        component: LoginComponent
+    },
+    {
+        path: 'register',
+        component: RegisterComponent
+    }
+    /* {
+        path: '**',
+        component: PageNotFoundComponent
+    } */
 ];
 
 @NgModule({

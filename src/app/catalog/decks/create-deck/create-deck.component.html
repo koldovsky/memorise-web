@@ -4,7 +4,7 @@
      Create new deck
     </button>
   
-    <!-- Modal Form -->
+    <!-- Modal Window -->
     <div class="modal fade" id="createDeckFormModal" tabindex="-1" role="dialog" 
     aria-labelledby="createDeckFormModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -35,7 +35,7 @@
                             <div *ngIf="category.invalid && (category.dirty || category.touched)"
                             class="alert alert-danger">
                               <div *ngIf="category.errors.required">
-                               Please chose the category.
+                                    {{error.REQUIRED}}
                               </div>
                          </div>
                         </div>
@@ -44,7 +44,8 @@
                             <div class="input-group">
                                     <input type="text" class="form-control" placeholder="deck name" 
                                     id="name" 
-                                    required maxlength="15" 
+                                    required maxlength={{regex.MAX_LENGTH_INPUT}} 
+                                    pattern={{regex.INPUT_REGEX}}
                                     [(ngModel)]='deck.Name' 
                                     name="Name" #name="ngModel">
                                     <span class="input-group-btn">
@@ -61,12 +62,15 @@
                             <div *ngIf="name.invalid && (name.dirty || name.touched)"
                                class="alert alert-danger">
                                  <div *ngIf="name.errors.required">
-                                  Name is required.
+                                        {{error.REQUIRED}}
+                                 </div>
+                                 <div *ngIf="name.errors.pattern">
+                                        {{error.INCORRECT_INPUT}}
                                  </div>
                             </div>
                             <div *ngIf="!isUnique && afterCheck && (name.dirty || name.touched)"
                             class="alert alert-danger">
-                                Deck with such name already exists! Please try anouther.
+                                   {{error.NAME_EXISTS}}
                                </div>
                         </div>
                         <div class="form-group">
@@ -74,7 +78,6 @@
                                 <div class="input-group">
                                   <span class="input-group-addon" id="basic-addon">https://memorise.com/catalog/decks/</span>
                                   <input type="text" class="form-control" id="linking" aria-describedby="basic-addon"
-                                  required 
                                   [(ngModel)]='deck.Linking' 
                                   name="Linking" 
                                   readonly
@@ -85,15 +88,19 @@
                                 <label for="description" class="form-control-label">Description:</label>
                                 <textarea class="form-control"
                                 required 
+                                pattern={{regex.INPUT_REGEX}}
                                 [(ngModel)]='deck.Description' 
                                 name="Description" id="description"
-                                maxlength="250" #description="ngModel">
+                                maxlength={{regex.MAX_LENGTH_TEXTAREA}} #description="ngModel">
                                 </textarea>
                                 <div *ngIf="description.invalid && (description.dirty || description.touched)"
                                 class="alert alert-danger">
                                   <div *ngIf="description.errors.required">
-                                        Description is required.
+                                        {{error.REQUIRED}}
                                   </div>
+                                  <div *ngIf="description.errors.pattern">
+                                        {{error.INCORRECT_INPUT}}
+                                     </div>
                                </div>
                             </div>
                             <div class="form-group">
@@ -107,8 +114,7 @@
                         <div class="form-check">
                             <label class="form-check-label">
                               <input type="checkbox" class="form-check-input" name="isPaid"
-                              [(ngModel)]='isPaid'
-                              >
+                              [(ngModel)]='isPaid'>
                               Paid deck
                             </label>
                         </div>
@@ -117,15 +123,19 @@
                             <div class="input-group">
                                     <input type="number" class="form-control" placeholder="price" 
                                     id="price" 
-                                    required max="100" min="0"
+                                    required max="999" min="0"
+                                    pattern={{regex.ONLY_NUMBERS}}
                                     [(ngModel)]='deck.Price' 
                                     name="Price" #price="ngModel">
                             </div>
                             <div *ngIf="price.invalid && (price.dirty || price.touched)"
                                class="alert alert-danger">
                                  <div *ngIf="price.errors.required">
-                                  Price is required.
+                                        {{error.REQUIRED}}
                                  </div>
+                                 <div *ngIf="price.errors.pattern">
+                                        {{error.ONLY_NUMBERS}}
+                                       </div>
                             </div>
                         </div>
                     </form>
@@ -133,7 +143,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary" 
-                    [disabled]="!deckForm.form.valid" (click)="onSubmit(); deckForm.reset()"
+                    [disabled]="!deckForm.form.valid" (click)="onSubmit(deckForm)"
                     >
                     Create
                     </button>

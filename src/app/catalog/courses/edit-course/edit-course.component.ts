@@ -9,6 +9,8 @@ import { CourseService } from '../../../common/services/course.service';
 import { ModeratorComponent } from '../../../moderator/moderator.component';
 import { MatDialog } from '@angular/material';
 import { AddDeckComponent } from '../../decks/add-deck/add-deck.component';
+import { regexExpression } from '../../../common/helpers/regexExpression';
+import { errorMessages } from '../../../common/helpers/errorMessages';
 
 @Component({
     selector: 'edit-course',
@@ -16,6 +18,9 @@ import { AddDeckComponent } from '../../decks/add-deck/add-deck.component';
     styleUrls: ['./edit-course.component.css']
 })
 export class EditCourseComponent implements OnInit {
+   
+    regex;
+    error; 
     courseBeforeChanges : Course;
    course: Course;
    categories: Category[];
@@ -41,6 +46,8 @@ export class EditCourseComponent implements OnInit {
     ) { };
 
     ngOnInit(): void {
+        this.regex = regexExpression;
+        this.error = errorMessages;
         this.categoryService.getCategories()
         .then(categories => {
             this.categories = categories;
@@ -105,8 +112,6 @@ export class EditCourseComponent implements OnInit {
             this.course.DeckNames.length !== this.courseBeforeChanges.Decks.length
         ){  
             
-            console.log("I am in first IF");
-            // 
             this.courseService.updateCourse(this.course)
             .subscribe(response=>{
                 console.log(response);
@@ -115,7 +120,6 @@ export class EditCourseComponent implements OnInit {
         );
             
         }else{
-            console.log("I am in else");
             let countConcidences: number = 0;
             this.course.DeckNames.forEach(x => {
                 this.courseBeforeChanges.Decks.forEach(y => {
@@ -125,10 +129,8 @@ export class EditCourseComponent implements OnInit {
                 })
             })
             if(countConcidences === this.courseBeforeChanges.Decks.length){
-                console.log("Here is return");
-                return;
+               return;
             }
-            console.log("Here is  NOT return");
             this.courseService.updateCourse(this.course);
             this.ngOnInit();
         }

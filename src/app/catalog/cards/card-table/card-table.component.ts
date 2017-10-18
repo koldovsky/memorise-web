@@ -40,4 +40,10 @@ export class CardTableComponent implements OnInit {
         this.quizeService.GetCardsByDeck(this.deck.Linking)
             .then(cards => this.cards = cards);
     }
+    onCardAdded(newCard:Card):void{
+        // this.courses.pop();
+        // this.courses.unshift(newCourse);
+        //this.pageResponse.items.pop();
+        //this.pageResponse.items.unshift(newCourse);
+    }
 }
