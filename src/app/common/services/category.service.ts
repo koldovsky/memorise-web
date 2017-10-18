@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import 'rxjs/add/operator/toPromise';
 
-import { Category, Course, Deck, PageResponse } from '../models/models';
+import { Category, Course, Deck, PageResponse, SearchDataModel } from '../models/models';
 import { handleError } from '../functions/functions';
 
 @Injectable()
@@ -21,13 +21,16 @@ export class CategoryService {
             .catch(handleError);
     }
 
-    getCategoriesByPage(page: number, pageSize: number, sorted: boolean): Promise<PageResponse<Category>> {
-        const url = this.categoryPageUrl + '/' + page + '/' + pageSize + '/' + sorted;
-        return this.http.get(url)
+    getCategoriesByPage(page: number, pageSize: number, sorted: boolean, search: string): Promise<PageResponse<Category>> {
+        let postData = new SearchDataModel;
+        postData.page = page; postData.pageSize = pageSize;
+        postData.searchString = search; postData.sort = sorted;
+        const url = this.categoryPageUrl;
+        return this.http.post(url, postData)
             .toPromise()
             .then(response => response as PageResponse<Category>)
             .catch(handleError);
-    }
+        }
 
     getCoursesByCategory(categoryName: string): Promise<Course[]> {
         const URL = `http://localhost:37271/Catalog/GetCoursesByCategory/${categoryName}`;

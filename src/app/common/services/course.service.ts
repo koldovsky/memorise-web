@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
 import { COURSES } from '../mocks/courses';
-import { Course, PageResponse } from '../models/models';
+import { Course, PageResponse, SearchDataModel } from '../models/models';
 import { handleError } from '../functions/functions';
 
 @Injectable()
@@ -25,15 +25,18 @@ export class CourseService {
             .toPromise()
             .then(response => response as Course[])
             .catch(handleError);
-    };
+    }
 
-    getCoursesByPage(page: number, pageSize: number, sorted: boolean): Promise<PageResponse<Course>> {
-        const url = this.coursesPageUrl + '/' + page + '/' + pageSize + '/' + sorted;
-        return this.http.get(url)
+    getCoursesByPage(page: number, pageSize: number, sorted: boolean, search: string): Promise<PageResponse<Course>> {
+        let postData = new SearchDataModel;
+        postData.page = page; postData.pageSize = pageSize;
+        postData.searchString = search; postData.sort = sorted;
+        const url = this.coursesPageUrl;
+        return this.http.post(url, postData)
             .toPromise()
             .then(response => response as PageResponse<Course>)
             .catch(handleError);
-    }
+        }
 
     getCourse(link: string): Promise<Course> {
         const URL = this.courseUrl + '/' + link;

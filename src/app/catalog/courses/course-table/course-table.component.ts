@@ -2,7 +2,6 @@ import { Component, OnInit, Pipe, PipeTransform, NgModule } from '@angular/core'
 import { FilterPipe } from '../../../pipes/filter.pipe';
 import { SortingPipe } from '../../../pipes/sorting.pipe';
 import { PaginationComponent } from '../../../pagination/pagination.component';
-//import { ModerationService} from '../../../common/services/moderation.service';
 
 import { Course, PageResponse } from '../../../common/models/models';
 import { CourseService } from '../../../common/services/course.service';
@@ -19,14 +18,15 @@ import { Observable } from 'rxjs/Observable';
 export class CourseTableComponent implements OnInit {
 
     courses: Course[];
+    arrayOfElementByPage = [5, 10, 'All'];
     totalCount: number;
-    page = 0; pageSize = 3;
-    index = 1;
+    page = 0; pageSize = this.arrayOfElementByPage[0];
     pageResponse: PageResponse<Course>;
     sorted: boolean;
+    searchText: string;
     currentCourse: Course;
+
     constructor(private courseService: CourseService
-                //private moderationService: ModerationService
     ) {
         this.pageResponse = new PageResponse<Course>();
         this.pageResponse.items = [];
@@ -40,25 +40,23 @@ export class CourseTableComponent implements OnInit {
 
     ngOnInit() {
         this.sortTable();
-        // this.onNotify(this.page);
-        this.courseService.getCourses()
-            .then(courses => this.totalCount = courses.length);
     }
 
     onNotify(index: number): void {
-        this.courseService.getCoursesByPage(index + 1, this.pageSize, this.sorted)
-            .then(courses => {
-                this.pageResponse = courses;
+        this.courseService.getCoursesByPage(index + 1, +this.pageSize, this.sorted, this.searchText)
+            .then(pageResponse => {
+                this.courses = pageResponse.items;
                 this.page = index;
+                this.totalCount = pageResponse.totalCount;
             });
     }
 
     onNext(): void {
-        this.onNotify(this.page + this.index);
+        this.onNotify(this.page + 1);
     }
 
     onPrev(): void {
-        this.onNotify(this.page - this.index);
+        this.onNotify(this.page - 1);
     }
 
     sortTable() {
@@ -71,23 +69,39 @@ export class CourseTableComponent implements OnInit {
         return this.sorted;
     }
 
-    onBtnInfoClick(btnInfoLinking: string) {
-        this.courseService.btnInfoLinking = btnInfoLinking;
-      }
+    onChange(event: any) {
+        this.onNotify(0);
+    }
 
-    onCourseAdded(newCourse:Course):void{
+
+
+    onDeckAdded(newCourse: Course): void {
         this.pageResponse.items.pop();
         this.pageResponse.items.unshift(newCourse);
     }
-    onDelete(course: Course):void{
+
+    onDelete(course: Course): void {
         this.currentCourse = course;
     }
-    confirmDelete():void{
+
+    confirmDelete(): void {
         this.courseService.deleteCourse(this.currentCourse.Id)
-        .subscribe(()=>{
-        this.pageResponse.items = this.pageResponse.items.filter(x=>x.Id!==this.currentCourse.Id); 
-        },
-        (err)=>console.log(err)
-        );
+            .subscribe(() => {
+                this.pageResponse.items = this.pageResponse.items.filter(x => x.Id !== this.currentCourse.Id);
+            },
+            (err) => console.log(err)
+            );
+    }
+
+    onBtnInfoClick(btnInfoLinking: string) {
+        this.courseService.btnInfoLinking = btnInfoLinking;
+    }
+
+    onSelectFilter(numberFilter: any): void {
+        if (numberFilter === 'All') {
+            numberFilter = 0;
+        }
+        this.pageSize = numberFilter;
+        this.onNotify(0);
     }
 }

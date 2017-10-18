@@ -18,7 +18,7 @@ import { MessageService } from '../../../common/services/message.service';
 export class DeckTableComponent implements OnInit {
 
     decks: Deck[];
-    arrayOfElementByPage = [5, 10, 'All'];
+    arrayOfElementByPage = [1, 2, 3, 4, 5, 10, 20, 'All'];
     totalCount: number;
     page = 0; pageSize = this.arrayOfElementByPage[0];
     pageResponse: PageResponse<Deck>;
@@ -26,8 +26,7 @@ export class DeckTableComponent implements OnInit {
     searchText: string;
     currentDeck: Deck;
 
-    constructor(private deckService: DeckService,
-        private messageService: MessageService
+    constructor(private deckService: DeckService
     ) {
         this.pageResponse = new PageResponse<Deck>();
         this.pageResponse.items = [];
@@ -49,7 +48,6 @@ export class DeckTableComponent implements OnInit {
                 this.decks = pageResponse.items;
                 this.page = index;
                 this.totalCount = pageResponse.totalCount;
-                console.log(this.page);
             });
     }
 
