@@ -39,4 +39,10 @@ export class CardTableComponent implements OnInit {
         //     this.deckService.getDecks()
         // }
     }
+    onCardAdded(newCard:Card):void{
+        // this.courses.pop();
+        // this.courses.unshift(newCourse);
+        //this.pageResponse.items.pop();
+        //this.pageResponse.items.unshift(newCourse);
+    }
 }

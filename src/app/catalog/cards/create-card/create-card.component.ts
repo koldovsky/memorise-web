@@ -3,10 +3,12 @@
 // import { Card, CardType, Deck} from '../../../common/models/models';
 
 // import { AuthService } from '../../../common/services/auth.service';
-// import { CategoryService } from '../../../common/services/category.service';
-// import { CourseService } from '../../../common/services/course.service';
+
 
 // import { handleError } from '../../../common/functions/functions';
+// import { regexExpression } from '../../../common/helpers/regexExpression';
+// import { errorMessages } from '../../../common/helpers/errorMessages';
+// import { Observable } from 'rxjs/Observable';
 
 // @Component({
 //     selector: 'create-card',
@@ -16,8 +18,10 @@
 
 // export class CreateCardComponent implements OnInit {
     
-//    course:Course;
-//    categories: Category[];
+//     regex;
+//     error; 
+//    card: Card;
+//    deck: Deck;
 //    isLoaded:boolean = false;
 //    isUnique:boolean = false;
 //    isPaid:boolean = false;
@@ -85,6 +89,6 @@
 //     }
     
 //     @Output() 
-//     afterCourseAdded: EventEmitter<Course>=new EventEmitter<Course>();
+//     afterCardAdded: EventEmitter<Card>=new EventEmitter<Card>();
         
 // }
