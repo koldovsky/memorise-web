@@ -84,6 +84,7 @@ import { CardService } from './common/services/card.service';
 import { CardTableComponent } from './catalog/cards/card-table/card-table.component';
 
 import { AppComponent } from './app.component';
+import { FileSelectDirective, FileUploadModule } from 'ng2-file-upload';
 
 
 
@@ -123,7 +124,7 @@ import { AppComponent } from './app.component';
         DeckTableComponent,
         CatalogTableComponent,
         CardTableComponent,
-        AddDeckComponent,
+        AddDeckComponent
     ],
     entryComponents: [
         LoginComponent,
@@ -171,7 +172,8 @@ import { AppComponent } from './app.component';
         MatDatepickerModule,
         MatNativeDateModule,
         RegisterModule,
-        UserModule
+        UserModule,
+        FileUploadModule
     ],
     providers: [
         AuthService,
