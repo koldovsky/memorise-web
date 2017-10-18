@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Pipe, PipeTransform } from '@angular/core';
+//import { NgModule } from '@angular/core';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
     MatButtonModule,
@@ -39,7 +41,7 @@ import { CardsComponent } from './catalog/cards/cards.component';
 import { PageNotFoundComponent } from './not-found/not-found.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized-component';
 import { QuizComponent } from './quiz/quiz.component';
-import { RegisterComponent } from './auth/components/register.component';
+import { RegisterComponent } from './auth/components/register/register.component';
 import { QuizResultsComponent } from './quiz/results/quiz-results.component';
 import { ModeratorComponent } from './moderator/moderator.component';
 import { CreateCourseComponent } from './catalog/courses/create-course/create-course.component';
@@ -66,8 +68,9 @@ import { QuizModule } from './quiz/quiz.module';
 import { FooterComponent } from './footer/footer.component';
 import { MessageService } from './common/services/message.service';
 import { UserModule } from './auth/user/user.module';
-// import { ProfileModule } from './auth/user/profile/profile.module';
+import { ProfileModule } from './auth/user/profile/profile.module';
 import { ModeratorModule } from './moderator/moderator.module';
+import { RegisterModule } from './auth/components/register/register.module';
 
 import { FilterPipe } from './pipes/filter.pipe';
 import { SortingPipe } from './pipes/sorting.pipe';
@@ -129,6 +132,7 @@ import { AppComponent } from './app.component';
         CreateCourseComponent
     ],
     imports: [
+        NgbModule.forRoot(),
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
@@ -159,6 +163,14 @@ import { AppComponent } from './app.component';
         ModeratorModule,
         CatalogModule,
         QuizModule,
+        AppRoutingModule,
+        MatTabsModule,
+        FormsModule,
+        ReactiveFormsModule,
+        ProfileModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        RegisterModule,
         UserModule
     ],
     providers: [

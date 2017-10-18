@@ -8,18 +8,19 @@
     <a mat-button routerLink="/moderator" *ngIf="auth.isAuthorized">Moderator</a>
     <a mat-button routerLink="/catalog/courses/Any">Courses</a>
     <a mat-button routerLink="/catalog/decks/Any">Decks</a>
-    <!-- <button mat-button (click)="openSignUpDialog()" *ngIf="!name">Sign Up</button> -->
-    <button mat-button (click)="openSignInDialog()" *ngIf="!name">Sign In</button>
-    <div *ngIf="name" class="position-expension-panel">
+    
+    <!-- <app-login>(loginName)="getlogin($event)"</app-login> -->
+    <button mat-button [routerLink]="['/login']" *ngIf="!auth.getCurrentUserLogin()">Sign In</button>
+    <div *ngIf="auth.getCurrentUserLogin()" class="position-expension-panel">
         <mat-expansion-panel>
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <p>
-                        <i>{{name}}</i>
+                        <i>{{auth.getCurrentUserLogin()}}</i>
                     </p>
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <button mat-button color="primary" [routerLink]="['/profile', name]">Profile</button>
+            <button mat-button color="primary" [routerLink]="['/profile', auth.getCurrentUserLogin()]">Profile</button>
             <br>
             <button mat-button color="primary" routerLink="/home" (click)="signOut()">Sign Out</button>
         </mat-expansion-panel>

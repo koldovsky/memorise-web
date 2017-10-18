@@ -1,4 +1,4 @@
-<mat-toolbar>
+<!-- <mat-toolbar>
   <span></span>
   <mat-toolbar-row>
     <span></span>
@@ -9,11 +9,11 @@
   <mat-card-header>
 
     <div mat-card-avatar class="header-image"></div>
-    <mat-card-title>Profile</mat-card-title>
-    
-    <!-- <mat-card-title>Shiba Inu</mat-card-title>
+    <mat-card-title>Profile</mat-card-title> -->
+
+<!-- <mat-card-title>Shiba Inu</mat-card-title>
     <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
-  </mat-card-header>
+<!-- </mat-card-header>
   <mat-card-actions>
       <mat-accordion class="example-headers-align">
           <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle="true">
@@ -70,18 +70,18 @@
                 Key dates
                 <mat-icon>date_range</mat-icon>
               </mat-panel-description>
-            </mat-expansion-panel-header>
-        
-            <!-- <mat-calendar #to
+            </mat-expansion-panel-header> -->
+
+<!-- <mat-calendar #to
             [(selected)]="toDate"
             [minDate]="fromDate">
         </mat-calendar>
          -->
-            <mat-form-field>
-              <input matInput placeholder="Choose a date" [matDatepicker]="picker" (focus)="picker.open()" readonly>
-              <!-- <input matInput [matDatepicker]="picker" placeholder="Choose a date" readonly>
+<!-- <mat-form-field>
+              <input matInput placeholder="Choose a date" [matDatepicker]="picker" (focus)="picker.open()" readonly> -->
+<!-- <input matInput [matDatepicker]="picker" placeholder="Choose a date" readonly>
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle> -->
-            </mat-form-field>
+<!--  </mat-form-field>
             <mat-datepicker #picker></mat-datepicker>
         
             <mat-action-row>
@@ -92,4 +92,125 @@
         
         </mat-accordion>
     </mat-card-actions>
-</mat-card>
+</mat-card> -->
+
+<div class="container">
+  <div class="fb-profile">
+    <img align="left" class="fb-image-lg" src="../../../../assets/images/profile.jpg" alt="Profile image" />
+    <img align="left" class="fb-image-profile" src="../../../../assets/images/user.jpg" alt="Profile image" />
+    <div class="fb-profile-text">
+      <h1>{{login}}</h1>
+      <p>Upload a different photo</p>
+      <label class="custom-file">
+        <input type="file" id="file" class="custom-file-input">
+        <span class="custom-file-control"></span>
+      </label>
+    </div>
+  </div>
+  <ngb-tabset>
+    <ngb-tab title="Profile">
+      <ng-template ngbTabContent>
+        <div class="tab-content py-4">
+          <h5 class="mb-3">
+            <p>User Profile</p>
+          </h5>
+          <div class="row">
+            <div class="col-md-6">
+              <div *ngIf="firstName">
+                <h6>
+                  <p>First Name</p>
+                </h6>
+              </div>
+              <div *ngIf="lastName">
+                <h6>
+                  <p>Last Name</p>
+                </h6>
+              </div>
+              <h6>
+                <p>Login</p>
+              </h6>
+              <h6>
+                <p>Email</p>
+              </h6>
+            </div>
+            <div class="col-md-6">
+              <div *ngIf="firstName">
+                <h6>
+                  <p>{{firstName}}</p>
+                </h6>
+              </div>
+              <div *ngIf="lastName">
+                <h6>
+                  <p>{{lastName}}</p>
+                </h6>
+              </div>
+              <h6>
+                <p>{{login}}</p>
+              </h6>
+              <h6>
+                <p>{{email}}</p>
+              </h6>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </ngb-tab>
+    <ngb-tab title="Edit">
+      <ng-template ngbTabContent>
+        <div class="tab-content py-4">
+          <form role="form">
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label form-control-label">First Name</label>
+              <div class="col-lg-9">
+                <input class="form-control" type="text" value="">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label form-control-label">Last Name</label>
+              <div class="col-lg-9">
+                <input class="form-control" type="text" value="">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label form-control-label">Last Name</label>
+              <div class="col-lg-9">
+                <form [formGroup]="radioGroupForm">
+                  <div class="btn-group" ngbRadioGroup name="radioBasic" formControlName="model">
+                    <label ngbButtonLabel class="btn-primary">
+                      <input ngbButton type="radio" [value]="Male"> Male
+                    </label>
+                    <label ngbButtonLabel class="btn-primary">
+                      <input ngbButton type="radio" value="Female"> Female
+                    </label>
+                    <label ngbButtonLabel class="btn-primary">
+                      <input ngbButton type="radio" [value]="Other"> Other
+                    </label>
+                  </div>
+                </form>                
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label form-control-label">Login</label>
+              <div class="col-lg-9">
+                <input class="form-control" type="text" value="{{login}}">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label form-control-label">Email</label>
+              <div class="col-lg-9">
+                <input class="form-control" type="email" value="{{email}}">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label form-control-label"></label>
+              <div class="col-lg-9">
+                <input type="button" class="btn btn-secondary" value="Cancel">
+                <input type="button" class="btn btn-primary" value="Save Changes">
+              </div>
+            </div>
+          </form>
+        </div>
+      </ng-template>
+    </ngb-tab>
+  </ngb-tabset>
+</div>

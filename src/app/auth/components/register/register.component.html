@@ -1,0 +1,62 @@
+<div class="container">
+    <div class="login-container">
+        <h2>Sign Up</h2>
+        <div class="alert alert-danger" role="alert" *ngIf="!authService.validData() && clicked">
+            <strong>Error</strong>, {{authService.getError()}}
+        </div>
+        <div class="form-box" [formGroup]="myForm">
+            <form action="" method="">
+                <div class="flex">
+                    <div class="input-width">
+                        <input name="user" type="text" placeholder="username" [formControl]="myForm.controls['login']">
+                        <ngb-alert *ngIf="myForm.controls['login'].hasError('required')" [dismissible]="false">
+                            Login is
+                            <strong>required</strong>
+                        </ngb-alert>
+                        <ngb-alert *ngIf="myForm.controls['login'].hasError('maxlength')" [dismissible]="false">
+                            Login
+                            <strong>must</strong> be less then 18 symbols
+                        </ngb-alert>
+                    </div>
+                    <div class="input-width">
+                        <input name="email" type="text" placeholder="email" [formControl]="myForm.controls['email']">
+                        <ngb-alert *ngIf="myForm.controls['email'].hasError('required')" [dismissible]="false">
+                            Email is
+                            <strong>required</strong>
+                        </ngb-alert>
+                        <ngb-alert *ngIf="myForm.controls['email'].hasError('pattern')" [dismissible]="false">
+                            Please enter a
+                            <strong>valid</strong> email address
+                        </ngb-alert>
+                    </div>
+                </div>
+                <div class="flex">
+                    <div class="input-width">
+                        <input type="password" placeholder="password" [formControl]="myForm.controls['password']">
+                        <ngb-alert *ngIf="myForm.controls['password'].hasError('required')" [dismissible]="false">
+                            Password is
+                            <strong>required</strong>
+                        </ngb-alert>
+                        <ngb-alert *ngIf="myForm.controls['password'].hasError('minlength')" [dismissible]="false">
+                            Password length
+                            <strong>must</strong> be at least 6
+                        </ngb-alert>
+                    </div>
+                    <div class="input-width">
+                        <input type="password" placeholder="confirm password" [formControl]="myForm.controls['passwordConfirm']">
+                        <ngb-alert *ngIf="myForm.controls['passwordConfirm'].hasError('required')" [dismissible]="false">
+                            Confirmation is
+                            <strong>required</strong>
+                        </ngb-alert>                        
+                        <ngb-alert *ngIf="myForm.controls['passwordConfirm'].hasError('matchOther')" [dismissible]="false">
+                            Confirmed password doesn't
+                            <strong>match</strong>
+                        </ngb-alert>
+                    </div>
+                </div>
+                <button class="btn btn-info login" type="button" [routerLink]="['/login']">Back</button>
+                <button class="btn btn-info login" type="submit" [disabled]="!myForm.valid" (click)="Register(myForm.value)">Sign Up</button>
+            </form>
+        </div>
+    </div>
+</div>
