@@ -5,6 +5,7 @@ import 'rxjs/add/operator/toPromise';
 
 import { Category, Course, Deck, PageResponse } from '../models/models';
 import { handleError } from '../functions/functions';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class CategoryService {
@@ -47,22 +48,27 @@ export class CategoryService {
             .catch(handleError);
     }
 
-    createCategory(category: Category):Promise<Category>{
-        return this.http.post(this.categoryModeratorUrl+"CreateCategory",category)
-        .toPromise()
-        .then(response => response as Category)
-        .catch(handleError);
-        
+    createCategory(category: Category):Observable<Object>{
+        category = this.encodeCategory(category);
+        return this.http.post(`${this.categoryModeratorUrl}CreateCategory`,category);
     }
+
+    updateCategory(category: Category){
+        category = this.encodeCategory(category);
+        return this.http.put(`${this.categoryModeratorUrl}UpdateCourse`,category);
+     };
 
     deleteCategory(id: number){
         return this.http.delete(this.categoryModeratorUrl+"DeleteCategory/"+id);
      }
 
-    checkIfCategoryExists(categoryName: string): Promise<Category> {
-         return this.http.get(this.categoryModeratorUrl+"FindCategoryByName/"+categoryName)
-            .toPromise()
-            .then(response => response as Category)
-            .catch(handleError);
+    checkIfCategoryExists(categoryName: string): Observable<Object> {
+         return this.http.get(`${this.categoryModeratorUrl}FindCategoryByName/${btoa(categoryName)}`);
     }
+
+    encodeCategory(category: Category): Category{
+        category.Name = btoa(category.Name);
+        category.Linking = btoa(category.Linking);
+        return category;
+    };
 }

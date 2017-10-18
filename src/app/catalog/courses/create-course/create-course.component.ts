@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators, NgForm } from '@angular/forms';
 import { Course, Category } from '../../../common/models/models';
 
 import { AuthService } from '../../../common/services/auth.service';
@@ -7,6 +7,9 @@ import { CategoryService } from '../../../common/services/category.service';
 import { CourseService } from '../../../common/services/course.service';
 
 import { handleError } from '../../../common/functions/functions';
+import { regexExpression } from '../../../common/helpers/regexExpression';
+import { errorMessages } from '../../../common/helpers/errorMessages';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
     selector: 'create-course',
@@ -15,7 +18,9 @@ import { handleError } from '../../../common/functions/functions';
 })
 
 export class CreateCourseComponent implements OnInit {
-    
+   
+   regex;
+   error; 
    course:Course;
    categories: Category[];
    isLoaded:boolean = false;
@@ -38,6 +43,8 @@ export class CreateCourseComponent implements OnInit {
       }
 
     ngOnInit(): void {
+        this.regex = regexExpression;
+        this.error = errorMessages;
         this.categoryService.getCategories()
         .then(categories => {
             this.categories = categories;
@@ -45,18 +52,49 @@ export class CreateCourseComponent implements OnInit {
         });
     }
 
-    onSubmit() { 
-        this.courseService.createCourse(this.course)
-        .then(course=>{
-            this.submitMessage = "Course was created successfully";
-            this.showSnackbar();
-            this.afterCourseAdded.emit(course);
-        })
-        .catch(()=>{
-            this.submitMessage = "Error occurred. Please try again.";
-            this.showSnackbar();
-        })
+    onSubmit(form: NgForm) {
+        if(this.isUnique){
+            this.createCourse();
+            form.reset();
+            this.isUnique=false;
+        }
+        
+        else{
+            this.courseService.checkIfCourseExists(this.course.Name)
+           .subscribe(response =>{
+               let result=response as Course;
+               if(result.Name=='unique'){
+                  this.isUnique = true;
+                  this.createLinking();
+                  this.createCourse();
+                  form.reset();
+                  this.isUnique=false;
+               }
+               else{
+                  this.isUnique = false;
+                  this.course.Linking="";
+                  this.afterCheck=true;
+               }
+             },
+             err=>(handleError)
+            );
+        }
     }
+
+    createCourse(){
+                this.courseService.createCourse(this.course)
+                .subscribe(course=>{
+                    this.submitMessage = "Course was created successfully";
+                    this.showSnackbar();
+                    this.afterCourseAdded.emit(course as Course);
+                },
+                err=>{
+                    this.submitMessage = this.error.ERROR;
+                    this.showSnackbar();
+                }
+                );
+    }
+
     showSnackbar(){
         var x = document.getElementById("snackbar")
         x.className = "show";
@@ -65,8 +103,9 @@ export class CreateCourseComponent implements OnInit {
 
     checkName(){
      this.courseService.checkIfCourseExists(this.course.Name)
-     .then(response =>{
-         if(response.Name=='unique'){
+     .subscribe(response =>{
+         let result=response as Course;
+         if(result.Name=='unique'){
             this.isUnique = true;
             this.createLinking();
          }
@@ -75,13 +114,13 @@ export class CreateCourseComponent implements OnInit {
             this.course.Linking="";
             this.afterCheck=true;
          }
-          
-     })
-     .catch(handleError);
+       },
+       err=>(handleError)
+      );
     }
 
     createLinking():void{
-        this.course.Linking = this.course.Name.replace(/[^a-zA-Z0-9]/g, "");
+        this.course.Linking = this.course.Name.replace(this.regex.LINKING, "");
     }
     
     @Output() 

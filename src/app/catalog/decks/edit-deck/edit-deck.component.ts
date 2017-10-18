@@ -60,10 +60,6 @@ export class EditDeckComponent implements OnInit {
             this.deckBeforeChanges = c;
         })
 
-        // this.deckService.getDeckByLinking(this.courseService.btnInfoLinking)
-        // .then(c => {
-        //     this.deckBeforeChanges = c;
-        // })
     };
 
     setWhichButtonIsClicked(){
@@ -86,7 +82,6 @@ export class EditDeckComponent implements OnInit {
             },
             (err)=>console.log(err)
         );
-             //this.ngOnInit();
     }
 
     // deleteDecks(){

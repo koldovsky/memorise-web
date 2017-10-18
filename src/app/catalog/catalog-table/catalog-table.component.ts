@@ -37,7 +37,6 @@ export class CatalogTableComponent implements OnInit {
 
     ngOnInit() {
         this.sortTable();
-        // this.onNotify(this.page);
         this.categoryService.getCategories()
             .then(categories => this.totalCount = categories.length);
     }
@@ -68,7 +67,13 @@ export class CatalogTableComponent implements OnInit {
         return this.sorted;
     }
 
+    onBtnInfoClick(btnInfoLinking: string) {
+        //this.courseService.btnInfoLinking = btnInfoLinking;
+      }
+
     onCategoryAdded(newCategory:Category):void{
+        // this.categories.pop();
+        // this.categories.unshift(newCourse);
         this.pageResponse.items.pop();
         this.pageResponse.items.unshift(newCategory);
     }
@@ -80,6 +85,7 @@ export class CatalogTableComponent implements OnInit {
     confirmDelete():void{
         this.categoryService.deleteCategory(this.currentCategory.Id)
         .subscribe(()=>{
+        //this.categories = this.categories.filter(x=>x.Id!==this.currentCategory.Id);
         this.pageResponse.items = this.pageResponse.items.filter(x=>x.Id!==this.currentCategory.Id); 
         },
         (err)=>console.log(err)

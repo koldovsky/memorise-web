@@ -19,7 +19,6 @@ export class DeckTableComponent implements OnInit {
     decks: Deck[];
     totalCount: number;
     page = 0; pageSize = 5;
-    // index = 1;
     pageResponse: PageResponse<Deck>;
     sorted: boolean;
     searchText: string;
@@ -76,8 +75,8 @@ export class DeckTableComponent implements OnInit {
    
 
     onDeckAdded(newDeck:Deck):void{
-        this.pageResponse.items.pop();
-        this.pageResponse.items.unshift(newDeck);
+        this.decks.pop();
+        this.decks.unshift(newDeck);
     }
 
     onDelete(deck: Deck):void{
@@ -87,7 +86,7 @@ export class DeckTableComponent implements OnInit {
     confirmDelete():void{
         this.deckService.deleteDeck(this.currentDeck.Id)
         .subscribe(()=>{
-        this.pageResponse.items = this.pageResponse.items.filter(x=>x.Id!==this.currentDeck.Id); 
+        this.decks = this.decks.filter(x=>x.Id!==this.currentDeck.Id); 
         },
         (err)=>console.log(err)
         );

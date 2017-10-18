@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators, NgForm } from '@angular/forms';
 import { Deck, Category } from '../../../common/models/models';
 
 import { AuthService } from '../../../common/services/auth.service';
@@ -7,6 +7,8 @@ import { CategoryService } from '../../../common/services/category.service';
 import { DeckService } from '../../../common/services/deck.service';
 
 import { handleError } from '../../../common/functions/functions';
+import { regexExpression } from '../../../common/helpers/regexExpression';
+import { errorMessages } from '../../../common/helpers/errorMessages';
 
 @Component({
     selector: 'create-deck',
@@ -15,6 +17,9 @@ import { handleError } from '../../../common/functions/functions';
 })
 
 export class CreateDeckComponent implements OnInit {
+    
+    regex;
+    error; 
     submitMessage: string;
     deck: Deck;
     categories: Category[];
@@ -38,6 +43,8 @@ export class CreateDeckComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.regex = regexExpression;
+        this.error = errorMessages;
         this.categoryService.getCategories()
             .then(categories => {
                 this.categories = categories;
@@ -45,18 +52,48 @@ export class CreateDeckComponent implements OnInit {
             });
     }
     
-    onSubmit() { 
+    onSubmit(form: NgForm) { 
+        if(this.isUnique){
+            this.createDeck();
+            form.reset();
+            this.isUnique=false;
+        }
+        
+        else{
+            this.deckService.checkIfDeckExists(this.deck.Name)
+           .subscribe(response =>{
+               let result=response as Deck;
+               if(result.Name=='unique'){
+                  this.isUnique = true;
+                  this.createLinking();
+                  this.createDeck();
+                  form.reset();
+                  this.isUnique=false;
+               }
+               else{
+                  this.isUnique = false;
+                  this.deck.Linking="";
+                  this.afterCheck=true;
+               }
+             },
+             err=>(handleError)
+            );
+        }
+    }
+
+    createDeck(){
         this.deckService.createDeck(this.deck)
-        .then(deck=>{
+        .subscribe(deck=>{
             this.submitMessage = "Deck was created successfully";
             this.showSnackbar();
-            this.afterDeckAdded.emit(deck);
-        })
-        .catch(()=>{
-            this.submitMessage = "Error occurred. Please try again.";
+            this.afterDeckAdded.emit(deck as Deck);
+        },
+        err=>{
+            this.submitMessage = this.error.ERROR;
             this.showSnackbar();
-        })
-    }
+        }
+        );
+}
 
     showSnackbar(){
         var x = document.getElementById("snackbar")
@@ -65,24 +102,25 @@ export class CreateDeckComponent implements OnInit {
     }
 
     checkName(){
-     this.deckService.checkIfDeckExists(this.deck.Name)
-     .then(response =>{
-         if(response.Name=='unique'){
-            this.isUnique = true;
-            this.createLinking();
-         }
-         else{
-            this.isUnique = false;
-            this.deck.Linking="";
-            this.afterCheck=true;
-         }
-          
-     })
-     .catch(handleError);
-    }
+    this.deckService.checkIfDeckExists(this.deck.Name)
+        .subscribe(response =>{
+            let result=response as Deck;
+            if(result.Name=='unique'){
+               this.isUnique = true;
+               this.createLinking();
+            }
+            else{
+               this.isUnique = false;
+               this.deck.Linking="";
+               this.afterCheck=true;
+            }
+          },
+          err=>(handleError)
+         );
+       }
 
     createLinking():void{
-        this.deck.Linking = this.deck.Name.replace(/[^a-zA-Z0-9]/g, "");
+        this.deck.Linking = this.deck.Name.replace(this.regex.LINKING, "");
     }
     
      @Output() 
