@@ -5,6 +5,9 @@ import { CoursesComponent } from './courses/courses.component';
 import { CatalogComponent } from './catalog.component';
 import { DecksComponent } from './decks/decks.component';
 import { CourseDetailsComponent } from './courses/course-details/course-details.component';
+import { EditCourseComponent } from './courses/edit-course/edit-course.component';
+import { EditDeckComponent } from './decks/edit-deck/edit-deck.component';
+import { AddDeckComponent } from './decks/add-deck/add-deck.component';
 
 const route: Routes = [
     {
@@ -12,18 +15,30 @@ const route: Routes = [
         component: CatalogComponent,
         children: [
                     {
-                        path: 'courses',
+                        path: 'courses/:category',
                         component: CoursesComponent
                     },
                     {
-                        path: 'decks',
+                        path: 'decks/:category',
                         component: DecksComponent
                     }
                 ]
     },
     {
-        path: 'catalog/courses/:name',
+        path: 'catalog/course/:name',
         component: CourseDetailsComponent
+    },
+    {
+        path: 'moderator/courses/edit/:name',
+        component: EditCourseComponent
+    },
+    {
+        path: 'moderator/decks/edit/:name',
+        component: EditDeckComponent
+    },
+    {
+        path: 'moderator/decks',
+        component: AddDeckComponent
     }
 ];
 

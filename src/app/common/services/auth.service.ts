@@ -5,10 +5,13 @@ import { Router } from '@angular/router';
 import 'rxjs/add/operator/toPromise';
 
 import { User, RegisterExternalBindingModel, Token } from '../models/models';
+import { Deck, PageResponse } from '../models/models';
 import { handleError } from '../functions/functions';
+
 
 @Injectable()
 export class AuthService {
+    valid: boolean;
     errorMessage = '';
     isAuthorized: boolean;
     name: string;
@@ -35,13 +38,22 @@ export class AuthService {
                 this.name = user.login;
                 //this.user = user;                
                 this.IsValid = true;                
+                let expiresDate = this.calcExpirationDate( token.expires_in);
+                localStorage.setItem('tokenExpiresDate', expiresDate.toString());
+                //this.IsValid = true;
             })
             .catch(
             error => {
                 this.IsValid = false;
                 this.errorMessage = 'input, please try again!';
-                // this.router.navigate(['/unauthorized']);
+                
             });
+    }
+
+    calcExpirationDate(seconds:number):Date {
+         const currentDate = new Date();
+         currentDate.setSeconds(currentDate.getSeconds()+seconds);
+         return currentDate;
     }
 
     signUp(user) {
@@ -116,10 +128,13 @@ export class AuthService {
     }
 
     checkIfIsAuthorized(): void {
-        if (this.getToken() === 'empty') {
-            this.isAuthorized = false;
-        } else {
+        let currentDate = new Date();
+        let expiresDate = new Date(localStorage.getItem('tokenExpiresDate'));
+        
+        if (this.getToken() !== 'empty' && currentDate < expiresDate) {
             this.isAuthorized = true;
+        } else {
+            this.isAuthorized = false;
         }
     }
 }

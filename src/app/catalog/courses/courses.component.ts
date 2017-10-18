@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 import { CourseService } from '../../common/services/course.service';
 import { DeckService } from '../../common/services/deck.service';
-import { Course, Category } from '../../common/models/models';
-import { MessageService } from '../../common/services/message.service';
 import { CategoryService } from '../../common/services/category.service';
+import { Course, Category } from '../../common/models/models';
 
 import { Subscription } from 'rxjs/Subscription';
 
@@ -18,32 +18,23 @@ export class CoursesComponent implements OnInit {
     constructor(
         private courseService: CourseService,
         private deckService: DeckService,
-        private messageService: MessageService,
-        private categoryService: CategoryService) {
+        private categoryService: CategoryService,
+        private route: ActivatedRoute) {
     }
 
     courses: Course[];
     subscription: Subscription;
 
     ngOnInit(): void {
-        if (this.messageService.temp) {
-            const category = this.messageService.temp as Category;
-            this.categoryService.getCoursesByCategory(category.Linking)
-                .then(courses => this.courses = courses);
-        } else {
-            this.courseService.getCourses()
-                .then(courses => this.courses = courses);
-        }
-
-        this.messageService.getMessage().subscribe(data => {
-            if (data) {
-                const category = data as Category;
-                this.categoryService.getCoursesByCategory(category.Linking)
-                    .then(courses => this.courses = courses);
-            } else {
-                this.courseService.getCourses()
-                    .then(courses => this.courses = courses);
-            }
+        this.route.paramMap
+        .switchMap((params: ParamMap) => {
+            const category = params.get('category');
+            return category === 'Any'
+            ? this.courseService.getCourses()
+            : this.categoryService.getCoursesByCategory(category);
+        })
+        .subscribe(courses => {
+            this.courses = courses;
         });
     }
 

@@ -6,8 +6,8 @@
 
     <span class="fill-remaining-space"></span>
     <a mat-button routerLink="/moderator" *ngIf="auth.isAuthorized">Moderator</a>
-    <a mat-button routerLink="/catalog/courses">Courses</a>
-    <a mat-button routerLink="/catalog/decks">Decks</a>
+    <a mat-button routerLink="/catalog/courses/Any">Courses</a>
+    <a mat-button routerLink="/catalog/decks/Any">Decks</a>
     
     <!-- <app-login>(loginName)="getlogin($event)"</app-login> -->
     <button mat-button [routerLink]="['/login']" *ngIf="!auth.getCurrentUserLogin()">Sign In</button>
@@ -26,5 +26,3 @@
         </mat-expansion-panel>
     </div>
 </nav>
-<!-- THIS {{name}}
-<app-login>(loginName)="getlogin($event)"</app-login> -->
