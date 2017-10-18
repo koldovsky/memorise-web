@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 
-import { AuthService } from '../../common/services/auth.service';
+import { AuthService } from '../../../common/services/auth.service';
 import { passwordMatchValidator } from './password-matcher';
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -16,11 +16,9 @@ const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA
     styleUrls: ['./register.component.css']
 })
 
-export class RegisterComponent implements OnInit {
-    action: string;
+export class RegisterComponent implements OnInit {    
     clicked = false;
-    message: 'Congratulation, you successfully registered!';
-    snackBar: MatSnackBar;
+    message: 'Congratulation, you successfully registered!';    
     myForm: FormGroup;
 
     constructor(        
@@ -46,11 +44,7 @@ export class RegisterComponent implements OnInit {
                 passwordMatchValidator('password')
             ])
         });
-    }
-
-    onNoClick(): void {
-        //this.dialogRef.close();
-    }
+    }    
 
     ngOnInit(): void {
     }

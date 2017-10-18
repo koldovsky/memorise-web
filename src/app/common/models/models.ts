@@ -79,6 +79,9 @@ export interface Statistic extends BaseEntity {
 
 export interface User extends BaseEntity {
     Login: string;
+    FirstName?: string;
+    LastName?: string;
+    Gender?: string;
     Password?: string;
     Photo?: string;
     Email?: string;

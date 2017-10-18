@@ -2,7 +2,7 @@
     <div class="login-container">
         <h2>Login</h2>
         <div class="alert alert-danger" role="alert" *ngIf="!authService.validData() && clicked">
-            <strong>Incorrect</strong> {{authService.getError()}}
+            <strong>Error</strong>, {{authService.getError()}}
         </div>
         <div id="output"></div>
         <div class="form-box" [formGroup]="myForm">
@@ -32,7 +32,7 @@
                             <button class="btn btn-fb" (click)="signUpFacebook()">Facebook</button>
                             <button class="btn btn-go">Google</button>
                     </div> -->
-                    <div class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false"
+                    <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false"
                     data-use-continue-as="true">            
                 </div>
             </form>

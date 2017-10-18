@@ -45,7 +45,7 @@ import { CardsComponent } from './catalog/cards/cards.component';
 import { PageNotFoundComponent } from './not-found/not-found.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized-component';
 import { QuizComponent } from './quiz/quiz.component';
-import { RegisterComponent } from './auth/components/register.component';
+import { RegisterComponent } from './auth/components/register/register.component';
 import { QuizResultsComponent } from './quiz/results/quiz-results.component';
 import { ModeratorComponent } from './moderator/moderator.component';
 import { CreateCourseComponent } from './catalog/courses/create-course/create-course.component';
@@ -65,7 +65,7 @@ import { FooterComponent } from './footer/footer.component';
 import { MessageService } from './common/services/message.service';
 import { ProfileModule } from './auth/user/profile/profile.module';
 import { ModeratorModule } from './moderator/moderator.module';
-import { RegisterModule } from './auth/components/register.module';
+import { RegisterModule } from './auth/components/register/register.module';
 
 @NgModule({
     declarations: [

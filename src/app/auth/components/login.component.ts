@@ -1,8 +1,5 @@
-import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-
-import { RegisterComponent } from './register.component';
 import { AuthService } from '../../common/services/auth.service';
 
 import { Router } from '@angular/router';
@@ -20,12 +17,10 @@ declare var FB: any;
     styleUrls: ['./login.component.css']
 })
 
-export class LoginComponent implements OnInit {
-    name: string='1111111111111';
+export class LoginComponent implements OnInit {    
     clicked = false;        
     myForm: FormGroup;    
-    @Output() loginName = new EventEmitter<string>();
-
+    
     constructor(
         public fb: FormBuilder,
         private router: Router,
@@ -76,9 +71,7 @@ export class LoginComponent implements OnInit {
     LogIn(user): void {
         this.authService.signIn(user)
         .then(() => {
-            if (this.authService.validData()) {
-                //console.log(this.myForm.controls['login'].value);
-                this.loginName.emit('123123');                
+            if (this.authService.validData()) {                                
                 this.authService.checkIfIsAuthorized();
                 this.router.navigate(['catalog/courses']);                          
             } else {
@@ -92,10 +85,6 @@ export class LoginComponent implements OnInit {
     Register(): void {
         this.router.navigate(['register']);
     }
-
-    signUpFacebook():void{        
-    }
-
 
     ngOnInit(): void {  
         if (window.FB) {

@@ -12,7 +12,7 @@ import { ProfileComponent } from './auth/user/profile/profile.component';
 import { QuizResultsComponent } from './quiz/results/quiz-results.component';
 import { ModeratorComponent } from './moderator/moderator.component';
 import { LoginComponent } from './auth/components/login.component';
-import { RegisterComponent } from './auth/components/register.component';
+import { RegisterComponent } from './auth/components/register/register.component';
 
 const routes: Routes = [
     {
