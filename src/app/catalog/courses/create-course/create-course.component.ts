@@ -1,57 +1,129 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
+import { FormGroup, FormBuilder, FormControl, Validators, NgForm } from '@angular/forms';
+import { Course, Category } from '../../../common/models/models';
+
 import { AuthService } from '../../../common/services/auth.service';
+import { CategoryService } from '../../../common/services/category.service';
+import { CourseService } from '../../../common/services/course.service';
+
+import { handleError } from '../../../common/functions/functions';
+import { regexExpression } from '../../../common/helpers/regexExpression';
+import { errorMessages } from '../../../common/helpers/errorMessages';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
-    selector: 'app-create-course',
+    selector: 'create-course',
     templateUrl: './create-course.component.html',
     styleUrls: ['./create-course.component.css']
 })
 
 export class CreateCourseComponent implements OnInit {
-    action: string;
-    clicked = false;
-    myForm: FormGroup;
-    Matdialog: MatDialog;
+   
+   regex;
+   error; 
+   course:Course;
+   categories: Category[];
+   isLoaded:boolean = false;
+   isUnique:boolean = false;
+   isPaid:boolean = false;
+   afterCheck:boolean = false;
+   submitMessage:string='';
 
     constructor(
-        public dialogRef: MatDialogRef<CreateCourseComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: any,
-        public fb: FormBuilder,
-        private authService: AuthService
+        private authService: AuthService,
+        private categoryService:CategoryService,
+        private courseService: CourseService
+    ) { 
+        this.course = {
+            Name: '',
+            Linking: '',
+            Description: '',
+            Price: 0
+        };
+      }
 
-    ) {
-        this.action = data.action;
-        this.myForm = this.fb.group({
-            'name': new FormControl('', [
-                Validators.required,
-                Validators.maxLength(18)
-            ]),
-            'description': new FormControl('', [
-                Validators.required,
-                Validators.minLength(6)
-            ])
+    ngOnInit(): void {
+        this.regex = regexExpression;
+        this.error = errorMessages;
+        this.categoryService.getCategories()
+        .then(categories => {
+            this.categories = categories;
+            this.isLoaded = true;
         });
-   }
-    onNoClick(): void {
-        this.dialogRef.close();
     }
 
-    Create(course): void {
-        // this.authService.signIn(user)
-        //     .then(() => {
-        //         if (this.authService.validData()) {
-        //             this.dialogRef.close(this.myForm.controls['login'].value);
-        //             this.authService.checkIfIsAuthorized();
-        //         } else {
-        //             this.myForm.controls.login.setValue('');
-        //             this.myForm.controls.password.setValue('');
-        //         }
-        //     });
-        // this.clicked = true;
-        console.log(course);
+    onSubmit(form: NgForm) {
+        if(this.isUnique){
+            this.createCourse();
+            form.reset();
+            this.isUnique=false;
+        }
+        
+        else{
+            this.courseService.checkIfCourseExists(this.course.Name)
+           .subscribe(response =>{
+               let result=response as Course;
+               if(result.Name=='unique'){
+                  this.isUnique = true;
+                  this.createLinking();
+                  this.createCourse();
+                  form.reset();
+                  this.isUnique=false;
+               }
+               else{
+                  this.isUnique = false;
+                  this.course.Linking="";
+                  this.afterCheck=true;
+               }
+             },
+             err=>(handleError)
+            );
+        }
     }
 
-    ngOnInit(): void { }
+    createCourse(){
+                this.courseService.createCourse(this.course)
+                .subscribe(course=>{
+                    this.submitMessage = "Course was created successfully";
+                    this.showSnackbar();
+                    this.afterCourseAdded.emit(course as Course);
+                },
+                err=>{
+                    this.submitMessage = this.error.ERROR;
+                    this.showSnackbar();
+                }
+                );
+    }
+
+    showSnackbar(){
+        var x = document.getElementById("snackbar")
+        x.className = "show";
+        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+    }
+
+    checkName(){
+     this.courseService.checkIfCourseExists(this.course.Name)
+     .subscribe(response =>{
+         let result=response as Course;
+         if(result.Name=='unique'){
+            this.isUnique = true;
+            this.createLinking();
+         }
+         else{
+            this.isUnique = false;
+            this.course.Linking="";
+            this.afterCheck=true;
+         }
+       },
+       err=>(handleError)
+      );
+    }
+
+    createLinking():void{
+        this.course.Linking = this.course.Name.replace(this.regex.LINKING, "");
+    }
+    
+    @Output() 
+    afterCourseAdded: EventEmitter<Course>=new EventEmitter<Course>();
+        
 }

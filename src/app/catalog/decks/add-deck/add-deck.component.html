@@ -1,0 +1,18 @@
+<div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h2>Add decks</h2>
+                <div class="form-group">
+                        <label for="multipleselectId">ALL decks</label>
+                                <select multiple class="form-control" id="multipleselectId">
+                                        <option *ngFor="let deck of decks" 
+                                        value="deck.Name" 
+                                        >
+                                        {{deck.Name}}
+                                        </option>
+                                </select>
+                </div>
+                <button type="button" class="btn btn-primary">Add selected</button>
+            </div>
+        </div>
+    </div>
