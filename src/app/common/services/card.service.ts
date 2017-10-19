@@ -5,10 +5,12 @@ import 'rxjs/add/operator/toPromise';
 
 import { Card } from '../models/models';
 import { handleError } from '../functions/functions';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class CardService {
     private CardUrl = 'http://localhost:37271/Quiz';
+    private cardModeratorUrl = 'http://localhost:37271/Moderator/';
 
     constructor(private http: HttpClient) { }
 
@@ -22,5 +24,9 @@ export class CardService {
         .toPromise()
         .then(response => {console.log(response); return response as Card[];  })
         .catch(handleError);
+    }
+
+    getCardTypes(): Observable<Object>{
+        return this.http.get(`${this.cardModeratorUrl}GetCardsType`);
     }
 }

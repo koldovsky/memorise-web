@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
 import { COURSES } from '../mocks/courses';
-import { Course, PageResponse } from '../models/models';
+import { Course, PageResponse, SearchDataModel } from '../models/models';
 import { handleError } from '../functions/functions';
 
 @Injectable()
@@ -25,15 +25,18 @@ export class CourseService {
             .toPromise()
             .then(response => response as Course[])
             .catch(handleError);
-    };
+    }
 
-    getCoursesByPage(page: number, pageSize: number, sorted: boolean): Promise<PageResponse<Course>> {
-        const url = this.coursesPageUrl + '/' + page + '/' + pageSize + '/' + sorted;
-        return this.http.get(url)
+    getCoursesByPage(page: number, pageSize: number, sorted: boolean, search: string): Promise<PageResponse<Course>> {
+        let postData = new SearchDataModel;
+        postData.page = page; postData.pageSize = pageSize;
+        postData.searchString = search; postData.sort = sorted;
+        const url = this.coursesPageUrl;
+        return this.http.post(url, postData)
             .toPromise()
             .then(response => response as PageResponse<Course>)
             .catch(handleError);
-    }
+        }
 
     getCourse(link: string): Promise<Course> {
         const URL = this.courseUrl + '/' + link;
@@ -44,33 +47,28 @@ export class CourseService {
             .catch(handleError);
     };
 
-    createCourse(course: Course):Promise<Course>{
-        return this.http.post(this.courseModeratorUrl+"CreateCourse",course)
-        .toPromise()
-        .then(response => response as Course)
-        .catch(handleError);
-        
+    createCourse(course: Course):Observable<Object>{
+        course = this.encodeCourse(course);
+        return this.http.post(`${this.courseModeratorUrl}CreateCourse`,course);
     };
-
-    // updateCourse(course: Course):void{
-    //     this.http.put(this.courseModeratorUrl+"UpdateCourse",course)
-    //     .toPromise()
-    //     .then()
-    //     .catch(handleError);
-    // };
+    
     updateCourse(course: Course){
-       return this.http.put(this.courseModeratorUrl+"UpdateCourse",course);
-        
+       course = this.encodeCourse(course);
+       return this.http.put(`${this.courseModeratorUrl}UpdateCourse`,course);
     };
 
     deleteCourse(id: number){
-       return this.http.delete(this.courseModeratorUrl+"DeleteCourse/"+id);
-    }
+       return this.http.delete(`${this.courseModeratorUrl}DeleteCourse/${id}`);
+    };
 
-    checkIfCourseExists(courseName: string): Promise<Course> {
-        return this.http.get(this.courseModeratorUrl + 'FindCourseByName/' + courseName)
-            .toPromise()
-            .then(response => response as Course)
-            .catch(handleError);
+    checkIfCourseExists(courseName: string): Observable<Object> {
+        return this.http.get(`${this.courseModeratorUrl}FindCourseByName/${btoa(courseName)}`);
+    };
+
+    encodeCourse(course: Course): Course{
+        course.Name = btoa(course.Name);
+        course.Linking = btoa(course.Linking);
+        course.Description = btoa(course.Description);
+        return course;
     };
 }

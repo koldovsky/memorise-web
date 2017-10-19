@@ -12,8 +12,9 @@ export interface Answer extends BaseEntity {
 export interface Card extends BaseEntity {
     Question: string;
     CardType: CardType;
+    CardTypeName?: string;
     Deck: Deck;
-    Comments: Comment[];
+    Comments?: Comment[];
     Answers: Answer[];
     IsPassed?: boolean;
     RightAnswersText?: string;
@@ -22,7 +23,7 @@ export interface Card extends BaseEntity {
 
 export interface CardType extends BaseEntity {
     Name: string;
-    Cards: Card[];
+    Cards?: Card[];
 }
 
 export interface Category extends BaseEntity {
@@ -50,6 +51,7 @@ export interface Course extends BaseEntity {
     Decks?: Deck[];
     DeckNames?: string[];
     Comments?: Comment[];
+    IsSubscribed?: boolean;
 }
 
 export interface Deck extends BaseEntity {
@@ -66,6 +68,7 @@ export interface Deck extends BaseEntity {
     Courses? : Course[];
     CardIds?: string[];
     CourseNames?: string[];
+    IsSubscribed?: boolean;
 }
 
 export interface Report extends BaseEntity {
@@ -87,6 +90,9 @@ export interface Statistics extends BaseEntity {
 
 export interface User extends BaseEntity {
     Login: string;
+    FirstName?: string;
+    LastName?: string;
+    Gender?: string;
     Password?: string;
     Photo?: string;
     Email?: string;
@@ -97,6 +103,13 @@ export interface User extends BaseEntity {
     Reports?: Report[];
 }
 
+export interface RegisterExternalBindingModel {
+    UserName: string;
+    Email?: string;
+    Provider: string;
+    ExternalAccessToken: string;
+}
+
 export interface UserCourse extends BaseEntity {
     Rating: number;
     User: User;
@@ -104,6 +117,7 @@ export interface UserCourse extends BaseEntity {
 }
 
 export interface Token extends BaseEntity {
+    userName: string;
     access_token: string;
     expires_in: number;
     token_type: string;
@@ -125,4 +139,6 @@ export interface WordInput extends BaseEntity {
     CustomerAnswer: string;
     RightAnswers: string[];
 }
-
+export interface CodeAnswer extends BaseEntity {
+    CodeAnswerText: string;
+}

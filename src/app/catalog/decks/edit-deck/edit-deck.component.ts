@@ -17,22 +17,23 @@ import { CardService } from '../../../common/services/card.service';
     styleUrls: ['./edit-deck.component.css']
 })
 export class EditDeckComponent implements OnInit {
-    deckBeforeChanges : Deck;
-   deck: Deck;
-   categories: Category[];
-   deckLinking : string = '';
+    deckBeforeChanges: Deck;
+    deck: Deck;
+    decks: Deck[];
+    categories: Category[];
+    deckLinking: string = '';
 
-   addedCardsLinking: string[];
-   chosenCardsLinking: string[];
+    addedCardsLinking: string[];
+    chosenCardsLinking: string[];
 
-   addedCoursesLinking: string[];
-   chosenCoursesLinking: string[];
+    addedCoursesLinking: string[];
+    chosenCoursesLinking: string[];
 
-   newCategory: string;
+    newCategory: string;
 
-   isLoadedDeck: boolean=false;
-   isLoadedCategories: boolean=false;
-   isLoadedCards: boolean=false;
+    isLoadedDeck: boolean = false;
+    isLoadedCategories: boolean = false;
+    isLoadedCards: boolean = false;
 
 
     constructor(
@@ -47,27 +48,23 @@ export class EditDeckComponent implements OnInit {
 
     ngOnInit(): void {
         this.categoryService.getCategories()
-        .then(categories => {
-            this.categories = categories;
-            this.isLoadedCategories = true;
-        });
+            .then(categories => {
+                this.categories = categories;
+                this.isLoadedCategories = true;
+            });
 
         this.deckService.getDeckByLinking(this.deckService.btnInfoLinking)
-        .then(c => {
-            this.deck = c;
-            this.deckLinking = c.Linking;
-            this.isLoadedDeck = true;
-            this.deckBeforeChanges = c;
-        })
+            .then(c => {
+                this.deck = c;
+                this.deckLinking = c.Linking;
+                this.isLoadedDeck = true;
+                this.deckBeforeChanges = c;
+            })
 
-        // this.deckService.getDeckByLinking(this.courseService.btnInfoLinking)
-        // .then(c => {
-        //     this.deckBeforeChanges = c;
-        // })
     };
 
-    setWhichButtonIsClicked(){
-        this.moderationService.whichButtonIsClicked = "decks";
+    setWhichButtonIsClicked() {
+        this.moderationService.whichButtonIsClicked = 'decks';
     }
 
     // onModalSubmit(){
@@ -77,17 +74,21 @@ export class EditDeckComponent implements OnInit {
     //     }
     // };
 
-     onSubmit() {
-             console.log("I am in onSubmit");
-             console.log(this.deck);
-             this.deckService.updateDeck(this.deck)
-             .subscribe(response=>{
+    onSubmit() {
+        console.log("I am in onSubmit");
+        console.log(this.deck);
+        this.deckService.updateDeck(this.deck)
+            .subscribe(response => {
                 console.log(response);
             },
             (err)=>console.log(err)
         );
-             //this.ngOnInit();
-        }
+    }
+    saveDeck() {
+        this.deckService.getDeckByLinking(this.deck.Linking)
+            .then(deck => this.deck = deck);
+        this.moderationService.setCurrentDeck(this.deck);
+    }
 
     // deleteDecks(){
     //     for(let i = 0; i < this.chosenDecksLinking.length; i++){

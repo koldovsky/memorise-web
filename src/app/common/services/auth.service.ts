@@ -4,17 +4,19 @@ import { Router } from '@angular/router';
 
 import 'rxjs/add/operator/toPromise';
 
-import { User, Token, Deck, PageResponse } from '../models/models';
+import { User, RegisterExternalBindingModel, Token } from '../models/models';
+import { Deck, PageResponse } from '../models/models';
 import { handleError } from '../functions/functions';
-
 
 @Injectable()
 export class AuthService {
     valid: boolean;
     errorMessage = '';
     isAuthorized: boolean;
-    
-       
+    name: string;
+    user: User;
+    userLocal: any;
+
     private commonUrl = 'http://localhost:37271/';
     private IsValid = true;
 
@@ -30,21 +32,25 @@ export class AuthService {
             .then(response => {
                 const token = response as Token;
                 localStorage.setItem('token', token.access_token);
-                let expiresDate = this.calcExpirationDate( token.expires_in);
-                localStorage.setItem('tokenExpiresDate', expiresDate.toString());
+                localStorage.setItem('login', user.login);
+                // localStorage.setItem('user', user);
+                this.name = user.login;
+                // this.user = user;
                 this.IsValid = true;
+                const expiresDate = this.calcExpirationDate( token.expires_in);
+                localStorage.setItem('tokenExpiresDate', expiresDate.toString());
+                // this.IsValid = true;
             })
             .catch(
             error => {
                 this.IsValid = false;
                 this.errorMessage = 'input, please try again!';
-                
             });
     }
 
-    calcExpirationDate(seconds:number):Date {
+    calcExpirationDate(seconds: number): Date {
          const currentDate = new Date();
-         currentDate.setSeconds(currentDate.getSeconds()+seconds);
+         currentDate.setSeconds(currentDate.getSeconds() + seconds);
          return currentDate;
     }
 
@@ -53,11 +59,50 @@ export class AuthService {
         return this.http.post(this.commonUrl + 'Account/SignUp', user)
             .toPromise()
             .then(response => {
-                this.valid = true;
+                this.IsValid = true;
             })
             .catch(handleError => {
                 this.IsValid = false;
             });
+    }
+
+    signUpFacebook(user) {
+        return this.http.post(this.commonUrl + 'Account/RegisterExternal', user)
+            .toPromise()
+            .then(response => {
+                /* this.userLocal.login = "user1";
+                this.userLocal.password = "123123";
+                this.signIn(this.userLocal
+                ) */
+                // this.IsValid = true;
+                const token = response as Token;
+                localStorage.setItem('token', token.access_token);
+                localStorage.setItem('login', token.userName);
+                console.log(token.access_token);
+                window.location.href = 'http://localhost:4200/catalog/courses/Any';
+                // this.router.navigate(['catalog/courses']);
+            })
+            .catch(handleError => {
+                // this.IsValid = false;
+                // window.location.href = 'http://localhost:4200/catalog/courses';
+            });
+    }
+
+    getCurrentUserLogin(): string {
+        if (this.isAuthorized && localStorage.getItem('login')) {
+            return this.name = localStorage.getItem('login');
+        }
+        return;
+    }
+
+    getCurrentUser(): User {
+        // console.log(localStorage.getItem('user'));
+        /* if(this.isAuthorized && localStorage.getItem('user')){
+            this.user = JSON.parse(localStorage.getItem('user')) as User;
+            console.log(this.user.Login);
+            return this.user;
+        } */
+        return;
     }
 
     validData(): boolean {
@@ -80,14 +125,12 @@ export class AuthService {
         this.errorMessage = message;
     }
 
-    checkIfIsAuthorized(): void {
-        let currentDate = new Date();
-        let expiresDate = new Date(localStorage.getItem('tokenExpiresDate'));
-        
-        if (this.getToken() !== 'empty' && currentDate < expiresDate) {
-            this.isAuthorized = true;
-        } else {
-            this.isAuthorized = false;
-        }
+    checkIfIsAuthorized(): boolean {
+        const currentDate = new Date();
+        const expiresDate = new Date(localStorage.getItem('tokenExpiresDate'));
+
+        this.isAuthorized = this.getToken() !== 'empty' && currentDate < expiresDate;
+        console.log(this.isAuthorized);
+        return this.isAuthorized;
     }
 }

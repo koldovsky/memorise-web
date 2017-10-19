@@ -1,9 +1,9 @@
-<div class="container marginTopAndBottom">
-    <button type="button" class="btn btn-primary" data-toggle="modal" 
+
+    <button type="button" class="btn btn-primary marginTopAndBottom" data-toggle="modal" 
     data-target="#createCategoryFormModal" data-whatever="createCategory">
      Create new category
     </button>
-    </div>
+    
     <!-- Modal Form -->
     <div class="modal fade" id="createCategoryFormModal" tabindex="-1" role="dialog" 
     aria-labelledby="createCategoryFormModalLabel" aria-hidden="true">
@@ -16,6 +16,8 @@
             </button>
                 </div>
                 <div class="modal-body">
+                     <!-- Snackbar -->
+                     <div id="snackbar">{{submitMessage}}</div>
                      <!-- Form -->
                     <form (ngSubmit)="onSubmit()" #categoryForm="ngForm">
                         <div class="form-group">
@@ -23,7 +25,8 @@
                             <div class="input-group">
                                     <input type="text" class="form-control" placeholder="category name" 
                                     id="name" 
-                                    required maxlength="15" 
+                                    required maxlength={{regex.MAX_LENGTH_INPUT}} 
+                                    pattern={{regex.INPUT_REGEX}}
                                     [(ngModel)]='category.Name' 
                                     name="Name" #name="ngModel">
                                     <span class="input-group-btn">
@@ -38,19 +41,21 @@
                                 Please check if category name is unique.
                             </small>
                             <div *ngIf="name.invalid && (name.dirty || name.touched)"
-                               class="alert alert-danger">
-                                 <div *ngIf="name.errors.required">
-                                  Name is required.
-                                 </div>
-                            </div>
-                            <div *ngIf="!isUnique && afterCheck && (name.dirty || name.touched)"
                             class="alert alert-danger">
-                                Category with such name already exists! Please try anouther.
-                               </div>
+                              <div *ngIf="name.errors.required">
+                                 {{error.REQUIRED}}
+                              </div>
+                              <div *ngIf="name.errors.pattern">
+                                 {{error.INCORRECT_INPUT}}
+                              </div>
+                            </div>
+                         <div *ngIf="!isUnique && afterCheck && (name.dirty || name.touched)"
+                         class="alert alert-danger">
+                         {{error.NAME_EXISTS}}
+                            </div>
                         </div>
                         <div class="form-group" hidden>
                                  <input type="text" class="form-control" id="linking" aria-describedby="basic-addon"
-                                  required 
                                   [(ngModel)]='category.Linking' 
                                   name="Linking" 
                                   >
@@ -60,11 +65,11 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary" 
-                    [disabled]="!categoryForm.form.valid" (click)="onSubmit(); categoryForm.reset()"
+                    [disabled]="!categoryForm.form.valid" (click)="onSubmit(categoryForm)"
                     >
                     Create
-                    </button>
-                </div>
+                </button>
             </div>
         </div>
     </div>
+</div>
