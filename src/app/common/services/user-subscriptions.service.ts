@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import 'rxjs/add/operator/toPromise';
+import { Observable } from 'rxjs/Observable';
 
 import { User, Course, Deck } from '../models/models';
 import { handleError } from '../functions/functions';
@@ -13,32 +14,30 @@ export class UserSubscriptionsService {
 
     constructor(private http: HttpClient) { }
 
-    getUserCourses(userLogin: string): Promise<Course[]> {
-        const URL = `${this.SubscriptionsUrl}/GetUserCourses/${userLogin}`;
+    getSubscribedCourses(userName: string): Observable<Course[]> {
+        const URL = `${this.SubscriptionsUrl}/GetSubscribedCourses/${userName}`;
         return this.http.get(URL)
-            .toPromise()
-            .then(response => response as Course[])
+            .map(response => response as Course[])
             .catch(handleError);
     }
 
-    getUserDecks(userLogin: string): Promise<Deck[]> {
-        const URL = `${this.SubscriptionsUrl}/GetUserDecks${userLogin}`;
+    getSubscribedDecks(userName: string): Observable<Deck[]> {
+        const URL = `${this.SubscriptionsUrl}/GetSubscribedDecks/${userName}`;
 
         return this.http.get(URL)
-            .toPromise()
-            .then(response => response as User)
+            .map(response => response as User)
             .catch(handleError);
     }
 
-    createCourseSubscription(userLogin: string, courseId: number) {
-        const URL = `${this.StatisticsUrl}/CreateCourseSubsription/${userLogin}/${courseId}`;
+    subscribeToCourse(userName: string, courseId: number): Observable<Response> {
+        const URL = `${this.StatisticsUrl}/CreateCourseSubsription/${userName}/${courseId}`;
 
-        this.http.post(URL, null, null).catch(handleError);
+        return this.http.post(URL, null).catch(handleError);
     }
 
-    createDeckSubscription(userLogin: string, deckId: number) {
-        const URL = `${this.StatisticsUrl}/CreateDeckSubsription/${userLogin}/${deckId}`;
+    subscribeToDeck(userName: string, deckId: number): Observable<Response> {
+        const URL = `${this.StatisticsUrl}/CreateDeckSubsription/${userName}/${deckId}`;
 
-        this.http.post(URL, null, null).catch(handleError);
+        return this.http.post(URL, null).catch(handleError);
     }
 }

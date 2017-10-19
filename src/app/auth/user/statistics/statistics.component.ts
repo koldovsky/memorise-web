@@ -34,8 +34,8 @@ export class StatisticsComponent implements OnInit {
     private statisticsService: StatisticsService,
     private route: ActivatedRoute,
     // Just to see that it works
-    private deckService: DeckService
-  ) {  }
+    // private deckService: DeckService
+  ) { }
 
   ngOnInit() {
     this.route.paramMap
@@ -43,37 +43,27 @@ export class StatisticsComponent implements OnInit {
         .getUserByLogin(params.get('name')))
       .subscribe(user => {
         this.userLogin = user.Login;
+        this.dependency = 'Deck';
+        this.nameInfo = null;
+        this.setNamesInfo();
+        this.setSuccessPercent();
       });
 
-    this.dependency = 'Deck';
+    // // Just to see that it works
+    // this.deckService.getDecks().then(d => {
+    //   d.forEach(deck => {
+    //     this.namesInfo.push(deck.Name);
+    //     this.addDeckSuccessPercent(deck);
+    //   });
+    // });
 
-    // Just to see that it works
-    this.deckService.getDecks().then(d => {
-      d.forEach(deck => {
-        this.namesInfo.push(deck.Name);
-        this.addDeckSuccessPercent(deck);
-      });
-    });
-
-    // //What really should be
-    // this.setNamesInfo();
-    // this.setSuccessPercent();
+    // What really should be
   }
 
-  // getUserDecks(): Deck[] {
+  // getSubscribedDecks(): Observable<Deck[]> {
   //   // this.subscribtionsServise.getUserDecks(this.userLogin)
   //   //   .then(d => decks = d);
-  //   let decks = [];
-  //   let isLoaded = false;
-  //   this.deckService.getDecks().then(d => {
-  //     decks = d;
-  //     isLoaded = true;
-  //   });
-  //   while (true) {
-  //     isLoaded ? break : continue;
-  //   }
-
-  //   return decks;
+  //   return this.subscribtionsServise.getSubscribedDecks(this.userLogin);
   // }
 
   // getUserCourses(): Course[] {
@@ -125,8 +115,8 @@ export class StatisticsComponent implements OnInit {
     this.statisticsInfo = [];
     if (this.dependency === 'Course') {
       this.subscribtionsServise
-        .getUserCourses(this.userLogin)
-        .then(courses => {
+        .getSubscribedCourses(this.userLogin)
+        .subscribe(courses => {
           courses.forEach(course => {
             if (this.nameInfo === null || course.Name === this.nameInfo) {
               this.addCourseSuccessPercent(course);
@@ -136,8 +126,8 @@ export class StatisticsComponent implements OnInit {
 
     } else {
       this.subscribtionsServise
-        .getUserDecks(this.userLogin)
-        .then(decks => {
+        .getSubscribedDecks(this.userLogin)
+        .subscribe(decks => {
           decks.forEach(deck => {
             if (this.nameInfo === null || deck.Name === this.nameInfo) {
               this.addDeckSuccessPercent(deck);
@@ -148,32 +138,35 @@ export class StatisticsComponent implements OnInit {
   }
 
   addCourseSuccessPercent(course: Course): void {
-    const statistics: Statistics[] = [];
-    const deckStatisticsInfo: StatisticsInfo[] = [];
-
-    course.Decks.forEach(deck => {
-      this.statisticsService
-        .getStatisticsByUserAndDeck(this.userLogin, deck.Id)
-        .then(stats => {
-          deckStatisticsInfo.push({
-            name: deck.Name,
-            successPercent: this.calculateSuccessPercent(stats)
-          });
-          statistics.concat(stats);
+    // const statistics: Statistics[] = [];
+    this.statisticsService
+         .getStatisticsByUserAndCourse(this.userLogin, course.Id)
+         .subscribe(statistics => {
+            this.statisticsInfo.push({
+              name: course.Name,
+              successPercent: this.calculateSuccessPercent(statistics),
+              // containInfo: deckStatisticsInfo
         });
-    });
+      });
 
-    this.statisticsInfo.push({
-      name: course.Name,
-      successPercent: this.calculateSuccessPercent(statistics),
-      containInfo: deckStatisticsInfo
-    });
+    // const deckStatisticsInfo: StatisticsInfo[] = [];
+    // course.Decks.forEach(deck => {
+    //   this.statisticsService
+    //     .getStatisticsByUserAndDeck(this.userLogin, deck.Id)
+    //     .subscribe(stats => {
+    //       deckStatisticsInfo.push({
+    //         name: deck.Name,
+    //         successPercent: this.calculateSuccessPercent(stats)
+    //       });
+    //       statistics.concat(stats);
+    //     });
+    // });
   }
 
   addDeckSuccessPercent(deck: Deck): void {
     this.statisticsService
       .getStatisticsByUserAndDeck(this.userLogin, deck.Id)
-      .then(statistics => {
+      .subscribe(statistics => {
         this.statisticsInfo.push({
           name: deck.Name,
           successPercent: this.calculateSuccessPercent(statistics)
@@ -183,18 +176,25 @@ export class StatisticsComponent implements OnInit {
 
   setNamesInfo(): void {
     this.namesInfo = [];
+    this.nameInfo = null;
+
     if (this.dependency === 'Course') {
       this.subscribtionsServise
-        .getUserCourses(this.userLogin)
-        .then(courses => {
+        .getSubscribedCourses(this.userLogin)
+        .subscribe(courses => {
           courses.forEach(course => this.namesInfo.push(course.Name));
         });
     } else {
       this.subscribtionsServise
-      .getUserDecks(this.userLogin)
-      .then(decks => {
-        decks.forEach(deck => this.namesInfo.push(deck.Name));
-      });
+        .getSubscribedDecks(this.userLogin)
+        .subscribe(decks => {
+          decks.forEach(deck => this.namesInfo.push(deck.Name));
+        });
     }
+  }
+
+  resetStatistics(): void {
+    this.setNamesInfo();
+    this.setSuccessPercent();
   }
 }
