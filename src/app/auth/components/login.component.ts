@@ -4,10 +4,10 @@ import { AuthService } from '../../common/services/auth.service';
 
 import { Router } from '@angular/router';
 
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-declare var jquery:any;
-declare var $ :any;
+declare var jquery: any;
+declare var $: any;
 declare var window: any;
 declare var FB: any;
 
@@ -17,15 +17,15 @@ declare var FB: any;
     styleUrls: ['./login.component.css']
 })
 
-export class LoginComponent implements OnInit {    
-    clicked = false;        
-    myForm: FormGroup;    
-    
+export class LoginComponent implements OnInit {
+    clicked = false;
+    myForm: FormGroup;
+
     constructor(
         public fb: FormBuilder,
         private router: Router,
         private authService: AuthService
-    ) {    
+    ) {
         this.myForm = this.fb.group({
             'login': new FormControl('', [
                 Validators.required,
@@ -48,37 +48,37 @@ export class LoginComponent implements OnInit {
 
         window.fbAsyncInit = () => {
             FB.getLoginStatus(function (response) {
-                FB.Event.subscribe('auth.statusChange', (response => {                   
+                FB.Event.subscribe('auth.statusChange', (response => {
                     if (response.status === 'connected') {
-                        let accessToken = response.authResponse.accessToken;                        
+                        let accessToken = response.authResponse.accessToken;
                         var url = '/me?fields=name,email';
-                        FB.api(url, function (response) {                                                        
+                        FB.api(url, function (response) {
                             authService.signUpFacebook({
                                 UserName: response.name.split(' ')[0],
                                 Email: response.email,
                                 Provider: 'Facebook',
                                 ExternalAccessToken: accessToken
-                            });                                                                          
-                        }, { scope: 'email' }) 
+                            });
+                        }, { scope: 'email' })
                         //window.location.href = 'http://localhost:4200/catalog/courses';                                                                        
                     }
                 }));
             });
         }
 
-    }        
-    
+    }
+
     LogIn(user): void {
         this.authService.signIn(user)
-        .then(() => {
-            if (this.authService.validData()) {                                
-                this.authService.checkIfIsAuthorized();
-                this.router.navigate(['catalog/courses/Any']);                          
-            } else {
-                this.myForm.controls.login.setValue('');
-                this.myForm.controls.password.setValue('');
-            }
-        });
+            .then(() => {
+                if (this.authService.validData()) {
+                    this.authService.checkIfIsAuthorized();
+                    this.router.navigate(['catalog/courses/Any']);
+                } else {
+                    this.myForm.controls.login.setValue('');
+                    this.myForm.controls.password.setValue('');
+                }
+            });
         this.clicked = true;
     }
 
@@ -86,12 +86,12 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['register']);
     }
 
-    ngOnInit(): void {  
+    ngOnInit(): void {
         if (window.FB) {
             window.FB.XFBML.parse();
-        }               
-    }    
+        }
+    }
 }
 
 
-    
+
