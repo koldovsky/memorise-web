@@ -14,18 +14,17 @@ export class NumberToArrayPipeComponent implements PipeTransform {
         }
         let pagesCount: number;
         if (page === 0 && totalCount / pageSize > 5) {
-             pagesCount = 3;
+            pagesCount = 3;
         } else {
-             pagesCount = totalCount / pageSize;
+            pagesCount = totalCount / pageSize;
         }
 
         let temp = Math.floor(pagesCount);
         if (temp < pagesCount) {
             temp++;
         }
-        
+
         if (page === 0) {
-           
             page = 1;
             for (let i = page; count < 3 && i < temp; i++) {
                 array.push(i);

@@ -1,4 +1,7 @@
 import { Component, OnInit, Pipe, PipeTransform, NgModule } from '@angular/core';
+
+import * as _ from 'underscore';
+
 import { FilterPipe } from '../../../pipes/filter.pipe';
 import { SortingPipe } from '../../../pipes/sorting.pipe';
 import { PaginationComponent } from '../../../pagination/pagination.component';
@@ -6,7 +9,6 @@ import { NumberToArrayPipeComponent } from '../../../pipes/number-to-array.pipe'
 
 import { Deck, PageResponse } from '../../../common/models/models';
 import { DeckService } from '../../../common/services/deck.service';
-import * as _ from 'underscore';
 import { MessageService } from '../../../common/services/message.service';
 
 @Component({
@@ -73,9 +75,7 @@ export class DeckTableComponent implements OnInit {
         this.onNotify(0);
     }
 
-
-
-    onDeckAdded(newDeck:Deck):void{
+    onDeckAdded(newDeck: Deck): void {
         this.decks.pop();
         this.decks.unshift(newDeck);
     }
@@ -86,11 +86,11 @@ export class DeckTableComponent implements OnInit {
 
     confirmDelete(): void {
         this.deckService.deleteDeck(this.currentDeck.Id)
-        .subscribe(()=>{
-        this.decks = this.decks.filter(x=>x.Id!==this.currentDeck.Id); 
-        },
-        (err)=>console.log(err)
-        );
+            .subscribe(() => {
+                this.decks = this.decks.filter(x => x.Id !== this.currentDeck.Id);
+            },
+            (err) => console.log(err)
+            );
     }
 
     onBtnInfoClick(btnInfoLinking: string) {

@@ -1,5 +1,9 @@
 import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators, NgForm } from '@angular/forms';
+
+import { Observable } from 'rxjs/Observable';
+import { FileUploader } from 'ng2-file-upload';
+
 import { Course, Category } from '../../../common/models/models';
 
 import { AuthService } from '../../../common/services/auth.service';
@@ -9,8 +13,6 @@ import { CourseService } from '../../../common/services/course.service';
 import { handleError } from '../../../common/functions/functions';
 import { regexExpression } from '../../../common/helpers/regexExpression';
 import { errorMessages } from '../../../common/helpers/errorMessages';
-import { Observable } from 'rxjs/Observable';
-import { FileUploader } from 'ng2-file-upload';
 
 @Component({
     selector: 'create-course',
@@ -24,11 +26,11 @@ export class CreateCourseComponent implements OnInit {
     course: Course;
     uploader: FileUploader;
     categories: Category[];
-    isLoaded: boolean = false;
-    isUnique: boolean = false;
-    isPaid: boolean = false;
-    afterCheck: boolean = false;
-    submitMessage: string = '';
+    isLoaded = false;
+    isUnique = false;
+    isPaid = false;
+    afterCheck = false;
+    submitMessage = '';
 
     uploadUrl = 'http://localhost:37271/Image/UploadPhotoForCourse';
 
@@ -51,6 +53,9 @@ export class CreateCourseComponent implements OnInit {
         });
     }
 
+    @Output()
+    afterCourseAdded: EventEmitter<Course> = new EventEmitter<Course>();
+
     ngOnInit(): void {
         this.regex = regexExpression;
         this.error = errorMessages;
@@ -69,17 +74,16 @@ export class CreateCourseComponent implements OnInit {
         } else {
             this.courseService.checkIfCourseExists(this.course.Name)
                 .subscribe(response => {
-                    let result = response as Course;
-                    if (result.Name == 'unique') {
+                    const result = response as Course;
+                    if (result.Name === 'unique') {
                         this.isUnique = true;
                         this.createLinking();
                         this.createCourse();
                         form.reset();
                         this.isUnique = false;
-                    }
-                    else {
+                    } else {
                         this.isUnique = false;
-                        this.course.Linking = "";
+                        this.course.Linking = '';
                         this.afterCheck = true;
                     }
                 },
@@ -91,10 +95,9 @@ export class CreateCourseComponent implements OnInit {
     createCourse() {
         this.courseService.createCourse(this.course)
             .subscribe(course => {
-                this.submitMessage = "Course was created successfully";
-
+                this.submitMessage = 'Course was created successfully';
                 this.uploader.queue[0].url = `${this.uploadUrl}/${(course as Course).Linking}`;
-                this.uploader.queue[0].alias = "Photo";
+                this.uploader.queue[0].alias = 'Photo';
                 this.uploader.uploadAll();
                 this.showSnackbar();
                 this.afterCourseAdded.emit(course as Course);
@@ -107,22 +110,21 @@ export class CreateCourseComponent implements OnInit {
     }
 
     showSnackbar() {
-        var x = document.getElementById("snackbar")
-        x.className = "show";
-        setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+        const x = document.getElementById('snackbar');
+        x.className = 'show';
+        setTimeout(function () { x.className = x.className.replace('show', ''); }, 3000);
     }
 
     checkName() {
         this.courseService.checkIfCourseExists(this.course.Name)
             .subscribe(response => {
-                let result = response as Course;
-                if (result.Name == 'unique') {
+                const result = response as Course;
+                if (result.Name === 'unique') {
                     this.isUnique = true;
                     this.createLinking();
-                }
-                else {
+                } else {
                     this.isUnique = false;
-                    this.course.Linking = "";
+                    this.course.Linking = '';
                     this.afterCheck = true;
                 }
             },
@@ -131,9 +133,6 @@ export class CreateCourseComponent implements OnInit {
     }
 
     createLinking(): void {
-        this.course.Linking = this.course.Name.replace(this.regex.LINKING, "");
+        this.course.Linking = this.course.Name.replace(this.regex.LINKING, '');
     }
-
-    @Output()
-    afterCourseAdded: EventEmitter<Course> = new EventEmitter<Course>();
 }

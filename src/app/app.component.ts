@@ -8,7 +8,7 @@ import { AuthService } from './common/services/auth.service';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Memo Rise';
   description = 'Some description';
   name: string;
@@ -16,7 +16,7 @@ export class AppComponent {
   constructor(private authService: AuthService
   ) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.authService.checkIfIsAuthorized();
   }
 }

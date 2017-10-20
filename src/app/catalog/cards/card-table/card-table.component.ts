@@ -1,4 +1,5 @@
 import { Component, OnInit, NgModule } from '@angular/core';
+
 import { CardService } from '../../../common/services/card.service';
 import { Card, Deck, CardType } from '../../../common/models/models';
 import { DeckService } from '../../../common/services/deck.service';
@@ -13,7 +14,6 @@ import { CreateCardComponent } from '../create-card/create-card.component';
 })
 
 export class CardTableComponent implements OnInit {
-
     cards: Card[];
     deck: Deck;
     decks: Deck[];
@@ -41,9 +41,10 @@ export class CardTableComponent implements OnInit {
         this.quizeService.GetCardsByDeck(this.deck.Linking)
             .then(cards => this.cards = cards);
     }
-    onCardAdded(newCard:Card):void{
+
+    onCardAdded(newCard: Card): void {
         this.cards.pop();
         this.cards.unshift(newCard);
-        
+
     }
 }

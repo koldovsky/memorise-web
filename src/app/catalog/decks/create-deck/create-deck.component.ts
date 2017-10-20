@@ -25,10 +25,13 @@ export class CreateDeckComponent implements OnInit {
     deck: Deck;
     uploader: FileUploader;
     categories: Category[];
-    isLoaded: boolean = false;
-    isUnique: boolean = false;
-    isPaid: boolean = false;
-    afterCheck: boolean = false;
+    isLoaded = false;
+    isUnique = false;
+    isPaid = false;
+    afterCheck = false;
+
+    @Output()
+    afterDeckAdded: EventEmitter<Deck> = new EventEmitter<Deck>();
 
     uploadUrl = 'http://localhost:37271/Image/UploadPhotoForDeck';
 
@@ -53,11 +56,11 @@ export class CreateDeckComponent implements OnInit {
                 this.categories = categories;
                 this.isLoaded = true;
             });
-            this.uploader = new FileUploader({
-                url: this.uploadUrl,
-                queueLimit: 1,
-                removeAfterUpload: true
-            });
+        this.uploader = new FileUploader({
+            url: this.uploadUrl,
+            queueLimit: 1,
+            removeAfterUpload: true
+        });
     }
 
     onSubmit(form: NgForm) {
@@ -68,17 +71,16 @@ export class CreateDeckComponent implements OnInit {
         } else {
             this.deckService.checkIfDeckExists(this.deck.Name)
                 .subscribe(response => {
-                    let result = response as Deck;
-                    if (result.Name == 'unique') {
+                    const result = response as Deck;
+                    if (result.Name === 'unique') {
                         this.isUnique = true;
                         this.createLinking();
                         this.createDeck();
                         form.reset();
                         this.isUnique = false;
-                    }
-                    else {
+                    } else {
                         this.isUnique = false;
-                        this.deck.Linking = "";
+                        this.deck.Linking = '';
                         this.afterCheck = true;
                     }
                 },
@@ -90,9 +92,9 @@ export class CreateDeckComponent implements OnInit {
     createDeck() {
         this.deckService.createDeck(this.deck)
             .subscribe(deck => {
-                this.submitMessage = "Deck was created successfully";
+                this.submitMessage = 'Deck was created successfully';
                 this.uploader.queue[0].url = `${this.uploadUrl}/${(deck as Deck).Linking}`;
-                this.uploader.queue[0].alias = "Photo";
+                this.uploader.queue[0].alias = 'Photo';
                 this.uploader.uploadAll();
                 this.showSnackbar();
                 this.afterDeckAdded.emit(deck as Deck);
@@ -105,22 +107,21 @@ export class CreateDeckComponent implements OnInit {
     }
 
     showSnackbar() {
-        var x = document.getElementById("snackbar")
-        x.className = "show";
-        setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+        const x = document.getElementById('snackbar')
+        x.className = 'show';
+        setTimeout(function () { x.className = x.className.replace('show', ''); }, 3000);
     }
 
     checkName() {
         this.deckService.checkIfDeckExists(this.deck.Name)
             .subscribe(response => {
-                let result = response as Deck;
-                if (result.Name == 'unique') {
+                const result = response as Deck;
+                if (result.Name === 'unique') {
                     this.isUnique = true;
                     this.createLinking();
-                }
-                else {
+                } else {
                     this.isUnique = false;
-                    this.deck.Linking = "";
+                    this.deck.Linking = '';
                     this.afterCheck = true;
                 }
             },
@@ -129,9 +130,6 @@ export class CreateDeckComponent implements OnInit {
     }
 
     createLinking(): void {
-        this.deck.Linking = this.deck.Name.replace(this.regex.LINKING, "");
+        this.deck.Linking = this.deck.Name.replace(this.regex.LINKING, '');
     }
-
-    @Output()
-    afterDeckAdded: EventEmitter<Deck> = new EventEmitter<Deck>();
 }

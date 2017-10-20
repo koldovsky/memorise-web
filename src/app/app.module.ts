@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Pipe, PipeTransform } from '@angular/core';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
     MatButtonModule,
@@ -21,9 +21,9 @@ import {
     MatChipsModule,
     MatTableModule
 } from '@angular/material';
-import {MatDatepickerModule, MatNativeDateModule} from '@angular/material';
+import { MatDatepickerModule, MatNativeDateModule } from '@angular/material';
 
-import {FormsModule, FormBuilder, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 
@@ -46,7 +46,7 @@ import { ModeratorComponent } from './moderator/moderator.component';
 import { CreateCourseComponent } from './catalog/courses/create-course/create-course.component';
 import { CreateDeckComponent } from './catalog/decks/create-deck/create-deck.component';
 import { CreateCategoryComponent } from './catalog/create-category/create-category.component';
-import { CreateCardComponent } from './catalog/cards/create-card/create-card.component'
+import { CreateCardComponent } from './catalog/cards/create-card/create-card.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { EditCourseComponent } from './catalog/courses/edit-course/edit-course.component';
 
