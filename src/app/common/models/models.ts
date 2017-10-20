@@ -65,7 +65,7 @@ export interface Deck extends BaseEntity {
     Category?: Category;
     CategoryName?: string;
     Cards?: Card[];
-    Courses? : Course[];
+    Courses?: Course[];
     CardIds?: string[];
     CourseNames?: string[];
     IsSubscribed?: boolean;
@@ -84,8 +84,8 @@ export interface Role extends BaseEntity {
 
 export interface Statistics extends BaseEntity {
     CardStatus: number;
-    UserLogin: User;
-    CardId: Card;
+    UserLogin: string;
+    CardId: number;
 }
 
 export interface User extends BaseEntity {
@@ -110,10 +110,16 @@ export interface RegisterExternalBindingModel {
     ExternalAccessToken: string;
 }
 
-export interface UserCourse extends BaseEntity {
+export interface CourseSubscription extends BaseEntity {
     Rating: number;
-    User: User;
-    Course: Course;
+    UserLogin: string;
+    CourseId: number;
+}
+
+export interface DeckSubscription extends BaseEntity {
+    Rating: number;
+    UserLogin: string;
+    DeckId: number;
 }
 
 export interface Token extends BaseEntity {

@@ -31,7 +31,7 @@ export class DeckService {
     }
 
     getDecksByPage(page: number, pageSize: number, sorted: boolean, search: string): Promise<PageResponse<Deck>> {
-        let postData = new SearchDataModel;
+        const postData = new SearchDataModel;
         postData.page = page; postData.pageSize = pageSize;
         postData.searchString = search; postData.sort = sorted;
         const url = this.decksPageUrl;
@@ -39,7 +39,7 @@ export class DeckService {
             .toPromise()
             .then(response => response as PageResponse<Deck>)
             .catch(handleError);
-        }
+    }
 
     getDecksByCourseName(courseName: string) {
         const URL = `${this.decksUrl}/GetAllDecksByCourse/${courseName}`;
@@ -58,14 +58,14 @@ export class DeckService {
             .then(response => response as Deck)
             .catch(handleError);
     }
-    createDeck(deck: Deck):Observable<Object>{
+    createDeck(deck: Deck): Observable<Object> {
         deck = this.encodeDeck(deck);
-        return this.http.post(`${this.deckModeratorUrl}CreateDeck`,deck)
+        return this.http.post(`${this.deckModeratorUrl}CreateDeck`, deck);
     }
 
-    updateDeck(deck: Deck){
+    updateDeck(deck: Deck) {
         deck = this.encodeDeck(deck);
-        return this.http.put(`${this.deckModeratorUrl}UpdateDeck`,deck);
+        return this.http.put(`${this.deckModeratorUrl}UpdateDeck`, deck);
     }
 
     deleteDeck(id: number) {
@@ -76,7 +76,7 @@ export class DeckService {
         return this.http.get(`${this.deckModeratorUrl}FindDeckByName/${btoa(deckName)}`);
     }
 
-    encodeDeck(deck: Deck): Deck{
+    encodeDeck(deck: Deck): Deck {
         deck.Name = btoa(deck.Name);
         deck.Linking = btoa(deck.Linking);
         deck.Description = btoa(deck.Description);

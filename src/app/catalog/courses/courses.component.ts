@@ -6,9 +6,10 @@ import { DeckService } from '../../common/services/deck.service';
 import { CategoryService } from '../../common/services/category.service';
 import { UserSubscriptionsService } from '../../common/services/user-subscriptions.service';
 import { StatisticsService } from '../../common/services/statistics.service';
-import { Course, Category, User } from '../../common/models/models';
+import { Course, Category, User, CourseSubscription } from '../../common/models/models';
 
 import { Subscription } from 'rxjs/Subscription';
+import { AuthService } from '../../common/services/auth.service';
 
 @Component({
     selector: 'app-courses',
@@ -21,14 +22,15 @@ export class CoursesComponent implements OnInit {
         private courseService: CourseService,
         // private deckService: DeckService,
         private categoryService: CategoryService,
+        private authService: AuthService,
         private subscriptionsService: UserSubscriptionsService,
         private statisticsService: StatisticsService,
         private route: ActivatedRoute) {
     }
 
-    currentUser: User;
+    currentUserLogin: string;
     courses: Course[];
-    subscription: Subscription;
+    subscriptions: CourseSubscription[];
 
     ngOnInit(): void {
         this.route.paramMap
@@ -37,38 +39,43 @@ export class CoursesComponent implements OnInit {
                 return category === 'Any'
                     ? this.courseService.getCourses()
                     : this.categoryService.getCoursesByCategory(category);
-            })
-            .subscribe(courses => {
-                courses.forEach(x => {
-                    x.IsSubscribed = false;
-                });
+            }).subscribe(courses => {
+                // courses.forEach(x => {
+                //     x.IsSubscribed = false;
+                // });
                 this.courses = courses;
             });
+        this.subscriptions = [];
+        // if (this.authService.checkIfIsAuthorized()) {
+        //     this.currentUserLogin = this.authService.getCurrentUserLogin();
+        //     this.subscriptionsService.getCourseSubscriptions(this.currentUserLogin)
+        //         .subscribe(subscriptions => {
+        //             // this.subscriptions = subscriptions;
+        //             subscriptions.forEach(x => {
+        //                 if (x.CourseId)
+        //             })
+        //         });
+        // }
     }
 
-    // setCourseDecks(name: string) {
-    //     this.deckService.getDecksByCourseName(name)
-    //         .then(decks => this.courses
-    //             .find(course => course.Linking === name).Decks = decks);
-    // }
+    checkIfIsSubscribed(course: Course): boolean {
+        // if (this.authService.isAuthorized) {
+            const subscription = this.subscriptions.find(x => x.CourseId === course.Id);
+        // }
+console.log(subscription);
+        return subscription !== undefined ? true : false;
+    }
 
     subscribeToCourse(course: Course): void {
-        if (this.currentUser === null) {
-            const message = 'Please, sign in to subscribe to course';
-            alert(message);
-        } else {
-            this.currentUser = {
-                Login: 'user1'
-            };
-            this.subscriptionsService.subscribeToCourse(this.currentUser.Login, course.Id)
-                .subscribe();
-            this.statisticsService.createStatisticsForCourse(this.currentUser.Login, course.Id)
-                .subscribe();
-            course.IsSubscribed = true;
-        }
+        this.subscriptionsService.subscribeToCourse(this.currentUserLogin, course.Id)
+            .subscribe();
+        this.statisticsService.createStatisticsForCourse(this.currentUserLogin, course.Id)
+            .subscribe();
+        // course.IsSubscribed = true;
     }
 
     unsubscribeFromCourse(course: Course): void {
-        course.IsSubscribed = false;
+        const subscription = this.subscriptions.find(x => x.Id === course.Id);
+        this.subscriptionsService.unsubscribeFromCourse(subscription.Id);
     }
 }
