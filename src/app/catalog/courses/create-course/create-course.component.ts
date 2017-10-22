@@ -18,112 +18,105 @@ import { Observable } from 'rxjs/Observable';
 })
 
 export class CreateCourseComponent implements OnInit {
-   
-   regex;
-   error; 
-   course:Course;
-   categories: Category[];
-   isLoaded:boolean = false;
-   isUnique:boolean = false;
-   isPaid:boolean = false;
-   afterCheck:boolean = false;
-   submitMessage:string='';
+
+    regex;
+    error;
+    course: Course;
+    categories: Category[];
+    isLoaded: boolean = false;
+    isUnique: boolean = false;
+    isPaid: boolean = false;
+    afterCheck: boolean = false;
+    submitMessage: string = '';
+    @Output()
+    afterCourseAdded: EventEmitter<Course> = new EventEmitter<Course>();
 
     constructor(
         private authService: AuthService,
-        private categoryService:CategoryService,
+        private categoryService: CategoryService,
         private courseService: CourseService
-    ) { 
+    ) {
         this.course = {
             Name: '',
             Linking: '',
             Description: '',
             Price: 0
         };
-      }
+    }
 
     ngOnInit(): void {
         this.regex = regexExpression;
         this.error = errorMessages;
         this.categoryService.getCategories()
-        .then(categories => {
-            this.categories = categories;
-            this.isLoaded = true;
-        });
+            .then(categories => {
+                this.categories = categories;
+                this.isLoaded = true;
+            });
     }
 
     onSubmit(form: NgForm) {
-        if(this.isUnique){
+        if (this.isUnique) {
             this.createCourse();
             form.reset();
-            this.isUnique=false;
-        }
-        
-        else{
-            this.courseService.checkIfCourseExists(this.course.Name)
-           .subscribe(response =>{
-               let result=response as Course;
-               if(result.Name=='unique'){
-                  this.isUnique = true;
-                  this.createLinking();
-                  this.createCourse();
-                  form.reset();
-                  this.isUnique=false;
-               }
-               else{
-                  this.isUnique = false;
-                  this.course.Linking="";
-                  this.afterCheck=true;
-               }
-             },
-             err=>(handleError)
-            );
-        }
-    }
-
-    createCourse(){
-                this.courseService.createCourse(this.course)
-                .subscribe(course=>{
-                    this.submitMessage = "Course was created successfully";
-                    this.showSnackbar();
-                    this.afterCourseAdded.emit(course as Course);
-                },
-                err=>{
-                    this.submitMessage = this.error.ERROR;
-                    this.showSnackbar();
-                }
-                );
-    }
-
-    showSnackbar(){
-        var x = document.getElementById("snackbar")
-        x.className = "show";
-        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-    }
-
-    checkName(){
-     this.courseService.checkIfCourseExists(this.course.Name)
-     .subscribe(response =>{
-         let result=response as Course;
-         if(result.Name=='unique'){
-            this.isUnique = true;
-            this.createLinking();
-         }
-         else{
             this.isUnique = false;
-            this.course.Linking="";
-            this.afterCheck=true;
-         }
-       },
-       err=>(handleError)
-      );
+        } else {
+            this.courseService.checkIfCourseExists(this.course.Name)
+                .subscribe(response => {
+                    const result = response as Course;
+                    if (result.Name === 'unique') {
+                        this.isUnique = true;
+                        this.createLinking();
+                        this.createCourse();
+                        form.reset();
+                        this.isUnique = false;
+                    } else {
+                        this.isUnique = false;
+                        this.course.Linking = '';
+                        this.afterCheck = true;
+                    }
+                },
+                err => (handleError)
+                );
+        }
     }
 
-    createLinking():void{
-        this.course.Linking = this.course.Name.replace(this.regex.LINKING, "");
+    createCourse() {
+        this.courseService.createCourse(this.course)
+            .subscribe(course => {
+                this.submitMessage = 'Course was created successfully';
+                this.showSnackbar();
+                this.afterCourseAdded.emit(course as Course);
+            },
+            err => {
+                this.submitMessage = this.error.ERROR;
+                this.showSnackbar();
+            });
     }
-    
-    @Output() 
-    afterCourseAdded: EventEmitter<Course>=new EventEmitter<Course>();
-        
+
+    showSnackbar() {
+        const x = document.getElementById('snackbar');
+        x.className = 'show';
+        setTimeout(function () { x.className = x.className.replace('show', ''); }, 3000);
+    }
+
+    checkName() {
+        this.courseService.checkIfCourseExists(this.course.Name)
+            .subscribe(response => {
+                const result = response as Course;
+                if (result.Name === 'unique') {
+                    this.isUnique = true;
+                    this.createLinking();
+                } else {
+                    this.isUnique = false;
+                    this.course.Linking = '';
+                    this.afterCheck = true;
+                }
+            },
+            err => (handleError)
+            );
+    }
+
+    createLinking(): void {
+        this.course.Linking = this.course.Name.replace(this.regex.LINKING, '');
+    }
 }

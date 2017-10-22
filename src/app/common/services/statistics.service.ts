@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs/Observable';
 
-import { Statistics, Course, Deck } from '../models/models';
+import { Statistics, Course, Deck, SubscriptionStatistics } from '../models/models';
 import { handleError } from '../functions/functions';
 
 @Injectable()
@@ -45,16 +45,15 @@ export class StatisticsService {
             .catch(handleError);
     }
 
-    createStatisticsForCourse(userLogin: string, courseId: number): Observable<Response> {
-        const URL = `${this.StatisticsUrl}/CreateCourseStatistics/${userLogin}/${courseId}`;
+    createStatisticsForCourse(statistics: SubscriptionStatistics): Observable<Object> {
+        const URL = `${this.StatisticsUrl}/CreateCourseStatistics`;
 
-        return this.http.post(URL, null).catch(handleError);
+        return this.http.post(URL, statistics);
     }
 
-    createStatisticsForDeck(userLogin: string, deckId: number): Observable<Response> {
-        const URL = `${this.StatisticsUrl}/CreateDeckStatistics/${userLogin}/${deckId}`;
+    createStatisticsForDeck(statistics: SubscriptionStatistics): Observable<Object> {
+        const URL = `${this.StatisticsUrl}/CreateDeckStatistics`;
 
-        return this.http.post(URL, null)
-            .catch(handleError);
+        return this.http.post(URL, statistics);
     }
 }

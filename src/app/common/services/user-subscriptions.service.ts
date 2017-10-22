@@ -9,8 +9,7 @@ import { handleError } from '../functions/functions';
 
 @Injectable()
 export class UserSubscriptionsService {
-    private SubscriptionsUrl = 'http://localhost:37271/UserSubscriptions';
-    // private StatisticsUrl = 'http://localhost:37271/Statistics';
+    private SubscriptionsUrl = 'http://localhost:37271/Subscriptions';
 
     constructor(private http: HttpClient) { }
 
@@ -18,58 +17,54 @@ export class UserSubscriptionsService {
         const URL = `${this.SubscriptionsUrl}/GetCourseSubscriptions/${userName}`;
 
         return this.http.get(URL)
-            .map(response => response as CourseSubscription[])
-            .catch(handleError);
+            .map(response => response as CourseSubscription[]);
     }
 
     getDeckSubscriptions(userName: string): Observable<DeckSubscription[]> {
         const URL = `${this.SubscriptionsUrl}/GetDeckSubscriptions/${userName}`;
 
         return this.http.get(URL)
-            .map(response => response as DeckSubscription[])
-            .catch(handleError);
+            .map(response => response as DeckSubscription[]);
     }
 
     getSubscribedCourses(userName: string): Observable<Course[]> {
         const URL = `${this.SubscriptionsUrl}/GetSubscribedCourses/${userName}`;
         return this.http.get(URL)
-            .map(response => response as Course[])
-            .catch(handleError);
+            .map(response => response as Course[]);
     }
 
     getSubscribedDecks(userName: string): Observable<Deck[]> {
         const URL = `${this.SubscriptionsUrl}/GetSubscribedDecks/${userName}`;
 
         return this.http.get(URL)
-            .map(response => response as User)
-            .catch(handleError);
+            .map(response => response as Deck[]);
     }
 
-    subscribeToCourse(userName: string, courseId: number): Observable<Response> {
-        const URL = `${this.SubscriptionsUrl}/CreateCourseSubsription/${userName}/${courseId}`;
+    subscribeToCourse(subscription: CourseSubscription): Observable<CourseSubscription> {
+        const URL = `${this.SubscriptionsUrl}/CreateCourseSubscription`;
 
-        return this.http.post(URL, null)
-            .catch(handleError);
+        return this.http.post(URL, subscription)
+            .map(response => response as CourseSubscription);
     }
 
-    subscribeToDeck(userName: string, deckId: number): Observable<Response> {
-        const URL = `${this.SubscriptionsUrl}/CreateDeckSubsription/${userName}/${deckId}`;
+    subscribeToDeck(subscription: DeckSubscription): Observable<DeckSubscription> {
+        const URL = `${this.SubscriptionsUrl}/CreateDeckSubscription`;
 
-        return this.http.post(URL, null)
-            .catch(handleError);
+        return this.http.post(URL, subscription)
+            .map(response => response as DeckSubscription);
     }
 
-    unsubscribeFromCourse(subscriptionId: number): Observable<Response> {
-        const URL = `${this.SubscriptionsUrl}/DeleteCourseSubsription/${subscriptionId}`;
+    unsubscribeFromCourse(subscriptionId: number): Observable<CourseSubscription> {
+        const URL = `${this.SubscriptionsUrl}/DeleteCourseSubscription/${subscriptionId}`;
 
         return this.http.delete(URL)
-            .catch(handleError);
+            .map(response => response as CourseSubscription);
     }
 
-    unsubscribeFromDeck(subscriptionId: number): Observable<Response> {
-        const URL = `${this.SubscriptionsUrl}/DeleteDeckSubsription/${subscriptionId}`;
+    unsubscribeFromDeck(subscriptionId: number): Observable<DeckSubscription> {
+        const URL = `${this.SubscriptionsUrl}/DeleteDeckSubscription/${subscriptionId}`;
 
         return this.http.delete(URL)
-            .catch(handleError);
+            .map(response => response as DeckSubscription);
     }
 }

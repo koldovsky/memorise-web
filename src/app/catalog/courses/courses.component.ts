@@ -10,6 +10,7 @@ import { Course, Category, User, CourseSubscription } from '../../common/models/
 
 import { Subscription } from 'rxjs/Subscription';
 import { AuthService } from '../../common/services/auth.service';
+import { handleError } from '../../common/functions/functions';
 
 @Component({
     selector: 'app-courses',
@@ -20,7 +21,6 @@ import { AuthService } from '../../common/services/auth.service';
 export class CoursesComponent implements OnInit {
     constructor(
         private courseService: CourseService,
-        // private deckService: DeckService,
         private categoryService: CategoryService,
         private authService: AuthService,
         private subscriptionsService: UserSubscriptionsService,
@@ -44,38 +44,65 @@ export class CoursesComponent implements OnInit {
                 //     x.IsSubscribed = false;
                 // });
                 this.courses = courses;
+                if (this.authService.checkIfIsAuthorized()) {
+                    this.currentUserLogin = this.authService.getCurrentUserLogin();
+                    this.subscriptionsService.getCourseSubscriptions(this.currentUserLogin)
+                        .subscribe(subscriptions => {
+                            this.subscriptions = subscriptions;
+                            this.checkSubscriptions();
+                            // console.log(this.subscriptions);
+                        });
+                }
             });
-        this.subscriptions = [];
-        // if (this.authService.checkIfIsAuthorized()) {
-        //     this.currentUserLogin = this.authService.getCurrentUserLogin();
-        //     this.subscriptionsService.getCourseSubscriptions(this.currentUserLogin)
-        //         .subscribe(subscriptions => {
-        //             // this.subscriptions = subscriptions;
-        //             subscriptions.forEach(x => {
-        //                 if (x.CourseId)
-        //             })
-        //         });
-        // }
     }
 
-    checkIfIsSubscribed(course: Course): boolean {
-        // if (this.authService.isAuthorized) {
-            const subscription = this.subscriptions.find(x => x.CourseId === course.Id);
-        // }
-console.log(subscription);
-        return subscription !== undefined ? true : false;
+    setSubscriptions() {
+        this.subscriptionsService.getCourseSubscriptions(this.currentUserLogin)
+            .subscribe(subscriptions => this.subscriptions = subscriptions);
+    }
+
+    checkSubscriptions() {
+        this.courses.forEach(course => {
+            course.IsSubscribed = this.subscriptions
+                .find(x => x.CourseId === course.Id)
+                ? true
+                : false;
+        });
     }
 
     subscribeToCourse(course: Course): void {
-        this.subscriptionsService.subscribeToCourse(this.currentUserLogin, course.Id)
-            .subscribe();
-        this.statisticsService.createStatisticsForCourse(this.currentUserLogin, course.Id)
-            .subscribe();
-        // course.IsSubscribed = true;
+        if (this.authService.isAuthorized) {
+            const subscription = {
+                Rating: -1,
+                UserLogin: this.currentUserLogin,
+                CourseId: course.Id
+            };
+            this.subscriptionsService.subscribeToCourse(subscription)
+                .subscribe(
+                x => {
+                    this.subscriptions.push(x);
+                    course.IsSubscribed = true;
+                },
+                err => handleError);
+        } else {
+            alert('Please, sign in to subscribe!');
+        }
+
+        // this.statisticsService.createStatisticsForCourse(this.currentUserLogin, course.Id)
+        //     .subscribe();
     }
 
     unsubscribeFromCourse(course: Course): void {
-        const subscription = this.subscriptions.find(x => x.Id === course.Id);
-        this.subscriptionsService.unsubscribeFromCourse(subscription.Id);
+        const subscription = this.subscriptions.find(x => x.CourseId === course.Id);
+        if (subscription) {
+            this.subscriptionsService.unsubscribeFromCourse(subscription.Id)
+                .subscribe(
+                x => {
+                    course.IsSubscribed = false;
+                    this.subscriptions = this.subscriptions.filter(s => s !== x);
+                },
+                err => handleError
+                );
+        }
     }
 }

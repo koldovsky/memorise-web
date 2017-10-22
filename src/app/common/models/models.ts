@@ -83,9 +83,14 @@ export interface Role extends BaseEntity {
 }
 
 export interface Statistics extends BaseEntity {
-    CardStatus: number;
+    CardStatus?: number;
     UserLogin: string;
     CardId: number;
+}
+
+export interface SubscriptionStatistics {
+    UserLogin: string;
+    ItemId: number;
 }
 
 export interface User extends BaseEntity {
@@ -111,13 +116,13 @@ export interface RegisterExternalBindingModel {
 }
 
 export interface CourseSubscription extends BaseEntity {
-    Rating: number;
+    Rating?: number;
     UserLogin: string;
     CourseId: number;
 }
 
 export interface DeckSubscription extends BaseEntity {
-    Rating: number;
+    Rating?: number;
     UserLogin: string;
     DeckId: number;
 }
