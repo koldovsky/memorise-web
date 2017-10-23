@@ -4,22 +4,22 @@
     <div class="col-md-12">
         <div class="form-group">
             <div class="row">
-                <div class="input-group col-md-3">
+                <div class="input-group col-sm-4">
                     <span class="input-group-addon">
                         <i class="material-icons">search</i>
                     </span>
-                    <input type="text" placeholder="Search by Deck Name" [(ngModel)]="searchText" (ngModelChange)="onChange($event)" />
+                    <input type="text" class="btn-block" placeholder="Search by Deck Name" [(ngModel)]="searchText" (ngModelChange)="onChange($event)" />
                 </div>
-                <div class="dropdown col-md-2">
-                    <button class="btn btn-secondary dropdown-toggle" id="filter" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div class="dropdown col-sm-4">
+                    <button class="btn btn-secondary dropdown-toggle btn-block" id="filter" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {{dropDownElements()}}
                     </button>
                     <div class="dropdown-menu" aria-labelledby="filter">
-                        <button *ngFor="let items of arrayOfElementByPage" class="dropdown-item" type="button" (click)="onSelectFilter(items)">{{items}}</button>
+                        <button *ngFor="let items of arrayOfElementByPage" class="dropdown-item " type="button" (click)="onSelectFilter(items)">{{items}}</button>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <button class="btn btn-primary" (click)="sortTable()">
+                <div class="col-sm-4">
+                    <button class="btn btn-primary btn-block" (click)="sortTable()">
                         Sorting by Name
                         <i class="material-icons">sort_by_alpha</i>
                     </button>
