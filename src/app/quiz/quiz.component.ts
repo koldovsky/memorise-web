@@ -78,34 +78,17 @@ export class QuizComponent implements OnInit {
 
     finishQuiz() {
         this.quizService.cards = this.cards;
-        // // console.log('this.cards.length: ' + this.cards.length);
-        // this.codeAnswers = [];
-        // this.wordInputs = [];
-        // // console.log('this.codeAnswers.length: ' + this.codeAnswers.length);
-        // // console.log('this.wordInputs.length: ' + this.wordInputs.length);
-        // for (let i = 0; i < this.cards.length; i++) {
-        //     if (this.cards[i].CardType.Name === 'Words input') {
-        //         this.wordInputCheck(this.cards[i], false);
-        //         // console.log('In Words input');
-        //     } else if (this.cards[i].CardType.Name === 'Code input') {
-        //         this.codeAnswerCheck(this.cards[i]);
-        //         // console.log('In Code input');
-        //     }
-        // }
-        // // this.cards.forEach(x => {
-        // //     console.log('In this.cards.forEach');
-        // //     if (x.CardType.Name === 'Words input') {
-        // //         this.wordInputCheck(x, false);
-        // //         console.log('In Words input');
-        // //     } else if (x.CardType.Name === 'Code input') {
-        // //         this.codeAnswerCheck(x);
-        // //         console.log('In Code input');
-        // //     }
-        // // });
-        // console.log('this.codeAnswers.length: ' + this.codeAnswers.length);
-        // console.log('this.wordInputs.length: ' + this.wordInputs.length);
-        // this.quizService.codeAnswers = this.codeAnswers;
-        // this.quizService.wordInputs = this.wordInputs;
+         this.codeAnswers = [];
+         this.wordInputs = [];
+          this.cards.forEach(x => {
+              if (x.CardType.Name === 'Words input') {
+                  this.wordInputCheck(x, false);
+             } else if (x.CardType.Name === 'Code input') {
+                 this.codeAnswerCheck(x);
+             }
+         });
+         this.quizService.codeAnswers = this.codeAnswers;
+         this.quizService.wordInputs = this.wordInputs;
     }
 
     countPassedQuestions(): number {
@@ -263,7 +246,14 @@ export class QuizComponent implements OnInit {
             }
         }
         } else {
-            return;
+            this.wordInputs[card.Id] = {
+                CardId: card.Id,
+                CustomerAnswerText: '',
+                RightAnswersText: [],
+                IsRight: false
+            };
+            card.CustomerAnswersText = '';
+            this.innerWordInputCheck(card);
         }
     }
 
