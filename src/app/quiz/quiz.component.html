@@ -63,7 +63,7 @@
                         <div class="card-header no-select" id="cardTitle{{cards[counter].Id}}">
                             <div class="row">
                                 Question {{counter+1}} / {{cardsCount}}
-                                <button class="btn btn-primary" (click)="checkQuestion()" id="check-button">Check</button>
+                                <button class="btn btn-primary" (click)="wordInputCheck(cards[counter], true)" id="check-button">Check</button>
                             </div>
                         </div>
 
@@ -74,7 +74,10 @@
                             <br>
                             <div>
                                 <label for="customerAnswerId">Type your answer</label>
-                                <input type="text" id="customerAnswerId" placeholder="Type your answer here" [(ngModel)]="customerAnswer" name="customerAnswerName">
+                                <input type="text" id="customerAnswerId" 
+                                placeholder="Type your answer here" [(ngModel)]="cards[counter].CustomerAnswersText"
+                                name="customerAnswerName"
+                                >
                             </div>
                         </div>
                     </div>
@@ -85,7 +88,9 @@
                         <div class="card-header no-select" id="cardTitle{{cards[counter].Id}}">
                             <div class="row">
                                 Question {{counter+1}} / {{cardsCount}}
-                                <button class="btn btn-primary" (click)="codeAnswerCheck()" id="check-button">Check</button>
+                                <button class="btn btn-primary" 
+                                (click)="codeAnswerCheck(cards[counter])" 
+                                id="check-button">Check</button>
                             </div>
                         </div>
 

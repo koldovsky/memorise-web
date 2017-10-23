@@ -21,27 +21,53 @@ export class QuizResultsComponent implements OnInit {
   ngOnInit(): void {
     this.cards = this.quizService.cards;
     this.cards.forEach(c => {
+      // if (c.CardType.Name === 'Code input') {
+      //   c.RightAnswersText = '';
+      // }else {
       c.RightAnswersText = '';
       c.Answers.forEach(a => {
         if (a.IsCorrect === true) {
           c.RightAnswersText += a.Text + '; ';
         }
+        c.RightAnswersText = c.RightAnswersText.substr(0, c.RightAnswersText.lastIndexOf(';'));
       });
-      c.RightAnswersText = c.RightAnswersText.substr(0, c.RightAnswersText.lastIndexOf(';'))
+      // }
     });
     this.cards.forEach(c => {
       c.CustomerAnswersText = '';
+      // if (c.CardType.Name === 'Words input') {
+      //   c.CustomerAnswersText = this.quizService.wordInputs
+      //   .find(x => x.CardId === c.Id).CustomerAnswerText;
+      // }else if (c.CardType.Name === 'Code input') {
+      //   c.CustomerAnswersText = this.quizService.codeAnswers
+      //   .find(x => x.CardId === c.Id).CodeAnswerText;
+      // }
       c.Answers.forEach(a => {
         if (a.IsChecked === true) {
           c.CustomerAnswersText += a.Text + '; ';
         }
       });
-      c.CustomerAnswersText = c.CustomerAnswersText.substr(0, c.CustomerAnswersText.lastIndexOf(';'))
+      c.CustomerAnswersText = c.CustomerAnswersText.substr(0, c.CustomerAnswersText.lastIndexOf(';'));
     });
   }
 
   checkCard(card: Card): string {
-    let result;
+    // if (card.CardType.Name === 'Words input') {
+    //   card.Answers.forEach(x => {
+    //     if (x.Text.trim() === this.quizService.wordInputs
+    //     .find(y => y.CardId === card.Id).CustomerAnswerText.trim()) {
+    //       return 'Right';
+    //     } else {
+    //       return 'Wrong';
+    //     }
+    //   });
+    // } else if (card.CardType.Name === 'Code input') {
+    //   if (this.quizService.codeAnswers.find(x => x.CardId === card.Id).IsRight){
+    //     return 'Right';
+    //   } else {
+    //     return 'Wrong';
+    //   }
+    // }else {
     let customerRightAnswersCount = 0;
     let rightAnswersCount = 0;
 
@@ -58,5 +84,6 @@ export class QuizResultsComponent implements OnInit {
     } else {
       return 'Wrong';
     }
+  // }
   }
 }

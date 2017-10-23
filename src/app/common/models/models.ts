@@ -140,10 +140,13 @@ export class SearchDataModel {
 
 export interface WordInput extends BaseEntity {
     CardId: number;
-    CustomerAnswer: string;
-    RightAnswers: string[];
+    CustomerAnswerText: string;
+    RightAnswersText: string[];
+    IsRight: boolean;
 }
 
 export interface CodeAnswer extends BaseEntity {
+    CardId: number;
     CodeAnswerText: string;
+    IsRight: boolean;
 }
