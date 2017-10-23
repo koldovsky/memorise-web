@@ -15,8 +15,8 @@ import { PaginationComponent } from '../../../pagination/pagination.component';
 export class CardTableComponent implements OnInit {
 
     cards: Card[];
-    deck: Deck;
-    arrayOfElementByPage = [5, 10, 'All'];
+    deckLinking: string;
+    arrayOfElementByPage = [1, 5, 10, 'All'];
     totalCount: number;
     page = 1; pageSize = this.arrayOfElementByPage[0];
     pageResponse: PageResponse<Card>;
@@ -30,17 +30,21 @@ export class CardTableComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.deck = this.moderationService.getCurrentDeck();
-        this.onNotify(1);
+        this.deckLinking = this.moderationService.getCurrentDeckLinking();
+        this.sortTable();
     }
 
     onNotify(index: number): void {
-        this.cardService.getSearchCardsByDeckLinking(index, +this.pageSize, this.sorted, this.searchText, 'BaseKnowledge')
+        this.cardService.getSearchCardsByDeckLinking(this.deckLinking, index, +this.pageSize, this.sorted, this.searchText)
             .then(pageResponse => {
                 this.cards = pageResponse.items;
                 this.page = index;
                 this.totalCount = pageResponse.totalCount;
             });
+    }
+
+    onChange(event: any) {
+        this.onNotify(1);
     }
 
     sortTable() {
@@ -61,6 +65,13 @@ export class CardTableComponent implements OnInit {
         this.onNotify(1);
     }
 
+    dropDownElements() {
+        if (this.pageSize === 0) {
+            return 'Elements by Page: All';
+        } else {
+            return 'Elements by Page: ' + this.pageSize;
+        }
+    }
 
     onCardAdded(newCard: Card): void {
         this.cards.pop();

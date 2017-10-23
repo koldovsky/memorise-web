@@ -1,11 +1,15 @@
-.marginTopAndBottom{
+/* .marginTopAndBottom{
   margin-top: 2%;
   margin-bottom: 2%;
-}
+} */
 
-.btn {
+/* .btn {
     margin-right: 2%;
-}
+} */
 .buttonWidth{
     max-width: 40px;
+}
+
+.moderator{
+    width: 25%;
 }

@@ -16,100 +16,96 @@ import { errorMessages } from '../../common/helpers/errorMessages';
 })
 
 export class CreateCategoryComponent implements OnInit {
-   
-   regex;
-   error;
-   category:Category;
-   isUnique:boolean = false;
-   afterCheck:boolean = false;
-   submitMessage:string='';
-   
+
+    regex;
+    error;
+    category: Category;
+    isUnique = false;
+    afterCheck = false;
+    submitMessage = '';
+
     constructor(
         private authService: AuthService,
-        private categoryService:CategoryService
-    ) { 
+        private categoryService: CategoryService
+    ) {
         this.category = {
             Name: '',
             Linking: ''
         };
-      }
+    }
 
     ngOnInit(): void {
         this.regex = regexExpression;
         this.error = errorMessages;
     }
 
-    onSubmit(form: NgForm) { 
-        if(this.isUnique){
+    onSubmit(form: NgForm) {
+        if (this.isUnique) {
             this.createCategory();
             form.reset();
-            this.isUnique=false;
-        }
-        else{
+            this.isUnique = false;
+        } else {
             this.categoryService.checkIfCategoryExists(this.category.Name)
-           .subscribe(response =>{
-               let result=response as Category;
-               if(result.Name=='unique'){
-                  this.isUnique = true;
-                  this.createLinking();
-                  this.createCategory();
-                  form.reset();
-                  this.isUnique=false;
-               }
-               else{
-                  this.isUnique = false;
-                  this.category.Linking="";
-                  this.afterCheck=true;
-               }
-             },
-             err=>(handleError)
-            );
+                .subscribe(response => {
+                    const result = response as Category;
+                    if (result.Name === 'unique') {
+                        this.isUnique = true;
+                        this.createLinking();
+                        this.createCategory();
+                        form.reset();
+                        this.isUnique = false;
+                    } else {
+                        this.isUnique = false;
+                        this.category.Linking = '';
+                        this.afterCheck = true;
+                    }
+                },
+                err => (handleError)
+                );
         }
     }
-    
-    createCategory(){
+
+    createCategory() {
         this.categoryService.createCategory(this.category)
-        .subscribe(category=>{
-            this.submitMessage = "Category was created successfully";
-            this.showSnackbar();
-            this.afterCategoryAdded.emit(category as Category);
-        },
-        err=>{
-            this.submitMessage = this.error.ERROR;
-            this.showSnackbar();
-        }
-        );
+            .subscribe(category => {
+                this.submitMessage = 'Category was created successfully';
+                this.showSnackbar();
+                this.afterCategoryAdded.emit(category as Category);
+            },
+            err => {
+                this.submitMessage = this.error.ERROR;
+                this.showSnackbar();
+            }
+            );
     }
 
-    showSnackbar(){
-        var x = document.getElementById("snackbar")
-        x.className = "show";
-        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+    showSnackbar() {
+        const x = document.getElementById('snackbar')
+        x.className = 'show';
+        setTimeout(function () { x.className = x.className.replace('show', ''); }, 3000);
     }
 
-    checkName(){
-     this.categoryService.checkIfCategoryExists(this.category.Name)
-     .subscribe(response =>{
-        let result=response as Category;
-        if(result.Name=='unique'){
-           this.isUnique = true;
-           this.createLinking();
-        }
-        else{
-           this.isUnique = false;
-           this.category.Linking="";
-           this.afterCheck=true;
-        }
-      },
-      err=>(handleError)
-     );
+    checkName() {
+        this.categoryService.checkIfCategoryExists(this.category.Name)
+            .subscribe(response => {
+                const result = response as Category;
+                if (result.Name === 'unique') {
+                    this.isUnique = true;
+                    this.createLinking();
+                } else {
+                    this.isUnique = false;
+                    this.category.Linking = '';
+                    this.afterCheck = true;
+                }
+            },
+            err => (handleError)
+            );
     }
 
-    createLinking():void{
-        this.category.Linking = this.category.Name.replace(this.regex.LINKING, "");
+    createLinking(): void {
+        this.category.Linking = this.category.Name.replace(this.regex.LINKING, '');
     }
 
-    @Output() 
-    afterCategoryAdded: EventEmitter<Category>=new EventEmitter<Category>();
-        
+    @Output() afterCategoryAdded: EventEmitter<Category> = new EventEmitter<Category>();
+
 }

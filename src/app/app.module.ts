@@ -80,6 +80,7 @@ import { CardService } from './common/services/card.service';
 import { CardTableComponent } from './catalog/cards/card-table/card-table.component';
 
 import { AppComponent } from './app.component';
+import { EditCategoryComponent } from './catalog/edit-category/edit-category.component';
 
 
 
@@ -118,6 +119,7 @@ import { AppComponent } from './app.component';
         CatalogTableComponent,
         CardTableComponent,
         AddDeckComponent,
+        EditCategoryComponent
     ],
     entryComponents: [
         LoginComponent,

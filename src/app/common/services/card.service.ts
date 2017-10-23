@@ -27,11 +27,12 @@ export class CardService {
             .catch(handleError);
     }
 
-    getSearchCardsByDeckLinking(page: number, pageSize: number, sorted: boolean, search: string, deckLinking: string):
+    getSearchCardsByDeckLinking(deckLinking: string, page: number, pageSize: number, sorted: boolean, search: string):
         Promise<PageResponse<Card>> {
             const postData = new SearchDataModel;
             postData.page = page; postData.pageSize = pageSize;
             postData.searchString = search; postData.sort = sorted;
+            postData.deckLinking = deckLinking;
             const url = this.searchCardUrl;
             return this.http.post(url, postData)
                 .toPromise()

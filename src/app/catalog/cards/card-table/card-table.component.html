@@ -1,58 +1,64 @@
-<create-card class='margintop' (afterCardAdded)='onCardAdded($event)'></create-card>
-<div class="row">
-    <div class="col-md-12">
-        <div class="form-group">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <create-card class='margintop' (afterCardAdded)='onCardAdded($event)'></create-card>
             <div class="row">
-                <div class="input-group col-md-3">
-                    <span class="input-group-addon">
-                        <i class="material-icons">search</i>
-                    </span>
-                    <input class="col-md-11" type="text" placeholder="Search by Question" [(ngModel)]="searchText" (ngModelChange)="onChange($event)"
-                    />
-                </div>
-                <div class="dropdown col-md-2">
-                    <button class="btn btn-secondary dropdown-toggle" id="filter" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Elements by Page
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="filter">
-                        <button *ngFor="let items of arrayOfElementByPage" class="dropdown-item" type="button" (click)="onSelectFilter(items)">{{items}}</button>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="input-group col-md-3">
+                                <span class="input-group-addon">
+                                    <i class="material-icons">search</i>
+                                </span>
+                                <input class="col-md-11" type="text" placeholder="Search by Question" [(ngModel)]="searchText" (ngModelChange)="onChange($event)"
+                                />
+                            </div>
+                            <div class="dropdown col-md-2">
+                                <button class="btn btn-secondary dropdown-toggle" id="filter" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{dropDownElements()}}
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="filter">
+                                    <button *ngFor="let items of arrayOfElementByPage" class="dropdown-item" type="button" (click)="onSelectFilter(items)">{{items}}</button>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <button class="btn btn-primary" (click)="sortTable()">
+                                    Sorting by Type
+                                    <i class="material-icons">sort_by_alpha</i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <button class="btn btn-primary" (click)="sortTable()">
-                        Sorting by Type
-                        <i class="material-icons">sort_by_alpha</i>
-                    </button>
+                    <table class="table table-bordered table-hover table-responsive">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>
+                                    Question
+                                </th>
+                                <th>Type</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let card of cards; let i=index">
+                            <tr>
+                                <td>{{pageSize * (page - 1) + i + 1}}</td>
+                                <td>{{card.Question}}</td>
+                                <td>{{card.CardType.Name}}</td>
+                                <td class="btn-group">
+                                    <button class="btn btn-primary">
+                                        <i class="material-icons">info_outline</i>
+                                    </button>
+                                    <button class="btn btn-danger">
+                                        <i class="material-icons">delete_forever</i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <app-pagination [page-size]="pageSize" [total-count]="totalCount" (pageIndex)="onNotify($event)"></app-pagination>
                 </div>
             </div>
         </div>
-        <table class="table table-bordered table-hover table-responsive">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>
-                        Question
-                    </th>
-                    <th>Type</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody *ngFor="let card of cards; let i=index">
-                <tr>
-                    <td>{{pageSize * (page - 1) + i + 1}}</td>
-                    <td>{{card.Question}}</td>
-                    <td>{{card.CardType.Name}}</td>
-                    <!-- <td class="btn-group">
-                        <button class="btn btn-primary" (click)="onBtnInfoClick(category.Linking)" [routerLink]="['/moderator/categories/edit', category.Linking]">
-                            <i class="material-icons">info_outline</i>
-                        </button>
-                        <button class="btn btn-danger" data-toggle="modal" data-target="#deleteCategoryAlertModal" (click)="onDelete(category)">
-                            <i class="material-icons">delete_forever</i>
-                        </button>
-                    </td> -->
-                </tr>
-            </tbody>
-        </table>
-        <app-pagination [page-size]="pageSize" [total-count]="totalCount" (pageIndex)="onNotify($event)"></app-pagination>
     </div>
 </div>

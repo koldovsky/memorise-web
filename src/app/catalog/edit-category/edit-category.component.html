@@ -1,0 +1,39 @@
+<!-- <div class="row">
+    <div class="col-xs-12 col-sm-1 col-md-2 col-lg-3">
+        <h2 class="text-center">Category details</h2>
+        <br>
+        <div id="snackbar">{{submitMessage}}</div>
+  
+        <form (ngSubmit)="onSubmit()" #categoryForm="ngForm">
+            <div class="form-group">
+                <label for="name" class="form-control-label">Category name:</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="category name" id="name" required maxlength={{regex.MAX_LENGTH_INPUT}}
+                        pattern={{regex.INPUT_REGEX}} [(ngModel)]='category.Name' name="Name" #name="ngModel">
+                    <span class="input-group-btn">
+                        <button class="btn btn-outline-primary" type="button" [disabled]="name.invalid" (click)="checkName()">
+                            Check
+                        </button>
+                    </span>
+                </div>
+                <small id="nameHelp" class="form-text text-muted">
+                    Please check if category name is unique.
+                </small>
+                <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+                    <div *ngIf="name.errors.required">
+                        {{error.REQUIRED}}
+                    </div>
+                    <div *ngIf="name.errors.pattern">
+                        {{error.INCORRECT_INPUT}}
+                    </div>
+                </div>
+                <div *ngIf="!isUnique && afterCheck && (name.dirty || name.touched)" class="alert alert-danger">
+                    {{error.NAME_EXISTS}}
+                </div>
+            </div>
+            <div class="form-group" hidden>
+                <input type="text" class="form-control" id="linking" aria-describedby="basic-addon" [(ngModel)]='category.Linking' name="Linking">
+            </div>
+        </form>
+    </div>
+</div> -->

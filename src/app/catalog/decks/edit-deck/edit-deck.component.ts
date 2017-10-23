@@ -21,7 +21,7 @@ export class EditDeckComponent implements OnInit {
     deck: Deck;
     decks: Deck[];
     categories: Category[];
-    deckLinking: string = '';
+    deckLinking = '';
 
     addedCardsLinking: string[];
     chosenCardsLinking: string[];
@@ -31,9 +31,9 @@ export class EditDeckComponent implements OnInit {
 
     newCategory: string;
 
-    isLoadedDeck: boolean = false;
-    isLoadedCategories: boolean = false;
-    isLoadedCards: boolean = false;
+    isLoadedDeck = false;
+    isLoadedCategories = false;
+    isLoadedCards = false;
 
 
     constructor(
@@ -44,9 +44,10 @@ export class EditDeckComponent implements OnInit {
         private moderatorComponent: ModeratorComponent,
         private moderationService: ModerationService,
         private dialog: MatDialog,
-    ) { };
+    ) { }
 
     ngOnInit(): void {
+
         this.categoryService.getCategories()
             .then(categories => {
                 this.categories = categories;
@@ -75,19 +76,21 @@ export class EditDeckComponent implements OnInit {
     // };
 
     onSubmit() {
-        console.log("I am in onSubmit");
+        console.log('I am in onSubmit');
         console.log(this.deck);
         this.deckService.updateDeck(this.deck)
             .subscribe(response => {
                 console.log(response);
             },
-            (err)=>console.log(err)
-        );
+            (err) => console.log(err)
+            );
     }
     saveDeck() {
-        this.deckService.getDeckByLinking(this.deck.Linking)
-            .then(deck => this.deck = deck);
-        this.moderationService.setCurrentDeck(this.deck);
+        this.deckService.getDeckByLinking(this.deckService.btnInfoLinking)
+            .then(deck => {
+                this.deck = deck;
+                this.moderationService.setCurrentDeck(this.deck);
+            });
     }
 
     // deleteDecks(){

@@ -133,6 +133,8 @@ export class SearchDataModel {
     pageSize: number;
     sort: boolean;
     searchString: string;
+
+    deckLinking?: string;
 }
 export interface WordInput extends BaseEntity {
     CardId: number;

@@ -1,3 +1,7 @@
-.margintop{
-    margin-top: 8%;
-}
+.material-icons {
+    font-size: 100%;
+  }
+  
+  .btn {
+    cursor: pointer;
+  }

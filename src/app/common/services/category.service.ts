@@ -13,6 +13,8 @@ export class CategoryService {
     private categoryPageUrl = 'http://localhost:37271/Catalog/GetCategoriesByPage';
     private categoryModeratorUrl = 'http://localhost:37271/Moderator/';
 
+    btnInfoLinking = '';
+
     constructor(private http: HttpClient) { }
 
     getCategories(): Promise<Category[]> {
@@ -31,7 +33,7 @@ export class CategoryService {
             .toPromise()
             .then(response => response as PageResponse<Category>)
             .catch(handleError);
-        }
+    }
 
     getCoursesByCategory(categoryName: string): Promise<Course[]> {
         const URL = `http://localhost:37271/Catalog/GetCoursesByCategory/${categoryName}`;
@@ -51,27 +53,31 @@ export class CategoryService {
             .catch(handleError);
     }
 
-    createCategory(category: Category):Observable<Object>{
+    createCategory(category: Category): Observable<Object> {
         category = this.encodeCategory(category);
-        return this.http.post(`${this.categoryModeratorUrl}CreateCategory`,category);
+        return this.http.post(`${this.categoryModeratorUrl}CreateCategory`, category);
     }
 
-    updateCategory(category: Category){
+    updateCategory(category: Category) {
         category = this.encodeCategory(category);
-        return this.http.put(`${this.categoryModeratorUrl}UpdateCourse`,category);
-     };
+        return this.http.put(`${this.categoryModeratorUrl}UpdateCourse`, category);
+    };
 
-    deleteCategory(id: number){
-        return this.http.delete(this.categoryModeratorUrl+"DeleteCategory/"+id);
-     }
+    deleteCategory(id: number) {
+        return this.http.delete(this.categoryModeratorUrl + "DeleteCategory/" + id);
+    }
 
     checkIfCategoryExists(categoryName: string): Observable<Object> {
-         return this.http.get(`${this.categoryModeratorUrl}FindCategoryByName/${btoa(categoryName)}`);
+        return this.http.get(`${this.categoryModeratorUrl}FindCategoryByName/${btoa(categoryName)}`);
     }
 
-    encodeCategory(category: Category): Category{
+    encodeCategory(category: Category): Category {
         category.Name = btoa(category.Name);
         category.Linking = btoa(category.Linking);
         return category;
-    };
+    }
+
+    getCategoryByName(categoryName: string): Observable<Object> {
+        return this.http.get(`${this.categoryModeratorUrl}FindCategoryByName/${btoa(categoryName)}`);
+    }
 }
