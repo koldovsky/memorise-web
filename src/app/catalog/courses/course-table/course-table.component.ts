@@ -91,4 +91,12 @@ export class CourseTableComponent implements OnInit {
         this.pageSize = numberFilter;
         this.onNotify(1);
     }
+
+    dropDownElements() {
+        if (this.pageSize === 0) {
+            return 'Elements by Page: All';
+        } else {
+            return 'Elements by Page: ' + this.pageSize;
+        }
+    }
 }

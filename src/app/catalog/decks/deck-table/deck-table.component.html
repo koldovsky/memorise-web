@@ -12,7 +12,7 @@
                 </div>
                 <div class="dropdown col-md-2">
                     <button class="btn btn-secondary dropdown-toggle" id="filter" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Elements by Page
+                        {{dropDownElements()}}
                     </button>
                     <div class="dropdown-menu" aria-labelledby="filter">
                         <button *ngFor="let items of arrayOfElementByPage" class="dropdown-item" type="button" (click)="onSelectFilter(items)">{{items}}</button>
