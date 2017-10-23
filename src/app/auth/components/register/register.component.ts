@@ -7,8 +7,10 @@ import { MatSnackBar } from '@angular/material';
 
 import { AuthService } from '../../../common/services/auth.service';
 import { passwordMatchValidator } from './password-matcher';
+import { regexExpression } from '../../../common/helpers/regexExpression';
+import { Router } from '@angular/router';
 
-const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 @Component({
     selector: 'app-register',
@@ -18,17 +20,18 @@ const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA
 
 export class RegisterComponent implements OnInit {    
     clicked = false;
-    message: 'Congratulation, you successfully registered!';    
+    regex = regexExpression;      
     myForm: FormGroup;
 
     constructor(        
         private authService: AuthService,
+        private router: Router,
         public fb: FormBuilder        
         ) {        
         this.myForm = this.fb.group({
             'login': new FormControl('', [
                 Validators.required,
-                Validators.maxLength(18)
+                Validators.maxLength(20)
             ]),
             'email': new FormControl('', [
                 Validators.required,
@@ -53,15 +56,9 @@ export class RegisterComponent implements OnInit {
         this.authService.signUp(user)
             .then(() => {
                 if (this.authService.validData()) {
-                    //this.dialogRef.close();
-                    // this.snackBar.open(this.message, this.action, {
-                    // duration: 2000,
-                    // });
-                } else {
-                    this.myForm.controls.login.setValue('');
-                    this.myForm.controls.email.setValue('');
-                    this.myForm.controls.password.setValue('');
-                    this.myForm.controls.passwordConfirm.setValue('');
+                    this.router.navigate(['login']);
+                } else {                    
+                    this.myForm.reset();
                 }
             });
         this.clicked = true;

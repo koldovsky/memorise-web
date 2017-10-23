@@ -5,9 +5,9 @@ import { AuthService } from '../../common/services/auth.service';
 import { Router } from '@angular/router';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { regexExpression } from '../../common/helpers/regexExpression';
+import { errorMessages } from '../../common/helpers/errorMessages';
 
-declare var jquery:any;
-declare var $ :any;
 declare var window: any;
 declare var FB: any;
 
@@ -18,7 +18,9 @@ declare var FB: any;
 })
 
 export class LoginComponent implements OnInit {    
-    clicked = false;        
+    clicked = false; 
+    regex = regexExpression;
+    error = errorMessages;      
     myForm: FormGroup;    
     
     constructor(
@@ -29,7 +31,7 @@ export class LoginComponent implements OnInit {
         this.myForm = this.fb.group({
             'login': new FormControl('', [
                 Validators.required,
-                Validators.maxLength(18)
+                Validators.maxLength(20)
             ]),
             'password': new FormControl('', [
                 Validators.required,
@@ -59,8 +61,7 @@ export class LoginComponent implements OnInit {
                                 Provider: 'Facebook',
                                 ExternalAccessToken: accessToken
                             });                                                                          
-                        }, { scope: 'email' }) 
-                        //window.location.href = 'http://localhost:4200/catalog/courses';                                                                        
+                        }, { scope: 'email' })                                                                                              
                     }
                 }));
             });
@@ -74,12 +75,11 @@ export class LoginComponent implements OnInit {
             if (this.authService.validData()) {                                
                 this.authService.checkIfIsAuthorized();
                 this.router.navigate(['catalog/courses/Any']);                          
-            } else {
-                this.myForm.controls.login.setValue('');
-                this.myForm.controls.password.setValue('');
+            } else {                
+                this.myForm.reset();
             }
         });
-        this.clicked = true;
+        this.clicked = true;        
     }
 
     Register(): void {
