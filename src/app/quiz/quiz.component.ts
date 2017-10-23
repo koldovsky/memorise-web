@@ -20,14 +20,12 @@ export class QuizComponent implements OnInit {
     cardsCount;
     counter = 0;
     isLoaded = false;
-    correctColor = "limeGreen";
-    uncorrectColor = "red";
+    correctColor = 'limeGreen';
+    uncorrectColor = 'red';
     customerAnswer = '';
-    wordInput: WordInput[];
+    wordInputs: WordInput[] = [];
     customerCodeAnswer = '';
-    codeAnswer: CodeAnswer = {
-        CodeAnswerText : '',
-    };
+    codeAnswers: CodeAnswer[] = [];
     codeResult: string;
 
     ngOnInit(): void {
@@ -80,6 +78,34 @@ export class QuizComponent implements OnInit {
 
     finishQuiz() {
         this.quizService.cards = this.cards;
+        // // console.log('this.cards.length: ' + this.cards.length);
+        // this.codeAnswers = [];
+        // this.wordInputs = [];
+        // // console.log('this.codeAnswers.length: ' + this.codeAnswers.length);
+        // // console.log('this.wordInputs.length: ' + this.wordInputs.length);
+        // for (let i = 0; i < this.cards.length; i++) {
+        //     if (this.cards[i].CardType.Name === 'Words input') {
+        //         this.wordInputCheck(this.cards[i], false);
+        //         // console.log('In Words input');
+        //     } else if (this.cards[i].CardType.Name === 'Code input') {
+        //         this.codeAnswerCheck(this.cards[i]);
+        //         // console.log('In Code input');
+        //     }
+        // }
+        // // this.cards.forEach(x => {
+        // //     console.log('In this.cards.forEach');
+        // //     if (x.CardType.Name === 'Words input') {
+        // //         this.wordInputCheck(x, false);
+        // //         console.log('In Words input');
+        // //     } else if (x.CardType.Name === 'Code input') {
+        // //         this.codeAnswerCheck(x);
+        // //         console.log('In Code input');
+        // //     }
+        // // });
+        // console.log('this.codeAnswers.length: ' + this.codeAnswers.length);
+        // console.log('this.wordInputs.length: ' + this.wordInputs.length);
+        // this.quizService.codeAnswers = this.codeAnswers;
+        // this.quizService.wordInputs = this.wordInputs;
     }
 
     countPassedQuestions(): number {
@@ -118,26 +144,10 @@ export class QuizComponent implements OnInit {
 
     checkQuestion() {
         const card: Card = this.cards[this.counter];
-        if (this.cards[this.counter].CardType.Name === "Words input") {
-            if (this.customerAnswer) {
-                let isRight = false;
-                this.cards[this.counter].Answers
-                    .forEach(x => {
-                        if (x.Text.trim() === this.customerAnswer.trim()) {
-                            isRight = true;
-                        }
-                    });
-                const cardTitle = <HTMLInputElement>document.getElementById('cardTitle' + card.Id);
-                if (isRight) {
-                    cardTitle.style.color = this.correctColor;;
-                    cardTitle.style.fontWeight = "bold";
-                } else {
-                    cardTitle.style.color = this.uncorrectColor;
-                    cardTitle.style.fontWeight = "bold";
-                }
-            } else {
-                return;
-            }
+        if (this.cards[this.counter].CardType.Name === 'Words input') {
+            this.wordInputCheck(card, true);
+        } else if (this.cards[this.counter].CardType.Name === 'Code input') {
+            this.codeAnswerCheck(card);
         }
         let isUncorrectChecked = false;
         let correctAnswersCount = 0;
@@ -149,18 +159,18 @@ export class QuizComponent implements OnInit {
                 switch (answer.IsCorrect) {
                     case true:
                         lable.style.color = this.correctColor;
-                        lable.style.fontWeight = "bold";
+                        lable.style.fontWeight = 'bold';
                         correctAnswersCount++;
                         break;
                     case false:
                         lable.style.color = this.uncorrectColor;
-                        lable.style.fontWeight = "bold";
+                        lable.style.fontWeight = 'bold';
                         isUncorrectChecked = true;
                         break;
                 }
             } else if (answer.IsCorrect) {
-                lable.style.color = this.correctColor;;
-                lable.style.fontWeight = "bold";
+                lable.style.color = this.correctColor;
+                lable.style.fontWeight = 'bold';
                 correctAnswersCount++;
             } else {
                 lable.style.color = 'black';
@@ -169,11 +179,11 @@ export class QuizComponent implements OnInit {
             const cardTitle = <HTMLInputElement>document.getElementById('cardTitle' + card.Id);
 
             if (!isUncorrectChecked && correctAnswersCount === checkedAnswersCount) {
-                cardTitle.style.color = this.correctColor;;
-                cardTitle.style.fontWeight = "bold";
+                cardTitle.style.color = this.correctColor;
+                cardTitle.style.fontWeight = 'bold';
             } else {
                 cardTitle.style.color = this.uncorrectColor;
-                cardTitle.style.fontWeight = "bold";
+                cardTitle.style.fontWeight = 'bold';
             }
         });
     }
@@ -220,16 +230,55 @@ export class QuizComponent implements OnInit {
 
     cleanCustomerAnswerInput() {
         this.customerAnswer = '';
-    }
-    wordInputAdd() {
-
-    }
-
-    codeAnswerCheck(){
         this.codeResult = '';
-        console.log("In codeAnswerCheck()");
-        this.codeAnswer.CodeAnswerText = this.cards[this.counter].Answers[0].Text;
-        this.quizService.codeAnswer(this.codeAnswer)
-        .then(codeAnswer => this.codeResult = codeAnswer.CodeAnswerText);
+    }
+
+    innerWordInputCheck(card: Card) {
+        card.Answers
+            .forEach(x => {
+                if (x.Text.trim() === card.CustomerAnswersText.trim()) {
+                    this.wordInputs[card.Id].IsRight = true;
+                }
+                this.wordInputs[card.Id].RightAnswersText.push(x.Text);
+            });
+    }
+    wordInputCheck(card: Card, addStyles: boolean) {
+        if (card.CustomerAnswersText) {
+            this.wordInputs[card.Id] = {
+                CardId: card.Id,
+                CustomerAnswerText: card.CustomerAnswersText,
+                RightAnswersText: [],
+                IsRight: false
+            };
+            this.innerWordInputCheck(card);
+            console.log('this.innerWordInputCheck(card);');
+            if (addStyles) {
+            const cardTitle = <HTMLInputElement>document.getElementById('cardTitle' + card.Id);
+            if (this.wordInputs[card.Id].IsRight) {
+                cardTitle.style.color = this.correctColor;
+                cardTitle.style.fontWeight = 'bold';
+            } else {
+                cardTitle.style.color = this.uncorrectColor;
+                cardTitle.style.fontWeight = 'bold';
+            }
+        }
+        } else {
+            return;
+        }
+    }
+
+    codeAnswerCheck(card: Card) {
+        this.codeResult = '';
+        this.codeAnswers[card.Id] = {
+            CardId: card.Id,
+            CodeAnswerText: card.Answers[0].Text,
+            IsRight: false
+        };
+        this.quizService.codeAnswer(this.codeAnswers[card.Id])
+            .then(codeAnswer => {
+                this.codeResult = codeAnswer.CodeAnswerText;
+                this.codeAnswers[card.Id].IsRight = codeAnswer.IsRight;
+                console.log('this.quizService.codeAnswer');
+            });
     }
 }
