@@ -1,6 +1,4 @@
-import { Component, OnInit, Pipe, PipeTransform, NgModule } from '@angular/core';
-import { FilterPipe } from '../../pipes/filter.pipe';
-import { SortingPipe } from '../../pipes/sorting.pipe';
+import { Component, OnInit, NgModule } from '@angular/core';
 import { PaginationComponent } from '../../pagination/pagination.component';
 
 import { Category, PageResponse } from '../../common/models/models';
@@ -20,7 +18,7 @@ export class CatalogTableComponent implements OnInit {
     categories: Category[];
     arrayOfElementByPage = [5, 10, 'All'];
     totalCount: number;
-    page = 0; pageSize = this.arrayOfElementByPage[0];
+    page = 1; pageSize = this.arrayOfElementByPage[0];
     pageResponse: PageResponse<Category>;
     sorted: boolean;
     searchText: string;
@@ -41,20 +39,12 @@ export class CatalogTableComponent implements OnInit {
     }
 
     onNotify(index: number): void {
-        this.categoryService.getCategoriesByPage(index + 1, +this.pageSize, this.sorted, this.searchText)
+        this.categoryService.getCategoriesByPage(index, +this.pageSize, this.sorted, this.searchText)
             .then(pageResponse => {
                 this.categories = pageResponse.items;
                 this.page = index;
                 this.totalCount = pageResponse.totalCount;
             });
-    }
-
-    onNext(): void {
-        this.onNotify(this.page + 1);
-    }
-
-    onPrev(): void {
-        this.onNotify(this.page - 1);
     }
 
     sortTable() {
@@ -68,14 +58,14 @@ export class CatalogTableComponent implements OnInit {
     }
 
     onBtnInfoClick(btnInfoLinking: string) {
-        //this.courseService.btnInfoLinking = btnInfoLinking;
-      }
-
-    onChange(event: any) {
-        this.onNotify(0);
+        // this.categoryService.btnInfoLinking = btnInfoLinking;
     }
 
-    onCategoryAdded(newCategory:Category):void{
+    onChange(event: any) {
+        this.onNotify(1);
+    }
+
+    onCategoryAdded(newCategory: Category): void {
         this.categories.pop();
         this.categories.unshift(newCategory);
     }
@@ -86,11 +76,11 @@ export class CatalogTableComponent implements OnInit {
 
     confirmDelete(): void {
         this.categoryService.deleteCategory(this.currentCategory.Id)
-        .subscribe(()=>{
-        this.categories = this.categories.filter(x=>x.Id!==this.currentCategory.Id);
-        },
-        (err)=>console.log(err)
-        );
+            .subscribe(() => {
+                this.categories = this.categories.filter(x => x.Id !== this.currentCategory.Id);
+            },
+            (err) => console.log(err)
+            );
     }
 
     onSelectFilter(numberFilter: any): void {
@@ -98,6 +88,6 @@ export class CatalogTableComponent implements OnInit {
             numberFilter = 0;
         }
         this.pageSize = numberFilter;
-        this.onNotify(0);
+        this.onNotify(1);
     }
 }

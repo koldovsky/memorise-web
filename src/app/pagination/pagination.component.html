@@ -1,20 +1,29 @@
-<ul class="pagination justify-content-center" [hidden]="pageSize === 0 || pageSize >= totalCount">
-    <li class="page-item">
-        <button class="btn btn-primary" (click)="onPrev()" [disabled]="page === 0">Previous</button>
+<ul class="pagination justify-content-center" [hidden]="_pageSize === 0 || _pageSize >= _totalCount">
+    <li>
+        <button class="btn btn-secondary" (click)="onPrev()" [disabled]="currentIndex === 1">Prev</button>
     </li>
-    <li class="page-item">
-        <button class="btn btn-primary" (click)="paging(0)">1</button>
+    <li>
+        <button class="btn btn-secondary" [hidden]="isFirst()" (click)="select(1)">1</button>
     </li>
-
-    <li class="page-item" *ngFor="let i of [] | numberToArray: totalCount: pageSize: page">
-        <button class="btn btn-primary" (click)="paging(i)">{{i+1}}</button>
+    <li>
+        <button class="btn btn-light" disabled [hidden]="isFirstEllipsis()">
+            <i class="material-icons 48dp">more_horiz</i>
+        </button>
     </li>
-
-    <li class="page-item">
-        <button class="btn btn-primary" (click)="paging(isEllipsis() - 1)">{{isEllipsis()}}</button>
+    <li>
+        <button class="btn btn-secondary" *ngFor="let item of middleItems" (click)="select(item)" [ngStyle]="item === currentIndex ? {'color': '#FF0000', 'background-color': '#A9A9A9' } : {}">
+            {{item}}
+        </button>
     </li>
-
-    <li class="page-item">
-        <button class="btn btn-primary" (click)="onNext(true)" [disabled]="lastPage()">Next</button>
+    <li>
+        <button class="btn btn-light" disabled [hidden]="isLastEllipsis()">
+            <i class="material-icons 48dp">more_horiz</i>
+        </button>
+    </li>
+    <li>
+        <button class="btn btn-secondary" [hidden]="isLast()" (click)="select(items.length)">{{items.length}}</button>
+    </li>
+    <li>
+        <button class="btn btn-secondary" (click)="onNext()" [disabled]="currentIndex === items.length">Next</button>
     </li>
 </ul>

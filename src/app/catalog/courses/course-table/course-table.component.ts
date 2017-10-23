@@ -1,10 +1,8 @@
-import { Component, OnInit, Pipe, PipeTransform, NgModule } from '@angular/core';
-import { FilterPipe } from '../../../pipes/filter.pipe';
-import { SortingPipe } from '../../../pipes/sorting.pipe';
+import { Component, OnInit, NgModule } from '@angular/core';
 import { PaginationComponent } from '../../../pagination/pagination.component';
 import { Course, PageResponse } from '../../../common/models/models';
 import { CourseService } from '../../../common/services/course.service';
-import { CreateCourseComponent} from '../create-course/create-course.component';
+import { CreateCourseComponent } from '../create-course/create-course.component';
 
 import { Observable } from 'rxjs/Observable';
 
@@ -19,7 +17,7 @@ export class CourseTableComponent implements OnInit {
     courses: Course[];
     arrayOfElementByPage = [5, 10, 'All'];
     totalCount: number;
-    page = 0; pageSize = this.arrayOfElementByPage[0];
+    page = 1; pageSize = this.arrayOfElementByPage[0];
     pageResponse: PageResponse<Course>;
     sorted: boolean;
     searchText: string;
@@ -42,20 +40,12 @@ export class CourseTableComponent implements OnInit {
     }
 
     onNotify(index: number): void {
-        this.courseService.getCoursesByPage(index + 1, +this.pageSize, this.sorted, this.searchText)
+        this.courseService.getCoursesByPage(index, +this.pageSize, this.sorted, this.searchText)
             .then(pageResponse => {
                 this.courses = pageResponse.items;
                 this.page = index;
                 this.totalCount = pageResponse.totalCount;
             });
-    }
-
-    onNext(): void {
-        this.onNotify(this.page + 1);
-    }
-
-    onPrev(): void {
-        this.onNotify(this.page - 1);
     }
 
     sortTable() {
@@ -69,10 +59,10 @@ export class CourseTableComponent implements OnInit {
     }
 
     onChange(event: any) {
-        this.onNotify(0);
+        this.onNotify(1);
     }
 
-    onCourseAdded(newCourse:Course):void{
+    onCourseAdded(newCourse: Course): void {
         this.courses.pop();
         this.courses.unshift(newCourse);
     }
@@ -83,11 +73,11 @@ export class CourseTableComponent implements OnInit {
 
     confirmDelete(): void {
         this.courseService.deleteCourse(this.currentCourse.Id)
-        .subscribe(()=>{
-      this.courses = this.courses.filter(x=>x.Id!==this.currentCourse.Id); 
-        },
-        (err)=>console.log(err)
-        );
+            .subscribe(() => {
+                this.courses = this.courses.filter(x => x.Id !== this.currentCourse.Id);
+            },
+            (err) => console.log(err)
+            );
     }
 
     onBtnInfoClick(btnInfoLinking: string) {
@@ -99,6 +89,6 @@ export class CourseTableComponent implements OnInit {
             numberFilter = 0;
         }
         this.pageSize = numberFilter;
-        this.onNotify(0);
+        this.onNotify(1);
     }
 }

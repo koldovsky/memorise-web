@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import 'rxjs/add/operator/toPromise';
 
-import { Card } from '../models/models';
+import { Card, PageResponse, SearchDataModel } from '../models/models';
 import { handleError } from '../functions/functions';
 import { Observable } from 'rxjs/Observable';
 
@@ -11,22 +11,35 @@ import { Observable } from 'rxjs/Observable';
 export class CardService {
     private CardUrl = 'http://localhost:37271/Quiz';
     private cardModeratorUrl = 'http://localhost:37271/Moderator/';
+    private searchCardUrl = 'http://localhost:37271/Quiz/GetSearchCardsByDeckLinking';
 
     constructor(private http: HttpClient) { }
 
     getCards(deckName: string[]): Promise<Card[]> {
         let param = '';
-        for ( let i = 0; i < deckName.length; i++) {
+        for (let i = 0; i < deckName.length; i++) {
             param = param + ',' + deckName[i];
         }
         const URL = `${this.CardUrl}/GetCardsByDeckArray/${param}`;
         return this.http.get(URL)
-        .toPromise()
-        .then(response => {console.log(response); return response as Card[];  })
-        .catch(handleError);
+            .toPromise()
+            .then(response => { console.log(response); return response as Card[]; })
+            .catch(handleError);
     }
 
-    getCardTypes(): Observable<Object>{
+    getSearchCardsByDeckLinking(page: number, pageSize: number, sorted: boolean, search: string, deckLinking: string):
+        Promise<PageResponse<Card>> {
+            const postData = new SearchDataModel;
+            postData.page = page; postData.pageSize = pageSize;
+            postData.searchString = search; postData.sort = sorted;
+            const url = this.searchCardUrl;
+            return this.http.post(url, postData)
+                .toPromise()
+                .then(response => response as PageResponse<Card>)
+                .catch(handleError);
+    }
+
+    getCardTypes(): Observable<Object> {
         return this.http.get(`${this.cardModeratorUrl}GetCardsType`);
     }
 }

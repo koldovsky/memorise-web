@@ -1,5 +1,4 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
-import { NumberToArrayPipeComponent } from '../pipes/number-to-array.pipe';
 
 @Component({
     selector: 'app-pagination',
@@ -9,51 +8,113 @@ import { NumberToArrayPipeComponent } from '../pipes/number-to-array.pipe';
 
 export class PaginationComponent implements OnInit {
     constructor() { }
-
-    @Input('total-count') totalCount: number;
-    @Input('page-size') pageSize: number;
-
-    @Output('page-index') pageIndex: EventEmitter<number> = new EventEmitter<number>();
-
-    @Output() goPrev = new EventEmitter<boolean>();
-    @Output() goNext = new EventEmitter<boolean>();
-    @Input() page: number;
-
-    previousNumber = 0;
     pagesCount: number;
+    currentIndex = 0;
+    items = [];
+    middleItems = [];
+    private _totalCount: number;
+    private _pageSize: number;
+
+    @Input('total-count') set totalCount(value: number) {
+        this.items = [];
+        this._totalCount = value;
+        this.numberToArray();
+        this.select(1);
+    }
+
+    @Input('page-size') set pageSize(value: number) {
+        this.items = [];
+        this._pageSize = value;
+        this.numberToArray();
+        this.select(1);
+    }
+
+    @Output('pageIndex') pageIndex: EventEmitter<number> = new EventEmitter<number>();
+
     ngOnInit() {
     }
 
-    onPrev(): void {
-        this.goPrev.emit(true);
-        // this.previousNumber--;
+    howMatchPage() {
+        let localPagesCount: number;
+        if (this._pageSize === 0) {
+            this._pageSize = this._totalCount;
+        }
+        localPagesCount = this._totalCount / this._pageSize;
+        const temp = Math.floor(localPagesCount);
+        if (temp < localPagesCount) {
+            localPagesCount = temp;
+            localPagesCount++;
+        }
+        return localPagesCount;
     }
 
-    onNext(next: boolean): void {
-        this.goNext.emit(next);
-        // this.previousNumber++;
+    numberToArray() {
+        for (let i = 1; i <= this.howMatchPage(); i++) {
+            this.items.push(i);
+        }
+        return this.items;
     }
 
-    paging(page: number) {
-        this.pageIndex.next(page);
-        this.page = page;
+    select(index) {
+        this.pageIndex.next(index);
+        this.currentIndex = index;
+        if (this.items.length > 5) {
+            if (index === 1) {
+                this.middleItems = this.items.slice(index - 1, index + 2);
+            } else if (index === this.items.length) {
+                this.middleItems = this.items.slice(index - 3, index + 1);
+            } else {
+                this.middleItems = this.items.slice(index - 2, index + 1);
+            }
+        } else {
+            this.middleItems = this.items;
+        }
     }
 
-    lastPage(): boolean {
-        if (this.page === 0 && this.pageSize === 0) {
+    isFirstEllipsis() {
+        if (this.items.length < 6) {
             return true;
         }
-        return this.pageSize * (this.page + 1) >= this.totalCount;
+        if (this.currentIndex > 3) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
-    isEllipsis() {
-        this.pagesCount = this.totalCount / this.pageSize;
-        const temp = Math.floor(this.pagesCount);
-        if (temp < this.pagesCount) {
-            this.pagesCount = temp;
-            this.pagesCount++;
+    isLastEllipsis() {
+        if (this.items.length < 6) {
+            return true;
         }
-        return this.pagesCount;
+        if (this.currentIndex > this.items.length - 3) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    isFirst() {
+        if (this.currentIndex < 3 || this.items.length <= 5) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    isLast() {
+        if (this.currentIndex > this.items.length - 2 || this.items.length <= 5) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    onNext() {
+        this.select(this.currentIndex + 1);
+    }
+
+    onPrev() {
+        this.select(this.currentIndex - 1);
     }
 }
 
