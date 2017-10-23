@@ -29,6 +29,7 @@ export class CreateDeckComponent implements OnInit {
     isUnique = false;
     isPaid = false;
     afterCheck = false;
+    imageIsChanged = false;
 
     @Output()
     afterDeckAdded: EventEmitter<Deck> = new EventEmitter<Deck>();
@@ -93,9 +94,11 @@ export class CreateDeckComponent implements OnInit {
         this.deckService.createDeck(this.deck)
             .subscribe(deck => {
                 this.submitMessage = 'Deck was created successfully';
+                if ( this.imageIsChanged ) {
                 this.uploader.queue[0].url = `${this.uploadUrl}/${(deck as Deck).Linking}`;
                 this.uploader.queue[0].alias = 'Photo';
                 this.uploader.uploadAll();
+                }
                 this.showSnackbar();
                 this.afterDeckAdded.emit(deck as Deck);
             },
@@ -131,5 +134,9 @@ export class CreateDeckComponent implements OnInit {
 
     createLinking(): void {
         this.deck.Linking = this.deck.Name.replace(this.regex.LINKING, '');
+    }
+
+    imageSet() {
+        this.imageIsChanged = true;
     }
 }

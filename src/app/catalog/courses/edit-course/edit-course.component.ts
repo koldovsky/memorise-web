@@ -38,7 +38,6 @@ export class EditCourseComponent implements OnInit {
     isLoadedCategories = false;
     isLoadedDecks = false;
     imageIsChanged = false;
-    
 
     uploadUrl = 'http://localhost:37271/Image/UploadPhotoForCourse';
 
@@ -49,7 +48,7 @@ export class EditCourseComponent implements OnInit {
         private moderatorComponent: ModeratorComponent,
         private moderationService: ModerationService,
         private dialog: MatDialog,
-    ) { 
+    ) {
         this.uploader = new FileUploader({
             url: this.uploadUrl,
             queueLimit: 1,
@@ -184,6 +183,7 @@ export class EditCourseComponent implements OnInit {
                  return false;
         } else { return true; }
     }
+
     imageSet() {
      this.imageIsChanged = true;
     }
