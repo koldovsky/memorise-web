@@ -1,151 +1,121 @@
-
-<button type="button" class="btn btn-primary marginTopAndBottom" data-toggle="modal" 
-data-target="#createCourseFormModal" data-whatever="createCourse">
- Create new course
+<button type="button" class="btn btn-primary marginTopAndBottom" data-toggle="modal" data-target="#createCourseFormModal"
+    data-whatever="createCourse">
+    Create new course
 </button>
 
 <!-- Modal Window -->
-<div class="modal fade" id="createCourseFormModal" tabindex="-1" role="dialog" 
-aria-labelledby="createCourseFormModalLabel" aria-hidden="true">
+<div class="modal fade" id="createCourseFormModal" tabindex="-1" role="dialog" aria-labelledby="createCourseFormModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="createCourseFormModalLabel">Create new course</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
-                    <!-- Snackbar -->
-                    <div id="snackbar">{{submitMessage}}</div>
-                    <!-- Form -->
+                <!-- Snackbar -->
+                <div id="snackbar">{{submitMessage}}</div>
+                <!-- Form -->
                 <form (ngSubmit)="onSubmit()" #courseForm="ngForm">
                     <div *ngIf="isLoaded" class="form-group">
                         <label for="category">Category:</label>
-                        <select class="form-control" id="category" 
-                        required 
-                        [(ngModel)]="course.CategoryName"
-                        #category="ngModel" 
-                        name="Category">
-                          <option *ngFor="let category of categories"
-                          [value]="category.Name">
-                          {{category.Name}}
-                        </option>
+                        <select class="form-control" id="category" required [(ngModel)]="course.CategoryName" #category="ngModel" name="Category">
+                            <option *ngFor="let category of categories" [value]="category.Name">
+                                {{category.Name}}
+                            </option>
                         </select>
-                        <div *ngIf="category.invalid && (category.dirty || category.touched)"
-                        class="alert alert-danger">
-                          <div *ngIf="category.errors.required">
-                           {{error.REQUIRED}}
-                          </div>
-                     </div>
+                        <div *ngIf="category.invalid && (category.dirty || category.touched)" class="alert alert-danger">
+                            <div *ngIf="category.errors.required">
+                                {{error.REQUIRED}}
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="name" class="form-control-label">Course name:</label>
                         <div class="input-group">
-                                <input type="text" class="form-control" placeholder="course name" 
-                                id="name" 
-                                required maxlength={{regex.MAX_LENGTH_INPUT}} 
-                                pattern={{regex.INPUT_REGEX}}
-                                [(ngModel)]='course.Name' 
-                                name="Name" #name="ngModel">
-                                <span class="input-group-btn">
-                                  <button class="btn btn-outline-primary" type="button" 
-                                  [disabled]="name.invalid"
-                                  (click)="checkName()">
-                                  Check
+                            <input type="text" class="form-control" placeholder="course name" id="name" required maxlength={{regex.MAX_LENGTH_INPUT}}
+                                pattern={{regex.INPUT_REGEX}} [(ngModel)]='course.Name' name="Name" #name="ngModel">
+                            <span class="input-group-btn">
+                                <button class="btn btn-outline-primary" type="button" [disabled]="name.invalid" (click)="checkName()">
+                                    Check
                                 </button>
-                                </span>
+                            </span>
                         </div>
                         <small id="nameHelp" class="form-text text-muted">
                             Please check if course name is unique.
                         </small>
-                        <div *ngIf="name.invalid && (name.dirty || name.touched)"
-                           class="alert alert-danger">
-                             <div *ngIf="name.errors.required">
+                        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+                            <div *ngIf="name.errors.required">
                                 {{error.REQUIRED}}
-                             </div>
-                             <div *ngIf="name.errors.pattern">
+                            </div>
+                            <div *ngIf="name.errors.pattern">
                                 {{error.INCORRECT_INPUT}}
-                             </div>
+                            </div>
                         </div>
-                        <div *ngIf="!isUnique && afterCheck && (name.dirty || name.touched)"
-                        class="alert alert-danger">
-                        {{error.NAME_EXISTS}}
-                           </div>
+                        <div *ngIf="!isUnique && afterCheck && (name.dirty || name.touched)" class="alert alert-danger">
+                            {{error.NAME_EXISTS}}
+                        </div>
                     </div>
                     <div class="form-group">
-                            <label for="linking">New course URL:</label>
-                            <div class="input-group">
-                              <span class="input-group-addon" id="basic-addon">https://memorise.com/catalog/courses/</span>
-                              <input type="text" class="form-control" id="linking" aria-describedby="basic-addon"
-                              [(ngModel)]='course.Linking' 
-                              name="Linking" 
-                              readonly
-                              >
-                            </div>
+                        <label for="linking">New course URL:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon">https://memorise.com/catalog/courses/</span>
+                            <input type="text" class="form-control" id="linking" aria-describedby="basic-addon" [(ngModel)]='course.Linking' name="Linking"
+                                readonly>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="description" class="form-control-label">Description:</label>
-                        <textarea class="form-control"
-                        required 
-                        pattern={{regex.INPUT_REGEX}}
-                        [(ngModel)]='course.Description' 
-                        name="Description" id="description"
-                        maxlength={{regex.MAX_LENGTH_TEXTAREA}} #description="ngModel">
+                        <textarea class="form-control" required pattern={{regex.INPUT_REGEX}} [(ngModel)]='course.Description' name="Description"
+                            id="description" maxlength={{regex.MAX_LENGTH_TEXTAREA}} #description="ngModel">
                         </textarea>
-                        <div *ngIf="description.invalid && (description.dirty || description.touched)"
-                        class="alert alert-danger">
-                          <div *ngIf="description.errors.required">
-                            {{error.REQUIRED}}
-                          </div>
-                          <div *ngIf="description.errors.pattern">
-                            {{error.INCORRECT_INPUT}}
-                         </div>
-                       </div>
+                        <div *ngIf="description.invalid && (description.dirty || description.touched)" class="alert alert-danger">
+                            <div *ngIf="description.errors.required">
+                                {{error.REQUIRED}}
+                            </div>
+                            <div *ngIf="description.errors.pattern">
+                                {{error.INCORRECT_INPUT}}
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
-                            <label class="custom-file">
-                                    <input type="file" accept="image/*" id="photo" class="custom-file-input"
-                                    name="Photo"
-                                    [(ngModel)]='course.Photo' >
-                                    <span class="custom-file-control"></span>
-                            </label>
+                        <label class="custom-file">
+                            <input #selectedPhoto type="file" accept="image/*" ng2FileSelect [uploader]="uploader" (change)="imageSet()" >
+                            <span></span>
+                        </label>
                     </div>
                     <div class="form-check">
-                        <label class="form-check-label">
-                          <input type="checkbox" class="form-check-input" name="isPaid"
-                          [(ngModel)]='isPaid'>
-                          Paid course
-                        </label>
+                            <label class="custom-control custom-checkbox">
+                                    <input id="isPaid" 
+                                    [(ngModel)]='isPaid'
+                                    name="isPaid" type="checkbox" class="custom-control-input">
+                                    Paid course
+                                    <span class="custom-control-indicator"></span>
+                            </label>
                     </div>
                     <div class="form-group" *ngIf="isPaid">
                         <label for="price" class="form-control-label">Price:</label>
                         <div class="input-group">
-                                <input type="number" class="form-control" placeholder="price" 
-                                id="price" 
-                                required max="999" min="0"
-                                pattern={{regex.ONLY_NUMBERS}}
-                                [(ngModel)]='course.Price' 
-                                name="Price" #price="ngModel">
+                            <input type="number" class="form-control" placeholder="price" id="price" required max="999" min="0" pattern={{regex.ONLY_NUMBERS}}
+                                [(ngModel)]='course.Price' name="Price" #price="ngModel">
                         </div>
-                        <div *ngIf="price.invalid && (price.dirty || price.touched)"
-                           class="alert alert-danger">
-                             <div *ngIf="price.errors.required">
+                        <div *ngIf="price.invalid && (price.dirty || price.touched)" class="alert alert-danger">
+                            <div *ngIf="price.errors.required">
                                 {{error.REQUIRED}}
-                             </div>
-                             <div *ngIf="price.errors.pattern">
+                            </div>
+                            <div *ngIf="price.errors.pattern">
                                 {{error.ONLY_NUMBERS}}
-                               </div>
+                            </div>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" 
-                [disabled]="!courseForm.form.valid" (click)="onSubmit(courseForm)"
-                >
-                Create
+                <button type="submit" class="btn btn-primary" [disabled]="!courseForm.form.valid" (click)="onSubmit(courseForm)">
+                    Create
                 </button>
             </div>
         </div>

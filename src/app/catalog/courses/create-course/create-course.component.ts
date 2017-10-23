@@ -1,5 +1,9 @@
 import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators, NgForm } from '@angular/forms';
+
+import { Observable } from 'rxjs/Observable';
+import { FileUploader } from 'ng2-file-upload';
+
 import { Course, Category } from '../../../common/models/models';
 
 import { AuthService } from '../../../common/services/auth.service';
@@ -9,7 +13,6 @@ import { CourseService } from '../../../common/services/course.service';
 import { handleError } from '../../../common/functions/functions';
 import { regexExpression } from '../../../common/helpers/regexExpression';
 import { errorMessages } from '../../../common/helpers/errorMessages';
-import { Observable } from 'rxjs/Observable';
 
 @Component({
     selector: 'create-course',
@@ -18,18 +21,19 @@ import { Observable } from 'rxjs/Observable';
 })
 
 export class CreateCourseComponent implements OnInit {
-
     regex;
     error;
     course: Course;
+    uploader: FileUploader;
     categories: Category[];
-    isLoaded: boolean = false;
-    isUnique: boolean = false;
-    isPaid: boolean = false;
-    afterCheck: boolean = false;
-    submitMessage: string = '';
-    @Output()
-    afterCourseAdded: EventEmitter<Course> = new EventEmitter<Course>();
+    isLoaded = false;
+    isUnique = false;
+    isPaid = false;
+    afterCheck = false;
+    imageIsChanged = false;
+    submitMessage = '';
+
+    uploadUrl = 'http://localhost:37271/Image/UploadPhotoForCourse';
 
     constructor(
         private authService: AuthService,
@@ -42,7 +46,16 @@ export class CreateCourseComponent implements OnInit {
             Description: '',
             Price: 0
         };
+
+        this.uploader = new FileUploader({
+            url: this.uploadUrl,
+            queueLimit: 1,
+            removeAfterUpload: true
+        });
     }
+
+    @Output()
+    afterCourseAdded: EventEmitter<Course> = new EventEmitter<Course>();
 
     ngOnInit(): void {
         this.regex = regexExpression;
@@ -84,13 +97,19 @@ export class CreateCourseComponent implements OnInit {
         this.courseService.createCourse(this.course)
             .subscribe(course => {
                 this.submitMessage = 'Course was created successfully';
+                if ( this.imageIsChanged ) {
+                this.uploader.queue[0].url = `${this.uploadUrl}/${(course as Course).Linking}`;
+                this.uploader.queue[0].alias = 'Photo';
+                this.uploader.uploadAll();
+                }
                 this.showSnackbar();
                 this.afterCourseAdded.emit(course as Course);
             },
             err => {
                 this.submitMessage = this.error.ERROR;
                 this.showSnackbar();
-            });
+            }
+            );
     }
 
     showSnackbar() {

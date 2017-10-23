@@ -34,6 +34,12 @@
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-6">
                     <img src="../../../../assets/images/placeholder-thumb.jpg" alt="Deck photo" class="img-thumbnail">
+                    <label class="custom-file">
+                            <input type="file" accept="image/*" id="photo" class="custom-file-input"
+                            name="Photo"
+                            [(ngModel)]='deck.Photo' >
+                            <span class="custom-file-control"></span>
+                    </label>
                 </div>
             </div>
 
@@ -54,7 +60,7 @@
                 <div class="col-xs-12 col-sm-12">
                     <div class="form-group">
                         <!-- <button class="btn btn-success" data-toggle="modal" data-target="#cardsFormModal" data-whatever="Cards" (click)="cardsForm.reset()">Cards: {{deck.CardsNumber}}</button> -->
-                        <button class="btn btn-outline-primary" (click)="saveDeck()" [routerLink]="['/moderator/decks/edit/all/cards']">Cards</button>
+                        <button class="btn btn-outline-primary" (click)="saveDeck()" [routerLink]="['/moderator/decks/edit/all/cards']">Cards: {{deck.CardsNumber}}</button>
                     </div>
                 </div>
             </div>

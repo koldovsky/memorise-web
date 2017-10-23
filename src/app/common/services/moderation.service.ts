@@ -5,13 +5,19 @@ import { Deck } from '../models/models';
 export class ModerationService {
     whichButtonIsClicked = 'categories';
     currentDeck: Deck;
+    count: number;
 
     getCurrentDeck() {
         return this.currentDeck;
     }
 
+    getCurrentDeckLinking() {
+        return localStorage.getItem('deckLinking');
+    }
+
     setCurrentDeck(deck: Deck) {
         this.currentDeck = deck;
+        localStorage.setItem('deckLinking', deck.Linking);
     }
 }
 

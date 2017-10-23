@@ -12,7 +12,7 @@
                 </div>
                 <div class="dropdown col-md-2">
                     <button class="btn btn-secondary dropdown-toggle" id="filter" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Elements by Page
+                        {{dropDownElements()}}
                     </button>
                     <div class="dropdown-menu" aria-labelledby="filter">
                         <button *ngFor="let items of arrayOfElementByPage" class="dropdown-item" type="button" (click)="onSelectFilter(items)">{{items}}</button>
@@ -38,7 +38,7 @@
             </thead>
             <tbody *ngFor="let category of categories; let i=index">
                 <tr>
-                    <td>{{pageSize * page + i + 1}}</td>
+                    <td>{{pageSize * (page - 1) + i + 1}}</td>
                     <td>{{category.Name}}</td>
                     <td class="btn-group">
                         <button class="btn btn-primary" (click)="onBtnInfoClick(category.Linking)" [routerLink]="['/moderator/categories/edit', category.Linking]">
@@ -51,8 +51,7 @@
                 </tr>
             </tbody>
         </table>
-        <app-pagination [page-size]="pageSize" [total-count]="totalCount" [page]="page" (page-index)="onNotify($event)" (goNext)="onNext()"
-            (goPrev)="onPrev()"></app-pagination>
+        <app-pagination [page-size]="pageSize" [total-count]="totalCount" (pageIndex)="onNotify($event)"></app-pagination>
     </div>
 </div>
 <!-- Modal Alert -->

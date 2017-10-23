@@ -3,13 +3,15 @@ import { HttpClient } from '@angular/common/http';
 
 import 'rxjs/add/operator/toPromise';
 
-import { Card, CodeAnswer } from '../models/models';
+import { Card, CodeAnswer, WordInput } from '../models/models';
 import { handleError } from '../functions/functions';
 
 @Injectable()
 export class QuizService {
     private QuizUrl = 'http://localhost:37271/Quiz/';
     cards: Card[];
+    codeAnswers: CodeAnswer[];
+    wordInputs: WordInput[];
 
     constructor(private http: HttpClient) { }
 
@@ -30,10 +32,10 @@ export class QuizService {
             .then(response => response as Card[])
             .catch(handleError);
     }
-    codeAnswer(codeAnswer: CodeAnswer):Promise<CodeAnswer>{
-        return this.http.post(this.QuizUrl+"CodeAnswer",codeAnswer)
-        .toPromise()
-        .then(response => response as CodeAnswer)
-        .catch(handleError);
+    codeAnswer(codeAnswer: CodeAnswer): Promise<CodeAnswer> {
+        return this.http.post(this.QuizUrl + 'CodeAnswer', codeAnswer)
+            .toPromise()
+            .then(response => response as CodeAnswer)
+            .catch(handleError);
     }
 }

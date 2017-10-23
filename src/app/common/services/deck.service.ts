@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
 
@@ -39,7 +38,7 @@ export class DeckService {
             .toPromise()
             .then(response => response as PageResponse<Deck>)
             .catch(handleError);
-    }
+        }
 
     getDecksByCourseName(courseName: string) {
         const URL = `${this.decksUrl}/GetAllDecksByCourse/${courseName}`;
@@ -59,12 +58,10 @@ export class DeckService {
             .catch(handleError);
     }
     createDeck(deck: Deck): Observable<Object> {
-        deck = this.encodeDeck(deck);
-        return this.http.post(`${this.deckModeratorUrl}CreateDeck`, deck);
+        return this.http.post(`${this.deckModeratorUrl}CreateDeck`, deck)
     }
 
     updateDeck(deck: Deck) {
-        deck = this.encodeDeck(deck);
         return this.http.put(`${this.deckModeratorUrl}UpdateDeck`, deck);
     }
 
@@ -75,11 +72,4 @@ export class DeckService {
     checkIfDeckExists(deckName: string): Observable<Object> {
         return this.http.get(`${this.deckModeratorUrl}FindDeckByName/${btoa(deckName)}`);
     }
-
-    encodeDeck(deck: Deck): Deck {
-        deck.Name = btoa(deck.Name);
-        deck.Linking = btoa(deck.Linking);
-        deck.Description = btoa(deck.Description);
-        return deck;
-    };
 }

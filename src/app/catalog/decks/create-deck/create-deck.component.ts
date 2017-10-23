@@ -1,5 +1,7 @@
 import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators, NgForm } from '@angular/forms';
+import { FileUploader } from 'ng2-file-upload';
+
 import { Deck, Category } from '../../../common/models/models';
 
 import { AuthService } from '../../../common/services/auth.service';
@@ -17,17 +19,22 @@ import { errorMessages } from '../../../common/helpers/errorMessages';
 })
 
 export class CreateDeckComponent implements OnInit {
-    
     regex;
-    error; 
+    error;
     submitMessage: string;
     deck: Deck;
+    uploader: FileUploader;
     categories: Category[];
-    isLoaded: boolean = false;
-    isUnique: boolean = false;
-    isPaid: boolean = false;
-    afterCheck: boolean = false;
-    
+    isLoaded = false;
+    isUnique = false;
+    isPaid = false;
+    afterCheck = false;
+    imageIsChanged = false;
+
+    @Output()
+    afterDeckAdded: EventEmitter<Deck> = new EventEmitter<Deck>();
+
+    uploadUrl = 'http://localhost:37271/Image/UploadPhotoForDeck';
 
     constructor(
         private authService: AuthService,
@@ -50,79 +57,86 @@ export class CreateDeckComponent implements OnInit {
                 this.categories = categories;
                 this.isLoaded = true;
             });
+        this.uploader = new FileUploader({
+            url: this.uploadUrl,
+            queueLimit: 1,
+            removeAfterUpload: true
+        });
     }
-    
-    onSubmit(form: NgForm) { 
-        if(this.isUnique){
+
+    onSubmit(form: NgForm) {
+        if (this.isUnique) {
             this.createDeck();
             form.reset();
-            this.isUnique=false;
-        }
-        
-        else{
+            this.isUnique = false;
+        } else {
             this.deckService.checkIfDeckExists(this.deck.Name)
-           .subscribe(response =>{
-               let result=response as Deck;
-               if(result.Name=='unique'){
-                  this.isUnique = true;
-                  this.createLinking();
-                  this.createDeck();
-                  form.reset();
-                  this.isUnique=false;
-               }
-               else{
-                  this.isUnique = false;
-                  this.deck.Linking="";
-                  this.afterCheck=true;
-               }
-             },
-             err=>(handleError)
-            );
+                .subscribe(response => {
+                    const result = response as Deck;
+                    if (result.Name === 'unique') {
+                        this.isUnique = true;
+                        this.createLinking();
+                        this.createDeck();
+                        form.reset();
+                        this.isUnique = false;
+                    } else {
+                        this.isUnique = false;
+                        this.deck.Linking = '';
+                        this.afterCheck = true;
+                    }
+                },
+                err => (handleError)
+                );
         }
     }
 
-    createDeck(){
+    createDeck() {
         this.deckService.createDeck(this.deck)
-        .subscribe(deck=>{
-            this.submitMessage = "Deck was created successfully";
-            this.showSnackbar();
-            this.afterDeckAdded.emit(deck as Deck);
-        },
-        err=>{
-            this.submitMessage = this.error.ERROR;
-            this.showSnackbar();
-        }
-        );
-}
-
-    showSnackbar(){
-        var x = document.getElementById("snackbar")
-        x.className = "show";
-        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+            .subscribe(deck => {
+                this.submitMessage = 'Deck was created successfully';
+                if ( this.imageIsChanged ) {
+                this.uploader.queue[0].url = `${this.uploadUrl}/${(deck as Deck).Linking}`;
+                this.uploader.queue[0].alias = 'Photo';
+                this.uploader.uploadAll();
+                }
+                this.showSnackbar();
+                this.afterDeckAdded.emit(deck as Deck);
+            },
+            err => {
+                this.submitMessage = this.error.ERROR;
+                this.showSnackbar();
+            }
+            );
     }
 
-    checkName(){
-    this.deckService.checkIfDeckExists(this.deck.Name)
-        .subscribe(response =>{
-            let result=response as Deck;
-            if(result.Name=='unique'){
-               this.isUnique = true;
-               this.createLinking();
-            }
-            else{
-               this.isUnique = false;
-               this.deck.Linking="";
-               this.afterCheck=true;
-            }
-          },
-          err=>(handleError)
-         );
-       }
-
-    createLinking():void{
-        this.deck.Linking = this.deck.Name.replace(this.regex.LINKING, "");
+    showSnackbar() {
+        const x = document.getElementById('snackbar')
+        x.className = 'show';
+        setTimeout(function () { x.className = x.className.replace('show', ''); }, 3000);
     }
-    
-     @Output() 
-    afterDeckAdded: EventEmitter<Deck>=new EventEmitter<Deck>();    
+
+    checkName() {
+        this.deckService.checkIfDeckExists(this.deck.Name)
+            .subscribe(response => {
+                const result = response as Deck;
+                if (result.Name === 'unique') {
+                    this.isUnique = true;
+                    this.createLinking();
+                } else {
+                    this.isUnique = false;
+                    this.deck.Linking = '';
+                    this.afterCheck = true;
+                }
+            },
+            err => (handleError)
+            );
+    }
+
+    createLinking(): void {
+        this.deck.Linking = this.deck.Name.replace(this.regex.LINKING, '');
+    }
+
+    imageSet() {
+        this.imageIsChanged = true;
+    }
 }

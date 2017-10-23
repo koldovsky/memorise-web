@@ -5,3 +5,7 @@
   .btn {
     cursor: pointer;
   }
+
+  :disabled {
+    cursor: not-allowed;
+  }
