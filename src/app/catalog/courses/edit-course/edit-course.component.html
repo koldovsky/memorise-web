@@ -87,7 +87,7 @@
                         
                                 <div class="form-group">
                             <label class="custom-file">
-                                <input #selectedPhoto type="file" accept="image/*" ng2FileSelect [uploader]="uploader" (click)="imageSet()">
+                                <input #selectedPhoto type="file" accept="image/*" ng2FileSelect [uploader]="uploader" (change)="imageSet()">
                                 <span></span>
                             </label>
                         </div>
