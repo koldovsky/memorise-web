@@ -30,6 +30,7 @@ export class CreateCourseComponent implements OnInit {
     isUnique = false;
     isPaid = false;
     afterCheck = false;
+    imageIsChanged = false;
     submitMessage = '';
 
     uploadUrl = 'http://localhost:37271/Image/UploadPhotoForCourse';
@@ -96,9 +97,11 @@ export class CreateCourseComponent implements OnInit {
         this.courseService.createCourse(this.course)
             .subscribe(course => {
                 this.submitMessage = 'Course was created successfully';
+                if ( this.imageIsChanged ) {
                 this.uploader.queue[0].url = `${this.uploadUrl}/${(course as Course).Linking}`;
                 this.uploader.queue[0].alias = 'Photo';
                 this.uploader.uploadAll();
+                }
                 this.showSnackbar();
                 this.afterCourseAdded.emit(course as Course);
             },
