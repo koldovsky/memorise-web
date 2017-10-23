@@ -1,31 +1,36 @@
 <div class="d-flex flex-row flex-wrap align-items-stretch justify-content-center">
     <div *ngFor="let course of courses" class="p-2">
         <div class="card" style="width: 15rem;">
-            <div [routerLink]="['/catalog/course', course.Linking]">
-                <div class="crop">
-                    <img class="card-img-top" src="{{course.Photo}}" alt="{{course.Name}}">
-                </div>
-                <div class="card-body mt-auto">
+            <div class="crop" [routerLink]="['/catalog/course', course.Linking]">
+                <img class="card-img-top" src="{{course.Photo}}" alt="{{course.Name}}">
+            </div>
+            <div class="card-body mt-auto">
+                <div [routerLink]="['/catalog/course', course.Linking]">
                     <h4 class="card-title">{{course.Name}}</h4>
                     <p class="card-subtitle mb-2 text-muted">{{course.Price ? course.Price : 'FREE'}}</p>
-                    <!-- <p class="card-text">{{course.Description}}</p> -->
                 </div>
-            </div>
-            <div class="text-center">
-                <a class="btn btn-primary" [routerLink]="['/course', course.Linking, 'quiz']">
-                    Try it now
-                </a>
-                <div *ngIf="course.IsSubscribed; then unsubscribe; else subscribe"></div>
-                <ng-template #subscribe>
-                    <button class="btn" (click)="subscribeToCourse(course)">
+                <!-- <p class="card-text">{{course.Description}}</p> -->
+                <div class="text-center">
+                    <a class="btn btn-sm btn-primary" [routerLink]="['/course', course.Linking, 'quiz']">
+                        Try it now
+                    </a>
+                    <a *ngIf="!authService.isAuthorized; else authorized" class="btn btn-sm btn-outline-success" [routerLink]="['/login']">
                         Subscribe
-                    </button>
-                </ng-template>
-                <ng-template #unsubscribe>
-                    <button class="btn" (click)="unsubscribeFromCourse(course)">
-                        Unsubscribe
-                    </button>
-                </ng-template>
+                    </a>
+                    <ng-template #authorized>
+                        <div *ngIf="course.IsSubscribed; then unsubscribe; else subscribe"></div>
+                        <ng-template #subscribe>
+                            <button class="btn btn-sm btn-outline-success" (click)="subscribeToCourse(course)">
+                                Subscribe
+                            </button>
+                        </ng-template>
+                        <ng-template #unsubscribe>
+                            <button class="btn btn-sm btn-outline-secondary" (click)="unsubscribeFromCourse(course)">
+                                Unsubscribe
+                            </button>
+                        </ng-template>
+                    </ng-template>
+                </div>
             </div>
         </div>
     </div>

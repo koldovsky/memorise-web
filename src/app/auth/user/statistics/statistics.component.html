@@ -24,11 +24,20 @@
     <div *ngFor="let info of statisticsInfo">
         <div class="card m-3">
             <h5>{{info.name}}</h5>
+            <label>Passed percent:
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" [style.width]="info.passedPercent+'%'" style="height:2px" aria-valuemin="0" aria-valuemax="100">
+                            {{info.passedPercent}}%
+                        </div>
+                    </div>
+                    </label>
+            <label>Success percent:
             <div class="progress">
-                <div class="progress-bar" role="progressbar" [style.width]="info.successPercent+'%'" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar bg-success" role="progressbar" [style.width]="info.successPercent+'%'" aria-valuemin="0" aria-valuemax="100">
                     {{info.successPercent}}%
                 </div>
             </div>
+            </label>
             <div *ngIf="dependency === 'Course'">
                 <div *ngFor="let deckInfo of info.containsInfo">
                     <div class="card m-3">

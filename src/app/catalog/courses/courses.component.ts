@@ -25,8 +25,7 @@ export class CoursesComponent implements OnInit {
         private authService: AuthService,
         private subscriptionsService: UserSubscriptionsService,
         private statisticsService: StatisticsService,
-        private route: ActivatedRoute) {
-    }
+        private route: ActivatedRoute) { }
 
     currentUserLogin: string;
     courses: Course[];
@@ -40,9 +39,6 @@ export class CoursesComponent implements OnInit {
                     ? this.courseService.getCourses()
                     : this.categoryService.getCoursesByCategory(category);
             }).subscribe(courses => {
-                // courses.forEach(x => {
-                //     x.IsSubscribed = false;
-                // });
                 this.courses = courses;
                 if (this.authService.checkIfIsAuthorized()) {
                     this.currentUserLogin = this.authService.getCurrentUserLogin();
@@ -50,15 +46,9 @@ export class CoursesComponent implements OnInit {
                         .subscribe(subscriptions => {
                             this.subscriptions = subscriptions;
                             this.checkSubscriptions();
-                            // console.log(this.subscriptions);
                         });
                 }
             });
-    }
-
-    setSubscriptions() {
-        this.subscriptionsService.getCourseSubscriptions(this.currentUserLogin)
-            .subscribe(subscriptions => this.subscriptions = subscriptions);
     }
 
     checkSubscriptions() {
@@ -71,25 +61,19 @@ export class CoursesComponent implements OnInit {
     }
 
     subscribeToCourse(course: Course): void {
-        if (this.authService.isAuthorized) {
-            const subscription = {
-                Rating: -1,
-                UserLogin: this.currentUserLogin,
-                CourseId: course.Id
-            };
-            this.subscriptionsService.subscribeToCourse(subscription)
-                .subscribe(
-                x => {
-                    this.subscriptions.push(x);
-                    course.IsSubscribed = true;
-                },
-                err => handleError);
-        } else {
-            alert('Please, sign in to subscribe!');
-        }
-
-        // this.statisticsService.createStatisticsForCourse(this.currentUserLogin, course.Id)
-        //     .subscribe();
+        const subscription = {
+            Rating: -1,
+            UserLogin: this.currentUserLogin,
+            CourseId: course.Id
+        };
+        this.subscriptionsService.subscribeToCourse(subscription)
+            .subscribe(
+            x => {
+                this.subscriptions.push(x);
+                course.IsSubscribed = true;
+                this.createCourseStatistics(course);
+            },
+            err => handleError);
     }
 
     unsubscribeFromCourse(course: Course): void {
@@ -100,9 +84,30 @@ export class CoursesComponent implements OnInit {
                 x => {
                     course.IsSubscribed = false;
                     this.subscriptions = this.subscriptions.filter(s => s !== x);
+                    this.deleteCourseStatistics(course);
                 },
                 err => handleError
                 );
         }
+    }
+
+    createCourseStatistics(course: Course): void {
+        const subscriptionStatistics = {
+            UserLogin: this.currentUserLogin,
+            ItemId: course.Id
+        };
+        this.statisticsService
+            .createStatisticsForCourse(subscriptionStatistics)
+            .subscribe();
+    }
+
+    deleteCourseStatistics(course: Course): void {
+        this.statisticsService
+            .getStatisticsByUserAndCourse(this.currentUserLogin, course.Id)
+            .subscribe(statistics => {
+                statistics.forEach(x => {
+                    this.statisticsService.deleteStatistics(x.Id).subscribe();
+                });
+            });
     }
 }

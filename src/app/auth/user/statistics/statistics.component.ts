@@ -12,6 +12,7 @@ import { handleError } from '../../../common/functions/functions';
 
 class StatisticsInfo {
   name: string;
+  passedPercent: string;
   successPercent: string;
   containInfo?: StatisticsInfo[];
 }
@@ -64,6 +65,18 @@ export class StatisticsComponent implements OnInit {
     return (passed === 0 ? 0 : successful * 100 / passed).toFixed(0);
   }
 
+  calculatePassedPercent(statistics: Statistics[]): string {
+    const total = statistics.length;
+    let passed = 0;
+    statistics.forEach(s => {
+      if (s.CardStatus !== 0) {
+        passed++;
+      }
+    });
+
+    return (passed === 0 ? 0 : passed * 100 / total).toFixed(0);
+  }
+
   setSuccessPercent(): void {
     this.statisticsInfo = [];
     if (this.dependency === 'Course') {
@@ -76,7 +89,7 @@ export class StatisticsComponent implements OnInit {
       this.subscribtionsServise
         .getSubscribedDecks(this.userLogin)
         .subscribe(
-        decks => this.setDecksSuccessPercent(decks),
+        decks => this.setDeckStatisticsInfo(decks),
         err => handleError);
     }
   }
@@ -98,53 +111,72 @@ export class StatisticsComponent implements OnInit {
   setCoursesSuccessPercent(courses: Course[]) {
     courses.forEach(course => {
       if (this.subscriptionName === null || course.Name === this.subscriptionName) {
-        this.addCourseSuccessPercent(course);
+        this.statisticsService
+          .getStatisticsByUserAndCourse(this.userLogin, course.Id)
+          .subscribe(statistics => {
+            this.statisticsInfo.push({
+              name: course.Name,
+              passedPercent: this.calculatePassedPercent(statistics),
+              successPercent: this.calculateSuccessPercent(statistics)
+            });
+          });
+
       }
     });
   }
 
-  setDecksSuccessPercent(decks: Deck[]) {
+  setDeckStatisticsInfo(decks: Deck[]) {
     decks.forEach(deck => {
       if (this.subscriptionName === null || deck.Name === this.subscriptionName) {
-        this.addDeckSuccessPercent(deck);
+        this.statisticsService
+          .getStatisticsByUserAndDeck(this.userLogin, deck.Id)
+          .subscribe(statistics => {
+            this.statisticsInfo.push({
+              name: deck.Name,
+              passedPercent: this.calculatePassedPercent(statistics),
+              successPercent: this.calculateSuccessPercent(statistics)
+            });
+          });
       }
     });
   }
 
-  addCourseSuccessPercent(course: Course): void {
-    this.statisticsService
-      .getStatisticsByUserAndCourse(this.userLogin, course.Id)
-      .subscribe(statistics => {
-        this.statisticsInfo.push({
-          name: course.Name,
-          successPercent: this.calculateSuccessPercent(statistics),
-        });
-      });
+  // addCourseStatisticsInfo(course: Course): void {
+  //   this.statisticsService
+  //     .getStatisticsByUserAndCourse(this.userLogin, course.Id)
+  //     .subscribe(statistics => {
+  //       this.statisticsInfo.push({
+  //         name: course.Name,
+  //         passedPercent: this.calculatePassedPercent(statistics),
+  //         successPercent: this.calculateSuccessPercent(statistics)
+  //       });
+  //     });
 
-    // const deckStatisticsInfo: StatisticsInfo[] = [];
-    // course.Decks.forEach(deck => {
-    //   this.statisticsService
-    //     .getStatisticsByUserAndDeck(this.userLogin, deck.Id)
-    //     .subscribe(stats => {
-    //       deckStatisticsInfo.push({
-    //         name: deck.Name,
-    //         successPercent: this.calculateSuccessPercent(stats)
-    //       });
-    //       statistics.concat(stats);
-    //     });
-    // });
-  }
+  //   // const deckStatisticsInfo: StatisticsInfo[] = [];
+  //   // course.Decks.forEach(deck => {
+  //   //   this.statisticsService
+  //   //     .getStatisticsByUserAndDeck(this.userLogin, deck.Id)
+  //   //     .subscribe(stats => {
+  //   //       deckStatisticsInfo.push({
+  //   //         name: deck.Name,
+  //   //         successPercent: this.calculateSuccessPercent(stats)
+  //   //       });
+  //   //       statistics.concat(stats);
+  //   //     });
+  //   // });
+  // }
 
-  addDeckSuccessPercent(deck: Deck): void {
-    this.statisticsService
-      .getStatisticsByUserAndDeck(this.userLogin, deck.Id)
-      .subscribe(statistics => {
-        this.statisticsInfo.push({
-          name: deck.Name,
-          successPercent: this.calculateSuccessPercent(statistics)
-        });
-      });
-  }
+  // addDeckStatisticsInfo(deck: Deck): void {
+  //   this.statisticsService
+  //     .getStatisticsByUserAndDeck(this.userLogin, deck.Id)
+  //     .subscribe(statistics => {
+  //       this.statisticsInfo.push({
+  //         name: deck.Name,
+  //         passedPercent: this.calculatePassedPercent(statistics),
+  //         successPercent: this.calculateSuccessPercent(statistics)
+  //       });
+  //     });
+  // }
 
   setNamesInfo(): void {
     this.subscriptionsNames = [];
@@ -163,10 +195,5 @@ export class StatisticsComponent implements OnInit {
           decks.forEach(deck => this.subscriptionsNames.push(deck.Name));
         });
     }
-  }
-
-  resetStatistics(): void {
-    this.setNamesInfo();
-    this.setSuccessPercent();
   }
 }
