@@ -36,9 +36,9 @@ export class QuizResultsComponent implements OnInit {
         if (a.IsCorrect === true) {
           c.RightAnswersText += a.Text + '; ';
         }
-        c.RightAnswersText = c.RightAnswersText.substr(0, c.RightAnswersText.lastIndexOf(';'));
       });
-       }
+      c.RightAnswersText = c.RightAnswersText.substr(0, c.RightAnswersText.lastIndexOf(';'));
+      }
     });
     this.cards.forEach(c => {
       c.CustomerAnswersText = '';
