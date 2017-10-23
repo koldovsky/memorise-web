@@ -15,7 +15,7 @@ export class DecksComponent implements OnInit {
     constructor(private deckService: DeckService,
         private messageService: MessageService,
         private categoryService: CategoryService) { }
-   
+
     decks: Deck[];
 
     ngOnInit(): void {

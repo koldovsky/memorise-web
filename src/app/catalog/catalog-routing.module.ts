@@ -10,6 +10,7 @@ import { EditDeckComponent } from './decks/edit-deck/edit-deck.component';
 import { AddDeckComponent } from './decks/add-deck/add-deck.component';
 import { CardTableComponent } from './cards/card-table/card-table.component';
 import { EditCategoryComponent } from './edit-category/edit-category.component';
+import { EditCardComponent } from './cards/edit-card/edit-card.component';
 
 const route: Routes = [
     {
@@ -45,6 +46,10 @@ const route: Routes = [
     {
         path: 'moderator/decks/edit/all/cards',
         component: CardTableComponent
+    },
+    {
+        path: 'moderator/decks/edit/all/cards/edit',
+        component: EditCardComponent
     },
     {
         path: 'moderator/decks',

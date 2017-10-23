@@ -14,7 +14,6 @@ import { Observable } from 'rxjs/Observable';
 })
 
 export class CatalogTableComponent implements OnInit {
-
     categories: Category[];
     arrayOfElementByPage = [5, 10, 'All'];
     totalCount: number;

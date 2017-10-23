@@ -20,13 +20,13 @@ export class QuizComponent implements OnInit {
     cardsCount;
     counter = 0;
     isLoaded = false;
-    correctColor = "limeGreen";
-    uncorrectColor = "red";
+    correctColor = 'limeGreen';
+    uncorrectColor = 'red';
     customerAnswer = '';
     wordInput: WordInput[];
     customerCodeAnswer = '';
     codeAnswer: CodeAnswer = {
-        CodeAnswerText : '',
+        CodeAnswerText: '',
     };
     codeResult: string;
 
@@ -118,7 +118,7 @@ export class QuizComponent implements OnInit {
 
     checkQuestion() {
         const card: Card = this.cards[this.counter];
-        if (this.cards[this.counter].CardType.Name === "Words input") {
+        if (this.cards[this.counter].CardType.Name === 'Words input') {
             if (this.customerAnswer) {
                 let isRight = false;
                 this.cards[this.counter].Answers
@@ -130,10 +130,10 @@ export class QuizComponent implements OnInit {
                 const cardTitle = <HTMLInputElement>document.getElementById('cardTitle' + card.Id);
                 if (isRight) {
                     cardTitle.style.color = this.correctColor;;
-                    cardTitle.style.fontWeight = "bold";
+                    cardTitle.style.fontWeight = 'bold';
                 } else {
                     cardTitle.style.color = this.uncorrectColor;
-                    cardTitle.style.fontWeight = "bold";
+                    cardTitle.style.fontWeight = 'bold';
                 }
             } else {
                 return;
@@ -149,18 +149,18 @@ export class QuizComponent implements OnInit {
                 switch (answer.IsCorrect) {
                     case true:
                         lable.style.color = this.correctColor;
-                        lable.style.fontWeight = "bold";
+                        lable.style.fontWeight = 'bold';
                         correctAnswersCount++;
                         break;
                     case false:
                         lable.style.color = this.uncorrectColor;
-                        lable.style.fontWeight = "bold";
+                        lable.style.fontWeight = 'bold';
                         isUncorrectChecked = true;
                         break;
                 }
             } else if (answer.IsCorrect) {
                 lable.style.color = this.correctColor;;
-                lable.style.fontWeight = "bold";
+                lable.style.fontWeight = 'bold';
                 correctAnswersCount++;
             } else {
                 lable.style.color = 'black';
@@ -170,10 +170,10 @@ export class QuizComponent implements OnInit {
 
             if (!isUncorrectChecked && correctAnswersCount === checkedAnswersCount) {
                 cardTitle.style.color = this.correctColor;;
-                cardTitle.style.fontWeight = "bold";
+                cardTitle.style.fontWeight = 'bold';
             } else {
                 cardTitle.style.color = this.uncorrectColor;
-                cardTitle.style.fontWeight = "bold";
+                cardTitle.style.fontWeight = 'bold';
             }
         });
     }
@@ -225,11 +225,11 @@ export class QuizComponent implements OnInit {
 
     }
 
-    codeAnswerCheck(){
+    codeAnswerCheck() {
         this.codeResult = '';
-        console.log("In codeAnswerCheck()");
+        console.log('In codeAnswerCheck()');
         this.codeAnswer.CodeAnswerText = this.cards[this.counter].Answers[0].Text;
         this.quizService.codeAnswer(this.codeAnswer)
-        .then(codeAnswer => this.codeResult = codeAnswer.CodeAnswerText);
+            .then(codeAnswer => this.codeResult = codeAnswer.CodeAnswerText);
     }
 }

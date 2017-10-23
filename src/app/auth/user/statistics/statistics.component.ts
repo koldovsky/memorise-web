@@ -20,6 +20,7 @@ class StatisticsInfo {
   templateUrl: './statistics.component.html',
   styleUrls: ['./statistics.component.css']
 })
+
 export class StatisticsComponent implements OnInit {
   userLogin: string;
   dependency: string;
@@ -123,7 +124,6 @@ export class StatisticsComponent implements OnInit {
             }
           });
         });
-
     } else {
       this.subscribtionsServise
         .getSubscribedDecks(this.userLogin)
@@ -140,12 +140,12 @@ export class StatisticsComponent implements OnInit {
   addCourseSuccessPercent(course: Course): void {
     // const statistics: Statistics[] = [];
     this.statisticsService
-         .getStatisticsByUserAndCourse(this.userLogin, course.Id)
-         .subscribe(statistics => {
-            this.statisticsInfo.push({
-              name: course.Name,
-              successPercent: this.calculateSuccessPercent(statistics),
-              // containInfo: deckStatisticsInfo
+      .getStatisticsByUserAndCourse(this.userLogin, course.Id)
+      .subscribe(statistics => {
+        this.statisticsInfo.push({
+          name: course.Name,
+          successPercent: this.calculateSuccessPercent(statistics),
+          // containInfo: deckStatisticsInfo
         });
       });
 

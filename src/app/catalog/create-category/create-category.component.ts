@@ -8,7 +8,6 @@ import { handleError } from '../../common/functions/functions';
 import { regexExpression } from '../../common/helpers/regexExpression';
 import { errorMessages } from '../../common/helpers/errorMessages';
 
-
 @Component({
     selector: 'create-category',
     templateUrl: './create-category.component.html',
@@ -23,6 +22,9 @@ export class CreateCategoryComponent implements OnInit {
     isUnique = false;
     afterCheck = false;
     submitMessage = '';
+
+    @Output()
+    afterCategoryAdded: EventEmitter<Category> = new EventEmitter<Category>();
 
     constructor(
         private authService: AuthService,
@@ -105,7 +107,4 @@ export class CreateCategoryComponent implements OnInit {
     createLinking(): void {
         this.category.Linking = this.category.Name.replace(this.regex.LINKING, '');
     }
-
-    @Output() afterCategoryAdded: EventEmitter<Category> = new EventEmitter<Category>();
-
 }

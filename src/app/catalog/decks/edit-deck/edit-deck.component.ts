@@ -35,7 +35,6 @@ export class EditDeckComponent implements OnInit {
     isLoadedCategories = false;
     isLoadedCards = false;
 
-
     constructor(
         private categoryService: CategoryService,
         private deckService: DeckService,
@@ -60,9 +59,8 @@ export class EditDeckComponent implements OnInit {
                 this.deckLinking = c.Linking;
                 this.isLoadedDeck = true;
                 this.deckBeforeChanges = c;
-            })
-
-    };
+            });
+    }
 
     setWhichButtonIsClicked() {
         this.moderationService.whichButtonIsClicked = 'decks';
@@ -85,6 +83,7 @@ export class EditDeckComponent implements OnInit {
             (err) => console.log(err)
             );
     }
+
     saveDeck() {
         this.deckService.getDeckByLinking(this.deckService.btnInfoLinking)
             .then(deck => {

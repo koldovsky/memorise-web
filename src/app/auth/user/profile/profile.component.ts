@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { UserService } from '../../../common/services/user.service';
 import { User } from '../../../common/models/models';
 import { AuthService } from '../../../common/services/auth.service';
-
-import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
@@ -26,8 +25,7 @@ export class ProfileComponent implements OnInit {
   login: string;
   email: string;
 
-
-  preSet():void{
+  preSet(): void {
     this.radioGroupForm = this.formBuilder.group({
       'model': 'Male'
     });
@@ -41,9 +39,9 @@ export class ProfileComponent implements OnInit {
       .switchMap((params: ParamMap) => this.userService
         .getUserByLogin(this.login))
       .subscribe(user => {
-        this.login = user.Login,
+          this.login = user.Login,
           this.email = user.Email,
-          this.user = user
-      });     
+          this.user = user;
+      });
   }
 }

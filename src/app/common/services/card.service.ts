@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import 'rxjs/add/operator/toPromise';
+import { Observable } from 'rxjs/Observable';
 
 import { Card, PageResponse, SearchDataModel } from '../models/models';
 import { handleError } from '../functions/functions';
-import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class CardService {
@@ -13,6 +13,7 @@ export class CardService {
     private cardModeratorUrl = 'http://localhost:37271/Moderator/';
     private searchCardUrl = 'http://localhost:37271/Quiz/GetSearchCardsByDeckLinking';
 
+    btnInfoLinking = '';
     constructor(private http: HttpClient) { }
 
     getCards(deckName: string[]): Promise<Card[]> {
@@ -43,4 +44,12 @@ export class CardService {
     getCardTypes(): Observable<Object> {
         return this.http.get(`${this.cardModeratorUrl}GetCardsType`);
     }
+
+    createCard(card: Card): Observable<Object> {
+        return this.http.post(`${this.cardModeratorUrl}CreateCard`, card);
+    }
+
+    deleteCard(id: number) {
+        return this.http.delete(`${this.cardModeratorUrl}DeleteCard/${id}`);
+     };
 }

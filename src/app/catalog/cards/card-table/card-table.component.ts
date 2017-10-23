@@ -1,4 +1,5 @@
 import { Component, OnInit, NgModule } from '@angular/core';
+
 import { CardService } from '../../../common/services/card.service';
 import { Card, Deck, CardType, PageResponse } from '../../../common/models/models';
 import { DeckService } from '../../../common/services/deck.service';
@@ -13,7 +14,6 @@ import { PaginationComponent } from '../../../pagination/pagination.component';
 })
 
 export class CardTableComponent implements OnInit {
-
     cards: Card[];
     deckLinking: string;
     arrayOfElementByPage = [1, 5, 10, 'All'];
@@ -27,7 +27,9 @@ export class CardTableComponent implements OnInit {
     constructor(
         private cardService: CardService,
         private moderationService: ModerationService
-    ) { }
+    ) {
+        this.currentCard = {Question: ''};
+    }
 
     ngOnInit() {
         this.deckLinking = this.moderationService.getCurrentDeckLinking();
@@ -75,7 +77,23 @@ export class CardTableComponent implements OnInit {
 
     onCardAdded(newCard: Card): void {
         this.cards.pop();
+        console.log(newCard);
         this.cards.unshift(newCard);
+    }
 
+    onDelete(card: Card): void {
+        this.currentCard = card;
+    }
+
+    confirmDelete(): void {
+        this.cardService.deleteCard(this.currentCard.Id)
+        .subscribe(() => {
+      this.cards = this.cards.filter(x => x.Id !== this.currentCard.Id);
+        },
+        (err) => console.log(err)
+        );
+    }
+    onBtnInfoClick(btnInfoLinking: string) {
+        this.cardService.btnInfoLinking = btnInfoLinking;
     }
 }
