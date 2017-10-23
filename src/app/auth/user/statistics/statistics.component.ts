@@ -27,8 +27,8 @@ export class StatisticsComponent implements OnInit {
   dependency: string;
   subscriptionsNames: string[] = [];
   subscriptionName: string;
-
   statisticsInfo: StatisticsInfo[] = [];
+  isLoaded = false;
 
   constructor(
     private userService: UserService,
@@ -43,10 +43,10 @@ export class StatisticsComponent implements OnInit {
         .getUserByLogin(params.get('name')))
       .subscribe(user => {
         this.userLogin = user.Login;
-        this.dependency = 'Deck';
+        this.dependency = 'Course';
         this.subscriptionName = null;
         this.setNamesInfo();
-        this.setSuccessPercent();
+        this.setStatisticsInfo();
       });
   }
 
@@ -77,55 +77,54 @@ export class StatisticsComponent implements OnInit {
     return (passed === 0 ? 0 : passed * 100 / total).toFixed(0);
   }
 
-  setSuccessPercent(): void {
+  setStatisticsInfo(): void {
     this.statisticsInfo = [];
+
     if (this.dependency === 'Course') {
       this.subscribtionsServise
         .getSubscribedCourses(this.userLogin)
         .subscribe(
-        courses => this.setCoursesSuccessPercent(courses),
+        courses => this.setCoursesStatisticsInfo(courses),
         err => handleError);
     } else {
       this.subscribtionsServise
         .getSubscribedDecks(this.userLogin)
         .subscribe(
-        decks => this.setDeckStatisticsInfo(decks),
+        decks => this.setDecksStatisticsInfo(decks),
         err => handleError);
     }
   }
 
-  // getDeckStatisticsInfo(decks: Deck[]): Observable<StatisticsInfo[]> {
-  //   const statisticsInfo: StatisticsInfo[] = [];
-  //   decks.forEach(deck => this.statisticsService
-  //     .getStatisticsByUserAndDeck(this.userLogin, deck.Id)
-  //     .map(statistics => {
-  //       statisticsInfo.push({
-  //         name: deck.Name,
-  //         successPercent: this.calculateSuccessPercent(statistics)
-  //       });
-  //     }));
-
-  //   return Observable.of(statisticsInfo);
-  // }
-
-  setCoursesSuccessPercent(courses: Course[]) {
+  setCoursesStatisticsInfo(courses: Course[]) {
     courses.forEach(course => {
       if (this.subscriptionName === null || course.Name === this.subscriptionName) {
-        this.statisticsService
-          .getStatisticsByUserAndCourse(this.userLogin, course.Id)
-          .subscribe(statistics => {
-            this.statisticsInfo.push({
-              name: course.Name,
-              passedPercent: this.calculatePassedPercent(statistics),
-              successPercent: this.calculateSuccessPercent(statistics)
-            });
-          });
+        const deckStatisticsInfo: StatisticsInfo[] = [];
+        const courseStatistics = [];
 
+        course.Decks.forEach(deck => {
+          this.statisticsService
+            .getStatisticsByUserAndDeck(this.userLogin, deck.Id)
+            .subscribe(statistics => {
+              deckStatisticsInfo.push({
+                name: deck.Name,
+                passedPercent: this.calculatePassedPercent(statistics),
+                successPercent: this.calculateSuccessPercent(statistics),
+              });
+              courseStatistics.concat(statistics);
+            });
+        });
+
+        this.statisticsInfo.push({
+          name: course.Name,
+          passedPercent: this.calculatePassedPercent(courseStatistics),
+          successPercent: this.calculateSuccessPercent(courseStatistics),
+          containInfo: deckStatisticsInfo
+        });
       }
     });
   }
 
-  setDeckStatisticsInfo(decks: Deck[]) {
+  setDecksStatisticsInfo(decks: Deck[]) {
     decks.forEach(deck => {
       if (this.subscriptionName === null || deck.Name === this.subscriptionName) {
         this.statisticsService
@@ -141,58 +140,24 @@ export class StatisticsComponent implements OnInit {
     });
   }
 
-  // addCourseStatisticsInfo(course: Course): void {
-  //   this.statisticsService
-  //     .getStatisticsByUserAndCourse(this.userLogin, course.Id)
-  //     .subscribe(statistics => {
-  //       this.statisticsInfo.push({
-  //         name: course.Name,
-  //         passedPercent: this.calculatePassedPercent(statistics),
-  //         successPercent: this.calculateSuccessPercent(statistics)
-  //       });
-  //     });
-
-  //   // const deckStatisticsInfo: StatisticsInfo[] = [];
-  //   // course.Decks.forEach(deck => {
-  //   //   this.statisticsService
-  //   //     .getStatisticsByUserAndDeck(this.userLogin, deck.Id)
-  //   //     .subscribe(stats => {
-  //   //       deckStatisticsInfo.push({
-  //   //         name: deck.Name,
-  //   //         successPercent: this.calculateSuccessPercent(stats)
-  //   //       });
-  //   //       statistics.concat(stats);
-  //   //     });
-  //   // });
-  // }
-
-  // addDeckStatisticsInfo(deck: Deck): void {
-  //   this.statisticsService
-  //     .getStatisticsByUserAndDeck(this.userLogin, deck.Id)
-  //     .subscribe(statistics => {
-  //       this.statisticsInfo.push({
-  //         name: deck.Name,
-  //         passedPercent: this.calculatePassedPercent(statistics),
-  //         successPercent: this.calculateSuccessPercent(statistics)
-  //       });
-  //     });
-  // }
-
   setNamesInfo(): void {
     this.subscriptionsNames = [];
     this.subscriptionName = null;
+    this.isLoaded = false;
 
     if (this.dependency === 'Course') {
       this.subscribtionsServise
         .getSubscribedCourses(this.userLogin)
         .subscribe(courses => {
           courses.forEach(course => this.subscriptionsNames.push(course.Name));
+          this.isLoaded = true;
         });
     } else {
       this.subscribtionsServise
         .getSubscribedDecks(this.userLogin)
         .subscribe(decks => {
           decks.forEach(deck => this.subscriptionsNames.push(deck.Name));
+          this.isLoaded = true;
         });
     }
   }
