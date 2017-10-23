@@ -12,7 +12,7 @@ import { AddDeckComponent } from '../../decks/add-deck/add-deck.component';
 import { regexExpression } from '../../../common/helpers/regexExpression';
 import { errorMessages } from '../../../common/helpers/errorMessages';
 import { handleError } from '../../../common/functions/functions';
-
+import { FileUploader } from 'ng2-file-upload';
 @Component({
     selector: 'edit-course',
     templateUrl: './edit-course.component.html',
@@ -23,6 +23,7 @@ export class EditCourseComponent implements OnInit {
     regex;
     error;
     courseBeforeChanges: Course;
+    uploader: FileUploader;
     course: Course;
     categories: Category[];
     decks: Deck[];
@@ -36,6 +37,10 @@ export class EditCourseComponent implements OnInit {
     isLoadedCourse = false;
     isLoadedCategories = false;
     isLoadedDecks = false;
+    imageIsChanged = false;
+    
+
+    uploadUrl = 'http://localhost:37271/Image/UploadPhotoForCourse';
 
     constructor(
         private categoryService: CategoryService,
@@ -44,7 +49,13 @@ export class EditCourseComponent implements OnInit {
         private moderatorComponent: ModeratorComponent,
         private moderationService: ModerationService,
         private dialog: MatDialog,
-    ) { }
+    ) { 
+        this.uploader = new FileUploader({
+            url: this.uploadUrl,
+            queueLimit: 1,
+            removeAfterUpload: true
+        });
+    }
 
     ngOnInit(): void {
         this.regex = regexExpression;
@@ -63,6 +74,7 @@ export class EditCourseComponent implements OnInit {
                     Linking: c.Linking,
                     Description: c.Description,
                     Price: c.Price,
+                    Photo: c.Photo,
                     DeckNames: c.DeckNames.slice(),
                     CategoryName: c.CategoryName
                 };
@@ -80,7 +92,7 @@ export class EditCourseComponent implements OnInit {
             this.deckNames = this.deckNames.filter(x => x !== this.addedDecksLinking[i]);
             this.course.DeckNames.push(this.addedDecksLinking[i]);
         }
-    };
+    }
 
     onSubmit() {
         if (this.checkCourseForChanges()) {
@@ -127,6 +139,11 @@ export class EditCourseComponent implements OnInit {
         this.courseService.updateCourse(this.course)
         .subscribe(course => {
             this.submitMessage = 'Course was updated successfully';
+            if ( this.imageIsChanged ) {
+            this.uploader.queue[0].url = `${this.uploadUrl}/${(course as Course).Linking}`;
+            this.uploader.queue[0].alias = 'Photo';
+            this.uploader.uploadAll();
+            }
             this.showSnackbar();
             },
             err => {
@@ -142,6 +159,7 @@ export class EditCourseComponent implements OnInit {
     }
     checkCourseForChanges(): boolean {
         if (
+            this.imageIsChanged ||
             this.course.CategoryName !== this.courseBeforeChanges.CategoryName ||
             this.course.Description.trim() !== this.courseBeforeChanges.Description.trim() ||
             this.course.Name !== this.courseBeforeChanges.Name ||
@@ -162,14 +180,13 @@ export class EditCourseComponent implements OnInit {
                         }
                     });
             });
-        if (
-            countConcidences === this.courseBeforeChanges.DeckNames.length
-            //&& this.course.DeckNames.length === this.courseBeforeChanges.DeckNames.length
-        ) {
-            return false;
+        if (countConcidences === this.courseBeforeChanges.DeckNames.length) {
+                 return false;
         } else { return true; }
     }
-
+    imageSet() {
+     this.imageIsChanged = true;
+    }
     deleteDecks() {
         for (let i = 0; i < this.chosenDecksLinking.length; i++) {
             this.course.DeckNames = this.course.DeckNames

@@ -28,7 +28,7 @@ export class CourseService {
     }
 
     getCoursesByPage(page: number, pageSize: number, sorted: boolean, search: string): Promise<PageResponse<Course>> {
-        let postData = new SearchDataModel;
+        const postData = new SearchDataModel;
         postData.page = page; postData.pageSize = pageSize;
         postData.searchString = search; postData.sort = sorted;
         const url = this.coursesPageUrl;
@@ -48,7 +48,6 @@ export class CourseService {
     };
 
     createCourse(course: Course): Observable<Object>{
-        // course = this.encodeCourse(course);
         return this.http.post(`${this.courseModeratorUrl}CreateCourse`, course);
     }
     updateCourse(course: Course) {
@@ -57,16 +56,10 @@ export class CourseService {
 
     deleteCourse(id: number) {
        return this.http.delete(`${this.courseModeratorUrl}DeleteCourse/${id}`);
-    };
+    }
 
     checkIfCourseExists(courseName: string): Observable<Object> {
         return this.http.get(`${this.courseModeratorUrl}FindCourseByName/${btoa(courseName)}`);
-    };
+    }
 
-    // encodeCourse(course: Course): Course{
-    //     course.Name = btoa(course.Name);
-    //     course.Linking = btoa(course.Linking);
-    //     course.Description = btoa(course.Description);
-    //     return course;
-    // };
 }

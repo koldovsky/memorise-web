@@ -21,8 +21,8 @@
                         <td>{{card.Question}}</td>
                         <td>{{card.CardType.Name}}</td>
                         <td class="btn-group">
-                            <button class="btn btn-primary" (click)="onBtnInfoClick(card.Linking)" 
-                            [routerLink]="['/moderator/decks/cards/edit', card.Linking]">
+                            <button class="btn btn-primary" (click)="onBtnInfoClick(card.Id)" 
+                            [routerLink]="['/moderator/decks/edit/all/cards/edit']">
                                 <i class="material-icons">info_outline</i>
                             </button>
                             <button class="btn btn-danger"

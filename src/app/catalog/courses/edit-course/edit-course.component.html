@@ -80,14 +80,17 @@
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-4 col-md-6">
-                        <img src="../../../../assets/images/placeholder-thumb.jpg" 
-                        alt="Course photo" class="img-thumbnail">
-                        <label class="custom-file">
-                                <input type="file" accept="image/*" id="photo" class="custom-file-input"
-                                name="Photo">
-                                <!-- [(ngModel)]='course.Photo'  -->
-                                <span class="custom-file-control"></span>
-                        </label>
+                            <img src="{{course.Photo}}" [(ngModel)]="course.Photo"  *ngIf="course.Photo; else stub" alt="Course photo" class="img-thumbnail"> 
+                            <ng-template #stub>
+                                    <img mat-card-m-image src="../../../assets/images/placeholder-thumb.jpg" alt="Course photo" class="img-thumbnail">
+                                </ng-template>
+                        
+                                <div class="form-group">
+                            <label class="custom-file">
+                                <input #selectedPhoto type="file" accept="image/*" ng2FileSelect [uploader]="uploader" (click)="imageSet()">
+                                <span></span>
+                            </label>
+                        </div>
                     </div>
                 </div>
 

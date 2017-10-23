@@ -23,7 +23,7 @@ export class CategoryService {
     }
 
     getCategoriesByPage(page: number, pageSize: number, sorted: boolean, search: string): Promise<PageResponse<Category>> {
-        let postData = new SearchDataModel;
+        const postData = new SearchDataModel;
         postData.page = page; postData.pageSize = pageSize;
         postData.searchString = search; postData.sort = sorted;
         const url = this.categoryPageUrl;
@@ -52,13 +52,11 @@ export class CategoryService {
     }
 
     createCategory(category: Category): Observable<Object>{
-        // category = this.encodeCategory(category);
         return this.http.post(`${this.categoryModeratorUrl}CreateCategory`, category);
     }
 
     updateCategory(category: Category){
-       // category = this.encodeCategory(category);
-        return this.http.put(`${this.categoryModeratorUrl}UpdateCourse`, category);
+       return this.http.put(`${this.categoryModeratorUrl}UpdateCourse`, category);
      }
 
     deleteCategory(id: number){
@@ -68,10 +66,4 @@ export class CategoryService {
     checkIfCategoryExists(categoryName: string): Observable<Object> {
          return this.http.get(`${this.categoryModeratorUrl}FindCategoryByName/${btoa(categoryName)}`);
     }
-
-    // encodeCategory(category: Category): Category{
-    //     category.Name = btoa(category.Name);
-    //     category.Linking = btoa(category.Linking);
-    //     return category;
-    // };
 }
