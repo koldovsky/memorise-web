@@ -22,7 +22,7 @@ export class PaginationComponent implements OnInit {
     previousNumber = 0;
 
     ngOnInit() {
-        
+
     }
 
     onPrev(): void {
@@ -41,7 +41,6 @@ export class PaginationComponent implements OnInit {
         console.log(page);
         // this.temp = this.totalCount / this.pageSize;
     }
-
 
     lastPage(): boolean {
         if (this.page === 0 && this.pageSize === 0) {

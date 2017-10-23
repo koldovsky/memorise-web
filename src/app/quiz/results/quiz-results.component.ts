@@ -21,42 +21,42 @@ export class QuizResultsComponent implements OnInit {
   ngOnInit(): void {
     this.cards = this.quizService.cards;
     this.cards.forEach(c => {
-        c.RightAnswersText = '';
-        c.Answers.forEach(a => {
-          if(a.IsCorrect === true){
-            c.RightAnswersText += a.Text + "; ";
-          }
-        });
-        c.RightAnswersText = c.RightAnswersText.substr(0, c.RightAnswersText.lastIndexOf(";"))
+      c.RightAnswersText = '';
+      c.Answers.forEach(a => {
+        if (a.IsCorrect === true) {
+          c.RightAnswersText += a.Text + '; ';
+        }
+      });
+      c.RightAnswersText = c.RightAnswersText.substr(0, c.RightAnswersText.lastIndexOf(';'))
     });
     this.cards.forEach(c => {
       c.CustomerAnswersText = '';
       c.Answers.forEach(a => {
-        if(a.IsChecked === true){
-          c.CustomerAnswersText += a.Text + "; ";
+        if (a.IsChecked === true) {
+          c.CustomerAnswersText += a.Text + '; ';
         }
       });
-      c.CustomerAnswersText = c.CustomerAnswersText.substr(0, c.CustomerAnswersText.lastIndexOf(";"))
-  });
-  };
+      c.CustomerAnswersText = c.CustomerAnswersText.substr(0, c.CustomerAnswersText.lastIndexOf(';'))
+    });
+  }
 
-  checkCard(card: Card): string{
-     let result;
-     let customerRightAnswersCount: number = 0;
-     let rightAnswersCount: number = 0;
-     
-     card.Answers.forEach(a => {
-       if(a.IsChecked && a.IsCorrect){
-        customerRightAnswersCount++
-       }
-       if(a.IsCorrect){
+  checkCard(card: Card): string {
+    let result;
+    let customerRightAnswersCount = 0;
+    let rightAnswersCount = 0;
+
+    card.Answers.forEach(a => {
+      if (a.IsChecked && a.IsCorrect) {
+        customerRightAnswersCount++;
+      }
+      if (a.IsCorrect) {
         rightAnswersCount++;
-       }
-     })
-     if(customerRightAnswersCount === rightAnswersCount){
-       return "Right";
-     }else{
-      return "Wrong";
-     }
+      }
+    });
+    if (customerRightAnswersCount === rightAnswersCount) {
+      return 'Right';
+    } else {
+      return 'Wrong';
+    }
   }
 }

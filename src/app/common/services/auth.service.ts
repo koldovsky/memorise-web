@@ -37,7 +37,7 @@ export class AuthService {
                 this.name = user.login;
                 // this.user = user;
                 this.IsValid = true;
-                const expiresDate = this.calcExpirationDate( token.expires_in);
+                const expiresDate = this.calcExpirationDate(token.expires_in);
                 localStorage.setItem('tokenExpiresDate', expiresDate.toString());
                 // this.IsValid = true;
             })
@@ -49,9 +49,9 @@ export class AuthService {
     }
 
     calcExpirationDate(seconds: number): Date {
-         const currentDate = new Date();
-         currentDate.setSeconds(currentDate.getSeconds() + seconds);
-         return currentDate;
+        const currentDate = new Date();
+        currentDate.setSeconds(currentDate.getSeconds() + seconds);
+        return currentDate;
     }
 
     signUp(user) {

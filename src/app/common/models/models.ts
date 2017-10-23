@@ -135,11 +135,13 @@ export class SearchDataModel {
     sort: boolean;
     searchString: string;
 }
+
 export interface WordInput extends BaseEntity {
     CardId: number;
     CustomerAnswer: string;
     RightAnswers: string[];
 }
+
 export interface CodeAnswer extends BaseEntity {
     CodeAnswerText: string;
 }

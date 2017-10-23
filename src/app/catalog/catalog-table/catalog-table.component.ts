@@ -16,7 +16,6 @@ import { Observable } from 'rxjs/Observable';
 })
 
 export class CatalogTableComponent implements OnInit {
-
     categories: Category[];
     arrayOfElementByPage = [5, 10, 'All'];
     totalCount: number;
@@ -68,14 +67,14 @@ export class CatalogTableComponent implements OnInit {
     }
 
     onBtnInfoClick(btnInfoLinking: string) {
-        //this.courseService.btnInfoLinking = btnInfoLinking;
-      }
+        // this.courseService.btnInfoLinking = btnInfoLinking;
+    }
 
     onChange(event: any) {
         this.onNotify(0);
     }
 
-    onCategoryAdded(newCategory:Category):void{
+    onCategoryAdded(newCategory: Category): void {
         this.categories.pop();
         this.categories.unshift(newCategory);
     }
@@ -86,11 +85,11 @@ export class CatalogTableComponent implements OnInit {
 
     confirmDelete(): void {
         this.categoryService.deleteCategory(this.currentCategory.Id)
-        .subscribe(()=>{
-        this.categories = this.categories.filter(x=>x.Id!==this.currentCategory.Id);
-        },
-        (err)=>console.log(err)
-        );
+            .subscribe(() => {
+                this.categories = this.categories.filter(x => x.Id !== this.currentCategory.Id);
+            },
+            (err) => console.log(err)
+            );
     }
 
     onSelectFilter(numberFilter: any): void {

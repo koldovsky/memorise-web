@@ -8,7 +8,9 @@ export class SortingPipe implements PipeTransform {
 
   transform(value: Course[], path: string[], order: number = 1): Course[] {
 
-    if (!value || !path || !order) return value;
+    if (!value || !path || !order) {
+      return value;
+    }
 
     return value.sort((a: Course, b: Course) => {
       path.forEach(property => {
