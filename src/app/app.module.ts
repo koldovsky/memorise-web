@@ -84,6 +84,7 @@ import { CardService } from './common/services/card.service';
 import { CardTableComponent } from './catalog/cards/card-table/card-table.component';
 
 import { AppComponent } from './app.component';
+import { EditCardComponent } from './catalog/cards/edit-card/edit-card.component';
 
 
 
@@ -117,6 +118,7 @@ import { AppComponent } from './app.component';
         CreateCategoryComponent,
         CreateDeckComponent,
         CreateCardComponent,
+        EditCardComponent,
         PaginationComponent,
         CourseTableComponent,
         EditCourseComponent,

@@ -11,7 +11,7 @@ import { Observable } from 'rxjs/Observable';
 export class CardService {
     private CardUrl = 'http://localhost:37271/Quiz';
     private cardModeratorUrl = 'http://localhost:37271/Moderator/';
-
+    btnInfoLinking = '';
     constructor(private http: HttpClient) { }
 
     getCards(deckName: string[]): Promise<Card[]> {
@@ -26,7 +26,15 @@ export class CardService {
         .catch(handleError);
     }
 
-    getCardTypes(): Observable<Object>{
+    getCardTypes(): Observable<Object> {
         return this.http.get(`${this.cardModeratorUrl}GetCardsType`);
     }
+
+    createCard(card: Card): Observable<Object> {
+        return this.http.post(`${this.cardModeratorUrl}CreateCard`, card);
+    }
+
+    deleteCard(id: number) {
+        return this.http.delete(`${this.cardModeratorUrl}DeleteCard/${id}`);
+     };
 }

@@ -11,11 +11,12 @@ export interface Answer extends BaseEntity {
 
 export interface Card extends BaseEntity {
     Question: string;
-    CardType: CardType;
+    CardType?: CardType;
     CardTypeName?: string;
-    Deck: Deck;
+    Deck?: Deck;
+    DeckName?: string;
     Comments?: Comment[];
-    Answers: Answer[];
+    Answers?: Answer[];
     IsPassed?: boolean;
     RightAnswersText?: string;
     CustomerAnswersText?: string;
@@ -65,7 +66,7 @@ export interface Deck extends BaseEntity {
     Category?: Category;
     CategoryName?: string;
     Cards?: Card[];
-    Courses? : Course[];
+    Courses?: Course[];
     CardIds?: string[];
     CourseNames?: string[];
     IsSubscribed?: boolean;

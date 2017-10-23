@@ -1,10 +1,14 @@
 <div class="hight10hv"></div>
+<div *ngIf="!isLoadedDecks" class="loader">
+    <img src="../../assets/images/Preloader.gif">
+</div>
 <div class="row" *ngIf="isLoadedCourse && isLoadedCategories && isLoadedDecks">
     <div class="col-xs-12 col-sm-1 col-md-2 col-lg-3"></div>
     <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
         <h2 class="text-center">Course details</h2>
         <br>
-        
+         <!-- Snackbar -->
+         <div id="snackbar">{{submitMessage}}</div>
         <form #mainForm="ngForm" (ngSubmit)="onSubmit()" name="courseMainForm">
                 <div class="row">
                     <div class="col-xs-12 col-sm-8 col-md-6">
@@ -41,10 +45,11 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="linkingId">Linking</label>
+                            <label for="linkingId">URL</label>
                             <input type="text" class="form-control" id="linkingId" 
                             placeholder="Course linking" [(ngModel)]="course.Linking"
                             name="courseLinking"
+                            readonly
                             >
                         </div>
 
@@ -56,7 +61,7 @@
                             >
                                 <option *ngFor="let category of categories" 
  
-                                [attr.selected]="category.Name===course.Category.Name ? true : null"
+                                [attr.selected]="category.Name===course.CategoryName ? true : null"
                                 [(ngValue)]="category.Name" 
                                 >
                                 {{category.Name}}
@@ -66,15 +71,31 @@
 
                         <div class="form-group">
                                 <label for="price">Price</label>
-                                <input type="number" min="0" class="form-control" id="price" 
+                                <input type="number" class="form-control" id="price" 
+                                required max="999" min="0" pattern={{regex.ONLY_NUMBERS}}
                                 placeholder="Course price" [(ngModel)]="course.Price"
-                                name="price"
+                                name="price" #price="ngModel"
                                 >
+                        </div>
+                        <div *ngIf="price.invalid && (price.dirty || price.touched)"
+                           class="alert alert-danger">
+                          <div *ngIf="price.errors.required">
+                             {{error.REQUIRED}}
+                          </div>
+                          <div *ngIf="price.errors.pattern">
+                             {{error.ONLY_NUMBERS}}
+                            </div>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-4 col-md-6">
                         <img src="../../../../assets/images/placeholder-thumb.jpg" 
                         alt="Course photo" class="img-thumbnail">
+                        <label class="custom-file">
+                                <input type="file" accept="image/*" id="photo" class="custom-file-input"
+                                name="Photo">
+                                <!-- [(ngModel)]='course.Photo'  -->
+                                <span class="custom-file-control"></span>
+                        </label>
                     </div>
                 </div>
 
@@ -86,7 +107,20 @@
                                 rows="3" [(ngModel)]="course.Description"
                                 placeholder="Course description"
                                 name="courseDescription"
+                                required 
+                                pattern={{regex.INPUT_REGEX}}
+                                maxlength={{regex.MAX_LENGTH_TEXTAREA}} 
+                                #description="ngModel"
                                 ></textarea>
+                                <div *ngIf="description.invalid && (description.dirty || description.touched)"
+                                class="alert alert-danger">
+                                  <div *ngIf="description.errors.required">
+                                    {{error.REQUIRED}}
+                                  </div>
+                                  <div *ngIf="description.errors.pattern">
+                                    {{error.INCORRECT_INPUT}}
+                                 </div>
+                               </div>
                         </div>
                     </div>
                 </div>
@@ -136,7 +170,8 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-12">
                         <button type="button" class="btn btn-outline-secondary btn-lg float-left" (click)="setWhichButtonIsClicked()" [routerLink]="['/moderator']">Cancel</button>
-                        <button type="submit" class="btn btn-primary btn-lg float-right">Update</button>
+                        <button type="submit" class="btn btn-primary btn-lg float-right"
+                        [disabled]="!mainForm.form.valid">Update</button>
                     </div>
                 </div>
         </form>

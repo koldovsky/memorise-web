@@ -72,7 +72,7 @@ export class CourseTableComponent implements OnInit {
         this.onNotify(0);
     }
 
-    onCourseAdded(newCourse:Course):void{
+    onCourseAdded(newCourse: Course): void {
         this.courses.pop();
         this.courses.unshift(newCourse);
     }
@@ -83,10 +83,10 @@ export class CourseTableComponent implements OnInit {
 
     confirmDelete(): void {
         this.courseService.deleteCourse(this.currentCourse.Id)
-        .subscribe(()=>{
-      this.courses = this.courses.filter(x=>x.Id!==this.currentCourse.Id); 
+        .subscribe(() => {
+      this.courses = this.courses.filter(x => x.Id !== this.currentCourse.Id);
         },
-        (err)=>console.log(err)
+        (err) => console.log(err)
         );
     }
 

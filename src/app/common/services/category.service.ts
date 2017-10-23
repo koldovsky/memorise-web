@@ -51,27 +51,27 @@ export class CategoryService {
             .catch(handleError);
     }
 
-    createCategory(category: Category):Observable<Object>{
-        category = this.encodeCategory(category);
-        return this.http.post(`${this.categoryModeratorUrl}CreateCategory`,category);
+    createCategory(category: Category): Observable<Object>{
+        // category = this.encodeCategory(category);
+        return this.http.post(`${this.categoryModeratorUrl}CreateCategory`, category);
     }
 
     updateCategory(category: Category){
-        category = this.encodeCategory(category);
-        return this.http.put(`${this.categoryModeratorUrl}UpdateCourse`,category);
-     };
+       // category = this.encodeCategory(category);
+        return this.http.put(`${this.categoryModeratorUrl}UpdateCourse`, category);
+     }
 
     deleteCategory(id: number){
-        return this.http.delete(this.categoryModeratorUrl+"DeleteCategory/"+id);
+        return this.http.delete(`${this.categoryModeratorUrl}DeleteCategory/${id}`);
      }
 
     checkIfCategoryExists(categoryName: string): Observable<Object> {
          return this.http.get(`${this.categoryModeratorUrl}FindCategoryByName/${btoa(categoryName)}`);
     }
 
-    encodeCategory(category: Category): Category{
-        category.Name = btoa(category.Name);
-        category.Linking = btoa(category.Linking);
-        return category;
-    };
+    // encodeCategory(category: Category): Category{
+    //     category.Name = btoa(category.Name);
+    //     category.Linking = btoa(category.Linking);
+    //     return category;
+    // };
 }

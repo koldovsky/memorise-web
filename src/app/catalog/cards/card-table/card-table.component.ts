@@ -17,12 +17,15 @@ export class CardTableComponent implements OnInit {
     cards: Card[];
     deck: Deck;
     decks: Deck[];
+    currentCard: Card;
 
     constructor(
         private cardService: CardService,
         private quizeService: QuizService,
         private moderationService: ModerationService
-    ) { }
+    ) {
+        this.currentCard = {Question: ''};
+    }
 
     ngOnInit() {
         // this.deckService.getDecks()
@@ -41,9 +44,25 @@ export class CardTableComponent implements OnInit {
         this.quizeService.GetCardsByDeck(this.deck.Linking)
             .then(cards => this.cards = cards);
     }
-    onCardAdded(newCard:Card):void{
+    onCardAdded(newCard: Card): void {
         this.cards.pop();
+        console.log(newCard);
         this.cards.unshift(newCard);
-        
+    }
+
+    onDelete(card: Card): void {
+        this.currentCard = card;
+    }
+
+    confirmDelete(): void {
+        this.cardService.deleteCard(this.currentCard.Id)
+        .subscribe(() => {
+      this.cards = this.cards.filter(x => x.Id !== this.currentCard.Id);
+        },
+        (err) => console.log(err)
+        );
+    }
+    onBtnInfoClick(btnInfoLinking: string) {
+        this.cardService.btnInfoLinking = btnInfoLinking;
     }
 }

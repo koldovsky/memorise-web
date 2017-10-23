@@ -16,7 +16,7 @@ export class CourseService {
     private courseUrl = 'http://localhost:37271/Catalog/GetCourse';
     private courseModeratorUrl = 'http://localhost:37271/Moderator/';
 
-    btnInfoLinking: string = '';
+    btnInfoLinking = '';
 
     constructor(private http: HttpClient) { }
 
@@ -47,17 +47,15 @@ export class CourseService {
             .catch(handleError);
     };
 
-    createCourse(course: Course):Observable<Object>{
-        course = this.encodeCourse(course);
-        return this.http.post(`${this.courseModeratorUrl}CreateCourse`,course);
-    };
-    
-    updateCourse(course: Course){
-       course = this.encodeCourse(course);
-       return this.http.put(`${this.courseModeratorUrl}UpdateCourse`,course);
-    };
+    createCourse(course: Course): Observable<Object>{
+        // course = this.encodeCourse(course);
+        return this.http.post(`${this.courseModeratorUrl}CreateCourse`, course);
+    }
+    updateCourse(course: Course) {
+       return this.http.put(`${this.courseModeratorUrl}UpdateCourse`, course);
+    }
 
-    deleteCourse(id: number){
+    deleteCourse(id: number) {
        return this.http.delete(`${this.courseModeratorUrl}DeleteCourse/${id}`);
     };
 
@@ -65,10 +63,10 @@ export class CourseService {
         return this.http.get(`${this.courseModeratorUrl}FindCourseByName/${btoa(courseName)}`);
     };
 
-    encodeCourse(course: Course): Course{
-        course.Name = btoa(course.Name);
-        course.Linking = btoa(course.Linking);
-        course.Description = btoa(course.Description);
-        return course;
-    };
+    // encodeCourse(course: Course): Course{
+    //     course.Name = btoa(course.Name);
+    //     course.Linking = btoa(course.Linking);
+    //     course.Description = btoa(course.Description);
+    //     return course;
+    // };
 }
