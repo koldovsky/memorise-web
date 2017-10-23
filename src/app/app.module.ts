@@ -82,6 +82,7 @@ import { CardTableComponent } from './catalog/cards/card-table/card-table.compon
 import { AppComponent } from './app.component';
 import { FileSelectDirective, FileUploadModule } from 'ng2-file-upload';
 import { EditCardComponent } from './catalog/cards/edit-card/edit-card.component';
+import { EditCategoryComponent } from './catalog/edit-category/edit-category.component';
 
 
 

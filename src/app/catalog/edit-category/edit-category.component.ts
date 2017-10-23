@@ -30,5 +30,5 @@ export class EditCategoryComponent implements OnInit {
     //         },
     //         (err) => console.log(err)
     //         );
-    //}
+    // }
 }
