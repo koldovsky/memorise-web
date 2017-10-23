@@ -14,24 +14,17 @@ import { User } from '../common/models/models';
 })
 
 export class NavigationComponent implements OnInit {
-  isAuthorized: boolean;
-  name: string;
-  currentUser: User;
   private router: Router;
 
   constructor(private auth: AuthService) { }
 
-  signOut(): void {
-    this.name = undefined;
+  signOut(): void {    
     localStorage.setItem('token', 'empty');
     this.auth.checkIfIsAuthorized();
   }
 
-  ngOnInit() {
-    this.isAuthorized = this.auth.checkIfIsAuthorized();
-    if (this.isAuthorized) {
-      this.name = this.auth.getCurrentUserLogin();
-      console.log(this.name);
+  ngOnInit() {    
+    this.auth.checkIfIsAuthorized();    
     }
-  }
+  
 }
