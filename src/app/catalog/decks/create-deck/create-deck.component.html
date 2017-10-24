@@ -1,97 +1,73 @@
+<button type="button" class="btn btn-primary marginTopAndBottom" data-toggle="modal" data-target="#createDeckFormModal" data-whatever="createDeck">
+    Create new deck
+</button>
 
-    <button type="button" class="btn btn-primary marginTopAndBottom" data-toggle="modal" 
-    data-target="#createDeckFormModal" data-whatever="createDeck">
-     Create new deck
-    </button>
-  
-    <!-- Modal Window -->
-    <div class="modal fade" id="createDeckFormModal" tabindex="-1" role="dialog" 
-    aria-labelledby="createDeckFormModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="createDeckFormModalLabel">Create new deck</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-                </div>
-                <div class="modal-body">
-                     <!-- Snackbar -->
-                     <div id="snackbar">{{submitMessage}}</div>
-                     <!-- Form -->
-                    <form (ngSubmit)="onSubmit()" #deckForm="ngForm">
-                        <div *ngIf="isLoaded" class="form-group">
-                            <label for="category">Category:</label>
-                            <select class="form-control" id="category" 
-                            required 
-                            [(ngModel)]="deck.CategoryName"
-                            #category="ngModel" 
-                            name="Category">
-                              <option *ngFor="let category of categories"
-                              [value]="category.Name">
-                              {{category.Name}}
+<!-- Modal Window -->
+<div class="modal fade" id="createDeckFormModal" tabindex="-1" role="dialog" aria-labelledby="createDeckFormModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createDeckFormModalLabel">Create new deck</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Snackbar -->
+                <div id="snackbar">{{submitMessage}}</div>
+                <!-- Form -->
+                <form (ngSubmit)="onSubmit()" #deckForm="ngForm">
+                    <div *ngIf="isLoaded" class="form-group">
+                        <label for="category">Category:</label>
+                        <select class="form-control" id="category" required [(ngModel)]="deck.CategoryName" #category="ngModel" name="Category">
+                            <option *ngFor="let category of categories" [value]="category.Name">
+                                {{category.Name}}
                             </option>
-                            </select>
-                            <div *ngIf="category.invalid && (category.dirty || category.touched)"
-                            class="alert alert-danger">
-                              <div *ngIf="category.errors.required">
-                                    {{error.REQUIRED}}
-                              </div>
-                         </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="name" class="form-control-label">Deck name:</label>
-                            <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="deck name" 
-                                    id="name" 
-                                    required maxlength={{regex.MAX_LENGTH_INPUT}} 
-                                    pattern={{regex.INPUT_REGEX}}
-                                    [(ngModel)]='deck.Name' 
-                                    name="Name" #name="ngModel">
-                                    <span class="input-group-btn">
-                                      <button class="btn btn-outline-primary" type="button" 
-                                      [disabled]="name.invalid"
-                                      (click)="checkName()">
-                                      Check
-                                    </button>
-                                    </span>
+                        </select>
+                        <div *ngIf="category.invalid && (category.dirty || category.touched)" class="alert alert-danger">
+                            <div *ngIf="category.errors.required">
+                                {{error.REQUIRED}}
                             </div>
-                            <small id="nameHelp" class="form-text text-muted">
-                                Please check if deck name is unique.
-                            </small>
-                            <div *ngIf="name.invalid && (name.dirty || name.touched)"
-                               class="alert alert-danger">
-                                 <div *ngIf="name.errors.required">
-                                        {{error.REQUIRED}}
-                                 </div>
-                                 <div *ngIf="name.errors.pattern">
-                                        {{error.INCORRECT_INPUT}}
-                                 </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="name" class="form-control-label">Deck name:</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="deck name" id="name" required maxlength={{regex.MAX_LENGTH_INPUT}} pattern={{regex.INPUT_REGEX}}
+                                [(ngModel)]='deck.Name' name="Name" #name="ngModel">
+                            <span class="input-group-btn">
+                                <button class="btn btn-outline-primary" type="button" [disabled]="name.invalid" (click)="checkName()">
+                                    Check
+                                </button>
+                            </span>
+                        </div>
+                        <small id="nameHelp" class="form-text text-muted">
+                            Please check if deck name is unique.
+                        </small>
+                        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+                            <div *ngIf="name.errors.required">
+                                {{error.REQUIRED}}
                             </div>
-                            <div *ngIf="!isUnique && afterCheck && (name.dirty || name.touched)"
-                            class="alert alert-danger">
-                                   {{error.NAME_EXISTS}}
-                               </div>
+                            <div *ngIf="name.errors.pattern">
+                                {{error.INCORRECT_INPUT}}
+                            </div>
                         </div>
-                        <div class="form-group">
-                                <label for="linking">New deck URL:</label>
-                                <div class="input-group">
-                                  <span class="input-group-addon" id="basic-addon">https://memorise.com/catalog/decks/</span>
-                                  <input type="text" class="form-control" id="linking" aria-describedby="basic-addon"
-                                  [(ngModel)]='deck.Linking' 
-                                  name="Linking" 
-                                  readonly
-                                  >
-                                </div>
+                        <div *ngIf="!isUnique && afterCheck && (name.dirty || name.touched)" class="alert alert-danger">
+                            {{error.NAME_EXISTS}}
                         </div>
-                        <div class="form-group">
-                                <label for="description" class="form-control-label">Description:</label>
-                                <textarea class="form-control"
-                                required 
-                                pattern={{regex.INPUT_REGEX}}
-                                [(ngModel)]='deck.Description' 
-                                name="Description" id="description"
-                                maxlength={{regex.MAX_LENGTH_TEXTAREA}} #description="ngModel">
+                    </div>
+                    <div class="form-group">
+                        <label for="linking">New deck URL:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon">https://memorise.com/catalog/decks/</span>
+                            <input type="text" class="form-control" id="linking" aria-describedby="basic-addon" [(ngModel)]='deck.Linking' name="Linking"
+                                readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description" class="form-control-label">Description:</label>
+                        <textarea class="form-control" required pattern={{regex.INPUT_REGEX}} [(ngModel)]='deck.Description' name="Description" id="description"
+                            maxlength={{regex.MAX_LENGTH_TEXTAREA}} #description="ngModel">
                                 </textarea>
                                 <div *ngIf="description.invalid && (description.dirty || description.touched)"
                                 class="alert alert-danger">
@@ -103,21 +79,21 @@
                                      </div>
                                </div>
                             </div>
-                            <div class="form-group">
-                                    <label class="custom-file">
-                                            <input type="file" accept="image/*" id="photo" class="custom-file-input"
-                                            name="Photo"
-                                            [(ngModel)]='deck.Photo' >
-                                            <span class="custom-file-control"></span>
+                    <div class="form-group">
+                        <label class="custom-file">
+                            <input #selectedPhoto type="file" accept="image/*" ng2FileSelect [uploader]="uploader" (change)="imageSet()" >
+                            <span></span>
+                        </label>
+                    </div>
+                            <div class="form-check">
+                                    <label class="custom-control custom-checkbox">
+                                        <input id="isPaid" 
+                                        [(ngModel)]='isPaid'
+                                        name="isPaid" type="checkbox" class="custom-control-input">
+                                        Paid deck
+                                        <span class="custom-control-indicator"></span>
                                     </label>
                             </div>
-                        <div class="form-check">
-                            <label class="form-check-label">
-                              <input type="checkbox" class="form-check-input" name="isPaid"
-                              [(ngModel)]='isPaid'>
-                              Paid deck
-                            </label>
-                        </div>
                         <div class="form-group" *ngIf="isPaid">
                             <label for="price" class="form-control-label">Price:</label>
                             <div class="input-group">
@@ -146,8 +122,8 @@
                     [disabled]="!deckForm.form.valid" (click)="onSubmit(deckForm)"
                     >
                     Create
-                    </button>
-                </div>
+                </button>
             </div>
         </div>
     </div>
+</div>

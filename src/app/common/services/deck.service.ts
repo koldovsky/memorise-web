@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
 
@@ -31,7 +30,7 @@ export class DeckService {
     }
 
     getDecksByPage(page: number, pageSize: number, sorted: boolean, search: string): Promise<PageResponse<Deck>> {
-        let postData = new SearchDataModel;
+        const postData = new SearchDataModel;
         postData.page = page; postData.pageSize = pageSize;
         postData.searchString = search; postData.sort = sorted;
         const url = this.decksPageUrl;
@@ -58,14 +57,12 @@ export class DeckService {
             .then(response => response as Deck)
             .catch(handleError);
     }
-    createDeck(deck: Deck):Observable<Object>{
-        deck = this.encodeDeck(deck);
-        return this.http.post(`${this.deckModeratorUrl}CreateDeck`,deck)
+    createDeck(deck: Deck): Observable<Object> {
+        return this.http.post(`${this.deckModeratorUrl}CreateDeck`, deck)
     }
 
-    updateDeck(deck: Deck){
-        deck = this.encodeDeck(deck);
-        return this.http.put(`${this.deckModeratorUrl}UpdateDeck`,deck);
+    updateDeck(deck: Deck) {
+        return this.http.put(`${this.deckModeratorUrl}UpdateDeck`, deck);
     }
 
     deleteDeck(id: number) {
@@ -75,11 +72,4 @@ export class DeckService {
     checkIfDeckExists(deckName: string): Observable<Object> {
         return this.http.get(`${this.deckModeratorUrl}FindDeckByName/${btoa(deckName)}`);
     }
-
-    encodeDeck(deck: Deck): Deck{
-        deck.Name = btoa(deck.Name);
-        deck.Linking = btoa(deck.Linking);
-        deck.Description = btoa(deck.Description);
-        return deck;
-    };
 }
