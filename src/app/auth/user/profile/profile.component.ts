@@ -34,8 +34,8 @@ export class ProfileComponent implements OnInit {
   firstName: string;
   lastName: string;
   gender: string;
-  model = false;
-
+  model = '';  
+  
   init():void{    
     this.login = this.authService.getCurrentUserLogin();
     this.userService
@@ -46,16 +46,9 @@ export class ProfileComponent implements OnInit {
         this.email = response.Email,
         this.firstName = response.FirstName,
         this.lastName = response.LastName,
-        this.gender = response.Gender
-      }).then(() => {        
-        console.log(this.user.Id);
-        this.radioGroupForm = this.formBuilder.group({
-          'male': '',
-          'female': '',
-          'other': '',
-          'model': 'Male'
-        });
-
+        this.gender = response.Gender,
+        this.model = response.Gender
+      }).then(() => {           
         this.myForm = this.fb.group({
           'firstName': this.user.FirstName,
           'lastName': this.user.LastName,
@@ -69,16 +62,10 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.init();
-    this.radioGroupForm = this.formBuilder.group({
-      'model': 1
-    });
-
   }
 
   updateInfo(): void {
-    /* this.user = this.myForm.value;
-    console.log(this.myForm.value);
-    console.log(this.login); */
+    this.myForm.controls['gender'].setValue(this.model);    
     let name = this.myForm.controls['login'].value;    
 
     this.userService.updateUserByLogin(this.login, this.myForm.value)
