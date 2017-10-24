@@ -1,167 +1,132 @@
-<div class="container marginTopAndBottom">
-    <button type="button" class="btn btn-primary" data-toggle="modal" 
-    data-target="#createCardFormModal" data-whatever="createCard">
-     Create new card
-    </button>
-    </div>
-    <!-- Modal Window -->
-    <div class="modal fade" id="createCardFormModal" tabindex="-1" role="dialog" 
-    aria-labelledby="createCardFormModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="createCardFormModalLabel">Create new card</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-                </div>
-                <div class="modal-body">
-                        <!-- Snackbar -->
-                        <div id="snackbar">{{submitMessage}}</div>
-                        <!-- Form -->
-                        <form (ngSubmit)="onSubmit()" #cardForm="ngForm">
-                            <div *ngIf="isLoaded" class="form-group">
-                                <label for="cardType">Card Type:</label>
-                                <select class="form-control" id="cardType" 
-                                required 
-                                [(ngModel)]="card.CardTypeName"
-                                #cardType="ngModel" 
-                                name="CardTypeName">
-                                  <option *ngFor="let cardType of cardTypes"
-                                  [value]="cardType.Name">
-                                  {{cardType.Name}}
-                                </option>
-                                </select>
-                                <div *ngIf="cardType.invalid && (cardType.dirty || cardType.touched)"
-                                class="alert alert-danger">
-                                  <div *ngIf="cardType.errors.required">
-                                   {{error.REQUIRED}}
-                                  </div>
-                                </div>
-                            </div>
-                            <!-- Question numbers-->
-                            <div *ngIf="card.CardTypeName=='One answer' || card.CardTypeName=='Few answers'" class=" form-group dropdown col-md-2">
-                                <button class="btn btn-outline-primary dropdown-toggle" id="questionNumber" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Number of answers
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="questionNumber">
-                                    <button *ngFor="let item of numbersOfAnswers" class="dropdown-item" type="button" (click)="onSelectNumber(item)">{{item}}</button>
-                                </div>
-                            </div>
-                             <!-- Question -->
-                            <div class="form-group">
-                                <label for="question" class="form-control-label">Question:</label>
-                                <textarea class="form-control"
-                                required 
-                                [(ngModel)]='card.Question' 
-                                name="Question" id="question"
-                                maxlength={{regex.MAX_LENGTH_TEXTAREA}} #question="ngModel">
-                                </textarea>
-                                <div *ngIf="question.invalid && (question.dirty || question.touched)"
-                                class="alert alert-danger">
-                                  <div *ngIf="question.errors.required">
-                                    {{error.REQUIRED}}
-                                  </div>
-                                  
-                               </div>
-                            </div>
-                            <!-- Answers -->
-                            <!-- Answer One -->
-                            <div *ngIf="card.CardTypeName=='One answer' && arrayIsReady" >
-                              <div *ngFor="let answer of answersArray" class="form-group">
-                                <div class="row">
-                                  <div class="col-10">
-                                    <label for="one{{answer.Id}}" 
-                                     class="form-control-label">Answer{{answer.Id}}:</label>
-                                    <textarea class="form-control"
-                                     required 
-                                     [(ngModel)]='answer.Text' 
-                                     name="Text{{answer.Id}}" id="one{{answer.Id}}"
-                                     maxlength={{regex.MAX_LENGTH_TEXTAREA}} #answ="ngModel">
-                                    </textarea>
-                                  </div>
-                                  <div class="col-1 center">
-                                    <label class="custom-control custom-radio">
-                                    <input id="radio{{answer.Id}}" 
-                                      [(ngModel)]='numberOfCorrectAnswer'
-                                      value="{{answer.Id}}"
-                                       name="IsCorrect" type="radio" class="custom-control-input">
-                                    <span class="custom-control-indicator"></span>
-                                    </label>
-                                  </div> 
-                                </div>
-                                <div *ngIf="answ.invalid && (answ.dirty || answ.touched)"
-                                 class="alert alert-danger">
-                                  <div *ngIf="answ.errors.required">
-                                    {{error.REQUIRED}}
-                                  </div>
-                                </div>
-                              </div>
-                              <div *ngIf="numberOfCorrectAnswer === 0" class="alert alert-danger">
-                                {{error.MUST_BE_CORRECT_ANSWER}}
-                              </div>
-                            </div>
-                            <!-- Answer Few -->
-                            <div *ngIf="card.CardTypeName=='Few answers' && arrayIsReady ">           
-                                <div *ngFor="let answer of answersArray" class="form-group">
-                                  <div class="row">
-                                    <div class="col-10">
-                                      <label for="one{{answer.Id}}" 
-                                       class="form-control-label">Answer{{answer.Id}}:</label>
-                                      <textarea class="form-control"
-                                       required 
-                                       [(ngModel)]='answer.Text' 
-                                       name="Text{{answer.Id}}" id="one{{answer.Id}}"
-                                       maxlength={{regex.MAX_LENGTH_TEXTAREA}} #answ="ngModel">
-                                      </textarea>
-                                    </div>
-                                    <div class="col-1 center">
-                                      <label class="custom-control custom-checkbox">
-                                      <input id="checkbox{{answer.Id}}" 
-                                        [(ngModel)]='answer.IsCorrect'
-                                        required 
-                                         name="IsCorrect" type="checkbox" class="custom-control-input">
-                                      <span class="custom-control-indicator"></span>
-                                      </label>
-                                    </div> 
-                                  </div>
-                                  <div *ngIf="answ.invalid && (answ.dirty || answ.touched)"
-                                   class="alert alert-danger">
-                                    <div *ngIf="answ.errors.required">
-                                      {{error.REQUIRED}}
-                                    </div>
-                                    
-                                  </div>
-                                </div>
-                              </div>
-                            <!-- Words Input & Code input -->
-                            <div *ngIf="card.CardTypeName=='Words input' ||card.CardTypeName=='Code input'" class="form-group">
-                                <label for="correctAnswer" class="form-control-label">Correct answer:</label>
-                                <textarea class="form-control"
-                                  required 
-                                  [(ngModel)]='correctAnswer' 
-                                  name="correctAnswer" id="correctAnswer"
-                                  maxlength={{regex.MAX_LENGTH_TEXTAREA}} #corAnswer="ngModel">
-                                </textarea>
-                                <div *ngIf="corAnswer.invalid && (corAnswer.dirty || corAnswer.touched)"
-                                  class="alert alert-danger">
-                                  <div *ngIf="corAnswer.errors.required">
-                                    {{error.REQUIRED}}
-                                  </div>
-                                  
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" 
-                        [disabled]="!cardForm.form.valid || (card.CardTypeName=='One answer' && numberOfCorrectAnswer === 0)" 
-                        (click)="onSubmit(cardForm)"
-                        >
-                        Create
-                        </button>
-                    </div>
-                </div>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createCardFormModal" data-whatever="createCard">
+  Create new card
+</button>
+<!-- Modal Window -->
+<div class="modal fade" id="createCardFormModal" tabindex="-1" role="dialog" aria-labelledby="createCardFormModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createCardFormModalLabel">Create new card</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Snackbar -->
+        <div id="snackbar">{{submitMessage}}</div>
+        <!-- Form -->
+        <form (ngSubmit)="onSubmit()" #cardForm="ngForm">
+          <div *ngIf="isLoaded" class="form-group">
+            <label for="cardType">Card Type:</label>
+            <select class="form-control" id="cardType" required [(ngModel)]="card.CardTypeName" #cardType="ngModel" name="CardTypeName">
+              <option *ngFor="let cardType of cardTypes" [value]="cardType.Name">
+                {{cardType.Name}}
+              </option>
+            </select>
+            <div *ngIf="cardType.invalid && (cardType.dirty || cardType.touched)" class="alert alert-danger">
+              <div *ngIf="cardType.errors.required">
+                {{error.REQUIRED}}
+              </div>
             </div>
-        </div>
+          </div>
+          <!-- Question numbers-->
+          <div *ngIf="card.CardTypeName=='One answer' || card.CardTypeName=='Few answers'" class=" form-group dropdown col-md-2">
+            <button class="btn btn-outline-primary dropdown-toggle" id="questionNumber" type="button" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">
+              Number of answers
+            </button>
+            <div class="dropdown-menu" aria-labelledby="questionNumber">
+              <button *ngFor="let item of numbersOfAnswers" class="dropdown-item" type="button" (click)="onSelectNumber(item)">{{item}}</button>
+            </div>
+          </div>
+          <!-- Question -->
+          <div class="form-group">
+            <label for="question" class="form-control-label">Question:</label>
+            <textarea class="form-control" required [(ngModel)]='card.Question' name="Question" id="question" maxlength={{regex.MAX_LENGTH_TEXTAREA}}
+              #question="ngModel">
+                                </textarea>
+            <div *ngIf="question.invalid && (question.dirty || question.touched)" class="alert alert-danger">
+              <div *ngIf="question.errors.required">
+                {{error.REQUIRED}}
+              </div>
+
+            </div>
+          </div>
+          <!-- Answers -->
+          <!-- Answer One -->
+          <div *ngIf="card.CardTypeName=='One answer' && arrayIsReady">
+            <div *ngFor="let answer of answersArray" class="form-group">
+              <div class="row">
+                <div class="col-10">
+                  <label for="one{{answer.Id}}" class="form-control-label">Answer{{answer.Id}}:</label>
+                  <textarea class="form-control" required [(ngModel)]='answer.Text' name="Text{{answer.Id}}" id="one{{answer.Id}}" maxlength={{regex.MAX_LENGTH_TEXTAREA}}
+                    #answ="ngModel">
+                                    </textarea>
+                </div>
+                <div class="col-1 center">
+                  <label class="custom-control custom-radio">
+                    <input id="radio{{answer.Id}}" [(ngModel)]='numberOfCorrectAnswer' value="{{answer.Id}}" name="IsCorrect" type="radio" class="custom-control-input">
+                    <span class="custom-control-indicator"></span>
+                  </label>
+                </div>
+              </div>
+              <div *ngIf="answ.invalid && (answ.dirty || answ.touched)" class="alert alert-danger">
+                <div *ngIf="answ.errors.required">
+                  {{error.REQUIRED}}
+                </div>
+              </div>
+            </div>
+            <div *ngIf="numberOfCorrectAnswer === 0" class="alert alert-danger">
+              {{error.MUST_BE_CORRECT_ANSWER}}
+            </div>
+          </div>
+          <!-- Answer Few -->
+          <div *ngIf="card.CardTypeName=='Few answers' && arrayIsReady ">
+            <div *ngFor="let answer of answersArray" class="form-group">
+              <div class="row">
+                <div class="col-10">
+                  <label for="one{{answer.Id}}" class="form-control-label">Answer{{answer.Id}}:</label>
+                  <textarea class="form-control" required [(ngModel)]='answer.Text' name="Text{{answer.Id}}" id="one{{answer.Id}}" maxlength={{regex.MAX_LENGTH_TEXTAREA}}
+                    #answ="ngModel">
+                                      </textarea>
+                </div>
+                <div class="col-1 center">
+                  <label class="custom-control custom-checkbox">
+                    <input id="checkbox{{answer.Id}}" [(ngModel)]='answer.IsCorrect' required name="IsCorrect" type="checkbox" class="custom-control-input">
+                    <span class="custom-control-indicator"></span>
+                  </label>
+                </div>
+              </div>
+              <div *ngIf="answ.invalid && (answ.dirty || answ.touched)" class="alert alert-danger">
+                <div *ngIf="answ.errors.required">
+                  {{error.REQUIRED}}
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <!-- Words Input & Code input -->
+          <div *ngIf="card.CardTypeName=='Words input' ||card.CardTypeName=='Code input'" class="form-group">
+            <label for="correctAnswer" class="form-control-label">Correct answer:</label>
+            <textarea class="form-control" required [(ngModel)]='correctAnswer' name="correctAnswer" id="correctAnswer" maxlength={{regex.MAX_LENGTH_TEXTAREA}}
+              #corAnswer="ngModel">
+                                </textarea>
+            <div *ngIf="corAnswer.invalid && (corAnswer.dirty || corAnswer.touched)" class="alert alert-danger">
+              <div *ngIf="corAnswer.errors.required">
+                {{error.REQUIRED}}
+              </div>
+
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!cardForm.form.valid || (card.CardTypeName=='One answer' && numberOfCorrectAnswer === 0)"
+          (click)="onSubmit(cardForm)">
+          Create
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

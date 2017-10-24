@@ -85,11 +85,9 @@ export class EditDeckComponent implements OnInit {
     }
 
     saveDeck() {
-        this.deckService.getDeckByLinking(this.deckService.btnInfoLinking)
-            .then(deck => {
-                this.deck = deck;
-                this.moderationService.setCurrentDeck(this.deck);
-            });
+        this.deckService.getDeckByLinking(this.deck.Linking)
+            .then(deck => this.deck = deck);
+        this.moderationService.setCurrentDeck(this.deck);
     }
 
     // deleteDecks(){

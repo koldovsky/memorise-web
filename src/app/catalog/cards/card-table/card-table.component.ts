@@ -15,8 +15,8 @@ import { PaginationComponent } from '../../../pagination/pagination.component';
 
 export class CardTableComponent implements OnInit {
     cards: Card[];
-    deckLinking: string;
-    arrayOfElementByPage = [1, 5, 10, 'All'];
+    deck: Deck;
+    arrayOfElementByPage = [5, 10, 'All'];
     totalCount: number;
     page = 1; pageSize = this.arrayOfElementByPage[0];
     pageResponse: PageResponse<Card>;
@@ -32,12 +32,12 @@ export class CardTableComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.deckLinking = this.moderationService.getCurrentDeckLinking();
+        this.deck = this.moderationService.getCurrentDeck();
         this.sortTable();
     }
 
     onNotify(index: number): void {
-        this.cardService.getSearchCardsByDeckLinking(this.deckLinking, index, +this.pageSize, this.sorted, this.searchText)
+        this.cardService.getSearchCardsByDeckLinking(this.deck.Linking, index, +this.pageSize, this.sorted, this.searchText)
             .then(pageResponse => {
                 this.cards = pageResponse.items;
                 this.page = index;

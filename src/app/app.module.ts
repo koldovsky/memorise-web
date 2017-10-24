@@ -99,7 +99,6 @@ import { EditCategoryComponent } from './catalog/edit-category/edit-category.com
         CardsComponent,
         AppComponent,
         HomeComponent,
-        PageNotFoundComponent,
         UnauthorizedComponent,
         QuizComponent,
         RegisterComponent,
@@ -122,7 +121,8 @@ import { EditCategoryComponent } from './catalog/edit-category/edit-category.com
         CatalogTableComponent,
         CardTableComponent,
         AddDeckComponent,
-        EditCategoryComponent
+        EditCategoryComponent,
+        PageNotFoundComponent
     ],
     entryComponents: [
         LoginComponent,

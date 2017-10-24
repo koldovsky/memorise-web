@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   templateUrl: './not-found.component.html',
   styleUrls: ['./not-found.component.css']
 })
-export class PageNotFoundComponent implements OnInit {
+export class PageNotFoundComponent {
 
   constructor(
     private location: Location,
@@ -20,8 +20,5 @@ export class PageNotFoundComponent implements OnInit {
 
   goBack(): void {
     this.location.back();
-  }
-
-  ngOnInit() {
   }
 }
