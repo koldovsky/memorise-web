@@ -46,134 +46,129 @@ export class EditDeckComponent implements OnInit {
         private moderationService: ModerationService
     ) { }
 
-    ngOnInit(): void {
+     ngOnInit(): void {
 
-        this.regex = regexExpression;
-        this.error = errorMessages;
-        this.categoryService.getCategories()
-            .then(categories => {
-                this.categories = categories;
-                this.isLoadedCategories = true;
-            });
+//         this.regex = regexExpression;
+//         this.error = errorMessages;
+//         this.categoryService.getCategories()
+//             .then(categories => {
+//                 this.categories = categories;
+//                 this.isLoadedCategories = true;
+//             });
 
-        this.deckService.getDeckByLinking(this.deckService.btnInfoLinking)
-            .then(c => {
-                this.deck = c;
-                this.deckBeforeChanges = {
-                    Name: c.Name,
-                    Linking: c.Linking,
-                    Description: c.Description,
-                    Price: c.Price,
-                    Photo: c.Photo,
-                    CourseNames: c.CourseNames.slice(),
-                    CategoryName: c.CategoryName
-                };
-                this.deckBeforeChanges.CategoryName = c.CategoryName;
-                this.isLoadedDeck = true;
-            });
-    }
+//         this.deckService.getDeckByLinking(this.deckService.btnInfoLinking)
+//             .then(c => {
+//                 this.deck = c;
+//                 this.deckBeforeChanges = {
+//                     Name: c.Name,
+//                     Linking: c.Linking,
+//                     Description: c.Description,
+//                     Price: c.Price,
+//                     Photo: c.Photo,
+//                     CourseNames: c.CourseNames.slice(),
+//                     CategoryName: c.CategoryName
+//                 };
+//                 this.deckBeforeChanges.CategoryName = c.CategoryName;
+//                 this.isLoadedDeck = true;
+//             });
+     }
 
-    setWhichButtonIsClicked() {
-        this.moderationService.whichButtonIsClicked = 'decks';
-    }
+//     setWhichButtonIsClicked() {
+//         this.moderationService.whichButtonIsClicked = 'decks';
+//     }
 
-    onSubmit() {
-        console.log('I am in onSubmit');
-        // console.log(this.deck);
-        // this.deckService.updateDeck(this.deck)
-        //     .subscribe(response => {
-        //         console.log(response);
-        //     },
-        //     (err) => console.log(err)
-        //     );
-        if (this.checkDeckForChanges()) {
-            this.checkNameAndUpdate();
-        } 
+//     onSubmit() {
+//         console.log('I am in onSubmit');
+//         // console.log(this.deck);
         
-    }
+//         if (this.checkDeckForChanges()) {
+//             this.checkNameAndUpdate();
+//         } 
+        
+//     }
 
-    saveDeck() {
-        this.deckService.getDeckByLinking(this.deck.Linking)
-            .then(deck => this.deck = deck);
-        this.moderationService.setCurrentDeck(this.deck);
-    }
+//     saveDeck() {
+//         this.deckService.getDeckByLinking(this.deck.Linking)
+//             .then(deck => this.deck = deck);
+//         this.moderationService.setCurrentDeck(this.deck);
+//     }
 
-    checkNameAndUpdate(){
-        if (this.course.Name === this.courseBeforeChanges.Name || this.isUnique ) {
-           this.updateCourse();
-            this.isUnique = false;
-        } else {
-            this.courseService.checkIfCourseExists(this.course.Name)
-                .subscribe(response => {
-                    const result = response as Course;
-                    if (result.Name === 'unique') {
-                        this.isUnique = true;
-                        this.createLinking();
-                        this.updateCourse();
-                        this.isUnique = false;
-                    } else {
-                        this.isUnique = false;
-                        this.afterCheck = true;
-                    }
-                },
-                err => (handleError)
-                );
-        }
-    }
-    updateCourse() {
-        this.courseService.updateCourse(this.course)
-        .subscribe(course => {
-            this.submitMessage = 'Course was updated successfully';
-            if ( this.imageIsChanged ) {
-            this.uploader.queue[0].url = `${this.uploadUrl}/${(course as Course).Linking}`;
-            this.uploader.queue[0].alias = 'Photo';
-            this.uploader.uploadAll();
-            }
-            this.showSnackbar();
-            this.courseBeforeChanges = course as Course;
-            },
-            err => {
-                this.submitMessage = this.error.ERROR;
-                this.showSnackbar();
-            }
-        );
-    }
-    showSnackbar() {
-        const x = document.getElementById('snackbar')
-        x.className = 'show';
-        setTimeout(function () { x.className = x.className.replace('show', ''); }, 3000);
-    }
-    checkDeckForChanges(): boolean {
-        if (
-            this.imageIsChanged ||
-            this.deck.CategoryName !== this.deckBeforeChanges.CategoryName ||
-            this.deck.Description.trim() !== this.deckBeforeChanges.Description.trim() ||
-            this.deck.Name !== this.deckBeforeChanges.Name ||
-            this.deck.Price !== this.deckBeforeChanges.Price
-        ) {
-           return true;
-        } else { return false; }
-    }
-    imageSet() {
-        this.imageIsChanged = true;
-       }
-       checkName() {
-        this.courseService.checkIfCourseExists(this.course.Name)
-            .subscribe(response => {
-                const result = response as Course;
-                if (result.Name === 'unique') {
-                    this.isUnique = true;
-                    this.createLinking();
-                } else {
-                    this.isUnique = false;
-                    this.afterCheck = true;
-                }
-            },
-            err => (handleError)
-            );
-    }
-    createLinking(): void {
-        this.course.Linking = this.course.Name.replace(this.regex.LINKING, '');
-    }
+//     checkNameAndUpdate(){
+//         if (this.course.Name === this.courseBeforeChanges.Name || this.isUnique ) {
+//            this.updateCourse();
+//             this.isUnique = false;
+//         } else {
+//             this.courseService.checkIfCourseExists(this.course.Name)
+//                 .subscribe(response => {
+//                     const result = response as Course;
+//                     if (result.Name === 'unique') {
+//                         this.isUnique = true;
+//                         this.createLinking();
+//                         this.updateCourse();
+//                         this.isUnique = false;
+//                     } else {
+//                         this.isUnique = false;
+//                         this.afterCheck = true;
+//                     }
+//                 },
+//                 err => (handleError)
+//                 );
+//         }
+//     }
+//     updateDeck() {
+//         this.courseService.updateCourse(this.course)
+//         .subscribe(course => {
+//             this.submitMessage = 'Course was updated successfully';
+//             if ( this.imageIsChanged ) {
+//             this.uploader.queue[0].url = `${this.uploadUrl}/${(course as Course).Linking}`;
+//             this.uploader.queue[0].alias = 'Photo';
+//             this.uploader.uploadAll();
+//             }
+//             this.showSnackbar();
+//             this.courseBeforeChanges = course as Course;
+//             },
+//             err => {
+//                 this.submitMessage = this.error.ERROR;
+//                 this.showSnackbar();
+//             }
+//         );
+//     }
+//     showSnackbar() {
+//         const x = document.getElementById('snackbar')
+//         x.className = 'show';
+//         setTimeout(function () { x.className = x.className.replace('show', ''); }, 3000);
+//     }
+//     checkDeckForChanges(): boolean {
+//         if (
+//             this.imageIsChanged ||
+//             this.deck.CategoryName !== this.deckBeforeChanges.CategoryName ||
+//             this.deck.Description.trim() !== this.deckBeforeChanges.Description.trim() ||
+//             this.deck.Name !== this.deckBeforeChanges.Name ||
+//             this.deck.Price !== this.deckBeforeChanges.Price
+//         ) {
+//            return true;
+//         } else { return false; }
+//     }
+//     imageSet() {
+//         this.imageIsChanged = true;
+//        }
+//        checkName() {
+//         this.courseService.checkIfCourseExists(this.course.Name)
+//             .subscribe(response => {
+//                 const result = response as Course;
+//                 if (result.Name === 'unique') {
+//                     this.isUnique = true;
+//                     this.createLinking();
+//                 } else {
+//                     this.isUnique = false;
+//                     this.afterCheck = true;
+//                 }
+//             },
+//             err => (handleError)
+//             );
+//     }
+//     createLinking(): void {
+//         this.course.Linking = this.course.Name.replace(this.regex.LINKING, '');
+//     }
 
-}
+ }
