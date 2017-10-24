@@ -66,6 +66,9 @@ export class CreateCardComponent implements OnInit {
         this.numberOfCorrectAnswer = 0;
         this.createAnswersArray(item);
         this.arrayIsReady = true;
+
+        console.log(this.card.CardTypeName);
+        console.log(this.numberOfCorrectAnswer);
     }
 
     createAnswersArray(numbers: number) {
@@ -75,6 +78,8 @@ export class CreateCardComponent implements OnInit {
         }
     }
     onSubmit(form: NgForm) {
+        console.log("enter submit");
+        console.log(this.numberOfCorrectAnswer);
         if (this.numberOfCorrectAnswer > 0) {
             this.answersArray[this.numberOfCorrectAnswer - 1].IsCorrect = true;
             this.card.Answers = this.answersArray;
@@ -87,6 +92,8 @@ export class CreateCardComponent implements OnInit {
     }
 
     createCard() {
+        console.log("enter create");
+        console.log(this.deck);
         this.card.DeckName = this.deck.Name;
         this.cardService.createCard(this.card)
         .subscribe(card => {

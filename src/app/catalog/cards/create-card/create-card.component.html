@@ -1,6 +1,8 @@
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createCardFormModal" data-whatever="createCard">
-  Create new card
-</button>
+<div class="container marginTopAndBottom">
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createCardFormModal" data-whatever="createCard">
+    Create new card
+  </button>
+</div>
 <!-- Modal Window -->
 <div class="modal fade" id="createCardFormModal" tabindex="-1" role="dialog" aria-labelledby="createCardFormModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -44,12 +46,11 @@
             <label for="question" class="form-control-label">Question:</label>
             <textarea class="form-control" required [(ngModel)]='card.Question' name="Question" id="question" maxlength={{regex.MAX_LENGTH_TEXTAREA}}
               #question="ngModel">
-                                </textarea>
+               </textarea>
             <div *ngIf="question.invalid && (question.dirty || question.touched)" class="alert alert-danger">
               <div *ngIf="question.errors.required">
                 {{error.REQUIRED}}
               </div>
-
             </div>
           </div>
           <!-- Answers -->
@@ -61,7 +62,7 @@
                   <label for="one{{answer.Id}}" class="form-control-label">Answer{{answer.Id}}:</label>
                   <textarea class="form-control" required [(ngModel)]='answer.Text' name="Text{{answer.Id}}" id="one{{answer.Id}}" maxlength={{regex.MAX_LENGTH_TEXTAREA}}
                     #answ="ngModel">
-                                    </textarea>
+                    </textarea>
                 </div>
                 <div class="col-1 center">
                   <label class="custom-control custom-radio">
@@ -88,7 +89,7 @@
                   <label for="one{{answer.Id}}" class="form-control-label">Answer{{answer.Id}}:</label>
                   <textarea class="form-control" required [(ngModel)]='answer.Text' name="Text{{answer.Id}}" id="one{{answer.Id}}" maxlength={{regex.MAX_LENGTH_TEXTAREA}}
                     #answ="ngModel">
-                                      </textarea>
+                  </textarea>
                 </div>
                 <div class="col-1 center">
                   <label class="custom-control custom-checkbox">
@@ -101,7 +102,6 @@
                 <div *ngIf="answ.errors.required">
                   {{error.REQUIRED}}
                 </div>
-
               </div>
             </div>
           </div>
@@ -115,7 +115,6 @@
               <div *ngIf="corAnswer.errors.required">
                 {{error.REQUIRED}}
               </div>
-
             </div>
           </div>
         </form>

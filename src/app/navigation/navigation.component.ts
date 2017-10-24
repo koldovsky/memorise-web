@@ -32,7 +32,6 @@ export class NavigationComponent implements OnInit {
     this.isAuthorized = this.auth.checkIfIsAuthorized();
     if (this.isAuthorized) {
       this.name = this.auth.getCurrentUserLogin();
-      console.log(this.name);
     }
   }
 }

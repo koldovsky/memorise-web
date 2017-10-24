@@ -95,15 +95,15 @@ export class AuthService {
         return;
     }
 
-    getCurrentUser(): User {
-        // console.log(localStorage.getItem('user'));
-        /* if(this.isAuthorized && localStorage.getItem('user')){
-            this.user = JSON.parse(localStorage.getItem('user')) as User;
-            console.log(this.user.Login);
-            return this.user;
-        } */
-        return;
-    }
+    // getCurrentUser(): User {
+    //     console.log(localStorage.getItem('user'));
+    //     if (this.isAuthorized && localStorage.getItem('user')) {
+    //         this.user = JSON.parse(localStorage.getItem('user')) as User;
+    //         console.log(this.user.Login);
+    //         return this.user;
+    //     }
+    //     return;
+    // }
 
     validData(): boolean {
         return this.IsValid;
@@ -130,7 +130,6 @@ export class AuthService {
         const expiresDate = new Date(localStorage.getItem('tokenExpiresDate'));
 
         this.isAuthorized = this.getToken() !== 'empty' && currentDate < expiresDate;
-        console.log(this.isAuthorized);
         return this.isAuthorized;
     }
 }

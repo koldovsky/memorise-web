@@ -36,9 +36,9 @@ export class QuizResultsComponent implements OnInit {
         if (a.IsCorrect === true) {
           c.RightAnswersText += a.Text + '; ';
         }
-        c.RightAnswersText = c.RightAnswersText.substr(0, c.RightAnswersText.lastIndexOf(';'));
       });
-       }
+      c.RightAnswersText = c.RightAnswersText.substr(0, c.RightAnswersText.lastIndexOf(';'));
+      }
     });
     this.cards.forEach(c => {
       c.CustomerAnswersText = '';
@@ -60,15 +60,15 @@ export class QuizResultsComponent implements OnInit {
   checkCard(card: Card): string {
      if (card.CardType.Name === 'Words input') {
        if (this.wordInputs[card.Id].IsRight) {
-          return 'Right';
+          return 'done';
        }else {
-        return 'Wrong';
+        return 'close';
       }
      }else if (card.CardType.Name === 'Code input') {
        if (this.codeAnswers[card.Id].IsRight) {
-         return 'Right';
+         return 'done';
        } else {
-         return 'Wrong';
+         return 'close';
        }
      }else {
     let customerRightAnswersCount = 0;
@@ -83,9 +83,9 @@ export class QuizResultsComponent implements OnInit {
       }
     });
     if (customerRightAnswersCount === rightAnswersCount) {
-      return 'Right';
+      return 'done';
     } else {
-      return 'Wrong';
+      return 'close';
     }
    }
   }
