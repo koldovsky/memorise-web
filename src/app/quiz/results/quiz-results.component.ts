@@ -8,6 +8,12 @@ import { StatisticsService } from '../../common/services/statistics.service';
 import { AuthService } from '../../common/services/auth.service';
 import { handleError } from '../../common/functions/functions';
 
+const CARD_STATUS = {
+  NOT_PASSED: 0,
+  UNCORRECT: 1,
+  CORRECT: 2
+};
+
 @Component({
   selector: 'app-quiz-results',
   templateUrl: './quiz-results.component.html',
@@ -29,8 +35,8 @@ export class QuizResultsComponent implements OnInit {
     this.cards = this.quizService.cards;
     this.wordInputs = this.quizService.wordInputs;
     this.codeAnswers = this.quizService.codeAnswers;
-
     this.cards.forEach(c => {
+      // const c = this.cards[0]; // just to see how it works
       if (c.CardType.Name === 'Words input') {
         c.RightAnswersText = this.wordInputs[c.Id].RightAnswersText.join('; ');
       } else if (c.CardType.Name === 'Code input') {
@@ -59,66 +65,23 @@ export class QuizResultsComponent implements OnInit {
         });
         c.CustomerAnswersText = c.CustomerAnswersText.substr(0, c.CustomerAnswersText.lastIndexOf(';'));
       }
+      this.saveStatistics(c);
     });
   }
-
-  checkCard(card: Card): string {
-    if (card.CardType.Name === 'Words input') {
-      if (this.wordInputs[card.Id].IsRight) {
-         return 'done';
-      }else {
-       return 'close';
-     }
-    }else if (card.CardType.Name === 'Code input') {
-      if (this.codeAnswers[card.Id].IsRight) {
-        return 'done';
-      } else {
-        return 'close';
-      }
-    }else {
-   let customerRightAnswersCount = 0;
-   let customerAnswersCount = 0;
-   let rightAnswersCount = 0;
-   card.Answers.forEach(a => {
-     if (a.IsChecked) {
-       customerAnswersCount++;
-       if (a.IsCorrect) {
-         customerRightAnswersCount++;
-       }
-     }
-     if (a.IsCorrect) {
-       rightAnswersCount++;
-     }
-   });
-   if (customerRightAnswersCount === rightAnswersCount &&
-     customerRightAnswersCount === customerAnswersCount) {
-     return 'done';
-   } else {
-     return 'close';
-   }
-  }
- }
-
   // checkCard(card: Card): string {
-  //   const isAnswerCorrect = card.CardTypeName === 'Words input'
-  //     ? this.checkWordInput(card)
-  //     : card.CardTypeName === 'Code input'
-  //       ? this.checkCodeInput(card)
-  //       : this.checkTestInput(card);
-
-  //   // this.saveStatistics(card, isAnswerCorrect);
-  //   return isAnswerCorrect ? 'done' : 'close';
-  // }
-
-  // checkWordInput(card: Card): boolean {
-  //   return this.wordInputs[card.Id].IsRight;
-  // }
-
-  // checkCodeInput(card: Card): boolean {
-  //   return this.codeAnswers[card.Id].IsRight;
-  // }
-
-  // checkTestInput(card: Card): boolean {
+  //    if (card.CardType.Name === 'Words input') {
+  //      if (this.wordInputs[card.Id].IsRight) {
+  //         return 'done';
+  //      }else {
+  //       return 'close';
+  //     }
+  //    }else if (card.CardType.Name === 'Code input') {
+  //      if (this.codeAnswers[card.Id].IsRight) {
+  //        return 'done';
+  //      } else {
+  //        return 'close';
+  //      }
+  //    }else {
   //   let customerRightAnswersCount = 0;
   //   let customerAnswersCount = 0;
   //   let rightAnswersCount = 0;
@@ -133,21 +96,71 @@ export class QuizResultsComponent implements OnInit {
   //       rightAnswersCount++;
   //     }
   //   });
-  //   return customerRightAnswersCount === rightAnswersCount &&
-  //     customerRightAnswersCount === customerAnswersCount;
-  // }
-
-  // saveStatistics(card: Card, isAnswerCorrect: boolean): void {
-  //   if (this.authService.checkIfIsAuthorized()) {
-  //     this.statisticsService.getStatisticsByUserAndCard(
-  //       this.authService.getCurrentUserLogin(),
-  //       card.Id
-  //     ).subscribe(
-  //       statistics => {
-  //         statistics.CardStatus = isAnswerCorrect ? 2 : 1;
-  //         this.statisticsService.updateStatistics(statistics).subscribe();
-  //       },
-  //       err => handleError);
+  //   if (customerRightAnswersCount === rightAnswersCount &&
+  //     customerRightAnswersCount === customerAnswersCount) {
+  //     return 'done';
+  //   } else {
+  //     return 'close';
   //   }
   //  }
+  // }
+
+  getIcon(card: Card): string {
+    return this.checkCard(card) ? 'done' : 'close';
+  }
+
+  checkCard(card: Card): boolean {
+    const isAnswerCorrect = card.CardTypeName === 'Words input'
+      ? this.checkWordInput(card)
+      : card.CardTypeName === 'Code input'
+        ? this.checkCodeInput(card)
+        : this.checkTestInput(card);
+
+    return isAnswerCorrect;
+  }
+
+  checkWordInput(card: Card): boolean {
+    return this.wordInputs[card.Id].IsRight;
+  }
+
+  checkCodeInput(card: Card): boolean {
+    return this.codeAnswers[card.Id].IsRight;
+  }
+
+  checkTestInput(card: Card): boolean {
+    let customerRightAnswersCount = 0;
+    let customerAnswersCount = 0;
+    let rightAnswersCount = 0;
+    card.Answers.forEach(a => {
+      if (a.IsChecked) {
+        customerAnswersCount++;
+        if (a.IsCorrect) {
+          customerRightAnswersCount++;
+        }
+      }
+      if (a.IsCorrect) {
+        rightAnswersCount++;
+      }
+    });
+    return customerRightAnswersCount === rightAnswersCount &&
+      customerRightAnswersCount === customerAnswersCount;
+  }
+
+  saveStatistics(card: Card): void {
+    if (this.authService.checkIfIsAuthorized()) {
+      this.statisticsService.getStatisticsByUserAndCard(
+        this.authService.getCurrentUserLogin(),
+        card.Id
+      ).subscribe(
+        statistics => {
+          if (statistics) {
+            statistics.CardStatus = this.checkCard(card)
+              ? CARD_STATUS.CORRECT
+              : CARD_STATUS.UNCORRECT;
+            this.statisticsService.updateStatistics(statistics).subscribe();
+          }
+        },
+        err => handleError);
+    }
+  }
 }

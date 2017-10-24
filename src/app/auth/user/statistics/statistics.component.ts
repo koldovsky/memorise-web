@@ -105,7 +105,6 @@ export class StatisticsComponent implements OnInit {
     courses.forEach(course => {
       if (this.subscriptionName === null || course.Name === this.subscriptionName) {
         const deckStatisticsInfo: StatisticsInfo[] = [];
-        const courseStatistics = [];
 
         course.Decks.forEach(deck => {
           this.statisticsService
@@ -117,19 +116,20 @@ export class StatisticsComponent implements OnInit {
                   passedPercent: this.calculatePassedPercent(statistics),
                   successPercent: this.calculateSuccessPercent(statistics),
                 });
-                courseStatistics.concat(statistics);
               }
             });
         });
 
-        if (courseStatistics) {
-          this.statisticsInfo.push({
-            name: course.Name,
-            passedPercent: this.calculatePassedPercent(courseStatistics),
-            successPercent: this.calculateSuccessPercent(courseStatistics),
-            containInfo: deckStatisticsInfo
+        this.statisticsService
+          .getStatisticsByUserAndCourse(this.userLogin, course.Id)
+          .subscribe(statistics => {
+            this.statisticsInfo.push({
+              name: course.Name,
+              passedPercent: this.calculatePassedPercent(statistics),
+              successPercent: this.calculateSuccessPercent(statistics),
+              containInfo: deckStatisticsInfo
+            });
           });
-        }
       }
     });
   }
@@ -162,6 +162,7 @@ export class StatisticsComponent implements OnInit {
         .getSubscribedCourses(this.userLogin)
         .subscribe(courses => {
           courses.forEach(course => this.subscriptionsNames.push(course.Name));
+          this.subscriptionsNames.sort();
           this.isLoaded = true;
         });
     } else {
@@ -169,6 +170,7 @@ export class StatisticsComponent implements OnInit {
         .getSubscribedDecks(this.userLogin)
         .subscribe(decks => {
           decks.forEach(deck => this.subscriptionsNames.push(deck.Name));
+          this.subscriptionsNames.sort();
           this.isLoaded = true;
         });
     }
