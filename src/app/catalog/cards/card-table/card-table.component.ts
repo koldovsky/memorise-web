@@ -28,7 +28,7 @@ export class CardTableComponent implements OnInit {
         private cardService: CardService,
         private moderationService: ModerationService
     ) {
-        this.currentCard = {Question: ''};
+        this.currentCard = { Question: '' };
     }
 
     ngOnInit() {
@@ -87,13 +87,13 @@ export class CardTableComponent implements OnInit {
 
     confirmDelete(): void {
         this.cardService.deleteCard(this.currentCard.Id)
-        .subscribe(() => {
-      this.cards = this.cards.filter(x => x.Id !== this.currentCard.Id);
-        },
-        (err) => console.log(err)
-        );
+            .subscribe(() => {
+                this.cards = this.cards.filter(x => x.Id !== this.currentCard.Id);
+            },
+            (err) => console.log(err)
+            );
     }
-    onBtnInfoClick(btnInfoLinking: string) {
-        this.cardService.btnInfoLinking = btnInfoLinking;
+    onBtnInfoClick(btnInfoId: number) {
+        this.cardService.btnInfoId = btnInfoId;
     }
 }

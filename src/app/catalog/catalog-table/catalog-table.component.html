@@ -11,7 +11,8 @@
                     />
                 </div>
                 <div class="dropdown col-sm-12 col-md-4">
-                    <button class="btn btn-secondary dropdown-toggle btn-block" id="filter" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-secondary dropdown-toggle btn-block" id="filter" type="button" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
                         {{dropDownElements()}}
                     </button>
                     <div class="dropdown-menu" aria-labelledby="filter">
@@ -38,10 +39,10 @@
             </thead>
             <tbody *ngFor="let category of categories; let i=index">
                 <tr>
-                    <td>{{pageSize * (page - 1) + i + 1}}</td>
-                    <td>{{category.Name}}</td>
-                    <td class="btn-group">
-                        <button class="btn btn-primary" (click)="onBtnInfoClick(category.Linking)" [routerLink]="['/moderator/categories/edit', category.Linking]">
+                    <td class="padding-top">{{pageSize * (page - 1) + i + 1}}</td>
+                    <td class="padding-top">{{category.Name}}</td>
+                    <td class="view-table">
+                        <button class="btn btn-primary" (click)="onBtnInfoClick(currentCategory.Name)" [routerLink]="['/moderator/categories/edit', category.Linking]">
                             <i class="material-icons">info_outline</i>
                         </button>
                         <button class="btn btn-danger" data-toggle="modal" data-target="#deleteCategoryAlertModal" (click)="onDelete(category)">

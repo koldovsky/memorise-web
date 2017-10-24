@@ -5,3 +5,11 @@
   .btn {
     cursor: pointer;
   }
+
+  .padding-top {
+    padding-top: 1.8%;
+  }
+
+  .view-table{
+    text-align: center;
+}
