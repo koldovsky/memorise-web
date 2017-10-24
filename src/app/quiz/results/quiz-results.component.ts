@@ -2,8 +2,10 @@ import { Component, ElementRef, OnInit } from '@angular/core';
 import { ParamMap, ActivatedRoute } from '@angular/router';
 
 import { QuizService } from '../../common/services/quiz.service';
-import { Card, Answer, WordInput, CodeAnswer } from '../../common/models/models';
+import { Card, Answer, WordInput, CodeAnswer, Statistics } from '../../common/models/models';
 import { QuizComponent } from '../quiz.component';
+import { StatisticsService } from '../../common/services/statistics.service';
+import { AuthService } from '../../common/services/auth.service';
 
 @Component({
   selector: 'app-quiz-results',
@@ -15,9 +17,12 @@ export class QuizResultsComponent implements OnInit {
   cards: Card[];
   wordInputs: WordInput[] = [];
   codeAnswers: CodeAnswer[] = [];
+  statistics: Statistics[];
 
   constructor(
-    private quizService: QuizService
+    private quizService: QuizService,
+    private statisticsService: StatisticsService,
+    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
@@ -72,17 +77,22 @@ export class QuizResultsComponent implements OnInit {
        }
      }else {
     let customerRightAnswersCount = 0;
+    let customerAnswersCount = 0;
     let rightAnswersCount = 0;
 
     card.Answers.forEach(a => {
-      if (a.IsChecked && a.IsCorrect) {
-        customerRightAnswersCount++;
+      if (a.IsChecked) {
+        customerAnswersCount++;
+        if (a.IsCorrect) {
+          customerRightAnswersCount++;
+        }
       }
       if (a.IsCorrect) {
         rightAnswersCount++;
       }
     });
-    if (customerRightAnswersCount === rightAnswersCount) {
+    if (customerRightAnswersCount === rightAnswersCount &&
+      customerRightAnswersCount === customerAnswersCount) {
       return 'done';
     } else {
       return 'close';

@@ -13,7 +13,7 @@ export class CardService {
     private cardModeratorUrl = 'http://localhost:37271/Moderator/';
     private searchCardUrl = 'http://localhost:37271/Quiz/GetSearchCardsByDeckLinking';
 
-    btnInfoLinking = '';
+    btnInfoId: number;
     constructor(private http: HttpClient) { }
 
     getCards(deckName: string[]): Promise<Card[]> {
@@ -51,5 +51,9 @@ export class CardService {
 
     deleteCard(id: number) {
         return this.http.delete(`${this.cardModeratorUrl}DeleteCard/${id}`);
-     };
+    }
+
+    getCardById(id: number): Observable<Object> {
+        return this.http.get(`${this.cardModeratorUrl}GetCardById/${id}`);
+    }
 }
