@@ -113,14 +113,11 @@ export class AuthService {
         this.errorMessage = message;
     }
 
-    checkIfIsAuthorized(): void {
+    checkIfIsAuthorized(): boolean {
         let currentDate = new Date();
         let expiresDate = new Date(localStorage.getItem('tokenExpiresDate'));
         
-        if (this.getToken() !== 'empty' && currentDate < expiresDate) {
-            this.isAuthorized = true;
-        } else {
-            this.isAuthorized = false;
-        }
+        this.isAuthorized = this.getToken() !== 'empty' && currentDate < expiresDate;
+        return this.isAuthorized;        
     }
 }
