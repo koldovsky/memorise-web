@@ -1,25 +1,24 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h1>
-                <span class="badge badge-primary">Moderation Panel</span>
-            </h1>
+            <div class="h1 d-flex justify-content-center">
+                Moderation Panel
+            </div>
+            
             <br/>
-            <div class="row">
-                <div class="col-md-12">
-                    <button class="btn" [class.btn-primary]="whichButtonIsClicked=='categories'" [class.btn-outline-primary]="whichButtonIsClicked!='categories'"
+            <div class="btn-group btn-group-lg d-flex justify-content-center" role="group">
+                <button class="btn btn-outline-primary moderator" [class.btn-primary]="whichButtonIsClicked=='categories'" [class.btn-outline-primary]="whichButtonIsClicked!='categories'"
                     id="categories" (click)="onClick($event)">
                     Categories
                 </button>
-                <button class="btn btn-outline-primary" [class.btn-primary]="whichButtonIsClicked=='courses'" [class.btn-outline-primary]="whichButtonIsClicked!='courses'"
+                <button class="btn btn-outline-primary moderator" [class.btn-primary]="whichButtonIsClicked=='courses'" [class.btn-outline-primary]="whichButtonIsClicked!='courses'"
                     id="courses" (click)="onClick($event)">
                     Courses
                 </button>
-                <button class="btn btn-outline-primary" [class.btn-primary]="whichButtonIsClicked=='decks'" [class.btn-outline-primary]="whichButtonIsClicked!='decks'"
+                <button class="btn btn-outline-primary moderator" [class.btn-primary]="whichButtonIsClicked=='decks'" [class.btn-outline-primary]="whichButtonIsClicked!='decks'"
                     id="decks" (click)="onClick($event)">
                     Decks
                 </button>
-                </div>
             </div>
 
             <div class="marginTopAndBottom" *ngIf="whichButtonIsClicked=='categories'">

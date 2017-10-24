@@ -1,18 +1,8 @@
-<!-- <div *ngIf='cards' class="center">
-    <h1>Quiz results:</h1>
-    <div *ngFor="let card of cards" class="center">
-        <p>Your answers on {{card.Question}}: </p>
-        <div *ngFor="let answer of card.Answers">
-            {{checkAnswer(answer)}}
-        </div>
-    </div>
-</div> -->
-
 <div class="container">
-    <div class="hight10hv"></div>
-        <h1>Quiz results:</h1>
-        <br>
-    <table class="table table-striped">
+  <div class="hight10hv"></div>
+  <h1>Quiz results:</h1>
+  <br>
+  <table class="table table-striped">
     <thead>
       <tr>
         <th>#</th>
@@ -28,7 +18,7 @@
         <td>{{card.Question}}</td>
         <td>{{card.CustomerAnswersText}}</td>
         <td>{{card.RightAnswersText}}</td>
-        <td>{{checkCard(card)}}</td>
+        <td><i class="large material-icons">{{checkCard(card)}}</i></td>
       </tr>
     </tbody>
   </table>

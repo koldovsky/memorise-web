@@ -31,4 +31,4 @@ const moderatorRoute: Routes = [
     ]
 })
 
-export class ModeratorRoutingModule {}
+export class ModeratorRoutingModule { }

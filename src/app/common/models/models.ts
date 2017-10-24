@@ -11,11 +11,12 @@ export interface Answer extends BaseEntity {
 
 export interface Card extends BaseEntity {
     Question: string;
-    CardType: CardType;
+    CardType?: CardType;
     CardTypeName?: string;
-    Deck: Deck;
+    Deck?: Deck;
+    DeckName?: string;
     Comments?: Comment[];
-    Answers: Answer[];
+    Answers?: Answer[];
     IsPassed?: boolean;
     RightAnswersText?: string;
     CustomerAnswersText?: string;
@@ -65,7 +66,7 @@ export interface Deck extends BaseEntity {
     Category?: Category;
     CategoryName?: string;
     Cards?: Card[];
-    Courses? : Course[];
+    Courses?: Course[];
     CardIds?: string[];
     CourseNames?: string[];
     IsSubscribed?: boolean;
@@ -83,9 +84,14 @@ export interface Role extends BaseEntity {
 }
 
 export interface Statistics extends BaseEntity {
-    CardStatus: number;
-    UserLogin: User;
-    CardId: Card;
+    CardStatus?: number;
+    UserLogin: string;
+    CardId: number;
+}
+
+export interface SubscriptionStatistics {
+    UserLogin: string;
+    ItemId: number;
 }
 
 export interface User extends BaseEntity {
@@ -110,10 +116,16 @@ export interface RegisterExternalBindingModel {
     ExternalAccessToken: string;
 }
 
-export interface UserCourse extends BaseEntity {
-    Rating: number;
-    User: User;
-    Course: Course;
+export interface CourseSubscription extends BaseEntity {
+    Rating?: number;
+    UserLogin: string;
+    CourseId: number;
+}
+
+export interface DeckSubscription extends BaseEntity {
+    Rating?: number;
+    UserLogin: string;
+    DeckId: number;
 }
 
 export interface Token extends BaseEntity {
@@ -133,12 +145,19 @@ export class SearchDataModel {
     pageSize: number;
     sort: boolean;
     searchString: string;
+
+    deckLinking?: string;
 }
+
 export interface WordInput extends BaseEntity {
     CardId: number;
-    CustomerAnswer: string;
-    RightAnswers: string[];
+    CustomerAnswerText: string;
+    RightAnswersText: string[];
+    IsRight: boolean;
 }
+
 export interface CodeAnswer extends BaseEntity {
+    CardId: number;
     CodeAnswerText: string;
+    IsRight: boolean;
 }

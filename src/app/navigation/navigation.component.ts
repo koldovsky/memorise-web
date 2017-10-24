@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material';
-import { LoginComponent } from '../auth/components/login.component';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material';
+
+import { LoginComponent } from '../auth/components/login.component';
 import { AuthService } from '../common/services/auth.service';
 import { User } from '../common/models/models';
 
@@ -31,7 +32,6 @@ export class NavigationComponent implements OnInit {
     this.isAuthorized = this.auth.checkIfIsAuthorized();
     if (this.isAuthorized) {
       this.name = this.auth.getCurrentUserLogin();
-      console.log(this.name);
     }
   }
 }

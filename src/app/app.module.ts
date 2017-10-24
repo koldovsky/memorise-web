@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, Pipe, PipeTransform } from '@angular/core';
+import { NgModule } from '@angular/core';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
@@ -21,9 +21,9 @@ import {
     MatChipsModule,
     MatTableModule
 } from '@angular/material';
-import {MatDatepickerModule, MatNativeDateModule} from '@angular/material';
+import { MatDatepickerModule, MatNativeDateModule } from '@angular/material';
 
-import {FormsModule, FormBuilder, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 
@@ -46,7 +46,7 @@ import { ModeratorComponent } from './moderator/moderator.component';
 import { CreateCourseComponent } from './catalog/courses/create-course/create-course.component';
 import { CreateDeckComponent } from './catalog/decks/create-deck/create-deck.component';
 import { CreateCategoryComponent } from './catalog/create-category/create-category.component';
-import { CreateCardComponent } from './catalog/cards/create-card/create-card.component'
+import { CreateCardComponent } from './catalog/cards/create-card/create-card.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { EditCourseComponent } from './catalog/courses/edit-course/edit-course.component';
 
@@ -59,7 +59,6 @@ import { UserSubscriptionsService } from './common/services/user-subscriptions.s
 import { QuizService } from './common/services/quiz.service';
 import { StatisticsService } from './common/services/statistics.service';
 import { InterceptorService } from './common/services/interceptor.service';
-import { PagerService } from './common/services/pager.service';
 import { ModerationService } from './common/services/moderation.service';
 
 import { CatalogModule } from './catalog/catalog.module';
@@ -72,18 +71,18 @@ import { ProfileModule } from './auth/user/profile/profile.module';
 import { ModeratorModule } from './moderator/moderator.module';
 import { RegisterModule } from './auth/components/register/register.module';
 
-import { FilterPipe } from './pipes/filter.pipe';
-import { SortingPipe } from './pipes/sorting.pipe';
 import { CourseTableComponent } from './catalog/courses/course-table/course-table.component';
 import { DeckTableComponent } from './catalog/decks/deck-table/deck-table.component';
 import { CatalogTableComponent } from './catalog/catalog-table/catalog-table.component';
 import { AddDeckComponent } from './catalog/decks/add-deck/add-deck.component';
-import { NumberToArrayPipeComponent } from './pipes/number-to-array.pipe';
 import { EditDeckComponent } from './catalog/decks/edit-deck/edit-deck.component';
 import { CardService } from './common/services/card.service';
 import { CardTableComponent } from './catalog/cards/card-table/card-table.component';
 
 import { AppComponent } from './app.component';
+import { FileSelectDirective, FileUploadModule } from 'ng2-file-upload';
+import { EditCardComponent } from './catalog/cards/edit-card/edit-card.component';
+import { EditCategoryComponent } from './catalog/edit-category/edit-category.component';
 
 
 
@@ -99,9 +98,6 @@ import { AppComponent } from './app.component';
         LoginComponent,
         CardsComponent,
         AppComponent,
-        FilterPipe,
-        SortingPipe,
-        NumberToArrayPipeComponent,
         HomeComponent,
         PageNotFoundComponent,
         UnauthorizedComponent,
@@ -117,6 +113,7 @@ import { AppComponent } from './app.component';
         CreateCategoryComponent,
         CreateDeckComponent,
         CreateCardComponent,
+        EditCardComponent,
         PaginationComponent,
         CourseTableComponent,
         EditCourseComponent,
@@ -125,6 +122,7 @@ import { AppComponent } from './app.component';
         CatalogTableComponent,
         CardTableComponent,
         AddDeckComponent,
+        EditCategoryComponent
     ],
     entryComponents: [
         LoginComponent,
@@ -172,7 +170,8 @@ import { AppComponent } from './app.component';
         MatDatepickerModule,
         MatNativeDateModule,
         RegisterModule,
-        UserModule
+        UserModule,
+        FileUploadModule
     ],
     providers: [
         AuthService,
@@ -185,7 +184,6 @@ import { AppComponent } from './app.component';
         ModerationService,
         ModeratorComponent,
         CardService,
-        PagerService,
         StatisticsService,
         {
             provide: HTTP_INTERCEPTORS,

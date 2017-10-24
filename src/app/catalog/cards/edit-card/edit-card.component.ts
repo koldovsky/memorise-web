@@ -12,12 +12,12 @@ import { CardService } from '../../../common/services/card.service';
 import { ModerationService } from '../../../common/services/moderation.service';
 
 @Component({
-    selector: 'create-card',
-    templateUrl: './create-card.component.html',
-    styleUrls: ['./create-card.component.css']
+    selector: 'app-edit-card',
+    templateUrl: './edit-card.component.html',
+    styleUrls: ['./edit-card.component.css']
 })
 
-export class CreateCardComponent implements OnInit {
+export class EditCardComponent implements OnInit {
 
     regex;
     error;
@@ -82,11 +82,11 @@ export class CreateCardComponent implements OnInit {
             this.card.Answers = [];
             this.card.Answers.push({Text: this.correctAnswer, IsCorrect: true} as Answer);
         }
-        this.createCard();
+        this.updateCard();
         form.reset();
     }
 
-    createCard() {
+    updateCard() {
         this.card.DeckName = this.deck.Name;
         this.cardService.createCard(this.card)
         .subscribe(card => {
