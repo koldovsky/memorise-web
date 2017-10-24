@@ -54,7 +54,7 @@ export class StatisticsComponent implements OnInit {
     let passed = 0;
     let successful = 0;
     statistics.forEach(s => {
-      if (s.CardStatus !== 0) {
+      if (s && s.CardStatus !== 0) {
         passed++;
         if (s.CardStatus === 2) {
           successful++;
@@ -69,7 +69,7 @@ export class StatisticsComponent implements OnInit {
     const total = statistics.length;
     let passed = 0;
     statistics.forEach(s => {
-      if (s.CardStatus !== 0) {
+      if (s && s.CardStatus !== 0) {
         passed++;
       }
     });
@@ -84,13 +84,19 @@ export class StatisticsComponent implements OnInit {
       this.subscribtionsServise
         .getSubscribedCourses(this.userLogin)
         .subscribe(
-        courses => this.setCoursesStatisticsInfo(courses),
+        courses => {
+          courses = courses.sort((c1, c2) => c1.Name.localeCompare(c2.Name));
+          this.setCoursesStatisticsInfo(courses);
+        },
         err => handleError);
     } else {
       this.subscribtionsServise
         .getSubscribedDecks(this.userLogin)
         .subscribe(
-        decks => this.setDecksStatisticsInfo(decks),
+        decks => {
+          decks = decks.sort((d1, d2) => d1.Name.localeCompare(d2.Name));
+          this.setDecksStatisticsInfo(decks);
+        },
         err => handleError);
     }
   }
@@ -105,21 +111,25 @@ export class StatisticsComponent implements OnInit {
           this.statisticsService
             .getStatisticsByUserAndDeck(this.userLogin, deck.Id)
             .subscribe(statistics => {
-              deckStatisticsInfo.push({
-                name: deck.Name,
-                passedPercent: this.calculatePassedPercent(statistics),
-                successPercent: this.calculateSuccessPercent(statistics),
-              });
-              courseStatistics.concat(statistics);
+              if (statistics) {
+                deckStatisticsInfo.push({
+                  name: deck.Name,
+                  passedPercent: this.calculatePassedPercent(statistics),
+                  successPercent: this.calculateSuccessPercent(statistics),
+                });
+                courseStatistics.concat(statistics);
+              }
             });
         });
 
-        this.statisticsInfo.push({
-          name: course.Name,
-          passedPercent: this.calculatePassedPercent(courseStatistics),
-          successPercent: this.calculateSuccessPercent(courseStatistics),
-          containInfo: deckStatisticsInfo
-        });
+        if (courseStatistics) {
+          this.statisticsInfo.push({
+            name: course.Name,
+            passedPercent: this.calculatePassedPercent(courseStatistics),
+            successPercent: this.calculateSuccessPercent(courseStatistics),
+            containInfo: deckStatisticsInfo
+          });
+        }
       }
     });
   }
@@ -130,11 +140,13 @@ export class StatisticsComponent implements OnInit {
         this.statisticsService
           .getStatisticsByUserAndDeck(this.userLogin, deck.Id)
           .subscribe(statistics => {
-            this.statisticsInfo.push({
-              name: deck.Name,
-              passedPercent: this.calculatePassedPercent(statistics),
-              successPercent: this.calculateSuccessPercent(statistics)
-            });
+            if (statistics) {
+              this.statisticsInfo.push({
+                name: deck.Name,
+                passedPercent: this.calculatePassedPercent(statistics),
+                successPercent: this.calculateSuccessPercent(statistics)
+              });
+            }
           });
       }
     });
