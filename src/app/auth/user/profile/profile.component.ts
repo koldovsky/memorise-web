@@ -5,7 +5,12 @@ import { UserService } from '../../../common/services/user.service';
 import { User } from '../../../common/models/models';
 import { AuthService } from '../../../common/services/auth.service';
 
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+
+const EMAIL_REGEX = new RegExp(['^(([^<>()[\\]\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\.,;:\\s@\"]+)*)',
+  '|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.',
+  '[0-9]{1,3}\])|(([a-zA-Z\\-0-9]+\\.)+',
+  '[a-zA-Z]{2,}))$'].join(''));
 
 @Component({
   selector: 'app-profile',
@@ -53,7 +58,9 @@ export class ProfileComponent implements OnInit {
           'lastName': this.user.LastName,
           'gender': this.user.Gender,
           'login': this.user.Login,
-          'email': this.user.Email,
+          'email': new FormControl(this.user.Email, [
+            Validators.pattern(EMAIL_REGEX)
+          ]),
           'id': this.user.Id
         });
       });
