@@ -28,10 +28,6 @@ export class DecksComponent implements OnInit {
     currentUserLogin: string;
     subscriptions: DeckSubscription[];
     statistics: Statistics[];
-    constructor(private deckService: DeckService,
-        private messageService: MessageService,
-        private categoryService: CategoryService) { }
-
     decks: Deck[];
 
     ngOnInit(): void {

@@ -17,7 +17,7 @@ export class ModerationService {
 
     setCurrentDeck(deck: Deck) {
         this.currentDeck = deck;
-        localStorage.setItem('deckLinking', deck.Linking);
+        // localStorage.setItem('deckLinking', deck.Linking);
     }
 }
 
