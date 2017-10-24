@@ -4,18 +4,39 @@
     <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
         <h2 class="text-center">Deck details</h2>
         <br>
-
+        <!-- Snackbar -->
+        <div id="snackbar">{{submitMessage}}</div>
         <form #mainForm="ngForm" (ngSubmit)="onSubmit()" name="deckMainForm">
             <div class="row">
                 <div class="col-xs-12 col-sm-8 col-md-6">
                     <div class="form-group">
-                        <label for="nameId">Name</label>
-                        <input type="text" class="form-control" id="nameId" placeholder="Deck name" [(ngModel)]="deck.Name" name="deckName">
+                        <label for="name" class="form-control-label">Deck name:</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="deck name" id="name" required maxlength={{regex.MAX_LENGTH_INPUT}} pattern={{regex.INPUT_REGEX}}
+                                [(ngModel)]='deck.Name' name="Name" #name="ngModel">
+                            <span class="input-group-btn">
+                                <button class="btn btn-outline-primary" type="button" [disabled]="name.invalid" (click)="checkName()">
+                                    Check
+                                </button>
+                            </span>
+                        </div>
+                        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+                            <div *ngIf="name.errors.required">
+                                {{error.REQUIRED}}
+                            </div>
+                            <div *ngIf="name.errors.pattern">
+                                {{error.INCORRECT_INPUT}}
+                            </div>
+                        </div>
+                        <div *ngIf="!isUnique && afterCheck && (name.dirty || name.touched)" class="alert alert-danger">
+                            {{error.NAME_EXISTS}}
+                        </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="linkingId">Linking</label>
-                        <input type="text" class="form-control" id="linkingId" placeholder="Deck linking" [(ngModel)]="deck.Linking" name="deckLinking">
+                        <label for="linkingId">URL</label>
+                        <input type="text" class="form-control" id="linkingId" placeholder="Deck linking" [(ngModel)]="deck.Linking" name="deckLinking"
+                            readonly>
                     </div>
 
                     <div class="form-group">
@@ -29,27 +50,56 @@
 
                     <div class="form-group">
                         <label for="price">Price</label>
-                        <input type="number" min="0" class="form-control" id="price" placeholder="Deck price" [(ngModel)]="deck.Price" name="price">
+                        <input type="number" class="form-control" id="price" required max="999" min="0" pattern={{regex.ONLY_NUMBERS}} placeholder="Deck price"
+                            [(ngModel)]="deck.Price" name="price" #price="ngModel">
+                    </div>
+                    <div *ngIf="price.invalid && (price.dirty || price.touched)" class="alert alert-danger">
+                        <div *ngIf="price.errors.required">
+                            {{error.REQUIRED}}
+                        </div>
+                        <div *ngIf="price.errors.pattern">
+                            {{error.ONLY_NUMBERS}}
+                        </div>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-6">
-                    <img src="../../../../assets/images/placeholder-thumb.jpg" alt="Deck photo" class="img-thumbnail">
-                    <label class="custom-file">
-                            <input type="file" accept="image/*" id="photo" class="custom-file-input"
-                            name="Photo"
-                            [(ngModel)]='deck.Photo' >
-                            <span class="custom-file-control"></span>
-                    </label>
+                    <img src="{{deck.Photo}}" [(ngModel)]="deck.Photo" *ngIf="deck.Photo; else stub" alt="Deck photo" class="img-thumbnail">
+                    <ng-template #stub>
+                        <img mat-card-m-image src="../../../assets/images/placeholder-thumb.jpg" alt="Deck photo" class="img-thumbnail">
+                    </ng-template>
+
+                    <div class="form-group">
+                        <label class="custom-file">
+                            <input #selectedPhoto type="file" accept="image/*" ng2FileSelect [uploader]="uploader" (change)="imageSet()">
+                            <span></span>
+                        </label>
+                    </div>
                 </div>
             </div>
-
+            <div class="row">
+                <div class="col-xs-12 col-sm-12">
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" id="description" rows="3" [(ngModel)]="deck.Description" placeholder="Deck description" name="deckDescription"
+                            required pattern={{regex.INPUT_REGEX}} maxlength={{regex.MAX_LENGTH_TEXTAREA}} #description="ngModel"></textarea>
+                        <div *ngIf="description.invalid && (description.dirty || description.touched)" class="alert alert-danger">
+                            <div *ngIf="description.errors.required">
+                                {{error.REQUIRED}}
+                            </div>
+                            <div *ngIf="description.errors.pattern">
+                                {{error.INCORRECT_INPUT}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-xs-9 col-sm-8 col-md-9 col-lg-10">
                     <div class="form-group">
-                        <label for="courseDecksId">Courses</label>
-                        <select multiple class="form-control" id="coursesId" name="courses" [(ngModel)]="chosenDecksLinking">
-                            <option *ngFor="let courseName of deck.CourseNames" id="courseName">
-                                {{courseName}}
+                        <label for="deckDecksId">Decks</label>
+                        <select multiple class="form-control" id="decksId" name="decks" [(ngModel)]="chosenDecksLinking">
+                            <option *ngFor="let deckName of deck.DeckNames" id="deckName">
+                                {{deckName}}
                             </option>
                         </select>
                     </div>
@@ -59,8 +109,7 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-12">
                     <div class="form-group">
-                        <!-- <button class="btn btn-success" data-toggle="modal" data-target="#cardsFormModal" data-whatever="Cards" (click)="cardsForm.reset()">Cards: {{deck.CardsNumber}}</button> -->
-                        <button class="btn btn-outline-primary" (click)="saveDeck()" [routerLink]="['/moderator/decks/edit/all/cards']">Cards: {{deck.CardsNumber}}</button>
+                        <button class="btn btn-outline-primary btn-lg" (click)="saveDeck()" [routerLink]="['/moderator/decks/edit/all/cards']">Cards: {{deck.CardsNumber}}</button>
                     </div>
                 </div>
             </div>
@@ -74,35 +123,5 @@
         </form>
     </div>
     <div class="col-xs-12 col-sm-1 col-md-2 col-lg-3"></div>
-
-    <!-- Modal Form -->
-    <!-- <div class="modal fade" id="cardsFormModal">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Cards</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form (ngSubmit)="onModalSubmit()" #cardsForm="ngForm">
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="multipleselectId">Decks' cards</label>
-                            <select multiple class="form-control" id="multipleselectId" name="selectedDeck" [(ngModel)]="addedDecksLinking">
-                                <option *ngFor="let cardId of deck.CardIds" id="cardId">
-                                    {{cardId}}
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Remove selected</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div> -->
     <div class="hight10hv"></div>
 </div>

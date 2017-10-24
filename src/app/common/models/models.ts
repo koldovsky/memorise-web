@@ -96,22 +96,22 @@ export interface SubscriptionStatistics {
 
 export interface IdentityUpdate {
     ExistingLogin: string;
-    NewUserData: User;    
+    NewUserData: User;
 }
 
 export interface User {
-    Id?: string;    
+    Id?: string;
     Login: string;
     FirstName?: string;
     LastName?: string;
     Gender?: string;
     Country?: string;
-    City?: string;    
+    City?: string;
     Password?: string;
     Photo?: string;
     Email?: string;
     IsBlocked?: boolean;
-    grant_type?: string;    
+    grant_type?: string;
 
     Comments?: Comment[];
     Reports?: Report[];

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
     MatButtonModule,
@@ -79,10 +79,11 @@ import { EditDeckComponent } from './catalog/decks/edit-deck/edit-deck.component
 import { CardService } from './common/services/card.service';
 import { CardTableComponent } from './catalog/cards/card-table/card-table.component';
 
-import { AppComponent } from './app.component';
 import { FileSelectDirective, FileUploadModule } from 'ng2-file-upload';
 import { EditCardComponent } from './catalog/cards/edit-card/edit-card.component';
 import { EditCategoryComponent } from './catalog/edit-category/edit-category.component';
+import { AppComponent } from './app.component';
+import { NotFoundRoutingModule } from './not-found/not-found.routing.module';
 
 
 
@@ -99,7 +100,6 @@ import { EditCategoryComponent } from './catalog/edit-category/edit-category.com
         CardsComponent,
         AppComponent,
         HomeComponent,
-        PageNotFoundComponent,
         UnauthorizedComponent,
         QuizComponent,
         RegisterComponent,
@@ -122,7 +122,8 @@ import { EditCategoryComponent } from './catalog/edit-category/edit-category.com
         CatalogTableComponent,
         CardTableComponent,
         AddDeckComponent,
-        EditCategoryComponent
+        EditCategoryComponent,
+        PageNotFoundComponent
     ],
     entryComponents: [
         LoginComponent,
@@ -171,7 +172,8 @@ import { EditCategoryComponent } from './catalog/edit-category/edit-category.com
         MatNativeDateModule,
         RegisterModule,
         UserModule,
-        FileUploadModule
+        FileUploadModule,
+        NotFoundRoutingModule
     ],
     providers: [
         AuthService,

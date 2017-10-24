@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { ProfileComponent } from './profile/profile.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 
-const route: Routes = [    
+const route: Routes = [
     {
         path: 'statistics/:name',
         component: StatisticsComponent

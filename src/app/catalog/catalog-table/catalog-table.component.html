@@ -1,25 +1,26 @@
-<create-category (afterCategoryAdded)='onCategoryAdded($event)'></create-category>
+<app-create-category (afterCategoryAdded)='onCategoryAdded($event)'></app-create-category>
 <div class="row">
     <div class="col-md-12">
         <div class="form-group">
             <div class="row">
-                <div class="input-group col-md-3">
+                <div class="input-group col-sm-12 col-md-4">
                     <span class="input-group-addon">
                         <i class="material-icons">search</i>
                     </span>
-                    <input class="col-md-11" type="text" placeholder="Search by Category Name" [(ngModel)]="searchText" (ngModelChange)="onChange($event)"
+                    <input class="btn-block" type="text" placeholder="Search by Category Name" [(ngModel)]="searchText" (ngModelChange)="onChange($event)"
                     />
                 </div>
-                <div class="dropdown col-md-2">
-                    <button class="btn btn-secondary dropdown-toggle" id="filter" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div class="dropdown col-sm-12 col-md-4">
+                    <button class="btn btn-secondary dropdown-toggle btn-block" id="filter" type="button" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
                         {{dropDownElements()}}
                     </button>
                     <div class="dropdown-menu" aria-labelledby="filter">
                         <button *ngFor="let items of arrayOfElementByPage" class="dropdown-item" type="button" (click)="onSelectFilter(items)">{{items}}</button>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <button class="btn btn-primary" (click)="sortTable()">
+                <div class="col-sm-12 col-md-4">
+                    <button class="btn btn-primary btn-block" (click)="sortTable()">
                         Sorting by Name
                         <i class="material-icons">sort_by_alpha</i>
                     </button>
@@ -38,10 +39,10 @@
             </thead>
             <tbody *ngFor="let category of categories; let i=index">
                 <tr>
-                    <td>{{pageSize * (page - 1) + i + 1}}</td>
-                    <td>{{category.Name}}</td>
-                    <td class="btn-group">
-                        <button class="btn btn-primary" (click)="onBtnInfoClick(category.Linking)" [routerLink]="['/moderator/categories/edit', category.Linking]">
+                    <td class="padding-top">{{pageSize * (page - 1) + i + 1}}</td>
+                    <td class="padding-top">{{category.Name}}</td>
+                    <td class="view-table">
+                        <button class="btn btn-primary" (click)="onBtnInfoClick(currentCategory.Name)" [routerLink]="['/moderator/categories/edit', category.Linking]">
                             <i class="material-icons">info_outline</i>
                         </button>
                         <button class="btn btn-danger" data-toggle="modal" data-target="#deleteCategoryAlertModal" (click)="onDelete(category)">

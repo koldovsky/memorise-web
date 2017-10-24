@@ -13,7 +13,7 @@ export class CardService {
     private cardModeratorUrl = 'http://localhost:37271/Moderator/';
     private searchCardUrl = 'http://localhost:37271/Quiz/GetSearchCardsByDeckLinking';
 
-    btnInfoLinking = '';
+    btnInfoId: number;
     constructor(private http: HttpClient) { }
 
     getCards(deckName: string[]): Promise<Card[]> {
@@ -30,15 +30,15 @@ export class CardService {
 
     getSearchCardsByDeckLinking(deckLinking: string, page: number, pageSize: number, sorted: boolean, search: string):
         Promise<PageResponse<Card>> {
-            const postData = new SearchDataModel;
-            postData.page = page; postData.pageSize = pageSize;
-            postData.searchString = search; postData.sort = sorted;
-            postData.deckLinking = deckLinking;
-            const url = this.searchCardUrl;
-            return this.http.post(url, postData)
-                .toPromise()
-                .then(response => response as PageResponse<Card>)
-                .catch(handleError);
+        const postData = new SearchDataModel;
+        postData.page = page; postData.pageSize = pageSize;
+        postData.searchString = search; postData.sort = sorted;
+        postData.deckLinking = deckLinking;
+        const url = this.searchCardUrl;
+        return this.http.post(url, postData)
+            .toPromise()
+            .then(response => response as PageResponse<Card>)
+            .catch(handleError);
     }
 
     getCardTypes(): Observable<Object> {
@@ -51,5 +51,9 @@ export class CardService {
 
     deleteCard(id: number) {
         return this.http.delete(`${this.cardModeratorUrl}DeleteCard/${id}`);
-     };
+    }
+
+    getCardById(id: number): Observable<Object> {
+        return this.http.get(`${this.cardModeratorUrl}GetCardById/${id}`);
+    }
 }

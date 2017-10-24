@@ -53,23 +53,27 @@ export class CategoryService {
             .catch(handleError);
     }
 
-    createCategory(category: Category): Observable<Object>{
+    createCategory(category: Category): Observable<Object> {
         return this.http.post(`${this.categoryModeratorUrl}CreateCategory`, category);
     }
 
-    updateCategory(category: Category){
-       return this.http.put(`${this.categoryModeratorUrl}UpdateCourse`, category);
-     }
+    updateCategory(category: Category) {
+        return this.http.put(`${this.categoryModeratorUrl}UpdateCourse`, category);
+    }
 
-    deleteCategory(id: number){
+    deleteCategory(id: number) {
         return this.http.delete(`${this.categoryModeratorUrl}DeleteCategory/${id}`);
-     }
+    }
 
     checkIfCategoryExists(categoryName: string): Observable<Object> {
         return this.http.get(`${this.categoryModeratorUrl}FindCategoryByName/${btoa(categoryName)}`);
     }
 
-    getCategoryByName(categoryName: string): Observable<Object> {
-        return this.http.get(`${this.categoryModeratorUrl}FindCategoryByName/${btoa(categoryName)}`);
+    getCategoryByName(categoryName: string): Promise<Category[]> {
+        const url = `http://localhost:37271/Moderator/FindCategoryByName/${btoa(categoryName)}`;
+        return this.http.get(url)
+            .toPromise()
+            .then(response => response as Category[])
+            .catch(handleError);
     }
 }

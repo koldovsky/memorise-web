@@ -16,7 +16,7 @@ import { PaginationComponent } from '../../../pagination/pagination.component';
 export class CardTableComponent implements OnInit {
     cards: Card[];
     deck: Deck;
-    arrayOfElementByPage = [1, 5, 10, 'All'];
+    arrayOfElementByPage = [5, 10, 'All'];
     totalCount: number;
     page = 1; pageSize = this.arrayOfElementByPage[0];
     pageResponse: PageResponse<Card>;
@@ -28,7 +28,7 @@ export class CardTableComponent implements OnInit {
         private cardService: CardService,
         private moderationService: ModerationService
     ) {
-        this.currentCard = {Question: ''};
+        this.currentCard = { Question: '' };
     }
 
     ngOnInit() {
@@ -87,13 +87,13 @@ export class CardTableComponent implements OnInit {
 
     confirmDelete(): void {
         this.cardService.deleteCard(this.currentCard.Id)
-        .subscribe(() => {
-      this.cards = this.cards.filter(x => x.Id !== this.currentCard.Id);
-        },
-        (err) => console.log(err)
-        );
+            .subscribe(() => {
+                this.cards = this.cards.filter(x => x.Id !== this.currentCard.Id);
+            },
+            (err) => console.log(err)
+            );
     }
-    onBtnInfoClick(btnInfoLinking: string) {
-        this.cardService.btnInfoLinking = btnInfoLinking;
+    onBtnInfoClick(btnInfoId: number) {
+        this.cardService.btnInfoId = btnInfoId;
     }
 }
