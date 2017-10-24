@@ -41,7 +41,7 @@ export class CoursesComponent implements OnInit {
             }).subscribe(courses => {
                 this.courses = courses;
                 if (this.authService.checkIfIsAuthorized()) {
-                    this.currentUserLogin = this.authService.getCurrentUserLogin();
+                    this.currentUserLogin = this.authService.getCurrentUserLogin();                    
                     this.subscriptionsService.getCourseSubscriptions(this.currentUserLogin)
                         .subscribe(subscriptions => {
                             this.subscriptions = subscriptions;

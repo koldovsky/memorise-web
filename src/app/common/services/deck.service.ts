@@ -38,7 +38,7 @@ export class DeckService {
             .toPromise()
             .then(response => response as PageResponse<Deck>)
             .catch(handleError);
-    }
+        }
 
     getDecksByCourseName(courseName: string) {
         const URL = `${this.decksUrl}/GetAllDecksByCourse/${courseName}`;
