@@ -8,17 +8,17 @@ import { User, RegisterExternalBindingModel, Token } from '../models/models';
 import { Deck, PageResponse } from '../models/models';
 import { handleError } from '../functions/functions';
 
+
 @Injectable()
 export class AuthService {
     valid: boolean;
     errorMessage = '';
-    isAuthorized: boolean;
-    name: string;
+    isAuthorized: boolean;    
     user: User;
     userLocal: any;
 
     private commonUrl = 'http://localhost:37271/';
-    private IsValid = true;
+    private IsValid = true;    
 
     constructor(
         private http: HttpClient,
@@ -33,25 +33,23 @@ export class AuthService {
                 const token = response as Token;
                 localStorage.setItem('token', token.access_token);
                 localStorage.setItem('login', user.login);
-                // localStorage.setItem('user', user);
-                this.name = user.login;
-                // this.user = user;
-                this.IsValid = true;
-                const expiresDate = this.calcExpirationDate(token.expires_in);
-                localStorage.setItem('tokenExpiresDate', expiresDate.toString());
-                // this.IsValid = true;
+                localStorage.setItem('id', user.id);                                                
+                this.IsValid = true;                
+                let expiresDate = this.calcExpirationDate( token.expires_in);
+                localStorage.setItem('tokenExpiresDate', expiresDate.toString());                
             })
             .catch(
             error => {
                 this.IsValid = false;
                 this.errorMessage = 'input, please try again!';
+                
             });
     }
 
-    calcExpirationDate(seconds: number): Date {
-        const currentDate = new Date();
-        currentDate.setSeconds(currentDate.getSeconds() + seconds);
-        return currentDate;
+    calcExpirationDate(seconds:number):Date {
+         const currentDate = new Date();
+         currentDate.setSeconds(currentDate.getSeconds()+seconds);
+         return currentDate;
     }
 
     signUp(user) {
@@ -69,41 +67,31 @@ export class AuthService {
     signUpFacebook(user) {
         return this.http.post(this.commonUrl + 'Account/RegisterExternal', user)
             .toPromise()
-            .then(response => {
-                /* this.userLocal.login = "user1";
-                this.userLocal.password = "123123";
-                this.signIn(this.userLocal
-                ) */
-                // this.IsValid = true;
+            .then(response => {                
                 const token = response as Token;
                 localStorage.setItem('token', token.access_token);
                 localStorage.setItem('login', token.userName);
                 console.log(token.access_token);
-                window.location.href = 'http://localhost:4200/catalog/courses/Any';
-                // this.router.navigate(['catalog/courses']);
+                window.location.href = 'http://localhost:4200/catalog/courses/Any';                               
             })
             .catch(handleError => {
-                // this.IsValid = false;
-                // window.location.href = 'http://localhost:4200/catalog/courses';
+                this.errorMessage = 'Failed to access the server!';
             });
     }
 
-    getCurrentUserLogin(): string {
-        if (this.isAuthorized && localStorage.getItem('login')) {
-            return this.name = localStorage.getItem('login');
+    getCurrentUserLogin(): string {        
+        if(this.isAuthorized && localStorage.getItem('login')){
+            return localStorage.getItem('login');
         }
-        return;
+        return; 
     }
 
-    // getCurrentUser(): User {
-    //     console.log(localStorage.getItem('user'));
-    //     if (this.isAuthorized && localStorage.getItem('user')) {
-    //         this.user = JSON.parse(localStorage.getItem('user')) as User;
-    //         console.log(this.user.Login);
-    //         return this.user;
-    //     }
-    //     return;
-    // }
+    getCurrentUserId(): string {        
+        if(this.isAuthorized && localStorage.getItem('id')){
+            return localStorage.getItem('id');
+        }
+        return; 
+    }    
 
     validData(): boolean {
         return this.IsValid;
@@ -126,10 +114,10 @@ export class AuthService {
     }
 
     checkIfIsAuthorized(): boolean {
-        const currentDate = new Date();
-        const expiresDate = new Date(localStorage.getItem('tokenExpiresDate'));
-
+        let currentDate = new Date();
+        let expiresDate = new Date(localStorage.getItem('tokenExpiresDate'));
+        
         this.isAuthorized = this.getToken() !== 'empty' && currentDate < expiresDate;
-        return this.isAuthorized;
+        return this.isAuthorized;        
     }
 }

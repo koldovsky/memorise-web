@@ -14,24 +14,22 @@
             <li class="nav-item">
                 <a class="nav-link" routerLink="/catalog/decks/Any">Decks</a>
             </li>
-            <li class="nav-item" *ngIf="isAuthorized">
+            <li class="nav-item" *ngIf="auth.isAuthorized">
                 <a class="nav-link" routerLink="/moderator">Moderator</a>
             </li>
-            <li *ngIf="!isAuthorized; else user" class="nav-item">
+            <li *ngIf="!auth.getCurrentUserLogin()" class="nav-item">
                 <a class="nav-link" [routerLink]="['/login']">Sign In</a>
             </li>
-            <ng-template #user>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        {{name}}
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" [routerLink]="['/profile', name]">Profile</a>
-                        <a class="dropdown-item" [routerLink]="['/statistics', name]">Statistics</a>
-                        <a class="dropdown-item" routerLink="/home" (click)="signOut()">Sign Out</a>
-                    </div>
-                </li>
-            </ng-template>
+            <li class="nav-item dropdown" *ngIf="auth.getCurrentUserLogin()">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    {{auth.getCurrentUserLogin()}}
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" [routerLink]="['/profile', auth.getCurrentUserLogin()]">Profile</a>
+                    <a class="dropdown-item" [routerLink]="['/statistics', auth.getCurrentUserLogin()]">Statistics</a>
+                    <a class="dropdown-item" routerLink="/home" (click)="signOut()">Sign Out</a>
+                </div>
+            </li>
         </ul>
     </div>
 </nav>

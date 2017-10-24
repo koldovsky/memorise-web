@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
 import { AuthService } from '../../common/services/auth.service';
 
-declare var jquery: any;
-declare var $: any;
+import { Router } from '@angular/router';
+
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { regexExpression } from '../../common/helpers/regexExpression';
+import { errorMessages } from '../../common/helpers/errorMessages';
+
 declare var window: any;
 declare var FB: any;
 
@@ -16,19 +17,21 @@ declare var FB: any;
     styleUrls: ['./login.component.css']
 })
 
-export class LoginComponent implements OnInit {
-    clicked = false;
-    myForm: FormGroup;
-
+export class LoginComponent implements OnInit {    
+    clicked = false; 
+    regex = regexExpression;
+    error = errorMessages;      
+    myForm: FormGroup;    
+    
     constructor(
         public fb: FormBuilder,
         private router: Router,
         private authService: AuthService
-    ) {
+    ) {    
         this.myForm = this.fb.group({
             'login': new FormControl('', [
                 Validators.required,
-                Validators.maxLength(18)
+                Validators.maxLength(20)
             ]),
             'password': new FormControl('', [
                 Validators.required,
@@ -37,59 +40,58 @@ export class LoginComponent implements OnInit {
         });
 
         (function (d, s, id) {
-            let js;
-            const fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) {
-                return;
-            }
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
             js = d.createElement(s); js.id = id;
-            js.src = '//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10&appId=332333880510904';
+            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10&appId=332333880510904";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
 
 
         window.fbAsyncInit = () => {
             FB.getLoginStatus(function (response) {
-                FB.Event.subscribe('auth.statusChange', (response => {
+                FB.Event.subscribe('auth.statusChange', (response => {                   
                     if (response.status === 'connected') {
-                        const accessToken = response.authResponse.accessToken;
-                        const url = '/me?fields=name,email';
-                        FB.api(url, function (response) {
+                        let accessToken = response.authResponse.accessToken;                        
+                        var url = '/me?fields=name,email';
+                        FB.api(url, function (response) {                                                        
                             authService.signUpFacebook({
                                 UserName: response.name.split(' ')[0],
                                 Email: response.email,
                                 Provider: 'Facebook',
                                 ExternalAccessToken: accessToken
-                            });
-                        }, { scope: 'email' });
-                        // window.location.href = 'http://localhost:4200/catalog/courses';
+                            });                                                                          
+                        }, { scope: 'email' })                                                                                              
                     }
                 }));
             });
-        };
-    }
+        }
 
+    }        
+    
     LogIn(user): void {
         this.authService.signIn(user)
-            .then(() => {
-                if (this.authService.validData()) {
-                    this.authService.checkIfIsAuthorized();
-                    this.router.navigate(['catalog/courses/Any']);
-                } else {
-                    this.myForm.controls.login.setValue('');
-                    this.myForm.controls.password.setValue('');
-                }
-            });
-        this.clicked = true;
+        .then(() => {
+            if (this.authService.validData()) {                                
+                this.authService.checkIfIsAuthorized();
+                this.router.navigate(['catalog/courses/Any']);                          
+            } else {                
+                this.myForm.reset();
+            }
+        });
+        this.clicked = true;        
     }
 
     Register(): void {
         this.router.navigate(['register']);
     }
 
-    ngOnInit(): void {
+    ngOnInit(): void {  
         if (window.FB) {
             window.FB.XFBML.parse();
-        }
-    }
+        }               
+    }    
 }
+
+
+    
