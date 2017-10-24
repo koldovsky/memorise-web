@@ -59,6 +59,13 @@ export class StatisticsService {
             .map(response => response as Statistics[]);
     }
 
+    updateStatistics(statistics: Statistics): Observable<Statistics> {
+        const URL = `${this.StatisticsUrl}/UpdateStatistics`;
+
+        return this.http.put(URL, statistics)
+        .map(response => response as Statistics);
+    }
+
     deleteStatistics(statisticsId: number): Observable<Statistics> {
         const URL = `${this.StatisticsUrl}/DeleteStatistics/${statisticsId}`;
 
