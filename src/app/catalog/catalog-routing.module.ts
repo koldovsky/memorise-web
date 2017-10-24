@@ -17,15 +17,15 @@ const route: Routes = [
         path: 'catalog',
         component: CatalogComponent,
         children: [
-                    {
-                        path: 'courses/:category',
-                        component: CoursesComponent
-                    },
-                    {
-                        path: 'decks/:category',
-                        component: DecksComponent
-                    }
-                ]
+            {
+                path: 'courses/:category',
+                component: CoursesComponent
+            },
+            {
+                path: 'decks/:category',
+                component: DecksComponent
+            }
+        ]
     },
     {
         path: 'catalog/course/:name',

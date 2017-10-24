@@ -38,7 +38,7 @@ export class DeckService {
             .toPromise()
             .then(response => response as PageResponse<Deck>)
             .catch(handleError);
-        }
+    }
 
     getDecksByCourseName(courseName: string) {
         const URL = `${this.decksUrl}/GetAllDecksByCourse/${courseName}`;
@@ -58,7 +58,7 @@ export class DeckService {
             .catch(handleError);
     }
     createDeck(deck: Deck): Observable<Object> {
-        return this.http.post(`${this.deckModeratorUrl}CreateDeck`, deck)
+        return this.http.post(`${this.deckModeratorUrl}CreateDeck`, deck);
     }
 
     updateDeck(deck: Deck) {

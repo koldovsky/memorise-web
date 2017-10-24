@@ -33,7 +33,7 @@ export class EditCardComponent implements OnInit {
     numbersOfAnswers: number[];
     chosenNumbersOfAnswers: number;
     numberOfCorrectAnswer: number;
-    answersArray: Answer [];
+    answersArray: Answer[];
 
     constructor(
         private authService: AuthService,
@@ -79,16 +79,16 @@ export class EditCardComponent implements OnInit {
     createAnswersArray(numbers: number) {
         this.answersArray = [];
         for (let i = 1; i <= numbers; i++) {
-            this.answersArray.push({Id: i, Text : '', IsCorrect : false } as Answer );
+            this.answersArray.push({ Id: i, Text: '', IsCorrect: false } as Answer);
         }
     }
     onSubmit(form: NgForm) {
         if (this.numberOfCorrectAnswer > 0) {
             this.answersArray[this.numberOfCorrectAnswer - 1].IsCorrect = true;
             this.card.Answers = this.answersArray;
-        }else {
+        } else {
             this.card.Answers = [];
-            this.card.Answers.push({Text: this.correctAnswer, IsCorrect: true} as Answer);
+            this.card.Answers.push({ Text: this.correctAnswer, IsCorrect: true } as Answer);
         }
         this.updateCard();
         form.reset();
@@ -97,16 +97,16 @@ export class EditCardComponent implements OnInit {
     updateCard() {
         this.card.DeckName = this.deck.Name;
         this.cardService.createCard(this.card)
-        .subscribe(card => {
-            this.submitMessage = 'Card was created successfully';
-            this.showSnackbar();
-            this.afterCardAdded.emit(card as Card);
-        },
-        err => {
-            this.submitMessage = this.error.ERROR;
-            this.showSnackbar();
-        }
-        );
+            .subscribe(card => {
+                this.submitMessage = 'Card was created successfully';
+                this.showSnackbar();
+                this.afterCardAdded.emit(card as Card);
+            },
+            err => {
+                this.submitMessage = this.error.ERROR;
+                this.showSnackbar();
+            }
+            );
     }
 
     showSnackbar() {

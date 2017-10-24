@@ -18,16 +18,16 @@ const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"
     styleUrls: ['./register.component.css']
 })
 
-export class RegisterComponent implements OnInit {    
+export class RegisterComponent implements OnInit {
     clicked = false;
-    regex = regexExpression;      
+    regex = regexExpression;
     myForm: FormGroup;
 
-    constructor(        
+    constructor(
         private authService: AuthService,
         private router: Router,
-        public fb: FormBuilder        
-        ) {        
+        public fb: FormBuilder
+    ) {
         this.myForm = this.fb.group({
             'login': new FormControl('', [
                 Validators.required,
@@ -47,7 +47,7 @@ export class RegisterComponent implements OnInit {
                 passwordMatchValidator('password')
             ])
         });
-    }    
+    }
 
     ngOnInit(): void {
     }
@@ -57,7 +57,7 @@ export class RegisterComponent implements OnInit {
             .then(() => {
                 if (this.authService.validData()) {
                     this.router.navigate(['login']);
-                } else {                    
+                } else {
                     this.myForm.reset();
                 }
             });

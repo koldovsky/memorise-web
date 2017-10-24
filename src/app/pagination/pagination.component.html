@@ -11,7 +11,8 @@
         </button>
     </li>
     <li>
-        <button class="btn btn-secondary" *ngFor="let item of middleItems" (click)="select(item)" [ngStyle]="item === currentIndex ? {'color': '#FF0000', 'background-color': '#A9A9A9' } : {}">
+        <button class="btn btn-secondary" *ngFor="let item of middleItems" (click)="select(item)" 
+            [ngStyle]="item === currentIndex ? {'color': '#FF0000', 'background-color': '#A9A9A9' } : {}">
             {{item}}
         </button>
     </li>
