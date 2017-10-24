@@ -93,7 +93,7 @@ export class CardTableComponent implements OnInit {
             (err) => console.log(err)
             );
     }
-    onBtnInfoClick(btnInfoLinking: string) {
-        this.cardService.btnInfoLinking = btnInfoLinking;
+    onBtnInfoClick(btnInfoId: number) {
+        this.cardService.btnInfoId = btnInfoId;
     }
 }

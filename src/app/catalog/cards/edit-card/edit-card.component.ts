@@ -24,7 +24,8 @@ export class EditCardComponent implements OnInit {
     card: Card;
     deck: Deck;
     cardTypes: CardType[];
-    isLoaded = false;
+    isCardTypesLoaded = false;
+    isCardLoaded = false;
     afterCheck = false;
     arrayIsReady = false;
     submitMessage = '';
@@ -57,8 +58,15 @@ export class EditCardComponent implements OnInit {
         this.cardService.getCardTypes()
             .subscribe(response => {
                 this.cardTypes = response as CardType[];
-                this.isLoaded = true;
+                this.isCardTypesLoaded = true;
             });
+        this.cardService.getCardById(this.cardService.btnInfoId)
+            .subscribe(card => {
+                this.card = card as Card;
+                this.isCardLoaded = true;
+            },
+            (err) => console.log(err)
+            );
     }
 
     onSelectNumber(item: number) {
