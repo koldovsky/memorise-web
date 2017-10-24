@@ -264,7 +264,7 @@ export class QuizComponent implements OnInit {
             CodeAnswerText: card.Answers[0].Text,
             IsRight: false
         };
-        this.quizService.codeAnswer(this.codeAnswers[card.Id])
+        this.quizService.CodeAnswerCheck(this.codeAnswers[card.Id])
             .then(codeAnswer => {
                 this.codeResult = codeAnswer.CodeAnswerText;
                 this.codeAnswers[card.Id].IsRight = codeAnswer.IsRight;
