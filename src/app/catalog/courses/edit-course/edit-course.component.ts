@@ -13,6 +13,7 @@ import { regexExpression } from '../../../common/helpers/regexExpression';
 import { errorMessages } from '../../../common/helpers/errorMessages';
 import { handleError } from '../../../common/functions/functions';
 import { FileUploader } from 'ng2-file-upload';
+
 @Component({
     selector: 'edit-course',
     templateUrl: './edit-course.component.html',
@@ -46,8 +47,7 @@ export class EditCourseComponent implements OnInit {
         private deckService: DeckService,
         private courseService: CourseService,
         private moderatorComponent: ModeratorComponent,
-        private moderationService: ModerationService,
-        private dialog: MatDialog,
+        private moderationService: ModerationService
     ) {
         this.uploader = new FileUploader({
             url: this.uploadUrl,
@@ -95,37 +95,28 @@ export class EditCourseComponent implements OnInit {
 
     onSubmit() {
         if (this.checkCourseForChanges()) {
-            console.log("was changed");
             this.checkNameAndUpdate();
         } else {
-            console.log("not changed");
             if (this.checkDecksForChanges()) {
                 this.checkNameAndUpdate();
-                // this.ngOnInit();
             }
         }
     }
     checkNameAndUpdate(){
-        console.log("run check name and update");
         if (this.course.Name === this.courseBeforeChanges.Name || this.isUnique ) {
-            console.log("isUnique");
-            this.updateCourse();
+           this.updateCourse();
             this.isUnique = false;
         } else {
-            console.log("isNotUnique");
             this.courseService.checkIfCourseExists(this.course.Name)
                 .subscribe(response => {
                     const result = response as Course;
                     if (result.Name === 'unique') {
                         this.isUnique = true;
                         this.createLinking();
-                        console.log("check OK");
                         this.updateCourse();
                         this.isUnique = false;
                     } else {
-                        console.log("check BAD");
                         this.isUnique = false;
-                        this.course.Linking = '';
                         this.afterCheck = true;
                     }
                 },
@@ -134,7 +125,6 @@ export class EditCourseComponent implements OnInit {
         }
     }
     updateCourse() {
-        console.log("update");
         this.courseService.updateCourse(this.course)
         .subscribe(course => {
             this.submitMessage = 'Course was updated successfully';
@@ -144,6 +134,7 @@ export class EditCourseComponent implements OnInit {
             this.uploader.uploadAll();
             }
             this.showSnackbar();
+            this.courseBeforeChanges = course as Course;
             },
             err => {
                 this.submitMessage = this.error.ERROR;
@@ -203,7 +194,6 @@ export class EditCourseComponent implements OnInit {
                     this.createLinking();
                 } else {
                     this.isUnique = false;
-                    this.course.Linking = '';
                     this.afterCheck = true;
                 }
             },

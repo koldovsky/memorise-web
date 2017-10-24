@@ -1,81 +1,83 @@
-
-    <create-course (afterCourseAdded)='onCourseAdded($event)'></create-course>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="form-group">
-                <div class="row">
-                    <div class="input-group col-sm-12 col-md-4">
-                        <span class="input-group-addon">
-                            <i class="material-icons">search</i>
-                        </span>
-                        <input type="text" class="btn-block" placeholder="Search by Course Name" [(ngModel)]="searchText" (ngModelChange)="onChange($event)" />
-                    </div>
-                    <div class="dropdown col-sm-12 col-md-4">
-                        <button class="btn btn-secondary dropdown-toggle btn-block" id="filter" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{dropDownElements()}}
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="filter">
-                            <button *ngFor="let items of arrayOfElementByPage" class="dropdown-item" type="button" (click)="onSelectFilter(items)">{{items}}</button>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-md-4">
-                        <button class="btn btn-primary btn-block" (click)="sortTable()">
-                            Sorting by Name
-                            <i class="material-icons">sort_by_alpha</i>
-                        </button>
+<create-course (afterCourseAdded)='onCourseAdded($event)'>
+</create-course>
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <div class="row">
+                <div class="input-group col-sm-12 col-md-4">
+                    <span class="input-group-addon">
+                        <i class="material-icons">search</i>
+                    </span>
+                    <input type="text" class="btn-block" placeholder="Search by Course Name" [(ngModel)]="searchText" (ngModelChange)="onChange($event)"
+                    />
+                </div>
+                <div class="dropdown col-sm-12 col-md-4">
+                    <button class="btn btn-secondary dropdown-toggle btn-block" id="filter" type="button" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        {{dropDownElements()}}
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="filter">
+                        <button *ngFor="let items of arrayOfElementByPage" class="dropdown-item" type="button" (click)="onSelectFilter(items)">{{items}}</button>
                     </div>
                 </div>
-            </div>
-            <table class="table table-bordered table-hover table-responsive">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>
-                            Course Name
-                        </th>
-                        <th>
-                            Description
-                        </th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody *ngFor="let course of courses; let i=index">
-                    <tr>
-                        <td>{{pageSize * (page - 1) + i + 1}}</td>
-                        <td>{{course.Name}}</td>
-                        <td>{{course.Description}}</td>
-                        <td class="btn-group">
-                            <button class="btn btn-primary" (click)="onBtnInfoClick(course.Linking)" [routerLink]="['/moderator/courses/edit', course.Linking]">
-                                <i class="material-icons">info_outline</i>
-                            </button>
-                            <button class="btn btn-danger" data-toggle="modal" data-target="#deleteCourseAlertModal" (click)="onDelete(course)">
-                                <i class="material-icons">delete_forever</i>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <app-pagination [page-size]="pageSize" [total-count]="totalCount" (pageIndex)="onNotify($event)"></app-pagination>
-        </div>
-    </div>
-    <!-- Modal Alert -->
-    <div class="modal fade" id="deleteCourseAlertModal" tabindex="-1" role="dialog" aria-labelledby="deleteCourseAlertModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="deleteCourseAlertModalLabel">Delete course</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                <div class="col-sm-12 col-md-4">
+                    <button class="btn btn-primary btn-block" (click)="sortTable()">
+                        Sorting by Name
+                        <i class="material-icons">sort_by_alpha</i>
                     </button>
                 </div>
-                <div class="modal-body">
-                    The {{currentCourse.Name}} course will be deleted!
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="confirmDelete()">Confirm delete</button>
-                </div>
+            </div>
+        </div>
+        <table class="table table-bordered table-hover table-responsive">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>
+                        Course Name
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let course of courses; let i=index">
+                <tr>
+                    <td class="padding-top">{{pageSize * (page - 1) + i + 1}}</td>
+                    <td class="padding-top">{{course.Name}}</td>
+                    <td class="padding-top">{{course.Description}}</td>
+                    <td class="view-table">
+                        <button class="btn btn-primary" (click)="onBtnInfoClick(course.Linking)" [routerLink]="['/moderator/courses/edit', course.Linking]">
+                            <i class="material-icons">info_outline</i>
+                        </button>
+                        <button class="btn btn-danger" data-toggle="modal" data-target="#deleteCourseAlertModal" (click)="onDelete(course)">
+                            <i class="material-icons">delete_forever</i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <app-pagination [page-size]="pageSize" [total-count]="totalCount" (pageIndex)="onNotify($event)"></app-pagination>
+    </div>
+</div>
+<!-- Modal Alert -->
+<div class="modal fade" id="deleteCourseAlertModal" tabindex="-1" role="dialog" aria-labelledby="deleteCourseAlertModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteCourseAlertModalLabel">Delete course</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                The {{currentCourse.Name}} course will be deleted!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="confirmDelete()">Confirm delete</button>
             </div>
         </div>
     </div>
+</div>

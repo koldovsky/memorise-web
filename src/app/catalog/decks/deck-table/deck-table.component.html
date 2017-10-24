@@ -8,10 +8,12 @@
                     <span class="input-group-addon">
                         <i class="material-icons">search</i>
                     </span>
-                    <input type="text" class="btn-block" placeholder="Search by Deck Name" [(ngModel)]="searchText" (ngModelChange)="onChange($event)" />
+                    <input type="text" class="btn-block" placeholder="Search by Deck Name" [(ngModel)]="searchText" (ngModelChange)="onChange($event)"
+                    />
                 </div>
                 <div class="dropdown col-sm-12 col-md-4">
-                    <button class="btn btn-secondary dropdown-toggle btn-block" id="filter" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-secondary dropdown-toggle btn-block" id="filter" type="button" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
                         {{dropDownElements()}}
                     </button>
                     <div class="dropdown-menu" aria-labelledby="filter">
@@ -38,9 +40,9 @@
             </thead>
             <tbody *ngFor="let deck of decks; let i=index">
                 <tr>
-                    <td>{{pageSize * (page - 1) + i + 1}}</td>
-                    <td>{{deck.Name}}</td>
-                    <td class="btn-group">
+                    <td class="padding-top">{{pageSize * (page - 1) + i + 1}}</td>
+                    <td class="padding-top">{{deck.Name}}</td>
+                    <td class="view-table">
                         <button class="btn btn-primary" (click)="onBtnInfoClick(deck.Linking)" [routerLink]="['/moderator/decks/edit', deck.Linking]">
                             <i class="material-icons">info_outline</i>
                         </button>

@@ -69,7 +69,11 @@ export class CategoryService {
         return this.http.get(`${this.categoryModeratorUrl}FindCategoryByName/${btoa(categoryName)}`);
     }
 
-    getCategoryByName(categoryName: string): Observable<Object> {
-        return this.http.get(`${this.categoryModeratorUrl}FindCategoryByName/${btoa(categoryName)}`);
+    getCategoryByName(categoryName: string): Promise<Category[]> {
+        const url = `http://localhost:37271/Moderator/FindCategoryByName/${btoa(categoryName)}`;
+        return this.http.get(url)
+            .toPromise()
+            .then(response => response as Category[])
+            .catch(handleError);
     }
 }

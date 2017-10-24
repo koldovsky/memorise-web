@@ -24,7 +24,7 @@
     <div *ngIf="isLoaded && subscriptionsNames.length === 0;">
         <h3>You have no subscribed {{dependency === "Course"? "courses" : "decks"}}.</h3>
     </div>
-    <div *ngFor="let info of statisticsInfo">
+    <div *ngFor="let info of statisticsInfo index as i">
         <div class="card m-3 p-3">
             <h5>{{info.name}}</h5>
             <label>Passed cards:
@@ -42,10 +42,10 @@
             </div>
             </label>
             <div *ngIf="dependency === 'Course'">
-                <a class="btn btn-sm" data-toggle="collapse" href="#decksStatistics" aria-expanded="false" aria-controls="decksStatistics">
+                <a class="btn btn-sm" data-toggle="collapse" href="#info{{i}}" aria-expanded="false" [attr.aria-controls]="'info' + i">
                     Details
                 </a>
-                <div class="collapse" id="decksStatistics">
+                <div class="collapse" id="info{{i}}">
                     <div *ngFor="let deckInfo of info.containInfo">
                         <div class="card m-3">
                             <h6>{{deckInfo.name}}</h6>
