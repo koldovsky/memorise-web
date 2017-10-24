@@ -6,7 +6,7 @@ import { regexExpression } from '../../common/helpers/regexExpression';
 import { errorMessages } from '../../common/helpers/errorMessages';
 
 @Component({
-    selector: 'edit-category',
+    selector: 'app-edit-category',
     templateUrl: './edit-category.component.html',
     styleUrls: ['./edit-category.component.css']
 })

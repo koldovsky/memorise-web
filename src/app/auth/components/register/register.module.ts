@@ -4,7 +4,7 @@ import { RegisterRoutingModule } from './register-routing.module';
 
 @NgModule({
     imports: [
-        RegisterRoutingModule        
+        RegisterRoutingModule
     ]
 })
 

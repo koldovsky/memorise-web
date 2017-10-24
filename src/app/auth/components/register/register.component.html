@@ -1,54 +1,54 @@
 <div class="container">
-        <div class="login-container">
-            <h2>Sign Up</h2>
-            <div class="alert alert-danger" role="alert" *ngIf="!authService.validData() && clicked">
-                <strong>Error</strong>, {{authService.getError()}}
-            </div>
-            <div class="form-box" [formGroup]="myForm">
-                <form action="" method="">                
-                            <input name="user" class="upper" type="text" placeholder="username" [formControl]="myForm.controls['login']">
-                            <ngb-alert *ngIf="myForm.controls['login'].hasError('required') && 
+    <div class="login-container">
+        <h2>Sign Up</h2>
+        <div class="alert alert-danger" role="alert" *ngIf="!authService.validData() && clicked">
+            <strong>Error</strong>, {{authService.getError()}}
+        </div>
+        <div class="form-box" [formGroup]="myForm">
+            <form action="" method="">
+                <input name="user" class="upper" type="text" placeholder="username" [formControl]="myForm.controls['login']">
+                <ngb-alert *ngIf="myForm.controls['login'].hasError('required') && 
                             (myForm.controls['login'].dirty || myForm.controls['login'].touched)" [dismissible]="false">
-                                Login is
-                                <strong>required</strong>
-                            </ngb-alert>
-                            <ngb-alert *ngIf="myForm.controls['login'].hasError('maxlength')" [dismissible]="false">
-                                Login
-                                <strong>must</strong> be less then {{regex.MAX_LENGTH_INPUT}} symbols
-                            </ngb-alert>                    
-                            <input name="email" class="lower" type="text" placeholder="email" [formControl]="myForm.controls['email']">
-                            <ngb-alert *ngIf="myForm.controls['email'].hasError('required') && 
+                    Login is
+                    <strong>required</strong>
+                </ngb-alert>
+                <ngb-alert *ngIf="myForm.controls['login'].hasError('maxlength')" [dismissible]="false">
+                    Login
+                    <strong>must</strong> be less then {{regex.MAX_LENGTH_INPUT}} symbols
+                </ngb-alert>
+                <input name="email" class="lower" type="text" placeholder="email" [formControl]="myForm.controls['email']">
+                <ngb-alert *ngIf="myForm.controls['email'].hasError('required') && 
                             (myForm.controls['email'].dirty || myForm.controls['email'].touched)" [dismissible]="false">
-                                Email is
-                                <strong>required</strong>
-                            </ngb-alert>
-                            <ngb-alert *ngIf="myForm.controls['email'].hasError('pattern')" [dismissible]="false">
-                                Please enter a
-                                <strong>valid</strong> email address
-                            </ngb-alert>                    
-                            <input type="password" class="upper" placeholder="password" [formControl]="myForm.controls['password']">
-                            <ngb-alert *ngIf="myForm.controls['password'].hasError('required') && 
+                    Email is
+                    <strong>required</strong>
+                </ngb-alert>
+                <ngb-alert *ngIf="myForm.controls['email'].hasError('pattern')" [dismissible]="false">
+                    Please enter a
+                    <strong>valid</strong> email address
+                </ngb-alert>
+                <input type="password" class="upper" placeholder="password" [formControl]="myForm.controls['password']">
+                <ngb-alert *ngIf="myForm.controls['password'].hasError('required') && 
                             (myForm.controls['password'].dirty || myForm.controls['password'].touched)" [dismissible]="false">
-                                Password is
-                                <strong>required</strong>
-                            </ngb-alert>
-                            <ngb-alert *ngIf="myForm.controls['password'].hasError('minlength')" [dismissible]="false">
-                                Password length
-                                <strong>must</strong> be at least {{regex.MIN_LENGTH}}
-                            </ngb-alert>                    
-                            <input type="password" class="lower" placeholder="confirm password" [formControl]="myForm.controls['passwordConfirm']">
-                            <ngb-alert *ngIf="myForm.controls['passwordConfirm'].hasError('required') && 
+                    Password is
+                    <strong>required</strong>
+                </ngb-alert>
+                <ngb-alert *ngIf="myForm.controls['password'].hasError('minlength')" [dismissible]="false">
+                    Password length
+                    <strong>must</strong> be at least {{regex.MIN_LENGTH}}
+                </ngb-alert>
+                <input type="password" class="lower" placeholder="confirm password" [formControl]="myForm.controls['passwordConfirm']">
+                <ngb-alert *ngIf="myForm.controls['passwordConfirm'].hasError('required') && 
                             (myForm.controls['passwordConfirm'].dirty || myForm.controls['passwordConfirm'].touched)" [dismissible]="false">
-                                Confirmation is
-                                <strong>required</strong>
-                            </ngb-alert>                        
-                            <ngb-alert *ngIf="myForm.controls['passwordConfirm'].hasError('matchOther')" [dismissible]="false">
-                                Confirmed password doesn't
-                                <strong>match</strong>
-                            </ngb-alert>                    
-                    <button class="btn btn-info login" type="button" [routerLink]="['/login']">Back</button>
-                    <button class="btn btn-info login" type="submit" [disabled]="!myForm.valid" (click)="Register(myForm.value)">Sign Up</button>
-                </form>
-            </div>
+                    Confirmation is
+                    <strong>required</strong>
+                </ngb-alert>
+                <ngb-alert *ngIf="myForm.controls['passwordConfirm'].hasError('matchOther')" [dismissible]="false">
+                    Confirmed password doesn't
+                    <strong>match</strong>
+                </ngb-alert>
+                <button class="btn btn-info login" type="button" [routerLink]="['/login']">Back</button>
+                <button class="btn btn-info login" type="submit" [disabled]="!myForm.valid" (click)="Register(myForm.value)">Sign Up</button>
+            </form>
         </div>
     </div>
+</div>

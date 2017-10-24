@@ -15,7 +15,7 @@ import { handleError } from '../../../common/functions/functions';
 import { FileUploader } from 'ng2-file-upload';
 
 @Component({
-    selector: 'edit-course',
+    selector: 'app-edit-course',
     templateUrl: './edit-course.component.html',
     styleUrls: ['./edit-course.component.css']
 })
@@ -102,9 +102,9 @@ export class EditCourseComponent implements OnInit {
             }
         }
     }
-    checkNameAndUpdate(){
-        if (this.course.Name === this.courseBeforeChanges.Name || this.isUnique ) {
-           this.updateCourse();
+    checkNameAndUpdate() {
+        if (this.course.Name === this.courseBeforeChanges.Name || this.isUnique) {
+            this.updateCourse();
             this.isUnique = false;
         } else {
             this.courseService.checkIfCourseExists(this.course.Name)
@@ -126,24 +126,24 @@ export class EditCourseComponent implements OnInit {
     }
     updateCourse() {
         this.courseService.updateCourse(this.course)
-        .subscribe(course => {
-            this.submitMessage = 'Course was updated successfully';
-            if ( this.imageIsChanged ) {
-            this.uploader.queue[0].url = `${this.uploadUrl}/${(course as Course).Linking}`;
-            this.uploader.queue[0].alias = 'Photo';
-            this.uploader.uploadAll();
-            }
-            this.showSnackbar();
-            this.courseBeforeChanges = course as Course;
+            .subscribe(course => {
+                this.submitMessage = 'Course was updated successfully';
+                if (this.imageIsChanged) {
+                    this.uploader.queue[0].url = `${this.uploadUrl}/${(course as Course).Linking}`;
+                    this.uploader.queue[0].alias = 'Photo';
+                    this.uploader.uploadAll();
+                }
+                this.showSnackbar();
+                this.courseBeforeChanges = course as Course;
             },
             err => {
                 this.submitMessage = this.error.ERROR;
                 this.showSnackbar();
             }
-        );
+            );
     }
     showSnackbar() {
-        const x = document.getElementById('snackbar')
+        const x = document.getElementById('snackbar');
         x.className = 'show';
         setTimeout(function () { x.className = x.className.replace('show', ''); }, 3000);
     }
@@ -156,7 +156,7 @@ export class EditCourseComponent implements OnInit {
             this.course.Price !== this.courseBeforeChanges.Price ||
             this.course.DeckNames.length !== this.courseBeforeChanges.DeckNames.length
         ) {
-           return true;
+            return true;
         } else { return false; }
     }
     checkDecksForChanges(): boolean {
@@ -171,12 +171,12 @@ export class EditCourseComponent implements OnInit {
                     });
             });
         if (countConcidences === this.courseBeforeChanges.DeckNames.length) {
-                 return false;
+            return false;
         } else { return true; }
     }
 
     imageSet() {
-     this.imageIsChanged = true;
+        this.imageIsChanged = true;
     }
     deleteDecks() {
         for (let i = 0; i < this.chosenDecksLinking.length; i++) {
@@ -205,20 +205,20 @@ export class EditCourseComponent implements OnInit {
     }
     getDecksNotFromCourse() {
         this.deckService.getDecks()
-                .then(decks => {
-                    this.decks = decks.filter(x => {
-                        let isMap = true;
-                        this.course.Decks.forEach(y => {
-                            if (y.Linking.toLowerCase() === x.Linking.toLowerCase()) {
-                                isMap = false;
-                            }
-                        });
-                        if (isMap) {
-                            this.deckNames.push(x.Name);
+            .then(decks => {
+                this.decks = decks.filter(x => {
+                    let isMap = true;
+                    this.course.Decks.forEach(y => {
+                        if (y.Linking.toLowerCase() === x.Linking.toLowerCase()) {
+                            isMap = false;
                         }
-                        return isMap;
                     });
-                    this.isLoadedDecks = true;
+                    if (isMap) {
+                        this.deckNames.push(x.Name);
+                    }
+                    return isMap;
                 });
+                this.isLoadedDecks = true;
+            });
     }
 }

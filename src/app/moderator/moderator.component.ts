@@ -29,13 +29,14 @@ export class ModeratorComponent implements OnInit {
   deckName: Deck;
   whichButtonIsClicked: string;
 
-  constructor(private courseService: CourseService,
-              private deckService: DeckService,
-              private categoryService: CategoryService,
-              private moderationService: ModerationService,
-              private authService: AuthService,
-              private router: Router,
-              private cardService: CardService
+  constructor(
+    private courseService: CourseService,
+    private deckService: DeckService,
+    private categoryService: CategoryService,
+    private moderationService: ModerationService,
+    private authService: AuthService,
+    private router: Router,
+    private cardService: CardService
   ) { }
 
   ngOnInit() {

@@ -18,13 +18,13 @@ export class NavigationComponent implements OnInit {
 
   constructor(private auth: AuthService) { }
 
-  signOut(): void {    
+  signOut(): void {
     localStorage.setItem('token', 'empty');
     this.auth.checkIfIsAuthorized();
   }
 
-  ngOnInit() {    
-    this.auth.checkIfIsAuthorized();    
-    }
-  
+  ngOnInit() {
+    this.auth.checkIfIsAuthorized();
+  }
+
 }

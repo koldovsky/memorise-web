@@ -37,19 +37,19 @@ export class UserService {
             .then(response => response as User)
             .catch(handleError);
     }
-    
-    updateUserById(user: User){
-        const URL = `${this.UserProfile}/UpdateUserById`;               
+
+    updateUserById(user: User) {
+        const URL = `${this.UserProfile}/UpdateUserById`;
         return this.http.put(URL, user);
     }
 
-    updateUserProfileById(user: User){
-        const URL = `${this.UserProfile}/UpdateUserProfileById`;               
+    updateUserProfileById(user: User) {
+        const URL = `${this.UserProfile}/UpdateUserProfileById`;
         return this.http.put(URL, user);
     }
 
-    updateUserByLogin(login: string, user: User){
-        const URL = `${this.UserProfile}/UpdateUserByLogin`;                      
-        return this.http.put(URL, {ExistingLogin: login, NewUserData: user}).toPromise();
+    updateUserByLogin(login: string, user: User) {
+        const URL = `${this.UserProfile}/UpdateUserByLogin`;
+        return this.http.put(URL, { ExistingLogin: login, NewUserData: user }).toPromise();
     }
 }

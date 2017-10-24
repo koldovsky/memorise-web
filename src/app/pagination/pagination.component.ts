@@ -12,6 +12,8 @@ export class PaginationComponent implements OnInit {
     currentIndex = 0;
     items = [];
     middleItems = [];
+    comfortableNumbers = 5;
+    comfortableMiddleNumbers = 3;
     private _totalCount: number;
     private _pageSize: number;
 
@@ -58,13 +60,13 @@ export class PaginationComponent implements OnInit {
     select(index) {
         this.pageIndex.next(index);
         this.currentIndex = index;
-        if (this.items.length > 5) {
+        if (this.items.length > this.comfortableNumbers) {
             if (index === 1) {
-                this.middleItems = this.items.slice(index - 1, index + 2);
+                this.middleItems = this.items.slice(index - 1, index + this.comfortableMiddleNumbers - 1);
             } else if (index === this.items.length) {
-                this.middleItems = this.items.slice(index - 3, index + 1);
+                this.middleItems = this.items.slice(index - this.comfortableMiddleNumbers, index + 1);
             } else {
-                this.middleItems = this.items.slice(index - 2, index + 1);
+                this.middleItems = this.items.slice(index - this.comfortableMiddleNumbers + 1, index + 1);
             }
         } else {
             this.middleItems = this.items;
@@ -72,10 +74,10 @@ export class PaginationComponent implements OnInit {
     }
 
     isFirstEllipsis() {
-        if (this.items.length < 6) {
+        if (this.items.length < this.comfortableNumbers + 1) {
             return true;
         }
-        if (this.currentIndex > 3) {
+        if (this.currentIndex > this.comfortableMiddleNumbers) {
             return false;
         } else {
             return true;
@@ -83,10 +85,10 @@ export class PaginationComponent implements OnInit {
     }
 
     isLastEllipsis() {
-        if (this.items.length < 6) {
+        if (this.items.length < this.comfortableNumbers + 1) {
             return true;
         }
-        if (this.currentIndex > this.items.length - 3) {
+        if (this.currentIndex > this.items.length - this.comfortableMiddleNumbers) {
             return true;
         } else {
             return false;
@@ -94,7 +96,7 @@ export class PaginationComponent implements OnInit {
     }
 
     isFirst() {
-        if (this.currentIndex < 3 || this.items.length <= 5) {
+        if (this.currentIndex < this.comfortableMiddleNumbers || this.items.length <= this.comfortableNumbers) {
             return true;
         } else {
             return false;
@@ -102,7 +104,7 @@ export class PaginationComponent implements OnInit {
     }
 
     isLast() {
-        if (this.currentIndex > this.items.length - 2 || this.items.length <= 5) {
+        if (this.currentIndex > this.items.length - this.comfortableMiddleNumbers + 1 || this.items.length <= this.comfortableNumbers) {
             return true;
         } else {
             return false;
