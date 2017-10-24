@@ -21,7 +21,6 @@ export class ProfileComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute
   ) {
-    this.init();
   }
 
   public radioGroupForm: FormGroup;
@@ -42,7 +41,7 @@ export class ProfileComponent implements OnInit {
       .getUserByLogin(this.login)
       .then(response => {
         this.user = response,
-        this.login = response.Login,
+          this.login = response.Login,
           this.email = response.Email,
           this.firstName = response.FirstName,
           this.lastName = response.LastName,
@@ -72,4 +71,9 @@ export class ProfileComponent implements OnInit {
       .then(() => localStorage.setItem('login', name))
       .then(() => this.init());
   }
+
+  revertInfo(): void {
+    this.init();
+  }
+
 }

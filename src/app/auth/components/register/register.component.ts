@@ -10,7 +10,10 @@ import { passwordMatchValidator } from './password-matcher';
 import { regexExpression } from '../../../common/helpers/regexExpression';
 import { Router } from '@angular/router';
 
-const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const EMAIL_REGEX = new RegExp(['^(([^<>()[\\]\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\.,;:\\s@\"]+)*)',
+    '|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.',
+    '[0-9]{1,3}\])|(([a-zA-Z\\-0-9]+\\.)+',
+    '[a-zA-Z]{2,}))$'].join(''));
 
 @Component({
     selector: 'app-register',
@@ -22,12 +25,16 @@ export class RegisterComponent implements OnInit {
     clicked = false;
     regex = regexExpression;
     myForm: FormGroup;
+    submitMessage = 'Congratulation, you\'ve been successfully registered!\nPlease, try to login.';
 
     constructor(
         private authService: AuthService,
         private router: Router,
         public fb: FormBuilder
     ) {
+    }
+
+    ngOnInit(): void {
         this.myForm = this.fb.group({
             'login': new FormControl('', [
                 Validators.required,
@@ -49,18 +56,23 @@ export class RegisterComponent implements OnInit {
         });
     }
 
-    ngOnInit(): void {
-    }
-
     Register(user): void {
         this.authService.signUp(user)
             .then(() => {
                 if (this.authService.validData()) {
-                    this.router.navigate(['login']);
+                    this.showSnackbar();
+                    this.myForm.reset();
                 } else {
                     this.myForm.reset();
                 }
             });
         this.clicked = true;
     }
+
+    showSnackbar() {
+        const x = document.getElementById('snackbar');
+        x.className = 'show';
+        setTimeout(function () { x.className = x.className.replace('show', ''); }, 3000);
+    }
 }
+
