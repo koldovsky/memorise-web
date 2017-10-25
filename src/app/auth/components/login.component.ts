@@ -40,6 +40,7 @@ export class LoginComponent implements OnInit {
         });
 
         (function (d, s, id) {
+            // tslint:disable-next-line:prefer-const
             let js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) {
                 return;
@@ -52,14 +53,14 @@ export class LoginComponent implements OnInit {
 
         window.fbAsyncInit = () => {
             FB.getLoginStatus(function (response) {
-                FB.Event.subscribe('auth.statusChange', (response => {
-                    if (response.status === 'connected') {
-                        const accessToken = response.authResponse.accessToken;
+                FB.Event.subscribe('auth.statusChange', (respon => {
+                    if (respon.status === 'connected') {
+                        const accessToken = respon.authResponse.accessToken;
                         const url = '/me?fields=name,email';
-                        FB.api(url, function (response) {
+                        FB.api(url, function (resp) {
                             authService.signUpFacebook({
-                                UserName: response.name.split(' ')[0],
-                                Email: response.email,
+                                UserName: resp.name.split(' ')[0],
+                                Email: resp.email,
                                 Provider: 'Facebook',
                                 ExternalAccessToken: accessToken
                             });

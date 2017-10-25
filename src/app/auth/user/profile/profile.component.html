@@ -110,13 +110,16 @@
                 <label class="col-lg-3 col-form-label form-control-label">Email</label>
                 <div class="col-lg-9">
                   <input class="form-control" [formControl]="myForm.controls['email']" type="email" value="{{user.Email}}">
+                  <ngb-alert *ngIf="myForm.controls['email'].hasError('pattern')" [dismissible]="false">
+                      Email address is not valid!
+                  </ngb-alert>
                 </div>
               </div>          
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label form-control-label"></label>
                 <div class="col-lg-9">
-                  <button type="button" class="btn btn-secondary">Cancel</button>  <!-- value="Cancel" -->
-                  <button type="submit" (click)="updateInfo()" class="btn btn-primary">Save Changes</button> <!-- value="Save Changes" -->
+                  <button type="button" class="btn btn-secondary" (click)="revertInfo()">Cancel</button>
+                  <button type="submit" (click)="updateInfo()" [disabled]="!myForm.valid" class="btn btn-primary">Save Changes</button>
                 </div>
               </div>
             </form>
