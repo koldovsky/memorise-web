@@ -83,10 +83,7 @@ import { AppComponent } from './app.component';
 import { FileSelectDirective, FileUploadModule } from 'ng2-file-upload';
 import { EditCardComponent } from './catalog/cards/edit-card/edit-card.component';
 import { EditCategoryComponent } from './catalog/edit-category/edit-category.component';
-
-
-
-
+import { NavigationService } from './common/services/navigation.service';
 
 @NgModule({
     declarations: [
@@ -190,7 +187,8 @@ import { EditCategoryComponent } from './catalog/edit-category/edit-category.com
             useClass: InterceptorService,
             multi: true
         },
-        MessageService
+        MessageService,
+        NavigationService
     ],
     bootstrap: [AppComponent]
 })

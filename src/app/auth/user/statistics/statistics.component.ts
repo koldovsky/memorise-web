@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
 
 import { User, Statistics, Course, Deck } from '../../../common/models/models';
-import { UserService } from '../../../common/services/user.service';
 import { UserSubscriptionsService } from '../../../common/services/user-subscriptions.service';
 import { StatisticsService } from '../../../common/services/statistics.service';
 import { DeckService } from '../../../common/services/deck.service';
 import { handleError } from '../../../common/functions/functions';
+import { AuthService } from '../../../common/services/auth.service';
 
 class StatisticsInfo {
   name: string;
@@ -31,23 +30,17 @@ export class StatisticsComponent implements OnInit {
   isLoaded = false;
 
   constructor(
-    private userService: UserService,
+    private authService: AuthService,
     private subscribtionsServise: UserSubscriptionsService,
-    private statisticsService: StatisticsService,
-    private route: ActivatedRoute
+    private statisticsService: StatisticsService
   ) { }
 
   ngOnInit() {
-    this.route.paramMap
-      .switchMap((params: ParamMap) => this.userService
-        .getUserByLogin(params.get('name')))
-      .subscribe(user => {
-        this.userLogin = user.Login;
-        this.dependency = 'Course';
-        this.subscriptionName = null;
-        this.setNamesInfo();
-        this.setStatisticsInfo();
-      });
+    this.userLogin = this.authService.getCurrentUserLogin();
+    this.dependency = 'Course';
+    this.subscriptionName = null;
+    this.setNamesInfo();
+    this.setStatisticsInfo();
   }
 
   calculateSuccessPercent(statistics: Statistics[]): string {
