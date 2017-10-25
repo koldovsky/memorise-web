@@ -59,7 +59,7 @@
             <div *ngFor="let answer of answersArray" class="form-group">
               <div class="row">
                 <div class="col-10">
-                  <label for="one{{answer.Id}}" class="form-control-label">Answer{{answer.Id}}:</label>
+                  <label for="one{{answer.Id}}" class="form-control-label">Answer{{answer.Id+1}}:</label>
                   <textarea class="form-control" required [(ngModel)]='answer.Text' name="Text{{answer.Id}}" id="one{{answer.Id}}" maxlength={{regex.MAX_LENGTH_TEXTAREA}}
                     #answ="ngModel">
                     </textarea>
@@ -86,7 +86,7 @@
             <div *ngFor="let answer of answersArray" class="form-group">
               <div class="row">
                 <div class="col-10">
-                  <label for="one{{answer.Id}}" class="form-control-label">Answer{{answer.Id}}:</label>
+                  <label for="one{{answer.Id}}" class="form-control-label">Answer{{answer.Id+1}}:</label>
                   <textarea class="form-control" required [(ngModel)]='answer.Text' name="Text{{answer.Id}}" id="one{{answer.Id}}" maxlength={{regex.MAX_LENGTH_TEXTAREA}}
                     #answ="ngModel">
                   </textarea>
