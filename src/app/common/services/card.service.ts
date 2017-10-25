@@ -56,4 +56,8 @@ export class CardService {
     getCardById(id: number): Observable<Object> {
         return this.http.get(`${this.cardModeratorUrl}GetCardById/${id}`);
     }
+
+    updateCard(card: Card): Observable<Object> {
+        return this.http.put(`${this.cardModeratorUrl}UpdateCard`, card);
+    }
 }
