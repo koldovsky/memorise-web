@@ -5,7 +5,6 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
-import { COURSES } from '../mocks/courses';
 import { Course, PageResponse, SearchDataModel } from '../models/models';
 import { handleError } from '../functions/functions';
 
