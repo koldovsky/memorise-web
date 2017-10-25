@@ -6,7 +6,7 @@
                 <h3>
                     {{countPassedQuestions()}} {{passedQuestionOrQuestions()}} passed
                 </h3>
-                <img src="../assets/images/{{getImgPreNamePassed()}}cardBackMin.png" alt="card back">
+                <img src="../assets/images/{{getImgPreNamePassed()}}-card-back-min.png" alt="card back">
             </div>
         </div>
 
@@ -74,10 +74,7 @@
                             <br>
                             <div>
                                 <label for="customerAnswerId">Type your answer</label>
-                                <input type="text" id="customerAnswerId" 
-                                placeholder="Type your answer here" [(ngModel)]="cards[counter].CustomerAnswersText"
-                                name="customerAnswerName"
-                                >
+                                <input type="text" id="customerAnswerId" placeholder="Type your answer here" [(ngModel)]="cards[counter].CustomerAnswersText" name="customerAnswerName">
                             </div>
                         </div>
                     </div>
@@ -88,9 +85,7 @@
                         <div class="card-header no-select" id="cardTitle{{cards[counter].Id}}">
                             <div class="row">
                                 Question {{counter+1}} / {{cardsCount}}
-                                <button class="btn btn-primary" 
-                                (click)="codeAnswerCheck(cards[counter])" 
-                                id="check-button">Check</button>
+                                <button class="btn btn-primary" (click)="codeAnswerCheck(cards[counter])" id="check-button">Check</button>
                             </div>
                         </div>
 
@@ -102,8 +97,7 @@
                             <div>
                                 <label for="customerCodeAnswerId">Type your answer</label>
                                 <br>
-                                <textarea id="customerAnswerTextareaId" placeholder="Type your answer here" [(ngModel)]="cards[counter].Answers[0].Text"
-                                    name="customerCodeAnswerName" rows="12" cols="50">
+                                <textarea id="customerAnswerTextareaId" placeholder="Type your answer here" [(ngModel)]="cards[counter].Answers[0].Text" name="customerCodeAnswerName" rows="12" cols="50">
                                 </textarea>
                             </div>
                             <div>
@@ -135,7 +129,7 @@
                 <h3>
                     {{countLeftQuestions()}} {{leftQuestionOrQuestions()}} left
                 </h3>
-                <img src="../assets/images/{{getImgPreNameLeft()}}cardBackMin.png" alt="card back">
+                <img src="../assets/images/{{getImgPreNameLeft()}}-card-back-min.png" alt="card back">
             </div>
         </div>
         <ng-template #noCardsInQuiz>

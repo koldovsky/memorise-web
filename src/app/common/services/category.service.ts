@@ -58,8 +58,8 @@ export class CategoryService {
     }
 
     updateCategory(category: Category) {
-        return this.http.put(`${this.categoryModeratorUrl}UpdateCourse`, category);
-    }
+       return this.http.put(`${this.categoryModeratorUrl}UpdateCategory`, category);
+     }
 
     deleteCategory(id: number) {
         return this.http.delete(`${this.categoryModeratorUrl}DeleteCategory/${id}`);
@@ -69,11 +69,7 @@ export class CategoryService {
         return this.http.get(`${this.categoryModeratorUrl}FindCategoryByName/${btoa(categoryName)}`);
     }
 
-    getCategoryByName(categoryName: string): Promise<Category[]> {
-        const url = `http://localhost:37271/Moderator/FindCategoryByName/${btoa(categoryName)}`;
-        return this.http.get(url)
-            .toPromise()
-            .then(response => response as Category[])
-            .catch(handleError);
+    getCategoryByLinking(linking: string): Observable<Object> {
+        return this.http.get(`${this.categoryModeratorUrl}FindCategoryByLinking/${linking}`);
     }
 }
