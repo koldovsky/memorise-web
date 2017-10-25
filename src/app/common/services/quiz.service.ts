@@ -33,7 +33,7 @@ export class QuizService {
             .catch(handleError);
     }
     codeAnswer(codeAnswer: CodeAnswer): Promise<CodeAnswer> {
-        return this.http.post(this.QuizUrl + 'CodeAnswer', codeAnswer)
+        return this.http.post(this.QuizUrl + 'CodeAnswerCheck', codeAnswer)
             .toPromise()
             .then(response => response as CodeAnswer)
             .catch(handleError);
