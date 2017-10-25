@@ -83,10 +83,10 @@ export class EditCardComponent implements OnInit {
 
     changeCheckbox(i) {
        this.card.Answers[i].IsCorrect = !this.card.Answers[i].IsCorrect;
-       const correctAnswers = this.card.Answers.findIndex(x => x.IsCorrect === true)
+       const correctAnswers = this.card.Answers.findIndex(x => x.IsCorrect === true);
        if (correctAnswers === -1) {
         this.noCorrectAnswer = true;
-       } else{
+       } else {
         this.noCorrectAnswer = false;
        }
     }

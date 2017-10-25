@@ -57,7 +57,7 @@ export class CategoryService {
         return this.http.post(`${this.categoryModeratorUrl}CreateCategory`, category);
     }
 
-    updateCategory(category: Category){
+    updateCategory(category: Category) {
        return this.http.put(`${this.categoryModeratorUrl}UpdateCategory`, category);
      }
 

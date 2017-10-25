@@ -12,7 +12,7 @@ import { CardService } from '../../../common/services/card.service';
 import { ModerationService } from '../../../common/services/moderation.service';
 
 @Component({
-    selector: 'create-card',
+    selector: 'app-create-card',
     templateUrl: './create-card.component.html',
     styleUrls: ['./create-card.component.css']
 })
