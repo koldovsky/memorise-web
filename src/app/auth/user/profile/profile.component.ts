@@ -21,7 +21,7 @@ export class ProfileComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute
   ) {
-      this.init();
+    this.init();
   }
 
   public radioGroupForm: FormGroup;
@@ -34,30 +34,30 @@ export class ProfileComponent implements OnInit {
   firstName: string;
   lastName: string;
   gender: string;
-  model = '';  
-  
-  init():void{    
+  model = '';
+
+  init(): void {
     this.login = this.authService.getCurrentUserLogin();
     this.userService
       .getUserByLogin(this.login)
       .then(response => {
-        this.user = response
+        this.user = response,
         this.login = response.Login,
-        this.email = response.Email,
-        this.firstName = response.FirstName,
-        this.lastName = response.LastName,
-        this.gender = response.Gender,
-        this.model = response.Gender
-      }).then(() => {           
+          this.email = response.Email,
+          this.firstName = response.FirstName,
+          this.lastName = response.LastName,
+          this.gender = response.Gender,
+          this.model = response.Gender;
+      }).then(() => {
         this.myForm = this.fb.group({
           'firstName': this.user.FirstName,
           'lastName': this.user.LastName,
           'gender': this.user.Gender,
           'login': this.user.Login,
           'email': this.user.Email,
-          'id': this.user.Id          
+          'id': this.user.Id
         });
-      })
+      });
   }
 
   ngOnInit(): void {
@@ -65,8 +65,8 @@ export class ProfileComponent implements OnInit {
   }
 
   updateInfo(): void {
-    this.myForm.controls['gender'].setValue(this.model);    
-    let name = this.myForm.controls['login'].value;    
+    this.myForm.controls['gender'].setValue(this.model);
+    const name = this.myForm.controls['login'].value;
 
     this.userService.updateUserByLogin(this.login, this.myForm.value)
       .then(() => localStorage.setItem('login', name))

@@ -32,22 +32,22 @@ export class DecksComponent implements OnInit {
 
     ngOnInit(): void {
         this.route.paramMap
-        .switchMap((params: ParamMap) => {
-            const category = params.get('category');
-            return category === 'Any'
-                ? this.deckService.getDecks()
-                : this.categoryService.getDecksByCategory(category);
-        }).subscribe(decks => {
-            this.decks = decks;
-            if (this.authService.checkIfIsAuthorized()) {
-                this.currentUserLogin = this.authService.getCurrentUserLogin();
-                this.subscriptionsService.getDeckSubscriptions(this.currentUserLogin)
-                    .subscribe(subscriptions => {
-                        this.subscriptions = subscriptions;
-                        this.checkSubscriptions();
-                    });
-            }
-        });
+            .switchMap((params: ParamMap) => {
+                const category = params.get('category');
+                return category === 'Any'
+                    ? this.deckService.getDecks()
+                    : this.categoryService.getDecksByCategory(category);
+            }).subscribe(decks => {
+                this.decks = decks;
+                if (this.authService.checkIfIsAuthorized()) {
+                    this.currentUserLogin = this.authService.getCurrentUserLogin();
+                    this.subscriptionsService.getDeckSubscriptions(this.currentUserLogin)
+                        .subscribe(subscriptions => {
+                            this.subscriptions = subscriptions;
+                            this.checkSubscriptions();
+                        });
+                }
+            });
     }
 
     checkSubscriptions() {

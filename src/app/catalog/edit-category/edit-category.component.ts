@@ -9,7 +9,7 @@ import { handleError } from '../../common/functions/functions';
 import { ModerationService } from '../../common/services/moderation.service';
 
 @Component({
-    selector: 'edit-category',
+    selector: 'app-edit-category',
     templateUrl: './edit-category.component.html',
     styleUrls: ['./edit-category.component.css']
 })

@@ -4,7 +4,7 @@ import { AuthService } from '../../common/services/auth.service';
 
 import { Router } from '@angular/router';
 
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { regexExpression } from '../../common/helpers/regexExpression';
 import { errorMessages } from '../../common/helpers/errorMessages';
 
@@ -17,17 +17,17 @@ declare var FB: any;
     styleUrls: ['./login.component.css']
 })
 
-export class LoginComponent implements OnInit {    
-    clicked = false; 
+export class LoginComponent implements OnInit {
+    clicked = false;
     regex = regexExpression;
-    error = errorMessages;      
-    myForm: FormGroup;    
-    
+    error = errorMessages;
+    myForm: FormGroup;
+
     constructor(
         public fb: FormBuilder,
         private router: Router,
         private authService: AuthService
-    ) {    
+    ) {
         this.myForm = this.fb.group({
             'login': new FormControl('', [
                 Validators.required,
@@ -40,58 +40,61 @@ export class LoginComponent implements OnInit {
         });
 
         (function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
+            let js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
             js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10&appId=332333880510904";
+            js.src = '//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10&appId=332333880510904';
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
 
 
         window.fbAsyncInit = () => {
             FB.getLoginStatus(function (response) {
-                FB.Event.subscribe('auth.statusChange', (response => {                   
+                FB.Event.subscribe('auth.statusChange', (response => {
                     if (response.status === 'connected') {
-                        let accessToken = response.authResponse.accessToken;                        
-                        var url = '/me?fields=name,email';
-                        FB.api(url, function (response) {                                                        
+                        const accessToken = response.authResponse.accessToken;
+                        const url = '/me?fields=name,email';
+                        FB.api(url, function (response) {
                             authService.signUpFacebook({
                                 UserName: response.name.split(' ')[0],
                                 Email: response.email,
                                 Provider: 'Facebook',
                                 ExternalAccessToken: accessToken
-                            });                                                                          
-                        }, { scope: 'email' })                                                                                              
+                            });
+                        },
+                            { scope: 'email' });
                     }
                 }));
             });
-        }
+        };
 
-    }        
-    
+    }
+
     LogIn(user): void {
         this.authService.signIn(user)
-        .then(() => {
-            if (this.authService.validData()) {                                
-                this.authService.checkIfIsAuthorized();
-                this.router.navigate(['catalog/courses/Any']);                          
-            } else {                
-                this.myForm.reset();
-            }
-        });
-        this.clicked = true;        
+            .then(() => {
+                if (this.authService.validData()) {
+                    this.authService.checkIfIsAuthorized();
+                    this.router.navigate(['catalog/courses/Any']);
+                } else {
+                    this.myForm.reset();
+                }
+            });
+        this.clicked = true;
     }
 
     Register(): void {
         this.router.navigate(['register']);
     }
 
-    ngOnInit(): void {  
+    ngOnInit(): void {
         if (window.FB) {
             window.FB.XFBML.parse();
-        }               
-    }    
+        }
+    }
 }
 
 
-    
+

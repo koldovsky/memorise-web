@@ -95,11 +95,11 @@ export class CourseDetailsComponent implements OnInit {
         this.statisticsService
             .getStatisticsByUserAndCourse(this.currentUserLogin, this.course.Id)
             .subscribe(
-                statistics => {
+            statistics => {
                 statistics.forEach(x => {
                     this.statisticsService.deleteStatistics(x.Id).subscribe();
                 },
-            err => handleError);
+                    err => handleError);
             });
     }
 

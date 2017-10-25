@@ -12,7 +12,7 @@ const route: Routes = [
 
 @NgModule({
     imports: [
-        RouterModule.forChild(route)        
+        RouterModule.forChild(route)
     ],
     exports: [
         RouterModule

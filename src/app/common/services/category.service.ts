@@ -53,7 +53,7 @@ export class CategoryService {
             .catch(handleError);
     }
 
-    createCategory(category: Category): Observable<Object>{
+    createCategory(category: Category): Observable<Object> {
         return this.http.post(`${this.categoryModeratorUrl}CreateCategory`, category);
     }
 
@@ -61,9 +61,9 @@ export class CategoryService {
        return this.http.put(`${this.categoryModeratorUrl}UpdateCategory`, category);
      }
 
-    deleteCategory(id: number){
+    deleteCategory(id: number) {
         return this.http.delete(`${this.categoryModeratorUrl}DeleteCategory/${id}`);
-     }
+    }
 
     checkIfCategoryExists(categoryName: string): Observable<Object> {
         return this.http.get(`${this.categoryModeratorUrl}FindCategoryByName/${btoa(categoryName)}`);

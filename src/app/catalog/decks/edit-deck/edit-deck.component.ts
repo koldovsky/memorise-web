@@ -16,7 +16,7 @@ import { errorMessages } from '../../../common/helpers/errorMessages';
 import { handleError } from '../../../common/functions/functions';
 
 @Component({
-    selector: 'edit-deck',
+    selector: 'app-edit-deck',
     templateUrl: './edit-deck.component.html',
     styleUrls: ['./edit-deck.component.css']
 })
@@ -54,7 +54,7 @@ export class EditDeckComponent implements OnInit {
         });
     }
 
-     ngOnInit(): void {
+    ngOnInit(): void {
 
         this.regex = regexExpression;
         this.error = errorMessages;
@@ -79,7 +79,7 @@ export class EditDeckComponent implements OnInit {
                 this.deckBeforeChanges.CategoryName = c.CategoryName;
                 this.isLoadedDeck = true;
             });
-     }
+    }
 
     setWhichButtonIsClicked() {
         this.moderationService.whichButtonIsClicked = 'decks';
@@ -98,8 +98,8 @@ export class EditDeckComponent implements OnInit {
     }
 
     checkNameAndUpdate() {
-        if (this.deck.Name === this.deckBeforeChanges.Name || this.isUnique ) {
-           this.updateDeck();
+        if (this.deck.Name === this.deckBeforeChanges.Name || this.isUnique) {
+            this.updateDeck();
             this.isUnique = false;
         } else {
             this.deckService.checkIfDeckExists(this.deck.Name)
@@ -121,24 +121,24 @@ export class EditDeckComponent implements OnInit {
     }
     updateDeck() {
         this.deckService.updateDeck(this.deck)
-        .subscribe(deck => {
-            this.submitMessage = 'Deck was updated successfully';
-            if ( this.imageIsChanged ) {
-            this.uploader.queue[0].url = `${this.uploadUrl}/${(deck as Deck).Linking}`;
-            this.uploader.queue[0].alias = 'Photo';
-            this.uploader.uploadAll();
-            }
-            this.showSnackbar();
-            this.deckBeforeChanges = deck as Deck;
+            .subscribe(deck => {
+                this.submitMessage = 'Deck was updated successfully';
+                if (this.imageIsChanged) {
+                    this.uploader.queue[0].url = `${this.uploadUrl}/${(deck as Deck).Linking}`;
+                    this.uploader.queue[0].alias = 'Photo';
+                    this.uploader.uploadAll();
+                }
+                this.showSnackbar();
+                this.deckBeforeChanges = deck as Deck;
             },
             err => {
                 this.submitMessage = this.error.ERROR;
                 this.showSnackbar();
             }
-        );
+            );
     }
     showSnackbar() {
-        const x = document.getElementById('snackbar')
+        const x = document.getElementById('snackbar');
         x.className = 'show';
         setTimeout(function () { x.className = x.className.replace('show', ''); }, 3000);
     }
@@ -150,12 +150,12 @@ export class EditDeckComponent implements OnInit {
             this.deck.Name !== this.deckBeforeChanges.Name ||
             this.deck.Price !== this.deckBeforeChanges.Price
         ) {
-           return true;
+            return true;
         } else { return false; }
     }
     imageSet() {
         this.imageIsChanged = true;
-       }
+    }
 
     checkName() {
         this.deckService.checkIfDeckExists(this.deck.Name)
@@ -175,4 +175,4 @@ export class EditDeckComponent implements OnInit {
     createLinking(): void {
         this.deck.Linking = this.deck.Name.replace(this.regex.LINKING, '');
     }
- }
+}

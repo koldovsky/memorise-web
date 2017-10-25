@@ -15,7 +15,7 @@ import { regexExpression } from '../../../common/helpers/regexExpression';
 import { errorMessages } from '../../../common/helpers/errorMessages';
 
 @Component({
-    selector: 'create-course',
+    selector: 'app-create-course',
     templateUrl: './create-course.component.html',
     styleUrls: ['./create-course.component.css']
 })
@@ -97,10 +97,10 @@ export class CreateCourseComponent implements OnInit {
         this.courseService.createCourse(this.course)
             .subscribe(course => {
                 this.submitMessage = 'Course was created successfully';
-                if ( this.imageIsChanged ) {
-                this.uploader.queue[0].url = `${this.uploadUrl}/${(course as Course).Linking}`;
-                this.uploader.queue[0].alias = 'Photo';
-                this.uploader.uploadAll();
+                if (this.imageIsChanged) {
+                    this.uploader.queue[0].url = `${this.uploadUrl}/${(course as Course).Linking}`;
+                    this.uploader.queue[0].alias = 'Photo';
+                    this.uploader.uploadAll();
                 }
                 this.showSnackbar();
                 this.afterCourseAdded.emit(course as Course);

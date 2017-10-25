@@ -32,8 +32,8 @@ export class QuizService {
             .then(response => response as Card[])
             .catch(handleError);
     }
-    codeAnswer(codeAnswer: CodeAnswer): Promise<CodeAnswer> {
-        return this.http.post(this.QuizUrl + 'CodeAnswer', codeAnswer)
+    CodeAnswerCheck(codeAnswer: CodeAnswer): Promise<CodeAnswer> {
+        return this.http.post(this.QuizUrl + 'CodeAnswerCheck', codeAnswer)
             .toPromise()
             .then(response => response as CodeAnswer)
             .catch(handleError);

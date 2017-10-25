@@ -4,7 +4,7 @@ import { Deck } from '../../../common/models/models';
 import { DeckService } from '../../../common/services/deck.service';
 
 @Component({
-    selector: 'add-deck',
+    selector: 'app-add-deck',
     templateUrl: './add-deck.component.html',
     styleUrls: ['./add-deck.component.css']
 })
