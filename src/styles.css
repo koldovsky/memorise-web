@@ -1,16 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
-h1, h2, h3, h4, h5, h6 {
+/* h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: 'Roboto', sans-serif;
 }
 
 p {
-    font-family: 'Montserrat', sans-serif;    
-}
+    font-family: 'Montserrat', sans-serif;
+} */
 
-app-root {
+
+/* app-root {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -18,10 +25,11 @@ app-root {
     right: 0;
     display: flex;
     flex-direction: column;
-}
+} */
 
-a:not(.mat-button) {
+
+/* a:not(.mat-button) {
     color: inherit;
     text-decoration: inherit;
     font-weight: inherit;
-}
+} */

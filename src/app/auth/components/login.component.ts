@@ -1,9 +1,15 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-
-import { RegisterComponent } from './register.component';
 import { AuthService } from '../../common/services/auth.service';
+
+import { Router } from '@angular/router';
+
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { regexExpression } from '../../common/helpers/regexExpression';
+import { errorMessages } from '../../common/helpers/errorMessages';
+
+declare var window: any;
+declare var FB: any;
 
 @Component({
     selector: 'app-login',
@@ -12,63 +18,84 @@ import { AuthService } from '../../common/services/auth.service';
 })
 
 export class LoginComponent implements OnInit {
-    action: string;
     clicked = false;
+    regex = regexExpression;
+    error = errorMessages;
     myForm: FormGroup;
-    Matdialog: MatDialog;
 
     constructor(
-        public dialogRef: MatDialogRef<LoginComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: any,
         public fb: FormBuilder,
+        private router: Router,
         private authService: AuthService
     ) {
-        this.action = data.action;
-        this.Matdialog = data.signUp;
         this.myForm = this.fb.group({
             'login': new FormControl('', [
                 Validators.required,
-                Validators.maxLength(18)
+                Validators.maxLength(20)
             ]),
             'password': new FormControl('', [
                 Validators.required,
                 Validators.minLength(6)
             ])
         });
-    }
 
-    onNoClick(): void {
-        this.dialogRef.close();
+        (function (d, s, id) {
+            // tslint:disable-next-line:prefer-const
+            let js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s); js.id = id;
+            js.src = '//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10&appId=332333880510904';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+
+        window.fbAsyncInit = () => {
+            FB.getLoginStatus(function (response) {
+                FB.Event.subscribe('auth.statusChange', (respon => {
+                    if (respon.status === 'connected') {
+                        const accessToken = respon.authResponse.accessToken;
+                        const url = '/me?fields=name,email';
+                        FB.api(url, function (resp) {
+                            authService.signUpFacebook({
+                                UserName: resp.name.split(' ')[0],
+                                Email: resp.email,
+                                Provider: 'Facebook',
+                                ExternalAccessToken: accessToken
+                            });
+                        },
+                            { scope: 'email' });
+                    }
+                }));
+            });
+        };
+
     }
 
     LogIn(user): void {
         this.authService.signIn(user)
             .then(() => {
                 if (this.authService.validData()) {
-                    this.dialogRef.close(this.myForm.controls['login'].value);
                     this.authService.checkIfIsAuthorized();
+                    this.router.navigate(['catalog/courses/Any']);
                 } else {
-                    this.myForm.controls.login.setValue('');
-                    this.myForm.controls.password.setValue('');
+                    this.myForm.reset();
                 }
             });
         this.clicked = true;
     }
 
     Register(): void {
-        this.Matdialog.open(RegisterComponent, {
-            width: '400px',
-            data:
-            {
-                action: 'Sign Up',
-                name: '',
-                email: '',
-                password: ''
-            }
-        });
-        this.dialogRef.close();
+        this.router.navigate(['register']);
     }
 
     ngOnInit(): void {
+        if (window.FB) {
+            window.FB.XFBML.parse();
+        }
     }
 }
+
+
+

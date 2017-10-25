@@ -1,33 +1,37 @@
-<div class="flex-container">
-    <div class="flex-item" *ngFor="let deck of decks">
-        <mat-card>
-            <mat-card-content class="fixed-size center">
-                <img mat-card-m-image src="{{deck.Photo}}" *ngIf="deck.Photo; else stub" />
-                <ng-template #stub>
-                    <img mat-card-m-image src="../../../assets/images/placeholder-thumb.jpg" />
-                </ng-template>
-            </mat-card-content>
-            <mat-card-header>
-                <mat-card-title-group>
-                    <span>
-                        <mat-card-title>
-                            {{deck.Name}}
-                        </mat-card-title>
-                        <mat-card-subtitle>
-                            {{deck.Price ? deck.Price : 'FREE'}}
-                        </mat-card-subtitle>
-                        <mat-card-subtitle>Cards: {{deck.CardsNumber}}</mat-card-subtitle>
-                    </span>
-                </mat-card-title-group>
-            </mat-card-header>
-            <mat-card-actions class="center">
-                <div>
-                    <a mat-raised-button color="primary" [routerLink]="['/', 'deck', deck.Linking, 'quiz']">
+<div class="d-flex flex-row flex-wrap align-items-stretch justify-content-center">
+    <div *ngFor="let deck of decks" class="p-2">
+        <div class="card" style="width: 15rem;">
+            <div class="crop" [routerLink]="['/catalog/deck', deck.Linking]">
+                <img class="card-img-top" src="{{deck.Photo}}" alt="{{deck.Name}}">
+            </div>
+            <div class="card-body mt-auto">
+                <div [routerLink]="['/catalog/deck', deck.Linking]">
+                    <h4 class="card-title">{{deck.Name}}</h4>
+                    <p class="card-subtitle mb-2 text-muted">{{deck.Price ? deck.Price : 'FREE'}}</p>
+                </div>
+                <!-- <p class="card-text">{{deck.Description}}</p> -->
+                <div class="text-center">
+                    <a class="btn btn-sm btn-primary" [routerLink]="['/deck', deck.Linking, 'quiz']">
                         Try it now
                     </a>
-                    <button mat-raised-button>Subscribe</button>
+                    <a *ngIf="!authService.isAuthorized; else authorized" class="btn btn-outline-success" [routerLink]="['/login']">
+                        Subscribe
+                    </a>
+                    <ng-template #authorized>
+                        <div *ngIf="deck.IsSubscribed; then unsubscribe; else subscribe"></div>
+                        <ng-template #subscribe>
+                            <button class="btn btn-sm btn-outline-success" (click)="subscribeToDeck(deck)">
+                                Subscribe
+                            </button>
+                        </ng-template>
+                        <ng-template #unsubscribe>
+                            <button class="btn btn-sm btn-outline-secondary" (click)="unsubscribeFromDeck(deck)">
+                                Unsubscribe
+                            </button>
+                        </ng-template>
+                    </ng-template>
                 </div>
-            </mat-card-actions>
-        </mat-card>
+            </div>
+        </div>
     </div>
 </div>

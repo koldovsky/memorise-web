@@ -1,0 +1,66 @@
+<div class="container">
+    <form class="form-inline">
+        <div *ngFor="let d of [ 'Course', 'Deck' ]" class="form-check form-check-inline m-1">
+            <label class="form-check-label">
+               <input class="form-check-input" type="radio"
+                      [(ngModel)]="dependency"
+                      name="dependency" [value]="d"
+                      (change)="setNamesInfo(); setStatisticsInfo()"/>
+               {{ d }}
+            </label>
+        </div>
+        <select class="custom-select d-block m-3" name="nameSelect" [(ngModel)]="subscriptionName" (change)="setStatisticsInfo()" required>
+            <div *ngIf="dependency === 'Course'; then courseSelect; else deckSelect"></div>
+                <option *ngIf="dependency === 'Course'" [value]="null">
+                    Choose Course
+                </option>
+                <option *ngIf="dependency === 'Deck'" [value]="null">
+                    Choose Deck
+                </option>
+                <option *ngFor="let name of subscriptionsNames" [value]="name">{{name}}</option>
+        </select>
+    </form>
+
+    <div *ngIf="isLoaded && subscriptionsNames.length === 0;">
+        <h3>You have no subscribed {{dependency === "Course"? "courses" : "decks"}}.</h3>
+    </div>
+    <div *ngFor="let info of statisticsInfo index as i">
+        <div class="card m-3 p-3">
+            <h5>{{info.name}}</h5>
+            <label>Passed cards:
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" [style.width]="info.passedPercent+'%'" style="height:2px" aria-valuemin="0" aria-valuemax="100">
+                            {{info.passedPercent}}%
+                        </div>
+                    </div>
+                    </label>
+            <label>Success:
+            <div class="progress">
+                <div class="progress-bar bg-success" role="progressbar" [style.width]="info.successPercent+'%'" aria-valuemin="0" aria-valuemax="100">
+                    {{info.successPercent}}%
+                </div>
+            </div>
+            </label>
+            <div *ngIf="dependency === 'Course'">
+                <a class="btn btn-sm" data-toggle="collapse" href="#info{{i}}" aria-expanded="false" [attr.aria-controls]="'info' + i">
+                    Details
+                </a>
+                <div class="collapse" id="info{{i}}">
+                    <div *ngFor="let deckInfo of info.containInfo">
+                        <div class="card m-3">
+                            <h6>{{deckInfo.name}}</h6>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" [style.width]="deckInfo.successPercent+'%'" aria-valuemin="0" aria-valuemax="100">
+                                    {{deckInfo.successPercent}}%
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <ng-template #loading>
+    <p>Loading...</p>
+</ng-template> -->

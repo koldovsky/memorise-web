@@ -1,9 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { User } from './common/models/models';
-import { LoginComponent } from './auth/components/login.component';
-import { RegisterComponent } from './auth/components/register.component';
-import { MatDialog } from '@angular/material';
+import { AuthService } from './common/services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -11,12 +8,16 @@ import { MatDialog } from '@angular/material';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Memo Rise';
   description = 'Some description';
   name: string;
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private authService: AuthService
+  ) { }
 
+  ngOnInit() {
+    this.authService.checkIfIsAuthorized();
+  }
 }
 
