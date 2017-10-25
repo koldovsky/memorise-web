@@ -1,26 +1,24 @@
 <div class="container">
-  <div class="hight10hv"></div>
-  <h1>Quiz results:</h1>
-  <br>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Question</th>
-        <th>Your answer</th>
-        <th>Right Answer</th>
-        <th>Check</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let card of cards; let i = index">
-        <th scope="row">{{i+1}}</th>
-        <td>{{card.Question}}</td>
-        <td>{{card.CustomerAnswersText}}</td>
-        <td>{{card.RightAnswersText}}</td>
-        <td><i class="large material-icons">{{checkCard(card)}}</i></td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="hight10hv"></div>
-</div>
+    <div class="hight10hv"></div>
+    <h1>Quiz results:</h1>
+    <br>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Question</th>
+                <th>Your answer</th>
+                <th>Right Answer</th>
+                <th>Check</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let card of cards; let i = index">
+                <th scope="row">{{i+1}}</th>
+                <td>{{card.Question}}</td>
+                <td>{{card.CustomerAnswersText}}</td>
+                <td>{{card.RightAnswersText}}</td>
+                <td><i class="large material-icons">{{getIcon(card)}}</i></td>
+            </tr>
+        </tbody>
+    </table>
