@@ -1,20 +1,18 @@
 <div class="d-flex flex-row flex-wrap align-items-stretch justify-content-center">
     <div *ngFor="let deck of decks" class="p-2">
         <div class="card" style="width: 15rem;">
-            <div class="crop" [routerLink]="['/catalog/deck', deck.Linking]">
+            <div class="crop">
                 <img class="card-img-top" src="{{deck.Photo}}" alt="{{deck.Name}}">
             </div>
             <div class="card-body mt-auto">
-                <div [routerLink]="['/catalog/deck', deck.Linking]">
-                    <h4 class="card-title">{{deck.Name}}</h4>
-                    <p class="card-subtitle mb-2 text-muted">{{deck.Price ? deck.Price : 'FREE'}}</p>
-                </div>
+                <h4 class="card-title">{{deck.Name}}</h4>
+                <p class="card-subtitle mb-2 text-muted">{{deck.Price ? deck.Price : 'FREE'}}</p>
                 <!-- <p class="card-text">{{deck.Description}}</p> -->
                 <div class="text-center">
                     <a class="btn btn-sm btn-primary" [routerLink]="['/deck', deck.Linking, 'quiz']">
                         Try it now
                     </a>
-                    <a *ngIf="!authService.isAuthorized; else authorized" class="btn btn-outline-success" [routerLink]="['/login']">
+                    <a *ngIf="!authService.isAuthorized; else authorized" class="btn btn-sm btn-outline-success" [routerLink]="['/login']">
                         Subscribe
                     </a>
                     <ng-template #authorized>

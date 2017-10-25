@@ -82,9 +82,9 @@ import { CardTableComponent } from './catalog/cards/card-table/card-table.compon
 import { FileSelectDirective, FileUploadModule } from 'ng2-file-upload';
 import { EditCardComponent } from './catalog/cards/edit-card/edit-card.component';
 import { EditCategoryComponent } from './catalog/edit-category/edit-category.component';
+import { NavigationService } from './common/services/navigation.service';
 import { AppComponent } from './app.component';
 import { NotFoundRoutingModule } from './not-found/not-found.routing.module';
-
 
 
 
@@ -192,7 +192,8 @@ import { NotFoundRoutingModule } from './not-found/not-found.routing.module';
             useClass: InterceptorService,
             multi: true
         },
-        MessageService
+        MessageService,
+        NavigationService
     ],
     bootstrap: [AppComponent]
 })
