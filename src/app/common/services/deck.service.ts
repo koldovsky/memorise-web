@@ -29,7 +29,8 @@ export class DeckService {
             .catch(handleError);
     }
 
-    getDecksByPage(page: number, pageSize: number, sorted: boolean, search: string): Promise<PageResponse<Deck>> {
+    getDecksByPage(page: number, pageSize: number, sorted: boolean, search: string):
+        Promise<PageResponse<Deck>> {
         const postData = new SearchDataModel;
         postData.page = page; postData.pageSize = pageSize;
         postData.searchString = search; postData.sort = sorted;

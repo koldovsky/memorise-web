@@ -96,7 +96,8 @@ export class PaginationComponent implements OnInit {
     }
 
     isFirst() {
-        if (this.currentIndex < this.comfortableMiddleNumbers || this.items.length <= this.comfortableNumbers) {
+        if (this.currentIndex < this.comfortableMiddleNumbers ||
+                this.items.length <= this.comfortableNumbers) {
             return true;
         } else {
             return false;
@@ -104,7 +105,8 @@ export class PaginationComponent implements OnInit {
     }
 
     isLast() {
-        if (this.currentIndex > this.items.length - this.comfortableMiddleNumbers + 1 || this.items.length <= this.comfortableNumbers) {
+        if (this.currentIndex > this.items.length - this.comfortableMiddleNumbers + 1 ||
+                this.items.length <= this.comfortableNumbers) {
             return true;
         } else {
             return false;
