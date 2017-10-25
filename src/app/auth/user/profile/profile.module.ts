@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ProfileRoutingModule } from './profile-routing.module';
-import {MatDatepickerModule, MatNativeDateModule} from '@angular/material';
+import { ProfileComponent } from './profile.component';
 
 @NgModule({
     imports: [
         ProfileRoutingModule,
-        MatDatepickerModule,
-        MatNativeDateModule
+        NgbModule.forRoot()
     ]
 })
 

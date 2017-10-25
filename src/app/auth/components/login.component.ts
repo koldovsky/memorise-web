@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
 import { AuthService } from '../../common/services/auth.service';
 
-declare var jquery: any;
-declare var $: any;
+import { Router } from '@angular/router';
+
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { regexExpression } from '../../common/helpers/regexExpression';
+import { errorMessages } from '../../common/helpers/errorMessages';
+
 declare var window: any;
 declare var FB: any;
 
@@ -18,6 +19,8 @@ declare var FB: any;
 
 export class LoginComponent implements OnInit {
     clicked = false;
+    regex = regexExpression;
+    error = errorMessages;
     myForm: FormGroup;
 
     constructor(
@@ -28,7 +31,7 @@ export class LoginComponent implements OnInit {
         this.myForm = this.fb.group({
             'login': new FormControl('', [
                 Validators.required,
-                Validators.maxLength(18)
+                Validators.maxLength(20)
             ]),
             'password': new FormControl('', [
                 Validators.required,
@@ -37,8 +40,8 @@ export class LoginComponent implements OnInit {
         });
 
         (function (d, s, id) {
-            let js;
-            const fjs = d.getElementsByTagName(s)[0];
+            // tslint:disable-next-line:prefer-const
+            let js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) {
                 return;
             }
@@ -50,23 +53,24 @@ export class LoginComponent implements OnInit {
 
         window.fbAsyncInit = () => {
             FB.getLoginStatus(function (response) {
-                FB.Event.subscribe('auth.statusChange', (response => {
-                    if (response.status === 'connected') {
-                        const accessToken = response.authResponse.accessToken;
+                FB.Event.subscribe('auth.statusChange', (respon => {
+                    if (respon.status === 'connected') {
+                        const accessToken = respon.authResponse.accessToken;
                         const url = '/me?fields=name,email';
-                        FB.api(url, function (response) {
+                        FB.api(url, function (resp) {
                             authService.signUpFacebook({
-                                UserName: response.name.split(' ')[0],
-                                Email: response.email,
+                                UserName: resp.name.split(' ')[0],
+                                Email: resp.email,
                                 Provider: 'Facebook',
                                 ExternalAccessToken: accessToken
                             });
-                        }, { scope: 'email' });
-                        // window.location.href = 'http://localhost:4200/catalog/courses';
+                        },
+                            { scope: 'email' });
                     }
                 }));
             });
         };
+
     }
 
     LogIn(user): void {
@@ -76,8 +80,7 @@ export class LoginComponent implements OnInit {
                     this.authService.checkIfIsAuthorized();
                     this.router.navigate(['catalog/courses/Any']);
                 } else {
-                    this.myForm.controls.login.setValue('');
-                    this.myForm.controls.password.setValue('');
+                    this.myForm.reset();
                 }
             });
         this.clicked = true;
@@ -93,3 +96,6 @@ export class LoginComponent implements OnInit {
         }
     }
 }
+
+
+

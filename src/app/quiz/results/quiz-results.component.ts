@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit } from '@angular/core';
 import { ParamMap, ActivatedRoute } from '@angular/router';
 
 import { QuizService } from '../../common/services/quiz.service';
-import { Card, Answer, WordInput, CodeAnswer } from '../../common/models/models';
+import { Card, Answer, WordInput, CodeAnswer, Statistics } from '../../common/models/models';
 import { QuizComponent } from '../quiz.component';
 import { StatisticsService } from '../../common/services/statistics.service';
 import { AuthService } from '../../common/services/auth.service';

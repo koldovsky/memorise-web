@@ -94,11 +94,19 @@ export interface SubscriptionStatistics {
     ItemId: number;
 }
 
-export interface User extends BaseEntity {
+export interface IdentityUpdate {
+    ExistingLogin: string;
+    NewUserData: User;
+}
+
+export interface User {
+    Id?: string;
     Login: string;
     FirstName?: string;
     LastName?: string;
     Gender?: string;
+    Country?: string;
+    City?: string;
     Password?: string;
     Photo?: string;
     Email?: string;

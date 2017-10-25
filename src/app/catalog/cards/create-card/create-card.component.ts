@@ -12,7 +12,7 @@ import { CardService } from '../../../common/services/card.service';
 import { ModerationService } from '../../../common/services/moderation.service';
 
 @Component({
-    selector: 'create-card',
+    selector: 'app-create-card',
     templateUrl: './create-card.component.html',
     styleUrls: ['./create-card.component.css']
 })
@@ -32,7 +32,7 @@ export class CreateCardComponent implements OnInit {
     numbersOfAnswers: number[];
     chosenNumbersOfAnswers: number;
     numberOfCorrectAnswer: number;
-    answersArray: Answer [];
+    answersArray: Answer[];
 
     constructor(
         private authService: AuthService,
@@ -71,16 +71,16 @@ export class CreateCardComponent implements OnInit {
     createAnswersArray(numbers: number) {
         this.answersArray = [];
         for (let i = 1; i <= numbers; i++) {
-            this.answersArray.push({Id: i, Text : '', IsCorrect : false } as Answer );
+            this.answersArray.push({ Id: i, Text: '', IsCorrect: false } as Answer);
         }
     }
     onSubmit(form: NgForm) {
         if (this.numberOfCorrectAnswer > 0) {
             this.answersArray[this.numberOfCorrectAnswer - 1].IsCorrect = true;
             this.card.Answers = this.answersArray;
-        }else {
+        } else {
             this.card.Answers = [];
-            this.card.Answers.push({Text: this.correctAnswer, IsCorrect: true} as Answer);
+            this.card.Answers.push({ Text: this.correctAnswer, IsCorrect: true } as Answer);
         }
         this.createCard();
         form.reset();
@@ -89,16 +89,16 @@ export class CreateCardComponent implements OnInit {
     createCard() {
         this.card.DeckName = this.deck.Name;
         this.cardService.createCard(this.card)
-        .subscribe(card => {
-            this.submitMessage = 'Card was created successfully';
-            this.showSnackbar();
-            this.afterCardAdded.emit(card as Card);
-        },
-        err => {
-            this.submitMessage = this.error.ERROR;
-            this.showSnackbar();
-        }
-        );
+            .subscribe(card => {
+                this.submitMessage = 'Card was created successfully';
+                this.showSnackbar();
+                this.afterCardAdded.emit(card as Card);
+            },
+            err => {
+                this.submitMessage = this.error.ERROR;
+                this.showSnackbar();
+            }
+            );
     }
 
     showSnackbar() {

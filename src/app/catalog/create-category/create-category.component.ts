@@ -9,7 +9,7 @@ import { regexExpression } from '../../common/helpers/regexExpression';
 import { errorMessages } from '../../common/helpers/errorMessages';
 
 @Component({
-    selector: 'create-category',
+    selector: 'app-create-category',
     templateUrl: './create-category.component.html',
     styleUrls: ['./create-category.component.css']
 })
@@ -82,7 +82,7 @@ export class CreateCategoryComponent implements OnInit {
     }
 
     showSnackbar() {
-        const x = document.getElementById('snackbar')
+        const x = document.getElementById('snackbar');
         x.className = 'show';
         setTimeout(function () { x.className = x.className.replace('show', ''); }, 3000);
     }

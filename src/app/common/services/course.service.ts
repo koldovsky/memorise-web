@@ -5,7 +5,6 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
-import { COURSES } from '../mocks/courses';
 import { Course, PageResponse, SearchDataModel } from '../models/models';
 import { handleError } from '../functions/functions';
 
@@ -40,22 +39,21 @@ export class CourseService {
 
     getCourse(link: string): Promise<Course> {
         const URL = this.courseUrl + '/' + link;
-
         return this.http.get(URL)
             .toPromise()
             .then(response => response as Course)
             .catch(handleError);
     }
 
-    createCourse(course: Course): Observable<Object>{
+    createCourse(course: Course): Observable<Object> {
         return this.http.post(`${this.courseModeratorUrl}CreateCourse`, course);
     }
     updateCourse(course: Course) {
-       return this.http.put(`${this.courseModeratorUrl}UpdateCourse`, course);
+        return this.http.put(`${this.courseModeratorUrl}UpdateCourse`, course);
     }
 
     deleteCourse(id: number) {
-       return this.http.delete(`${this.courseModeratorUrl}DeleteCourse/${id}`);
+        return this.http.delete(`${this.courseModeratorUrl}DeleteCourse/${id}`);
     }
 
     checkIfCourseExists(courseName: string): Observable<Object> {

@@ -13,7 +13,7 @@ import { regexExpression } from '../../../common/helpers/regexExpression';
 import { errorMessages } from '../../../common/helpers/errorMessages';
 
 @Component({
-    selector: 'create-deck',
+    selector: 'app-create-deck',
     templateUrl: './create-deck.component.html',
     styleUrls: ['./create-deck.component.css']
 })
@@ -94,10 +94,10 @@ export class CreateDeckComponent implements OnInit {
         this.deckService.createDeck(this.deck)
             .subscribe(deck => {
                 this.submitMessage = 'Deck was created successfully';
-                if ( this.imageIsChanged ) {
-                this.uploader.queue[0].url = `${this.uploadUrl}/${(deck as Deck).Linking}`;
-                this.uploader.queue[0].alias = 'Photo';
-                this.uploader.uploadAll();
+                if (this.imageIsChanged) {
+                    this.uploader.queue[0].url = `${this.uploadUrl}/${(deck as Deck).Linking}`;
+                    this.uploader.queue[0].alias = 'Photo';
+                    this.uploader.uploadAll();
                 }
                 this.showSnackbar();
                 this.afterDeckAdded.emit(deck as Deck);
@@ -110,7 +110,7 @@ export class CreateDeckComponent implements OnInit {
     }
 
     showSnackbar() {
-        const x = document.getElementById('snackbar')
+        const x = document.getElementById('snackbar');
         x.className = 'show';
         setTimeout(function () { x.className = x.className.replace('show', ''); }, 3000);
     }

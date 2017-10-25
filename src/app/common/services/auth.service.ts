@@ -8,12 +8,12 @@ import { User, RegisterExternalBindingModel, Token } from '../models/models';
 import { Deck, PageResponse } from '../models/models';
 import { handleError } from '../functions/functions';
 
+
 @Injectable()
 export class AuthService {
     valid: boolean;
     errorMessage = '';
     isAuthorized: boolean;
-    name: string;
     user: User;
     userLocal: any;
 
@@ -33,18 +33,16 @@ export class AuthService {
                 const token = response as Token;
                 localStorage.setItem('token', token.access_token);
                 localStorage.setItem('login', user.login);
-                // localStorage.setItem('user', user);
-                this.name = user.login;
-                // this.user = user;
+                localStorage.setItem('id', user.id);
                 this.IsValid = true;
                 const expiresDate = this.calcExpirationDate(token.expires_in);
                 localStorage.setItem('tokenExpiresDate', expiresDate.toString());
-                // this.IsValid = true;
             })
             .catch(
             error => {
                 this.IsValid = false;
                 this.errorMessage = 'input, please try again!';
+
             });
     }
 
@@ -70,40 +68,30 @@ export class AuthService {
         return this.http.post(this.commonUrl + 'Account/RegisterExternal', user)
             .toPromise()
             .then(response => {
-                /* this.userLocal.login = "user1";
-                this.userLocal.password = "123123";
-                this.signIn(this.userLocal
-                ) */
-                // this.IsValid = true;
                 const token = response as Token;
                 localStorage.setItem('token', token.access_token);
                 localStorage.setItem('login', token.userName);
                 console.log(token.access_token);
                 window.location.href = 'http://localhost:4200/catalog/courses/Any';
-                // this.router.navigate(['catalog/courses']);
             })
             .catch(handleError => {
-                // this.IsValid = false;
-                // window.location.href = 'http://localhost:4200/catalog/courses';
+                this.errorMessage = 'Failed to access the server!';
             });
     }
 
     getCurrentUserLogin(): string {
         if (this.isAuthorized && localStorage.getItem('login')) {
-            return this.name = localStorage.getItem('login');
+            return localStorage.getItem('login');
         }
         return;
     }
 
-    // getCurrentUser(): User {
-    //     console.log(localStorage.getItem('user'));
-    //     if (this.isAuthorized && localStorage.getItem('user')) {
-    //         this.user = JSON.parse(localStorage.getItem('user')) as User;
-    //         console.log(this.user.Login);
-    //         return this.user;
-    //     }
-    //     return;
-    // }
+    getCurrentUserId(): string {
+        if (this.isAuthorized && localStorage.getItem('id')) {
+            return localStorage.getItem('id');
+        }
+        return;
+    }
 
     validData(): boolean {
         return this.IsValid;

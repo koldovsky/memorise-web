@@ -58,7 +58,7 @@ export class UserSubscriptionsService {
         const URL = `${this.SubscriptionsUrl}/DeleteCourseSubscription/${subscriptionId}`;
 
         return this.http.delete(URL)
-        .map(response => response as CourseSubscription);
+            .map(response => response as CourseSubscription);
     }
 
     unsubscribeFromDeck(subscriptionId: number): Observable<DeckSubscription> {

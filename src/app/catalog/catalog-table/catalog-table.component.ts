@@ -57,7 +57,7 @@ export class CatalogTableComponent implements OnInit {
     }
 
     onBtnInfoClick(btnInfoLinking: string) {
-        // this.categoryService.btnInfoLinking = btnInfoLinking;
+        this.categoryService.btnInfoLinking = btnInfoLinking;
     }
 
     onChange(event: any) {

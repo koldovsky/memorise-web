@@ -7,8 +7,13 @@ import { MatSnackBar } from '@angular/material';
 
 import { AuthService } from '../../../common/services/auth.service';
 import { passwordMatchValidator } from './password-matcher';
+import { regexExpression } from '../../../common/helpers/regexExpression';
+import { Router } from '@angular/router';
 
-const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+const EMAIL_REGEX = new RegExp(['^(([^<>()[\\]\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\.,;:\\s@\"]+)*)',
+    '|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.',
+    '[0-9]{1,3}\])|(([a-zA-Z\\-0-9]+\\.)+',
+    '[a-zA-Z]{2,}))$'].join(''));
 
 @Component({
     selector: 'app-register',
@@ -16,19 +21,24 @@ const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA
     styleUrls: ['./register.component.css']
 })
 
-export class RegisterComponent implements OnInit {    
+export class RegisterComponent implements OnInit {
     clicked = false;
-    message: 'Congratulation, you successfully registered!';    
+    regex = regexExpression;
     myForm: FormGroup;
+    submitMessage = 'Congratulation, you\'ve been successfully registered!\nPlease, try to login.';
 
-    constructor(        
+    constructor(
         private authService: AuthService,
-        public fb: FormBuilder        
-        ) {        
+        private router: Router,
+        public fb: FormBuilder
+    ) {
+    }
+
+    ngOnInit(): void {
         this.myForm = this.fb.group({
             'login': new FormControl('', [
                 Validators.required,
-                Validators.maxLength(18)
+                Validators.maxLength(20)
             ]),
             'email': new FormControl('', [
                 Validators.required,
@@ -44,26 +54,25 @@ export class RegisterComponent implements OnInit {
                 passwordMatchValidator('password')
             ])
         });
-    }    
-
-    ngOnInit(): void {
     }
 
     Register(user): void {
         this.authService.signUp(user)
             .then(() => {
                 if (this.authService.validData()) {
-                    //this.dialogRef.close();
-                    // this.snackBar.open(this.message, this.action, {
-                    // duration: 2000,
-                    // });
+                    this.showSnackbar();
+                    this.myForm.reset();
                 } else {
-                    this.myForm.controls.login.setValue('');
-                    this.myForm.controls.email.setValue('');
-                    this.myForm.controls.password.setValue('');
-                    this.myForm.controls.passwordConfirm.setValue('');
+                    this.myForm.reset();
                 }
             });
         this.clicked = true;
     }
+
+    showSnackbar() {
+        const x = document.getElementById('snackbar');
+        x.className = 'show';
+        setTimeout(function () { x.className = x.className.replace('show', ''); }, 3000);
+    }
 }
+

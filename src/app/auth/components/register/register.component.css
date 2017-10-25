@@ -1,6 +1,6 @@
 :host{
     width: 100%;
-    height: 685px;
+    height: 100%; 
     margin: 0 auto;
 }
 
@@ -11,12 +11,12 @@ html,body{
 
 .container{
     width: 100%;
-    height: 550px;    
+    height: 100%;    
 }
 
 .login-container{
     position: relative;
-    width: 600px;
+    width: 400px;
     margin: 90px auto;
     padding: 20px 40px 40px;
     text-align: center;
@@ -56,31 +56,66 @@ html,body{
     transition:0.2s ease-in-out;
 }
 
-.form-box .input-width{
-    width: 50%;        
-}
-
-.flex{
-    display: flex;
-}
-
 .form-box input:focus{
     outline: 0;
     background: #eee;
 }
 
-.form-box input[type="text"]{
+.form-box input.upper{
     border-radius: 5px 5px 0 0;
     text-transform: lowercase;
 }
 
-.form-box input[type="password"]{
+.form-box input.lower{
     border-radius: 0 0 5px 5px;    
 }
 
 .form-box button.login{    
-    width: 20%;
-    margin-top:15px;
+    width: 48%;
+    margin-top: 15px;
     padding: 10px 20px;
 }
+
+#snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -275px;
+    background-color: #138496;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 10;
+    left: 50%;
+    bottom: 200px;
+    font-size: 17px;
+}
+
+#snackbar.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 4.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;} 
+    to {bottom: 200px; opacity: 1;}
+}
+
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 200px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+    from {bottom: 200px; opacity: 1;} 
+    to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+    from {bottom: 200px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}
+
 

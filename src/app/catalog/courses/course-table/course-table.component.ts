@@ -73,11 +73,11 @@ export class CourseTableComponent implements OnInit {
 
     confirmDelete(): void {
         this.courseService.deleteCourse(this.currentCourse.Id)
-        .subscribe(() => {
-      this.courses = this.courses.filter(x => x.Id !== this.currentCourse.Id);
-        },
-        (err) => console.log(err)
-        );
+            .subscribe(() => {
+                this.courses = this.courses.filter(x => x.Id !== this.currentCourse.Id);
+            },
+            (err) => console.log(err)
+            );
     }
 
     onBtnInfoClick(btnInfoLinking: string) {
