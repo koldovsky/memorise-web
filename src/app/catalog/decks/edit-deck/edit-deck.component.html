@@ -63,7 +63,7 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-6">
-                    <img src="{{deck.Photo}}" [(ngModel)]="deck.Photo" *ngIf="deck.Photo; else stub" alt="Deck photo" class="img-thumbnail">
+                    <img src="{{deck.Photo}}"  *ngIf="deck.Photo; else stub" alt="Deck photo" class="img-thumbnail">
                     <ng-template #stub>
                         <img mat-card-m-image src="../../../assets/images/placeholder-thumb.jpg" alt="Deck photo" class="img-thumbnail">
                     </ng-template>
@@ -96,10 +96,10 @@
             <div class="row">
                 <div class="col-xs-9 col-sm-8 col-md-9 col-lg-10">
                     <div class="form-group">
-                        <label for="deckDecksId">Decks</label>
-                        <select multiple class="form-control" id="decksId" name="decks" [(ngModel)]="chosenDecksLinking">
-                            <option *ngFor="let deckName of deck.DeckNames" id="deckName">
-                                {{deckName}}
+                        <label for="courses">Courses</label>
+                        <select multiple class="form-control" id="courses" name="courses" >
+                            <option *ngFor="let courseName of deck.CourseNames">
+                                {{courseName}}
                             </option>
                         </select>
                     </div>
@@ -117,7 +117,7 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-12">
                     <button type="button" class="btn btn-outline-secondary btn-lg float-left" (click)="setWhichButtonIsClicked()" [routerLink]="['/moderator']">Cancel</button>
-                    <button type="submit" class="btn btn-primary btn-lg float-right">Update</button>
+                    <button type="submit" class="btn btn-primary btn-lg float-right" [disabled]="!mainForm.form.valid">Update</button>
                 </div>
             </div>
         </form>
