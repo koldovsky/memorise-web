@@ -131,7 +131,12 @@ export class QuizComponent implements OnInit {
             this.wordInputCheck(card, true);
         } else if (this.cards[this.counter].CardType.Name === 'Code input') {
             this.codeAnswerCheck(card);
+        } else {
+            this.OneAndFewAnswersCheck(card);
         }
+    }
+
+    OneAndFewAnswersCheck(card: Card) {
         let isUncorrectChecked = false;
         let correctAnswersCount = 0;
         let checkedAnswersCount = 0;
@@ -158,17 +163,26 @@ export class QuizComponent implements OnInit {
             } else {
                 lable.style.color = 'black';
             }
-
-            const cardTitle = <HTMLInputElement>document.getElementById('cardTitle' + card.Id);
-
-            if (!isUncorrectChecked && correctAnswersCount === checkedAnswersCount) {
-                cardTitle.style.color = this.correctColor;
-                cardTitle.style.fontWeight = 'bold';
-            } else {
-                cardTitle.style.color = this.uncorrectColor;
-                cardTitle.style.fontWeight = 'bold';
-            }
+            this.cardTitleManager(isUncorrectChecked, correctAnswersCount,
+                checkedAnswersCount, card.Id
+            );
         });
+    }
+
+    cardTitleManager(
+        isUncorrectChecked: boolean,
+        correctAnswersCount: number,
+        checkedAnswersCount: number,
+        cardId: number
+    ) {
+        const cardTitle = <HTMLInputElement>document.getElementById('cardTitle' + cardId);
+        if (!isUncorrectChecked && correctAnswersCount === checkedAnswersCount) {
+            cardTitle.style.color = this.correctColor;
+            cardTitle.style.fontWeight = 'bold';
+        } else {
+            cardTitle.style.color = this.uncorrectColor;
+            cardTitle.style.fontWeight = 'bold';
+        }
     }
 
     saveAnswer() {
@@ -234,7 +248,6 @@ export class QuizComponent implements OnInit {
                 IsRight: false
             };
             this.innerWordInputCheck(card);
-            console.log('this.innerWordInputCheck(card);');
             if (addStyles) {
             const cardTitle = <HTMLInputElement>document.getElementById('cardTitle' + card.Id);
             if (this.wordInputs[card.Id].IsRight) {
@@ -268,7 +281,6 @@ export class QuizComponent implements OnInit {
             .then(codeAnswer => {
                 this.codeResult = codeAnswer.CodeAnswerText;
                 this.codeAnswers[card.Id].IsRight = codeAnswer.IsRight;
-                console.log('this.quizService.codeAnswer');
             });
     }
 }
