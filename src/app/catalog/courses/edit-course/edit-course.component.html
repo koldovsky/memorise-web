@@ -66,7 +66,7 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-6">
-                    <img src="{{course.Photo}}" [(ngModel)]="course.Photo" *ngIf="course.Photo; else stub" alt="Course photo" class="img-thumbnail">
+                    <img src="{{course.Photo}}" *ngIf="course.Photo; else stub" alt="Course photo" class="img-thumbnail">
                     <ng-template #stub>
                         <img mat-card-m-image src="../../../assets/images/placeholder-thumb.jpg" alt="Course photo" class="img-thumbnail">
                     </ng-template>

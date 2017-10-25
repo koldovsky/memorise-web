@@ -42,7 +42,7 @@
                     <td class="padding-top">{{pageSize * (page - 1) + i + 1}}</td>
                     <td class="padding-top">{{category.Name}}</td>
                     <td class="view-table">
-                        <button class="btn btn-primary" (click)="onBtnInfoClick(currentCategory.Name)" [routerLink]="['/moderator/categories/edit', category.Linking]">
+                        <button class="btn btn-primary" (click)="onBtnInfoClick(category.Linking)" [routerLink]="['/moderator/categories/edit', category.Linking]">
                             <i class="material-icons">info_outline</i>
                         </button>
                         <button class="btn btn-danger" data-toggle="modal" data-target="#deleteCategoryAlertModal" (click)="onDelete(category)">

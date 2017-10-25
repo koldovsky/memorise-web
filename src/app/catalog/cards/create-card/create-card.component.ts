@@ -70,15 +70,18 @@ export class CreateCardComponent implements OnInit {
 
     createAnswersArray(numbers: number) {
         this.answersArray = [];
-        for (let i = 1; i <= numbers; i++) {
+        for (let i = 0; i < numbers; i++) {
             this.answersArray.push({Id: i, Text : '', IsCorrect : false } as Answer );
         }
     }
     onSubmit(form: NgForm) {
         if (this.numberOfCorrectAnswer > 0) {
-            this.answersArray[this.numberOfCorrectAnswer - 1].IsCorrect = true;
+            this.answersArray[this.numberOfCorrectAnswer].IsCorrect = true;
+        }
+        if (this.chosenNumbersOfAnswers > 0) {
             this.card.Answers = this.answersArray;
-        }else {
+        }
+        if (this.chosenNumbersOfAnswers === 0) {
             this.card.Answers = [];
             this.card.Answers.push({Text: this.correctAnswer, IsCorrect: true} as Answer);
         }

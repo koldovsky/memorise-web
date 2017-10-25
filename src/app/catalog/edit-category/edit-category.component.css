@@ -1,8 +1,6 @@
-.marginTopAndBottom{
-    margin-top: 2%;
-    margin-bottom: 2%;
-  }
-  
+.hight10hv{
+    padding: 7vh;
+}
   #snackbar {
     visibility: hidden;
     min-width: 250px;

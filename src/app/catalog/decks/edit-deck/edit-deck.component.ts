@@ -27,7 +27,6 @@ export class EditDeckComponent implements OnInit {
     uploader: FileUploader;
     deck: Deck;
     decks: Deck[];
-    //deckNames: string[] = [];
     categories: Category[];
     newCategory: string;
     submitMessage = '';
@@ -38,7 +37,7 @@ export class EditDeckComponent implements OnInit {
     isLoadedCards = false;
     imageIsChanged = false;
 
-    uploadUrl = 'http://localhost:37271/Image/UploadPhotoForCourse';
+    uploadUrl = 'http://localhost:37271/Image/UploadPhotoForDeck';
 
     constructor(
         private categoryService: CategoryService,
