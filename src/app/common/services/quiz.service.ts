@@ -32,6 +32,7 @@ export class QuizService {
             .then(response => response as Card[])
             .catch(handleError);
     }
+
     CodeAnswerCheck(codeAnswer: CodeAnswer): Promise<CodeAnswer> {
         return this.http.post(this.QuizUrl + 'CodeAnswerCheck', codeAnswer)
             .toPromise()
