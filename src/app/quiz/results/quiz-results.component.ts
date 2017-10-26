@@ -80,7 +80,6 @@ export class QuizResultsComponent implements OnInit {
         ? this.checkCodeInput(card)
         : this.checkTestInput(card);
 
-        console.log(isAnswerCorrect);
     return isAnswerCorrect;
   }
 
