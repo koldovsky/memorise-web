@@ -68,54 +68,19 @@ export class QuizResultsComponent implements OnInit {
       this.saveStatistics(c);
     });
   }
-  // checkCard(card: Card): string {
-  //    if (card.CardType.Name === 'Words input') {
-  //      if (this.wordInputs[card.Id].IsRight) {
-  //         return 'done';
-  //      }else {
-  //       return 'close';
-  //     }
-  //    }else if (card.CardType.Name === 'Code input') {
-  //      if (this.codeAnswers[card.Id].IsRight) {
-  //        return 'done';
-  //      } else {
-  //        return 'close';
-  //      }
-  //    }else {
-  //   let customerRightAnswersCount = 0;
-  //   let customerAnswersCount = 0;
-  //   let rightAnswersCount = 0;
-  //   card.Answers.forEach(a => {
-  //     if (a.IsChecked) {
-  //       customerAnswersCount++;
-  //       if (a.IsCorrect) {
-  //         customerRightAnswersCount++;
-  //       }
-  //     }
-  //     if (a.IsCorrect) {
-  //       rightAnswersCount++;
-  //     }
-  //   });
-  //   if (customerRightAnswersCount === rightAnswersCount &&
-  //     customerRightAnswersCount === customerAnswersCount) {
-  //     return 'done';
-  //   } else {
-  //     return 'close';
-  //   }
-  //  }
-  // }
 
   getIcon(card: Card): string {
     return this.checkCard(card) ? 'done' : 'close';
   }
 
   checkCard(card: Card): boolean {
-    const isAnswerCorrect = card.CardTypeName === 'Words input'
+    const isAnswerCorrect = card.CardType.Name === 'Words input'
       ? this.checkWordInput(card)
-      : card.CardTypeName === 'Code input'
+      : card.CardType.Name === 'Code input'
         ? this.checkCodeInput(card)
         : this.checkTestInput(card);
 
+        console.log(isAnswerCorrect);
     return isAnswerCorrect;
   }
 

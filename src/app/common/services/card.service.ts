@@ -6,13 +6,10 @@ import { Observable } from 'rxjs/Observable';
 
 import { Card, PageResponse, SearchDataModel } from '../models/models';
 import { handleError } from '../functions/functions';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class CardService {
-    private CardUrl = 'http://localhost:37271/Quiz';
-    private cardModeratorUrl = 'http://localhost:37271/Moderator/';
-    private searchCardUrl = 'http://localhost:37271/Quiz/GetSearchCardsByDeckLinking';
-
     btnInfoId: number;
     constructor(private http: HttpClient) { }
 
@@ -21,7 +18,7 @@ export class CardService {
         for (let i = 0; i < deckName.length; i++) {
             param = param + ',' + deckName[i];
         }
-        const URL = `${this.CardUrl}/GetCardsByDeckArray/${param}`;
+        const URL = `${environment.quizUrl}/GetCardsByDeckArray/${param}`;
         return this.http.get(URL)
             .toPromise()
             .then(response => { console.log(response); return response as Card[]; })
@@ -34,7 +31,7 @@ export class CardService {
         postData.page = page; postData.pageSize = pageSize;
         postData.searchString = search; postData.sort = sorted;
         postData.deckLinking = deckLinking;
-        const url = this.searchCardUrl;
+        const url = `${environment.quizUrl}/GetSearchCardsByDeckLinking`;
         return this.http.post(url, postData)
             .toPromise()
             .then(response => response as PageResponse<Card>)
@@ -42,22 +39,22 @@ export class CardService {
     }
 
     getCardTypes(): Observable<Object> {
-        return this.http.get(`${this.cardModeratorUrl}GetCardsType`);
+        return this.http.get(`${environment.moderationUrl}/GetCardsType`);
     }
 
     createCard(card: Card): Observable<Object> {
-        return this.http.post(`${this.cardModeratorUrl}CreateCard`, card);
+        return this.http.post(`${environment.moderationUrl}/CreateCard`, card);
     }
 
     deleteCard(id: number) {
-        return this.http.delete(`${this.cardModeratorUrl}DeleteCard/${id}`);
+        return this.http.delete(`${environment.moderationUrl}/DeleteCard/${id}`);
     }
 
     getCardById(id: number): Observable<Object> {
-        return this.http.get(`${this.cardModeratorUrl}GetCardById/${id}`);
+        return this.http.get(`${environment.moderationUrl}/GetCardById/${id}`);
     }
 
     updateCard(card: Card): Observable<Object> {
-        return this.http.put(`${this.cardModeratorUrl}UpdateCard`, card);
+        return this.http.put(`${environment.moderationUrl}/UpdateCard`, card);
     }
 }

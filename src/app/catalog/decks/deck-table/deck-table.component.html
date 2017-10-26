@@ -39,6 +39,9 @@
                     <th>
                         Deck Name
                     </th>
+                    <th>
+                        Description
+                    </th>
                     <th></th>
                 </tr>
             </thead>
@@ -46,6 +49,7 @@
                 <tr>
                     <td class="padding-top">{{pageSize * (page - 1) + i + 1}}</td>
                     <td class="padding-top">{{deck.Name}}</td>
+                    <td class="padding-top">{{deck.Description}}</td>
                     <td class="view-table">
                         <button class="btn btn-primary" (click)="onBtnInfoClick(deck.Linking)" 
                             [routerLink]="['/moderator/decks/edit', deck.Linking]">

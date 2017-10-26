@@ -7,6 +7,7 @@ import 'rxjs/add/operator/toPromise';
 import { User, RegisterExternalBindingModel, Token } from '../models/models';
 import { Deck, PageResponse } from '../models/models';
 import { handleError } from '../functions/functions';
+import { environment } from '../../../environments/environment';
 
 
 @Injectable()
@@ -17,7 +18,6 @@ export class AuthService {
     user: User;
     userLocal: any;
 
-    private commonUrl = 'http://localhost:37271/';
     private IsValid = true;
 
     constructor(
@@ -26,7 +26,7 @@ export class AuthService {
     ) { }
 
     signIn(user) {
-        return this.http.post(this.commonUrl + 'memo/login',
+        return this.http.post(environment.loginUrl,
             `username=${user.login}&password=${btoa(user.password)}&grant_type=password`)
             .toPromise()
             .then(response => {
@@ -54,7 +54,7 @@ export class AuthService {
 
     signUp(user) {
         user.password = btoa(user.password);
-        return this.http.post(this.commonUrl + 'Account/SignUp', user)
+        return this.http.post(`${environment.accountUrl}/SignUp`, user)
             .toPromise()
             .then(response => {
                 this.IsValid = true;
@@ -65,7 +65,7 @@ export class AuthService {
     }
 
     signUpFacebook(user) {
-        return this.http.post(this.commonUrl + 'Account/RegisterExternal', user)
+        return this.http.post(`${environment.accountUrl}/RegisterExternal`, user)
             .toPromise()
             .then(response => {
                 const token = response as Token;
