@@ -1,9 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
-import { MatSnackBar } from '@angular/material';
 
 import { AuthService } from '../../../common/services/auth.service';
 import { passwordMatchValidator } from './password-matcher';

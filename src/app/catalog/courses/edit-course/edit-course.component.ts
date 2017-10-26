@@ -7,7 +7,6 @@ import { DeckService } from '../../../common/services/deck.service';
 import { ModerationService } from '../../../common/services/moderation.service';
 import { CourseService } from '../../../common/services/course.service';
 import { ModeratorComponent } from '../../../moderator/moderator.component';
-import { MatDialog } from '@angular/material';
 import { AddDeckComponent } from '../../decks/add-deck/add-deck.component';
 import { regexExpression } from '../../../common/helpers/regexExpression';
 import { errorMessages } from '../../../common/helpers/errorMessages';

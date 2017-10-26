@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material';
 import { LoginComponent } from '../auth/components/login.component';
 import { Router } from '@angular/router';
 import { AuthService } from '../common/services/auth.service';

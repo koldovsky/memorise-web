@@ -1,27 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {
-    MatButtonModule,
-    MatCardModule,
-    MatMenuModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatListModule,
-    MatButtonToggleModule,
-    MatSidenavModule,
-    MatExpansionModule,
-    MatLineModule,
-    MatGridListModule,
-    MatTabsModule,
-    MatDialogModule,
-    MatInputModule,
-    MatPaginatorModule,
-    MatChipsModule,
-    MatTableModule
-} from '@angular/material';
-import { MatDatepickerModule, MatNativeDateModule } from '@angular/material';
 
 import { FormsModule, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -36,7 +15,6 @@ import { CourseDetailsComponent } from './catalog/courses/course-details/course-
 import { ProfileComponent } from './auth/user/profile/profile.component';
 import { StatisticsComponent } from './auth/user/statistics/statistics.component';
 import { LoginComponent } from './auth/components/login.component';
-import { CardsComponent } from './catalog/cards/cards.component';
 import { PageNotFoundComponent } from './not-found/not-found.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized-component';
 import { QuizComponent } from './quiz/quiz.component';
@@ -97,7 +75,6 @@ import { NotFoundRoutingModule } from './not-found/not-found.routing.module';
         DecksComponent,
         ProfileComponent,
         LoginComponent,
-        CardsComponent,
         AppComponent,
         HomeComponent,
         UnauthorizedComponent,
@@ -134,28 +111,7 @@ import { NotFoundRoutingModule } from './not-found/not-found.routing.module';
     imports: [
         NgbModule.forRoot(),
         BrowserModule,
-        BrowserAnimationsModule,
         HttpClientModule,
-        MatButtonModule,
-        MatCardModule,
-        MatMenuModule,
-        MatToolbarModule,
-        MatIconModule,
-        MatListModule,
-        MatButtonToggleModule,
-        MatDialogModule,
-        MatSidenavModule,
-        MatExpansionModule,
-        MatInputModule,
-        MatLineModule,
-        MatGridListModule,
-        MatTabsModule,
-        MatPaginatorModule,
-        MatChipsModule,
-        MatTableModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatTabsModule,
 
         AppRoutingModule,
         FormsModule,
@@ -164,12 +120,9 @@ import { NotFoundRoutingModule } from './not-found/not-found.routing.module';
         CatalogModule,
         QuizModule,
         AppRoutingModule,
-        MatTabsModule,
         FormsModule,
         ReactiveFormsModule,
         ProfileModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
         RegisterModule,
         UserModule,
         FileUploadModule,
