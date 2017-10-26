@@ -13,6 +13,7 @@ import { FileUploader } from 'ng2-file-upload';
 import { regexExpression } from '../../../common/helpers/regexExpression';
 import { errorMessages } from '../../../common/helpers/errorMessages';
 import { handleError } from '../../../common/functions/functions';
+import { environment } from '../../../../environments/environment';
 
 @Component({
     selector: 'app-edit-deck',
@@ -36,7 +37,7 @@ export class EditDeckComponent implements OnInit {
     isLoadedCards = false;
     imageIsChanged = false;
 
-    uploadUrl = 'http://localhost:37271/Image/UploadPhotoForDeck';
+    uploadUrl = `${environment.imageUploadUrl}/UploadPhotoForDeck`;
 
     constructor(
         private categoryService: CategoryService,
