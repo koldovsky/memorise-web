@@ -35,7 +35,7 @@
                 </ngb-alert>
                 <ngb-alert *ngIf="myForm.controls['password'].hasError('minlength')" [dismissible]="false">
                     Password length
-                    <strong>must</strong> be at least {{regex.MIN_LENGTH}}
+                    <strong>must</strong> be at least 6
                 </ngb-alert>
                 <input type="password" class="lower" placeholder="confirm password" [formControl]="myForm.controls['passwordConfirm']">
                 <ngb-alert *ngIf="myForm.controls['passwordConfirm'].hasError('required') && 

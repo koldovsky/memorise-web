@@ -39,9 +39,6 @@ export class InterceptorService implements HttpInterceptor {
     });
 
     return next.handle(request).do((event: HttpEvent<any>) => {
-      if (event instanceof HttpResponse) {
-        // do stuff with success response
-      }
     }, (err) => {
       if (err instanceof HttpErrorResponse) {
         if (err.status === this.HTTP_STATUS_CODE.BAD_REQUEST) {
