@@ -72,17 +72,17 @@
       <ngb-tab title="Edit">
         <ng-template ngbTabContent>
           <div class="tab-content py-4">
-            <form role="form" [formGroup]="myForm">
+            <form role="form" [formGroup]="profileForm">
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label form-control-label">First Name</label>
                 <div class="col-lg-9">
-                  <input class="form-control" [formControl]="myForm.controls['firstName']" type="text" value="user.FirstName">
+                  <input class="form-control" [formControl]="profileForm.controls['firstName']" type="text" value="user.FirstName">
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label form-control-label">Last Name</label>
                 <div class="col-lg-9">
-                  <input class="form-control" [formControl]="myForm.controls['lastName']" type="text" value="user.LastName">
+                  <input class="form-control" [formControl]="profileForm.controls['lastName']" type="text" value="user.LastName">
                 </div>
               </div>
               <div class="form-group row">
@@ -103,15 +103,15 @@
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label form-control-label">Login</label>
                 <div class="col-lg-9">
-                  <input class="form-control" [formControl]="myForm.controls['login']" type="text" value="{{user.Login}}">
+                  <input class="form-control" [formControl]="profileForm.controls['login']" type="text" value="{{user.Login}}">
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-lg-3 col-form-label form-control-label">Email</label>
                 <div class="col-lg-9">
-                  <input class="form-control" [formControl]="myForm.controls['email']" type="email" value="{{user.Email}}">
-                  <ngb-alert *ngIf="myForm.controls['email'].hasError('pattern')" [dismissible]="false">
-                      Email address is not valid!
+                  <input class="form-control" [formControl]="profileForm.controls['email']" type="email" value="{{user.Email}}">
+                  <ngb-alert *ngIf="profileForm.controls['email'].hasError('pattern')" [dismissible]="false">
+                      {{message.EMAIL_VALID}}
                   </ngb-alert>
                 </div>
               </div>          
@@ -119,7 +119,7 @@
                 <label class="col-lg-3 col-form-label form-control-label"></label>
                 <div class="col-lg-9">
                   <button type="button" class="btn btn-secondary" (click)="revertInfo()">Cancel</button>
-                  <button type="submit" (click)="updateInfo()" [disabled]="!myForm.valid" class="btn btn-primary">Save Changes</button>
+                  <button type="submit" (click)="updateInfo()" [disabled]="!profileForm.valid" class="btn btn-primary">Save Changes</button>
                 </div>
               </div>
             </form>
