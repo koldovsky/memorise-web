@@ -90,6 +90,10 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['register']);
     }
 
+    signOut(): void {
+        FB.logout();
+    }
+    
     ngOnInit(): void {
         if (window.FB) {
             window.FB.XFBML.parse();
