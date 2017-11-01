@@ -8,6 +8,7 @@ import { User, RegisterExternalBindingModel, Token } from '../models/models';
 import { Deck, PageResponse } from '../models/models';
 import { handleError } from '../functions/functions';
 import { environment } from '../../../environments/environment';
+import { errorMessages } from './../helpers/errorMessages';
 
 
 @Injectable()
@@ -17,13 +18,16 @@ export class AuthService {
     isAuthorized: boolean;
     user: User;
     userLocal: any;
+    message: any;
 
     private IsValid = true;
 
     constructor(
         private http: HttpClient,
         private router: Router
-    ) { }
+    ) {
+        this.message = errorMessages;
+     }
 
     signIn(user) {
         return this.http.post(environment.loginUrl,
@@ -41,7 +45,7 @@ export class AuthService {
             .catch(
             error => {
                 this.IsValid = false;
-                this.errorMessage = 'input, please try again!';
+                this.errorMessage = this.message.INCORRECT_LOGIN_INPUT;
 
             });
     }
@@ -71,7 +75,7 @@ export class AuthService {
                 const token = response as Token;
                 localStorage.setItem('token', token.access_token);
                 localStorage.setItem('login', token.userName);
-                window.location.href = 'http://localhost:4200/catalog/courses/Any';
+                window.location.href =  `${environment.coursesRedirectUrl}`;
             })
             .catch(handleError => {
                 this.errorMessage = 'Failed to access the server!';

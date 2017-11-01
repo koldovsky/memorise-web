@@ -14,7 +14,7 @@ import { DecksComponent } from './catalog/decks/decks.component';
 import { CourseDetailsComponent } from './catalog/courses/course-details/course-details.component';
 import { ProfileComponent } from './auth/user/profile/profile.component';
 import { StatisticsComponent } from './auth/user/statistics/statistics.component';
-import { LoginComponent } from './auth/components/login.component';
+import { LoginComponent } from './auth/components/login/login.component';
 import { PageNotFoundComponent } from './not-found/not-found.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized-component';
 import { QuizComponent } from './quiz/quiz.component';
@@ -45,9 +45,8 @@ import { QuizModule } from './quiz/quiz.module';
 import { FooterComponent } from './footer/footer.component';
 import { MessageService } from './common/services/message.service';
 import { UserModule } from './auth/user/user.module';
-import { ProfileModule } from './auth/user/profile/profile.module';
 import { ModeratorModule } from './moderator/moderator.module';
-import { RegisterModule } from './auth/components/register/register.module';
+import { ComponentsModule } from './auth/components/components.module';
 
 import { CourseTableComponent } from './catalog/courses/course-table/course-table.component';
 import { DeckTableComponent } from './catalog/decks/deck-table/deck-table.component';
@@ -122,8 +121,7 @@ import { NotFoundRoutingModule } from './not-found/not-found.routing.module';
         AppRoutingModule,
         FormsModule,
         ReactiveFormsModule,
-        ProfileModule,
-        RegisterModule,
+        ComponentsModule,
         UserModule,
         FileUploadModule,
         NotFoundRoutingModule

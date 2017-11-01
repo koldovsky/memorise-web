@@ -6,6 +6,10 @@ import { StatisticsComponent } from './statistics/statistics.component';
 
 const route: Routes = [
     {
+        path: 'profile/:name',
+        component: ProfileComponent
+    },
+    {
         path: 'statistics/:name',
         component: StatisticsComponent
     }

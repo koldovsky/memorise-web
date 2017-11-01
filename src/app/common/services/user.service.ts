@@ -9,8 +9,6 @@ import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class UserService {
-
-    private UserProfile = 'http://localhost:37271/UserProfile';
     constructor(private http: HttpClient) { }
 
     getUsers(): Promise<User[]> {
