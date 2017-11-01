@@ -1,9 +1,14 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 
-import { RegisterComponent } from './register.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 const route: Routes = [
+    {
+        path: 'login',
+        component: LoginComponent
+    },
     {
         path: 'register',
         component: RegisterComponent
@@ -19,4 +24,4 @@ const route: Routes = [
     ]
 })
 
-export class RegisterRoutingModule { }
+export class ComponentsRoutingModule { }

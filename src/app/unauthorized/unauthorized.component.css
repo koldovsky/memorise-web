@@ -1,18 +1,3 @@
-:host {
-    width: 100vw;
-}
-
-div {
-    padding: 10vh 10vw;
-}
-
-.center {
-    max-width: 50vw;
-    max-height: 50vh;
-    margin:0 auto;
-}
-
-img{
-    max-width: 300px;
-    margin-left: 30%;
+.max-size {
+    max-width: 600px;
 }

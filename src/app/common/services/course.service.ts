@@ -7,20 +7,17 @@ import 'rxjs/add/operator/toPromise';
 
 import { Course, PageResponse, SearchDataModel } from '../models/models';
 import { handleError } from '../functions/functions';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class CourseService {
-    private coursesUrl = 'http://localhost:37271/Catalog/GetCourses';
-    private coursesPageUrl = 'http://localhost:37271/Catalog/GetCoursesByPage';
-    private courseUrl = 'http://localhost:37271/Catalog/GetCourse';
-    private courseModeratorUrl = 'http://localhost:37271/Moderator/';
 
     btnInfoLinking = '';
 
     constructor(private http: HttpClient) { }
 
     getCourses(): Promise<Course[]> {
-        return this.http.get(this.coursesUrl)
+        return this.http.get(`${environment.catalogUrl}/GetCourses`)
             .toPromise()
             .then(response => response as Course[])
             .catch(handleError);
@@ -30,7 +27,7 @@ export class CourseService {
         const postData = new SearchDataModel;
         postData.page = page; postData.pageSize = pageSize;
         postData.searchString = search; postData.sort = sorted;
-        const url = this.coursesPageUrl;
+        const url = `${environment.catalogUrl}/GetCoursesByPage`;
         return this.http.post(url, postData)
             .toPromise()
             .then(response => response as PageResponse<Course>)
@@ -38,7 +35,7 @@ export class CourseService {
     }
 
     getCourse(link: string): Promise<Course> {
-        const URL = this.courseUrl + '/' + link;
+        const URL = `${environment.catalogUrl}/GetCourse/${link}`;
         return this.http.get(URL)
             .toPromise()
             .then(response => response as Course)
@@ -46,18 +43,18 @@ export class CourseService {
     }
 
     createCourse(course: Course): Observable<Object> {
-        return this.http.post(`${this.courseModeratorUrl}CreateCourse`, course);
+        return this.http.post(`${environment.moderationUrl}/CreateCourse`, course);
     }
     updateCourse(course: Course) {
-        return this.http.put(`${this.courseModeratorUrl}UpdateCourse`, course);
+        return this.http.put(`${environment.moderationUrl}/UpdateCourse`, course);
     }
 
     deleteCourse(id: number) {
-        return this.http.delete(`${this.courseModeratorUrl}DeleteCourse/${id}`);
+        return this.http.delete(`${environment.moderationUrl}/DeleteCourse/${id}`);
     }
 
     checkIfCourseExists(courseName: string): Observable<Object> {
-        return this.http.get(`${this.courseModeratorUrl}FindCourseByName/${btoa(courseName)}`);
+        return this.http.get(`${environment.moderationUrl}/FindCourseByName/${btoa(courseName)}`);
     }
 
 }

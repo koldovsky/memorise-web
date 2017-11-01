@@ -7,12 +7,12 @@ import { DeckService } from '../../../common/services/deck.service';
 import { ModerationService } from '../../../common/services/moderation.service';
 import { CourseService } from '../../../common/services/course.service';
 import { ModeratorComponent } from '../../../moderator/moderator.component';
-import { MatDialog } from '@angular/material';
 import { AddDeckComponent } from '../../decks/add-deck/add-deck.component';
 import { regexExpression } from '../../../common/helpers/regexExpression';
 import { errorMessages } from '../../../common/helpers/errorMessages';
 import { handleError } from '../../../common/functions/functions';
 import { FileUploader } from 'ng2-file-upload';
+import { environment } from '../../../../environments/environment';
 
 @Component({
     selector: 'app-edit-course',
@@ -40,7 +40,7 @@ export class EditCourseComponent implements OnInit {
     isLoadedDecks = false;
     imageIsChanged = false;
 
-    uploadUrl = 'http://localhost:37271/Image/UploadPhotoForCourse';
+    uploadUrl = `${environment.imageUploadUrl}/UploadPhotoForCourse`;
 
     constructor(
         private categoryService: CategoryService,

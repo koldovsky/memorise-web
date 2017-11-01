@@ -2,17 +2,17 @@
     <nav class="col-sm-3 col-md-2 bg-light">
         <ul class="nav nav-pills flex-column">
             <li class="nav-item">
-                <a class="nav-link disabled" [routerLink]="['/catalog/courses/Any']">
+                <a class="nav-link disabled" (click)="navigateTo('Any')" [routerLink]="getRouterLink('Any')">
                     <h4>Categories</h4>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/catalog/courses/Any']">
+                <a class="nav-link" (click)="navigateTo('Any')" [routerLink]="getRouterLink('Any')">
                     Any
                 </a>
             </li>
             <li class="nav-item">
-                <a *ngFor="let category of categories" class="nav-link" [routerLink]="['/catalog/courses', category.Linking]">
+                <a *ngFor="let category of categories" class="nav-link" (click)="navigateTo(category.Linking)" [routerLink]="getRouterLink(category.Linking)">
                     {{category.Name}}
                 </a>
             </li>

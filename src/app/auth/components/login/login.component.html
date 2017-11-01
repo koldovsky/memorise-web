@@ -1,0 +1,40 @@
+<div class="container">
+    <div class="login-container">
+        <h2>Login</h2>
+        <div class="alert alert-danger" role="alert" *ngIf="!authService.validData() && clicked">
+            {{authService.getError()}}
+        </div>
+        <div class="form-box" [formGroup]="loginForm">
+            <form action="" method="">
+                <input name="user" type="text" placeholder="username" [formControl]="loginForm.controls['login']">
+                <ngb-alert *ngIf="loginForm.controls['login'].hasError('required') && 
+                    (loginForm.controls['login'].dirty || loginForm.controls['login'].touched)" [dismissible]="false">
+                    {{message.LOGIN_REQUIRED}}
+                </ngb-alert>
+                <ngb-alert *ngIf="loginForm.controls['login'].hasError('maxlength')" [dismissible]="false">
+                    {{message.LOGIN_LENGTH}}
+                </ngb-alert>
+                <input type="password" placeholder="password" [formControl]="loginForm.controls['password']">
+                <ngb-alert *ngIf="loginForm.controls['password'].hasError('required') && 
+                    (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)" [dismissible]="false">
+                    {{message.PASSWORD_REQUIRED}}
+                </ngb-alert>
+                <ngb-alert *ngIf="loginForm.controls['password'].hasError('minlength')" [dismissible]="false">
+                    {{message.PASSWORD_LENGTH}}
+                </ngb-alert>
+                <button class="btn btn-info login" type="submit" [disabled]="!loginForm.valid" (click)="LogIn(loginForm.value)">Sign In</button>
+                <span>or</span>
+                <button type="button" class="btn btn-info login" [routerLink]="['/register']">Sign Up</button>
+                <button type="button" class="btn btn-info login" (click)="signOut()">Sign Out</button>
+                <!-- <div class="social-buttons">
+                                <button class="btn btn-fb" (click)="signUpFacebook()">Facebook</button>
+                                <button class="btn btn-go">Google</button>
+                        </div> -->
+                        
+                <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false"
+                    data-auto-logout-link="false" data-use-continue-as="true">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

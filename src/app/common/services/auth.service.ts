@@ -7,6 +7,8 @@ import 'rxjs/add/operator/toPromise';
 import { User, RegisterExternalBindingModel, Token } from '../models/models';
 import { Deck, PageResponse } from '../models/models';
 import { handleError } from '../functions/functions';
+import { environment } from '../../../environments/environment';
+import { errorMessages } from './../helpers/errorMessages';
 
 
 @Injectable()
@@ -16,17 +18,19 @@ export class AuthService {
     isAuthorized: boolean;
     user: User;
     userLocal: any;
+    message: any;
 
-    private commonUrl = 'http://localhost:37271/';
     private IsValid = true;
 
     constructor(
         private http: HttpClient,
         private router: Router
-    ) { }
+    ) {
+        this.message = errorMessages;
+     }
 
     signIn(user) {
-        return this.http.post(this.commonUrl + 'memo/login',
+        return this.http.post(environment.loginUrl,
             `username=${user.login}&password=${btoa(user.password)}&grant_type=password`)
             .toPromise()
             .then(response => {
@@ -41,7 +45,7 @@ export class AuthService {
             .catch(
             error => {
                 this.IsValid = false;
-                this.errorMessage = 'input, please try again!';
+                this.errorMessage = this.message.INCORRECT_LOGIN_INPUT;
 
             });
     }
@@ -54,7 +58,7 @@ export class AuthService {
 
     signUp(user) {
         user.password = btoa(user.password);
-        return this.http.post(this.commonUrl + 'Account/SignUp', user)
+        return this.http.post(`${environment.accountUrl}/SignUp`, user)
             .toPromise()
             .then(response => {
                 this.IsValid = true;
@@ -65,14 +69,13 @@ export class AuthService {
     }
 
     signUpFacebook(user) {
-        return this.http.post(this.commonUrl + 'Account/RegisterExternal', user)
+        return this.http.post(`${environment.accountUrl}/RegisterExternal`, user)
             .toPromise()
             .then(response => {
                 const token = response as Token;
                 localStorage.setItem('token', token.access_token);
                 localStorage.setItem('login', token.userName);
-                console.log(token.access_token);
-                window.location.href = 'http://localhost:4200/catalog/courses/Any';
+                window.location.href =  `${environment.coursesRedirectUrl}`;
             })
             .catch(handleError => {
                 this.errorMessage = 'Failed to access the server!';

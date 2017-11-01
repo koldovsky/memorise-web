@@ -36,7 +36,7 @@ export class PaginationComponent implements OnInit {
     ngOnInit() {
     }
 
-    howMatchPage() {
+    howMuchPage() {
         let localPagesCount: number;
         if (this._pageSize === 0) {
             this._pageSize = this._totalCount;
@@ -51,7 +51,8 @@ export class PaginationComponent implements OnInit {
     }
 
     numberToArray() {
-        for (let i = 1; i <= this.howMatchPage(); i++) {
+        const maxNumberPage = this.howMuchPage();
+        for (let i = 1; i <= maxNumberPage; i++) {
             this.items.push(i);
         }
         return this.items;
@@ -96,7 +97,8 @@ export class PaginationComponent implements OnInit {
     }
 
     isFirst() {
-        if (this.currentIndex < this.comfortableMiddleNumbers || this.items.length <= this.comfortableNumbers) {
+        if (this.currentIndex < this.comfortableMiddleNumbers ||
+                this.items.length <= this.comfortableNumbers) {
             return true;
         } else {
             return false;
@@ -104,7 +106,8 @@ export class PaginationComponent implements OnInit {
     }
 
     isLast() {
-        if (this.currentIndex > this.items.length - this.comfortableMiddleNumbers + 1 || this.items.length <= this.comfortableNumbers) {
+        if (this.currentIndex > this.items.length - this.comfortableMiddleNumbers + 1 ||
+                this.items.length <= this.comfortableNumbers) {
             return true;
         } else {
             return false;

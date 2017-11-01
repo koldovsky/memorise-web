@@ -13,16 +13,25 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
 
 import { AuthService } from './auth.service';
+import { errorMessages } from '../helpers/errorMessages';
+import { httpCode } from '../helpers/http-status-code';
 
 @Injectable()
 export class InterceptorService implements HttpInterceptor {
+   ERROR;
+   HTTP_STATUS_CODE;
   constructor(
     private injector: Injector,
     private router: Router
-  ) { }
+  ) {
+    this.ERROR = errorMessages;
+    this.HTTP_STATUS_CODE = httpCode;
+  }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const auth = this.injector.get(AuthService);
+    const CHAR_TO_SKIP_BEGIN = 16;
+    const CHAR_TO_SKIP_END = 4;
     request = request.clone({
       setHeaders: {
         Authorization: `Bearer ${auth.getToken()}`
@@ -30,23 +39,20 @@ export class InterceptorService implements HttpInterceptor {
     });
 
     return next.handle(request).do((event: HttpEvent<any>) => {
-      if (event instanceof HttpResponse) {
-        // do stuff with success response
-      }
     }, (err) => {
       if (err instanceof HttpErrorResponse) {
-        if (err.status === 400) {
+        if (err.status === this.HTTP_STATUS_CODE.BAD_REQUEST) {
           const message = JSON.stringify(err.error);
           const expr = /The request is invalid/;
           if (message.match(expr)) {
-            auth.setError('user with such login already exists!');
+            auth.setError(this.ERROR.USER_EXISTS);
           } else {
-            const correctMessage = message.slice(16, message.length - 4);
+            const correctMessage = message.slice(CHAR_TO_SKIP_BEGIN, message.length - CHAR_TO_SKIP_END);
             auth.setError(correctMessage);
           }
         }
-        if (err.status === 401) {
-          auth.setError('Access denied! You need to SignIn.');
+        if (err.status === this.HTTP_STATUS_CODE.UNAUTHORIZED) {
+          auth.setError(this.ERROR.ACCESS_DENIED);
           this.router.navigate(['/unauthorized']);
         }
       }

@@ -5,10 +5,10 @@ import 'rxjs/add/operator/toPromise';
 
 import { Card, CodeAnswer, WordInput } from '../models/models';
 import { handleError } from '../functions/functions';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class QuizService {
-    private QuizUrl = 'http://localhost:37271/Quiz/';
     cards: Card[];
     codeAnswers: CodeAnswer[];
     wordInputs: WordInput[];
@@ -16,7 +16,7 @@ export class QuizService {
     constructor(private http: HttpClient) { }
 
     GetCardsByCourse(name: string): Promise<Card[]> {
-        const URL = `${this.QuizUrl}GetCardsByCourse/${name}`;
+        const URL = `${environment.quizUrl}/GetCardsByCourse/${name}`;
 
         return this.http.get(URL)
             .toPromise()
@@ -25,15 +25,16 @@ export class QuizService {
     }
 
     GetCardsByDeck(name: string): Promise<Card[]> {
-        const URL = `${this.QuizUrl}GetCardsByDeck/${name}`;
+        const URL = `${environment.quizUrl}/GetCardsByDeck/${name}`;
 
         return this.http.get(URL)
             .toPromise()
             .then(response => response as Card[])
             .catch(handleError);
     }
+
     CodeAnswerCheck(codeAnswer: CodeAnswer): Promise<CodeAnswer> {
-        return this.http.post(this.QuizUrl + 'CodeAnswerCheck', codeAnswer)
+        return this.http.post(`${environment.quizUrl}/CodeAnswerCheck`, codeAnswer)
             .toPromise()
             .then(response => response as CodeAnswer)
             .catch(handleError);
