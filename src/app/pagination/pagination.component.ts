@@ -36,7 +36,7 @@ export class PaginationComponent implements OnInit {
     ngOnInit() {
     }
 
-    howMatchPage() {
+    howMuchPage() {
         let localPagesCount: number;
         if (this._pageSize === 0) {
             this._pageSize = this._totalCount;
@@ -51,7 +51,8 @@ export class PaginationComponent implements OnInit {
     }
 
     numberToArray() {
-        for (let i = 1; i <= this.howMatchPage(); i++) {
+        const maxNumberPage = this.howMuchPage();
+        for (let i = 1; i <= maxNumberPage; i++) {
             this.items.push(i);
         }
         return this.items;

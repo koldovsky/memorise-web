@@ -71,7 +71,6 @@ export class AuthService {
                 const token = response as Token;
                 localStorage.setItem('token', token.access_token);
                 localStorage.setItem('login', token.userName);
-                console.log(token.access_token);
                 window.location.href = 'http://localhost:4200/catalog/courses/Any';
             })
             .catch(handleError => {

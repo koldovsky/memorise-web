@@ -36,7 +36,6 @@ export class QuizResultsComponent implements OnInit {
     this.wordInputs = this.quizService.wordInputs;
     this.codeAnswers = this.quizService.codeAnswers;
     this.cards.forEach(c => {
-      // const c = this.cards[0]; // just to see how it works
       if (c.CardType.Name === 'Words input') {
         c.RightAnswersText = this.wordInputs[c.Id].RightAnswersText.join('; ');
       } else if (c.CardType.Name === 'Code input') {

@@ -24,7 +24,7 @@
                 </ngb-alert>
                 <ngb-alert *ngIf="myForm.controls['password'].hasError('minlength')" [dismissible]="false">
                     Password length
-                    <strong>must</strong> be at least {{regex.MIN_LENGTH}}
+                    <strong>must</strong> be at least 6
                 </ngb-alert>
                 <button class="btn btn-info login" type="submit" [disabled]="!myForm.valid" (click)="LogIn(myForm.value)">Sign In</button>
                 <span>or</span>
