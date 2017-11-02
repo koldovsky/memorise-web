@@ -43,6 +43,7 @@ export class QuizComponent implements OnInit {
                 this.cards = cards;
                 this.cardsCount = cards.length;
                 this.cards.forEach(card => {
+                    card.IsDisabled = false;
                     card.Answers.forEach(answer => {
                         this.answerCheck(answer, false);
                     });
@@ -282,5 +283,22 @@ export class QuizComponent implements OnInit {
                 this.codeResult = codeAnswer.CodeAnswerText;
                 this.codeAnswers[card.Id].IsRight = codeAnswer.IsRight;
             });
+    }
+
+    isCheckDisabled(card: Card) {
+        let flag = true;
+        card.Answers.forEach(answer => {
+            if (answer.IsChecked === true) {
+                flag = false;
+            }
+        });
+        if (card.IsDisabled) {
+            flag = true;
+        }
+        return flag;
+    }
+
+    cardDisabledToTrue(card: Card) {
+        card.IsDisabled = true;
     }
 }

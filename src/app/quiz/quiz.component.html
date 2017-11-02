@@ -17,7 +17,11 @@
                         <div class="card-header no-select" id="cardTitle{{cards[counter].Id}}">
                             <div class="row">
                                 Question {{counter+1}} / {{cardsCount}}
-                                <button class="btn btn-primary" (click)="checkQuestion()" id="check-button">Check</button>
+                                <button class="btn btn-primary" 
+                                (click)="checkQuestion(); cardDisabledToTrue(cards[counter])" 
+                                id="check-button"
+                                [disabled]="isCheckDisabled(cards[counter])"
+                                >Check</button>
                             </div>
                         </div>
 
@@ -28,7 +32,13 @@
                             <br>
                             <p class="card-text" *ngFor="let answer of cards[counter].Answers">
                                 <label id="answer{{answer.Id}}">
-                                    <input type="radio" id="item{{answer.Id}}" name="radio" (change)="changeAnswerSelect(answer)" /> {{answer.Text}}
+                                    <input 
+                                    type="radio" 
+                                    id="item{{answer.Id}}" 
+                                    name="radio" 
+                                    (change)="changeAnswerSelect(answer)" 
+                                    [disabled]="cards[counter].IsDisabled"
+                                    /> {{answer.Text}}
                                 </label>
                             </p>
                         </div>
@@ -40,7 +50,11 @@
                         <div class="card-header no-select" id="cardTitle{{cards[counter].Id}}">
                             <div class="row">
                                 Question {{counter+1}} / {{cardsCount}}
-                                <button class="btn btn-primary" (click)="checkQuestion()" id="check-button">Check</button>
+                                <button class="btn btn-primary" 
+                                (click)="checkQuestion(); cardDisabledToTrue(cards[counter])" 
+                                id="check-button"
+                                [disabled]="isCheckDisabled(cards[counter])"
+                                >Check</button>
                             </div>
                         </div>
 
@@ -51,7 +65,12 @@
                             <br>
                             <p class="card-text" *ngFor="let answer of cards[counter].Answers">
                                 <label id="answer{{answer.Id}}">
-                                    <input type="checkbox" id="item{{answer.Id}}" (change)="changeAnswerCheck(answer)" /> {{answer.Text}}
+                                    <input 
+                                    type="checkbox" 
+                                    id="item{{answer.Id}}" 
+                                    (change)="changeAnswerCheck(answer)"
+                                    [disabled]="cards[counter].IsDisabled"
+                                    /> {{answer.Text}}
                                 </label>
                             </p>
                         </div>
@@ -125,7 +144,8 @@
         </div>
 
         <div class="col-lg-4 col-xl-4 cards">
-            <div class="no-select  text-center" id="RightHeap" (click)="counterPlus(); heapCtrl(); saveAnswer(); cleanColor(); cleanCustomerAnswerInput();">
+            <div class="no-select  text-center" id="RightHeap" 
+            (click)="counterPlus(); heapCtrl(); saveAnswer(); cleanColor(); cleanCustomerAnswerInput();">
                 <h3>
                     {{countLeftQuestions()}} {{leftQuestionOrQuestions()}} left
                 </h3>
