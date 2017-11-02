@@ -62,6 +62,7 @@ import { EditCategoryComponent } from './catalog/edit-category/edit-category.com
 import { NavigationService } from './common/services/navigation.service';
 import { AppComponent } from './app.component';
 import { NotFoundRoutingModule } from './not-found/not-found.routing.module';
+import { SubscriptionsComponent } from './auth/user/subscriptions/subscriptions.component';
 
 
 
@@ -99,7 +100,8 @@ import { NotFoundRoutingModule } from './not-found/not-found.routing.module';
         CardTableComponent,
         AddDeckComponent,
         EditCategoryComponent,
-        PageNotFoundComponent
+        PageNotFoundComponent,
+        SubscriptionsComponent
     ],
     entryComponents: [
         LoginComponent,

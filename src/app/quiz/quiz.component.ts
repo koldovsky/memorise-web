@@ -27,6 +27,7 @@ export class QuizComponent implements OnInit {
     customerCodeAnswer = '';
     codeAnswers: CodeAnswer[] = [];
     codeResult: string;
+    MAX_NUMBERS_OF_CARDS = 10;
 
     ngOnInit(): void {
         this.route.paramMap
@@ -40,8 +41,8 @@ export class QuizComponent implements OnInit {
                 }
             })
             .subscribe(cards => {
-                this.cards = cards;
-                this.cardsCount = cards.length;
+                this.cards = cards.splice(0, this.MAX_NUMBERS_OF_CARDS);
+                this.cardsCount = this.cards.length;
                 this.cards.forEach(card => {
                     card.IsDisabled = false;
                     card.Answers.forEach(answer => {
