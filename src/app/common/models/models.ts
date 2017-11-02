@@ -170,3 +170,10 @@ export interface CodeAnswer extends BaseEntity {
     CodeAnswerText: string;
     IsRight: boolean;
 }
+
+export interface DataForGetCardsForSubscription {
+    userLogin: string;
+    numberOfCards: number;
+    courseOrDeckLink: string;
+}
+

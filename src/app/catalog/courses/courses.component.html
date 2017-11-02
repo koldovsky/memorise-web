@@ -11,9 +11,17 @@
                 </div>
                 <!-- <p class="card-text">{{course.Description}}</p> -->
                 <div class="text-center">
-                    <a class="btn btn-sm btn-primary" [routerLink]="['/course', course.Linking, 'quiz']">
-                        Try it now
-                    </a>
+                <div *ngIf="course.IsSubscribed; then go; else tryIt"></div>
+                    <ng-template #go>
+                        <a class="btn btn-sm btn-success" [routerLink]="['/course', course.Linking, 'quiz', 'go']">
+                            GO!
+                        </a>
+                    </ng-template>
+                    <ng-template #tryIt>
+                        <a class="btn btn-sm btn-primary" [routerLink]="['/course', course.Linking, 'quiz', 'try']">
+                            Try it now
+                        </a>
+                    </ng-template>
                     <a *ngIf="!authService.isAuthorized; else authorized" class="btn btn-sm btn-outline-success" [routerLink]="['/login']">
                         Subscribe
                     </a>

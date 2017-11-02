@@ -6,7 +6,7 @@ import { QuizResultsComponent } from './results/quiz-results.component';
 
 const route: Routes = [
     {
-        path: ':from/:name/quiz',
+        path: ':from/:name/quiz/:quizType',
         component: QuizComponent,
     },
     {
