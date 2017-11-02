@@ -1,160 +1,158 @@
 <div class="container-fluid" *ngIf="isLoaded; else loading">
-    <div class="row hight10"></div>
-    <div class="row">
-        <div class="col-lg-4 col-xl-4 cards">
-            <div class="no-select text-center" id="leftHeap" hidden="hidden" (click)='counterMinus(); heapCtrl(); saveAnswer(); cleanColor(); cleanCustomerAnswerInput();'>
-                <h3>
-                    {{countPassedQuestions()}} {{passedQuestionOrQuestions()}} passed
-                </h3>
-                <img src="../assets/images/{{getImgPreNamePassed()}}-card-back-min.png" alt="card back">
-            </div>
-        </div>
-
-        <div class="col-xs-12 col-lg-4 col-xl-4">
-            <div [ngSwitch]="cards[counter].CardType.Name">
-                <div *ngSwitchCase="'One answer'">
-                    <div class="card bg-light mb-3">
-                        <div class="card-header no-select" id="cardTitle{{cards[counter].Id}}">
-                            <div class="row">
-                                Question {{counter+1}} / {{cardsCount}}
-                                <button class="btn btn-primary" 
-                                (click)="checkQuestion(); cardDisabledToTrue(cards[counter])" 
-                                id="check-button"
-                                [disabled]="isCheckDisabled(cards[counter])"
-                                >Check</button>
-                            </div>
-                        </div>
-
-                        <div class="card-body">
-                            <h4 class="card-title">
-                                {{cards[counter].Question}}
-                            </h4>
-                            <br>
-                            <p class="card-text" *ngFor="let answer of cards[counter].Answers">
-                                <label id="answer{{answer.Id}}">
-                                    <input 
-                                    type="radio" 
-                                    id="item{{answer.Id}}" 
-                                    name="radio" 
-                                    (change)="changeAnswerSelect(answer)" 
-                                    [disabled]="cards[counter].IsDisabled"
-                                    /> {{answer.Text}}
-                                </label>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div *ngSwitchCase="'Few answers'">
-                    <div class="card bg-light mb-3">
-                        <div class="card-header no-select" id="cardTitle{{cards[counter].Id}}">
-                            <div class="row">
-                                Question {{counter+1}} / {{cardsCount}}
-                                <button class="btn btn-primary" 
-                                (click)="checkQuestion(); cardDisabledToTrue(cards[counter])" 
-                                id="check-button"
-                                [disabled]="isCheckDisabled(cards[counter])"
-                                >Check</button>
-                            </div>
-                        </div>
-
-                        <div class="card-body">
-                            <h4 class="card-title">
-                                {{cards[counter].Question}}
-                            </h4>
-                            <br>
-                            <p class="card-text" *ngFor="let answer of cards[counter].Answers">
-                                <label id="answer{{answer.Id}}">
-                                    <input 
-                                    type="checkbox" 
-                                    id="item{{answer.Id}}" 
-                                    (change)="changeAnswerCheck(answer)"
-                                    [disabled]="cards[counter].IsDisabled"
-                                    /> {{answer.Text}}
-                                </label>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div *ngSwitchCase="'Words input'">
-                    <div class="card bg-light mb-3">
-                        <div class="card-header no-select" id="cardTitle{{cards[counter].Id}}">
-                            <div class="row">
-                                Question {{counter+1}} / {{cardsCount}}
-                                <button class="btn btn-primary" (click)="wordInputCheck(cards[counter], true)" id="check-button">Check</button>
-                            </div>
-                        </div>
-
-                        <div class="card-body">
-                            <h4 class="card-title">
-                                {{cards[counter].Question}}
-                            </h4>
-                            <br>
-                            <div>
-                                <label for="customerAnswerId">Type your answer</label>
-                                <input type="text" id="customerAnswerId" placeholder="Type your answer here" [(ngModel)]="cards[counter].CustomerAnswersText" name="customerAnswerName">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div *ngSwitchCase="'Code input'">
-                    <div class="card bg-light mb-3">
-                        <div class="card-header no-select" id="cardTitle{{cards[counter].Id}}">
-                            <div class="row">
-                                Question {{counter+1}} / {{cardsCount}}
-                                <button class="btn btn-primary" (click)="codeAnswerCheck(cards[counter])" id="check-button">Check</button>
-                            </div>
-                        </div>
-
-                        <div class="card-body">
-                            <h4 class="card-title">
-                                {{cards[counter].Question}}
-                            </h4>
-                            <br>
-                            <div>
-                                <label for="customerCodeAnswerId">Type your answer</label>
-                                <br>
-                                <textarea id="customerAnswerTextareaId" placeholder="Type your answer here" [(ngModel)]="cards[counter].Answers[0].Text" name="customerCodeAnswerName" rows="12" cols="50">
-                                </textarea>
-                            </div>
-                            <div>
-                                <label for="codeResultId">Result</label>
-                                <br>
-                                <textarea id="codeResultId" readonly="readonly" [(ngModel)]="codeResult" name="codeResult" rows="4" cols="50">
-                                </textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="text-center" id="nav-buttons">
-                <button *ngIf="counter" class="btn btn-light" (click)="counterMinus(); heapCtrl(); saveAnswer(); cleanColor(); cleanCustomerAnswerInput();">
-                    Previous
-                </button>
-                <button *ngIf="counter < cardsCount-1" class="btn btn-light" (click)="counterPlus(); heapCtrl(); saveAnswer(); cleanColor(); cleanCustomerAnswerInput();">
-                    Next
-                </button>
-                <button *ngIf="counter === cardsCount-1" class="btn btn-light" (click)="finishQuiz()" id="btnFinish" routerLink="results">
-                    Finish
-                </button>
-            </div>
-        </div>
-
-        <div class="col-lg-4 col-xl-4 cards">
-            <div class="no-select  text-center" id="RightHeap" 
-            (click)="counterPlus(); heapCtrl(); saveAnswer(); cleanColor(); cleanCustomerAnswerInput();">
-                <h3>
-                    {{countLeftQuestions()}} {{leftQuestionOrQuestions()}} left
-                </h3>
-                <img src="../assets/images/{{getImgPreNameLeft()}}-card-back-min.png" alt="card back">
-            </div>
-        </div>
-        <ng-template #noCardsInQuiz>
-            <h1 class="text-center">Sorry, there are no cards in quiz(</h1>
-        </ng-template>
+  <div class="row hight10"></div>
+  <div class="row">
+    <div class="col-lg-4 col-xl-4 cards">
+      <div class="no-select text-center" id="leftHeap" hidden="hidden" (click)='counterMinus(); heapCtrl(); saveAnswer(); cleanColor(); cleanCustomerAnswerInput();'>
+        <h3>
+          {{countPassedQuestions()}} {{passedQuestionOrQuestions()}} passed
+        </h3>
+        <img src="../assets/images/{{getImgPreNamePassed()}}-card-back-min.png" alt="card back">
+      </div>
     </div>
+
+    <div class="col-xs-12 col-lg-4 col-xl-4">
+      <div [ngSwitch]="cards[counter].CardType.Name">
+        <div *ngSwitchCase="'One answer'">
+          <div class="card bg-light mb-3">
+            <div class="card-header no-select" id="cardTitle{{cards[counter].Id}}">
+              <div class="row">
+                Question {{counter+1}} / {{cardsCount}}
+                <button class="btn btn-primary"
+                        (click)="checkQuestion(); cardDisabledToTrue(cards[counter])"
+                        id="check-button"
+                        [disabled]="isCheckDisabled(cards[counter])">
+                  Check
+                </button>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <h4 class="card-title">
+                {{cards[counter].Question}}
+              </h4>
+              <br>
+              <p class="card-text" *ngFor="let answer of cards[counter].Answers">
+                <label id="answer{{answer.Id}}">
+                  <input type="radio"
+                         id="item{{answer.Id}}"
+                         name="radio"
+                         (change)="changeAnswerSelect(answer)"
+                         [disabled]="cards[counter].IsDisabled" /> {{answer.Text}}
+                </label>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div *ngSwitchCase="'Few answers'">
+          <div class="card bg-light mb-3">
+            <div class="card-header no-select" id="cardTitle{{cards[counter].Id}}">
+              <div class="row">
+                Question {{counter+1}} / {{cardsCount}}
+                <button class="btn btn-primary"
+                        (click)="checkQuestion(); cardDisabledToTrue(cards[counter])"
+                        id="check-button"
+                        [disabled]="isCheckDisabled(cards[counter])">
+                  Check
+                </button>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <h4 class="card-title">
+                {{cards[counter].Question}}
+              </h4>
+              <br>
+              <p class="card-text" *ngFor="let answer of cards[counter].Answers">
+                <label id="answer{{answer.Id}}">
+                  <input type="checkbox"
+                         id="item{{answer.Id}}"
+                         (change)="changeAnswerCheck(answer)"
+                         [disabled]="cards[counter].IsDisabled" /> {{answer.Text}}
+                </label>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div *ngSwitchCase="'Words input'">
+          <div class="card bg-light mb-3">
+            <div class="card-header no-select" id="cardTitle{{cards[counter].Id}}">
+              <div class="row">
+                Question {{counter+1}} / {{cardsCount}}
+                <button class="btn btn-primary" (click)="wordInputCheck(cards[counter], true)" id="check-button">Check</button>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <h4 class="card-title">
+                {{cards[counter].Question}}
+              </h4>
+              <br>
+              <div>
+                <label for="customerAnswerId">Type your answer</label>
+                <input type="text" id="customerAnswerId" placeholder="Type your answer here" [(ngModel)]="cards[counter].CustomerAnswersText" name="customerAnswerName">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngSwitchCase="'Code input'">
+          <div class="card bg-light mb-3">
+            <div class="card-header no-select" id="cardTitle{{cards[counter].Id}}">
+              <div class="row">
+                Question {{counter+1}} / {{cardsCount}}
+                <button class="btn btn-primary" (click)="codeAnswerCheck(cards[counter])" id="check-button">Check</button>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <h4 class="card-title">
+                {{cards[counter].Question}}
+              </h4>
+              <br>
+              <div>
+                <label for="customerCodeAnswerId">Type your answer</label>
+                <br>
+                <textarea id="customerAnswerTextareaId" placeholder="Type your answer here" [(ngModel)]="cards[counter].Answers[0].Text" name="customerCodeAnswerName" rows="12" cols="50">
+                                </textarea>
+              </div>
+              <div>
+                <label for="codeResultId">Result</label>
+                <br>
+                <textarea id="codeResultId" readonly="readonly" [(ngModel)]="codeResult" name="codeResult" rows="4" cols="50">
+                                </textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center" id="nav-buttons">
+        <button *ngIf="counter" class="btn btn-light" (click)="counterMinus(); heapCtrl(); saveAnswer(); cleanColor(); cleanCustomerAnswerInput();">
+          Previous
+        </button>
+        <button *ngIf="counter < cardsCount-1" class="btn btn-light" (click)="counterPlus(); heapCtrl(); saveAnswer(); cleanColor(); cleanCustomerAnswerInput();">
+          Next
+        </button>
+        <button *ngIf="counter === cardsCount-1" class="btn btn-light" (click)="finishQuiz()" id="btnFinish" routerLink="results">
+          Finish
+        </button>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-xl-4 cards">
+      <div class="no-select  text-center" id="RightHeap"
+           (click)="counterPlus(); heapCtrl(); saveAnswer(); cleanColor(); cleanCustomerAnswerInput();">
+        <h3>
+          {{countLeftQuestions()}} {{leftQuestionOrQuestions()}} left
+        </h3>
+        <img src="../assets/images/{{getImgPreNameLeft()}}-card-back-min.png" alt="card back">
+      </div>
+    </div>
+    <ng-template #noCardsInQuiz>
+      <h1 class="text-center">Sorry, there are no cards in quiz(</h1>
+    </ng-template>
+  </div>
 </div>
 <ng-template #loading>Loading...</ng-template>

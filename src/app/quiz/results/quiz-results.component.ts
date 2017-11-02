@@ -10,8 +10,8 @@ import { handleError } from '../../common/functions/functions';
 
 const CARD_STATUS = {
   NOT_PASSED: 0,
-  UNCORRECT: 1,
-  CORRECT: 2
+  UNCORRECT: -1,
+  CORRECT: 1
 };
 
 @Component({
