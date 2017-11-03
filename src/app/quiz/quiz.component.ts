@@ -18,7 +18,7 @@ export class QuizComponent implements OnInit {
     private authService: AuthService
   ) {
      this.dataForCards = {
-      numberOfCards: 0,
+      numberOfCards: 10,
       userLogin: '',
       courseOrDeckLink: ''
    };
@@ -53,13 +53,13 @@ export class QuizComponent implements OnInit {
               .GetCardsByDeck(this.dataForCards.courseOrDeckLink);
           }
         } else {
-          this.dataForCards.userLogin = this.authService.getCurrentUserLogin()
+          this.dataForCards.userLogin = this.authService.getCurrentUserLogin();
           if (params.get('from') === 'course') {
             return this.quizService
-              .GetCardsByCourseForSubscribed(this.dataForCards);
+              .GetCardsForSubscribedCourse(this.dataForCards);
           } else {
-            // return this.quizService
-            //   .GetCardsByDeckForSubscribed(decodeURIComponent(params.get('name')), this.numberOfCardsForSubscribed);
+             return this.quizService
+              .GetCardsForSubscribedDeck(this.dataForCards);
           }
         }
       })
@@ -67,7 +67,7 @@ export class QuizComponent implements OnInit {
         if (this.quizType === 'try') {
           this.cards = cards.slice(0, this.MAX_NUMBERS_OF_CARDS);
         } else {
-          this.cards = cards.slice(0, this.dataForCards.numberOfCards);
+          this.cards = cards;
         }
         this.cardsCount = this.cards.length;
         this.cards.forEach(card => {
