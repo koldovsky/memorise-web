@@ -9,9 +9,17 @@
                 <p class="card-subtitle mb-2 text-muted">{{deck.Price ? deck.Price : 'FREE'}}</p>
                 <!-- <p class="card-text">{{deck.Description}}</p> -->
                 <div class="text-center">
-                    <a class="btn btn-sm btn-primary" [routerLink]="['/deck', deck.Linking, 'quiz']">
-                        Try it now
-                    </a>
+                    <div *ngIf="deck.IsSubscribed; then go; else tryIt"></div>
+                    <ng-template #go>
+                        <a class="btn btn-sm btn-success" [routerLink]="['/deck', deck.Linking, 'quiz', 'go']">
+                            GO!
+                        </a>
+                    </ng-template>
+                    <ng-template #tryIt>
+                        <a class="btn btn-sm btn-primary" [routerLink]="['/deck', deck.Linking, 'quiz', 'try']">
+                            Try it now
+                        </a>
+                    </ng-template>
                     <a *ngIf="!authService.isAuthorized; else authorized" class="btn btn-sm btn-outline-success" [routerLink]="['/login']">
                         Subscribe
                     </a>
