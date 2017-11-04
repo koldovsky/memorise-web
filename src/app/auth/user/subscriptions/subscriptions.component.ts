@@ -3,6 +3,7 @@ import { UserSubscriptionsService } from '../../../common/services/user-subscrip
 import { AuthService } from '../../../common/services/auth.service';
 import { Course, Deck } from '../../../common/models/models';
 import { handleError } from '../../../common/functions/functions';
+declare let $: any;
 
 @Component({
     selector: 'app-subscriptions',
@@ -35,6 +36,7 @@ import { handleError } from '../../../common/functions/functions';
     .getSubscribedDecks(this.userLogin)
     .subscribe(decks => {
       this.decks = decks;
+      this.deckNumber = this.decks.length;
       this.decks.forEach(deck => {
         deck.IsSubscribed = true;
       });
@@ -47,6 +49,7 @@ import { handleError } from '../../../common/functions/functions';
     .getSubscribedCourses(this.userLogin)
     .subscribe(courses => {
       this.courses = courses;
+      this.courseNumber = this.courses.length;
       this.courses.forEach(course => {
         course.IsSubscribed = true;
       });
@@ -54,7 +57,7 @@ import { handleError } from '../../../common/functions/functions';
     err => handleError);
   }
 
-  getColClasses() {
+  addColClasses(): string {
     const itemNumber = this.selector === 'courses' ? this.courseNumber : this.deckNumber;
     switch (itemNumber) {
       case 1: return 'col-xs-12 col-sm-12';
@@ -71,4 +74,69 @@ import { handleError } from '../../../common/functions/functions';
       this.selector = 'decks';
     }
   }
+
+  // addStylesForClassCard(): {} {
+  //     let styles: object;
+  //     const itemNumber = this.selector === 'courses' ? this.courseNumber : this.deckNumber;
+  //     const itemId = this.selector === 'courses' ? 'courseId' : 'deckId';
+  //     switch (itemNumber) {
+  //       case 1:
+  //         if ($(itemId).hasClass('col-md-4') && $(itemId).hasClass('col-lg-3')) {
+  //           styles = {
+  //             'width': '20rem',
+  //           };
+  //         } else if ($(itemId).hasClass('col-md-4')) {
+  //           styles = {
+  //             'width': '17rem',
+  //           };
+  //         } else {
+  //           styles = {
+  //             'width': '40rem',
+  //           };
+  //         } break;
+  //       case 2:
+  //         if ($(itemId).hasClass('col-md-4') && $(itemId).hasClass('col-lg-3')) {
+  //           styles = {
+  //             'width': '20rem',
+  //           };
+  //         } else if ($(itemId).hasClass('col-md-4')) {
+  //           styles = {
+  //             'width': '17rem',
+  //           };
+  //         } else {
+  //           styles = {
+  //             'width': '40rem',
+  //           };
+  //         } break;
+  //       case 3:
+  //         if ($(itemId).hasClass('col-md-4') && $(itemId).hasClass('col-lg-3')) {
+  //           styles = {
+  //             'width': '20rem',
+  //           };
+  //         } else if ($(itemId).hasClass('col-md-4')) {
+  //           styles = {
+  //             'width': '17rem',
+  //           };
+  //         } else {
+  //           styles = {
+  //             'width': '40rem',
+  //           };
+  //         } break;
+  //       default:
+  //         if ($(itemId).hasClass('col-md-4') && $(itemId).hasClass('col-lg-3')) {
+  //           styles = {
+  //             'width': '20rem',
+  //           };
+  //         } else if ($(itemId).hasClass('col-md-4')) {
+  //           styles = {
+  //             'width': '17rem',
+  //           };
+  //         } else {
+  //           styles = {
+  //             'width': '40rem',
+  //           };
+  //         } break;
+  //     }
+  //     return styles;
+  // }
 }
