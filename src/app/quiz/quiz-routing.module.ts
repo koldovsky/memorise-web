@@ -10,7 +10,7 @@ const route: Routes = [
         component: QuizComponent,
     },
     {
-        path: ':from/:name/quiz/results',
+        path: ':from/:name/quiz/:quizType/results',
         component: QuizResultsComponent
     },
 ];

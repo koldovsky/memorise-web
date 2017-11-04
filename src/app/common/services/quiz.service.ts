@@ -40,9 +40,8 @@ export class QuizService {
             .catch(handleError);
     }
 
-    GetCardsByCourseForSubscribed(dataForCards: DataForGetCardsForSubscription): Promise<Card[]> {
-        const URL = `${environment.quizUrl}/GetCardsByCourseForSubscribed/
-        ${dataForCards.courseOrDeckLink}/${dataForCards.numberOfCards}/${dataForCards.userLogin}`;
+    GetCardsForSubscribedCourse(dataForCards: DataForGetCardsForSubscription): Promise<Card[]> {
+        const URL = `${environment.quizUrl}/GetCardsForSubscribedCourse/${dataForCards.courseOrDeckLink}/${dataForCards.numberOfCards}/${dataForCards.userLogin}`;
 
         return this.http.get(URL)
             .toPromise()
@@ -50,8 +49,8 @@ export class QuizService {
             .catch(handleError);
     }
 
-    GetCardsByDeckForSubscribed(name: string, numberOfCards: number): Promise<Card[]> {
-        const URL = `${environment.quizUrl}/GetCardsByDeckForSubscribed/${name}/${numberOfCards}`;
+    GetCardsForSubscribedDeck(dataForCards: DataForGetCardsForSubscription): Promise<Card[]> {
+        const URL = `${environment.quizUrl}/GetCardsForSubscribedDeck/${dataForCards.courseOrDeckLink}/${dataForCards.numberOfCards}/${dataForCards.userLogin}`;
 
         return this.http.get(URL)
             .toPromise()

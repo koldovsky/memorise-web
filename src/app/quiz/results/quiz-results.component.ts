@@ -10,7 +10,7 @@ import { handleError } from '../../common/functions/functions';
 
 const CARD_STATUS = {
   NOT_PASSED: 0,
-  UNCORRECT: -1,
+  INCORRECT: -1,
   CORRECT: 1
 };
 
@@ -119,7 +119,7 @@ export class QuizResultsComponent implements OnInit {
           if (statistics) {
             statistics.CardStatus = this.checkCard(card)
               ? CARD_STATUS.CORRECT
-              : CARD_STATUS.UNCORRECT;
+              : CARD_STATUS.INCORRECT;
             this.statisticsService.updateStatistics(statistics).subscribe();
           }
         },
