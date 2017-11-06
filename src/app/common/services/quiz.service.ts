@@ -42,7 +42,9 @@ export class QuizService {
     }
 
     GetCardsForSubscribedCourse(dataForCards: DataForGetCardsForSubscription): Promise<Card[]> {
-        const URL = `${environment.quizUrl}/GetCardsForSubscribedCourse/${dataForCards.courseOrDeckLink}/${dataForCards.numberOfCards}/${dataForCards.userLogin}`;
+        const URL =
+        `${environment.quizUrl}/GetCardsForSubscribedCourse/
+        ${dataForCards.courseOrDeckLink}/${dataForCards.numberOfCards}/${dataForCards.userLogin}`;
 
         return this.http.get(URL)
             .toPromise()
@@ -51,7 +53,9 @@ export class QuizService {
     }
 
     GetCardsForSubscribedDeck(dataForCards: DataForGetCardsForSubscription): Promise<Card[]> {
-        const URL = `${environment.quizUrl}/GetCardsForSubscribedDeck/${dataForCards.courseOrDeckLink}/${dataForCards.numberOfCards}/${dataForCards.userLogin}`;
+        const URL =
+        `${environment.quizUrl}/GetCardsForSubscribedDeck/
+        ${dataForCards.courseOrDeckLink}/${dataForCards.numberOfCards}/${dataForCards.userLogin}`;
 
         return this.http.get(URL)
             .toPromise()
@@ -69,7 +73,7 @@ export class QuizService {
     }
 
     SetSylesForSubscriptionsDropdownItem(IsCardsNeedForRepeat: boolean) {
-        console.log("IsCardsNeedForRepeat" + IsCardsNeedForRepeat);
+        console.log('IsCardsNeedForRepeat' + IsCardsNeedForRepeat);
         if (IsCardsNeedForRepeat) {
           this.styles = {
             'color': 'red',
@@ -84,5 +88,4 @@ export class QuizService {
     GetSylesForSubscriptionsDropdownItem() {
         return this.styles;
     }
-
 }
