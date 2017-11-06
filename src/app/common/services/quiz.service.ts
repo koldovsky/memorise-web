@@ -71,6 +71,7 @@ export class QuizService {
     }
 
     SetSylesForSubscriptionsDropdownItem(IsCardsNeedForRepeat: boolean) {
+        console.log("IsCardsNeedForRepeat" + IsCardsNeedForRepeat);
         if (IsCardsNeedForRepeat) {
           this.styles = {
             'color': 'red',

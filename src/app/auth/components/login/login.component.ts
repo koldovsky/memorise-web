@@ -7,8 +7,6 @@ import { Router } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { regexExpression } from '../../../common/helpers/regexExpression';
 import { errorMessages } from '../../../common/helpers/errorMessages';
-import { QuizService } from '../../../common/services/quiz.service';
-import { Card } from '../../../common/models/models';
 
 declare var window: any;
 declare var FB: any;
@@ -24,13 +22,11 @@ export class LoginComponent implements OnInit {
     regex: any;
     message: any;
     loginForm: FormGroup;
-    cardsNeedToRepeat: Card[];
 
     constructor(
         public fb: FormBuilder,
         private router: Router,
         private authService: AuthService,
-        private quizService: QuizService,
     ) {
         this.regex = regexExpression;
         this.message = errorMessages;
@@ -86,15 +82,6 @@ export class LoginComponent implements OnInit {
                 if (this.authService.validData()) {
                     this.authService.checkIfIsAuthorized();
                     this.router.navigate(['catalog/courses/Any']);
-                    const userId = this.authService.getCurrentUserLogin();
-                    this.quizService
-                    .GetCardsNeedToRepeat(userId)
-                    .then(cards => this.cardsNeedToRepeat = cards);
-                    if (this.cardsNeedToRepeat) {
-                        this.quizService.SetSylesForSubscriptionsDropdownItem(true);
-                    } else {
-                        this.quizService.SetSylesForSubscriptionsDropdownItem(false);
-                    }
                 } else {
                     this.loginForm.reset();
                 }
@@ -109,7 +96,7 @@ export class LoginComponent implements OnInit {
     signOut(): void {
         FB.logout();
     }
-    
+
     ngOnInit(): void {
         if (window.FB) {
             window.FB.XFBML.parse();
