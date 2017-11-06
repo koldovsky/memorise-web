@@ -43,8 +43,8 @@ export class QuizService {
 
     GetCardsForSubscribedCourse(dataForCards: DataForGetCardsForSubscription): Promise<Card[]> {
         const URL =
-        `${environment.quizUrl}/GetCardsForSubscribedCourse/
-        ${dataForCards.courseOrDeckLink}/${dataForCards.numberOfCards}/${dataForCards.userLogin}`;
+        `${environment.quizUrl}/GetCardsForSubscribedCourse/`
+        + `${dataForCards.courseOrDeckLink}/${dataForCards.numberOfCards}/${dataForCards.userLogin}`;
 
         return this.http.get(URL)
             .toPromise()
@@ -54,8 +54,8 @@ export class QuizService {
 
     GetCardsForSubscribedDeck(dataForCards: DataForGetCardsForSubscription): Promise<Card[]> {
         const URL =
-        `${environment.quizUrl}/GetCardsForSubscribedDeck/
-        ${dataForCards.courseOrDeckLink}/${dataForCards.numberOfCards}/${dataForCards.userLogin}`;
+        `${environment.quizUrl}/GetCardsForSubscribedDeck/`
+        + `${dataForCards.courseOrDeckLink}/${dataForCards.numberOfCards}/${dataForCards.userLogin}`;
 
         return this.http.get(URL)
             .toPromise()
