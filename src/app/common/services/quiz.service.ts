@@ -12,6 +12,7 @@ export class QuizService {
     cards: Card[];
     codeAnswers: CodeAnswer[];
     wordInputs: WordInput[];
+    private styles = {};
 
     constructor(private http: HttpClient) { }
 
@@ -41,7 +42,8 @@ export class QuizService {
     }
 
     GetCardsForSubscribedCourse(dataForCards: DataForGetCardsForSubscription): Promise<Card[]> {
-        const URL = `${environment.quizUrl}/GetCardsForSubscribedCourse/${dataForCards.courseOrDeckLink}/${dataForCards.numberOfCards}/${dataForCards.userLogin}`;
+        const URL = `${environment.quizUrl}/GetCardsForSubscribedCourse/
+        ${dataForCards.courseOrDeckLink}/${dataForCards.numberOfCards}/${dataForCards.userLogin}`;
 
         return this.http.get(URL)
             .toPromise()
@@ -50,12 +52,38 @@ export class QuizService {
     }
 
     GetCardsForSubscribedDeck(dataForCards: DataForGetCardsForSubscription): Promise<Card[]> {
-        const URL = `${environment.quizUrl}/GetCardsForSubscribedDeck/${dataForCards.courseOrDeckLink}/${dataForCards.numberOfCards}/${dataForCards.userLogin}`;
+        const URL = `${environment.quizUrl}/GetCardsForSubscribedDeck/
+        ${dataForCards.courseOrDeckLink}/${dataForCards.numberOfCards}/${dataForCards.userLogin}`;
 
         return this.http.get(URL)
             .toPromise()
             .then(response => response as Card[])
             .catch(handleError);
+    }
+
+    GetCardsNeedToRepeat(userId: string): Promise<Card[]> {
+        const URL = `${environment.quizUrl}/GetCardsNeedToRepeat/${userId}`;
+
+        return this.http.get(URL)
+            .toPromise()
+            .then(response => response as Card[])
+            .catch(handleError);
+    }
+
+    SetSylesForSubscriptionsDropdownItem(IsCardsNeedForRepeat: boolean) {
+        if (IsCardsNeedForRepeat) {
+          this.styles = {
+            'color': 'red',
+          };
+        }else {
+            this.styles = {
+                'color': 'black',
+              };
+        }
+    }
+
+    GetSylesForSubscriptionsDropdownItem() {
+        return this.styles;
     }
 
 }

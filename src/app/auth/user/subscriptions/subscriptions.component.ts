@@ -57,13 +57,14 @@ declare let $: any;
     err => handleError);
   }
 
-  addColClasses(): string {
+  addMainItemClasses(): string {
+    const margin = 'margin ';
     const itemNumber = this.selector === 'courses' ? this.courseNumber : this.deckNumber;
     switch (itemNumber) {
-      case 1: return 'col-xs-12 col-sm-12';
-      case 2: return 'col-xs-12 col-sm-6';
-      case 3: return 'col-xs-12 col-sm-6 col-md-4';
-      default: return 'col-xs-12 col-sm-6 col-md-4 col-lg-3';
+      case 1: return margin + 'col-xs-12 col-sm-12';
+      case 2: return margin + 'col-xs-12 col-sm-6';
+      case 3: return margin + 'col-xs-12 col-sm-6 col-md-4';
+      default: return margin + 'col-xs-12 col-sm-6 col-md-4 col-lg-3';
     }
   }
 
