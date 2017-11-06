@@ -49,7 +49,7 @@ export class StatisticsComponent implements OnInit {
     statistics.forEach(s => {
       if (s && s.CardStatus !== 0) {
         passed++;
-        if (s.CardStatus === 2) {
+        if (s.CardStatus === 1) {
           successful++;
         }
       }

@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
     constructor(
         public fb: FormBuilder,
         private router: Router,
-        private authService: AuthService
+        private authService: AuthService,
     ) {
         this.regex = regexExpression;
         this.message = errorMessages;
@@ -96,7 +96,7 @@ export class LoginComponent implements OnInit {
     signOut(): void {
         FB.logout();
     }
-    
+
     ngOnInit(): void {
         if (window.FB) {
             window.FB.XFBML.parse();

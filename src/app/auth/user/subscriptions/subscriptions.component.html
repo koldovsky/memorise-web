@@ -1,0 +1,109 @@
+<br>
+<div class="row">
+    <div class="col-xs-12 col-sm-1 col-md-2 col-lg-3 col-xl-4"></div>
+    <div class="col-xs-12 col-sm-5 col-md-4 col-lg-3 col-xl-2">
+        <button type="button" class="btn btn-info btn-block" (click)="setSelector('courses'); getSubscribedCourses()">Courses</button>
+    </div>
+
+    <div class="col-xs-12 col-sm-5 col-md-4 col-lg-3 col-xl-2">
+        <button type="button" class="btn btn-info btn-block" (click)="setSelector('decks'); getSubscribedDecks()">Decks</button>
+    </div>
+    <div class="col-xs-12 col-sm-1 col-md-2 col-lg-3 col-xl-4"></div>
+</div>
+<br>
+<div class="row">
+    <div [ngSwitch]="selector" class="col-xs-12 col-sm-12">
+        <div *ngSwitchCase="'courses'" class="col-xs-12 col-sm-12">
+            <div class="row">
+                <div *ngFor="let course of courses" id="courseId" [class]="addMainItemClasses()">
+                    <div class="card center" style="width: 15rem;">
+                        <div class="crop" [routerLink]="['/catalog/course', course.Linking]">
+                            <img class="card-img-top" src="{{course.Photo}}" alt="{{course.Name}}">
+                        </div>
+                        <div class="card-body mt-auto">
+                            <div [routerLink]="['/catalog/course', course.Linking]">
+                                <h4 class="card-title">{{course.Name}}</h4>
+                                <p class="card-subtitle mb-2 text-muted">{{course.Price ? course.Price : 'FREE'}}</p>
+                            </div>
+                            <!-- <p class="card-text">{{course.Description}}</p> -->
+                            <div class="text-center">
+                                <div *ngIf="course.IsSubscribed; then go; else tryIt"></div>
+                                <ng-template #go>
+                                    <a class="btn btn-sm btn-success" [routerLink]="['/course', course.Linking, 'quiz', 'go']">
+                                        GO!
+                                    </a>
+                                </ng-template>
+                                <ng-template #tryIt>
+                                    <a class="btn btn-sm btn-primary" [routerLink]="['/course', course.Linking, 'quiz', 'try']">
+                                        Try it now
+                                    </a>
+                                </ng-template>
+                                <a *ngIf="!authService.isAuthorized; else authorized" class="btn btn-sm btn-outline-success" [routerLink]="['/login']">
+                                    Subscribe
+                                </a>
+                                <ng-template #authorized>
+                                    <div *ngIf="course.IsSubscribed; then unsubscribe; else subscribe"></div>
+                                    <ng-template #subscribe>
+                                        <button class="btn btn-sm btn-outline-success" (click)="subscribeToCourse(course)">
+                                            Subscribe
+                                        </button>
+                                    </ng-template>
+                                    <ng-template #unsubscribe>
+                                        <button class="btn btn-sm btn-outline-secondary" (click)="unsubscribeFromCourse(course)">
+                                            Unsubscribe
+                                        </button>
+                                    </ng-template>
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngSwitchCase="'decks'" class="col-xs-12 col-sm-12">
+            <div class="row">
+                <div [class]="addMainItemClasses()" id="deckId" *ngFor="let deck of decks">
+                    <div class="card center" style="width: 15rem;">
+                        <div class="crop">
+                            <img class="card-img-top" src="{{deck.Photo}}" alt="{{deck.Name}}">
+                        </div>
+                        <div class="card-body mt-auto">
+                            <h4 class="card-title">{{deck.Name}}</h4>
+                            <p class="card-subtitle mb-2 text-muted">{{deck.Price ? deck.Price : 'FREE'}}</p>
+                            <!-- <p class="card-text">{{deck.Description}}</p> -->
+                            <div class="text-center">
+                                <div *ngIf="deck.IsSubscribed; then go; else tryIt"></div>
+                                <ng-template #go>
+                                    <a class="btn btn-sm btn-success" [routerLink]="['/deck', deck.Linking, 'quiz', 'go']">
+                                        GO!
+                                    </a>
+                                </ng-template>
+                                <ng-template #tryIt>
+                                    <a class="btn btn-sm btn-primary" [routerLink]="['/deck', deck.Linking, 'quiz', 'try']">
+                                        Try it now
+                                    </a>
+                                </ng-template>
+                                <a *ngIf="!authService.isAuthorized; else authorized" class="btn btn-sm btn-outline-success" [routerLink]="['/login']">
+                                    Subscribe
+                                </a>
+                                <ng-template #authorized>
+                                    <div *ngIf="deck.IsSubscribed; then unsubscribe; else subscribe"></div>
+                                    <ng-template #subscribe>
+                                        <button class="btn btn-sm btn-outline-success" (click)="subscribeToDeck(deck)">
+                                            Subscribe
+                                        </button>
+                                    </ng-template>
+                                    <ng-template #unsubscribe>
+                                        <button class="btn btn-sm btn-outline-secondary" (click)="unsubscribeFromDeck(deck)">
+                                            Unsubscribe
+                                        </button>
+                                    </ng-template>
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

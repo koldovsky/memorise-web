@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import 'rxjs/add/operator/toPromise';
 
-import { Card, CodeAnswer, WordInput } from '../models/models';
+import { Card, CodeAnswer, WordInput, DataForGetCardsForSubscription } from '../models/models';
 import { handleError } from '../functions/functions';
 import { environment } from '../../../environments/environment';
 
@@ -12,6 +12,7 @@ export class QuizService {
     cards: Card[];
     codeAnswers: CodeAnswer[];
     wordInputs: WordInput[];
+    private styles = {};
 
     constructor(private http: HttpClient) { }
 
@@ -39,4 +40,49 @@ export class QuizService {
             .then(response => response as CodeAnswer)
             .catch(handleError);
     }
+
+    GetCardsForSubscribedCourse(dataForCards: DataForGetCardsForSubscription): Promise<Card[]> {
+        const URL = `${environment.quizUrl}/GetCardsForSubscribedCourse/${dataForCards.courseOrDeckLink}/${dataForCards.numberOfCards}/${dataForCards.userLogin}`;
+
+        return this.http.get(URL)
+            .toPromise()
+            .then(response => response as Card[])
+            .catch(handleError);
+    }
+
+    GetCardsForSubscribedDeck(dataForCards: DataForGetCardsForSubscription): Promise<Card[]> {
+        const URL = `${environment.quizUrl}/GetCardsForSubscribedDeck/${dataForCards.courseOrDeckLink}/${dataForCards.numberOfCards}/${dataForCards.userLogin}`;
+
+        return this.http.get(URL)
+            .toPromise()
+            .then(response => response as Card[])
+            .catch(handleError);
+    }
+
+    GetCardsNeedToRepeat(userId: string): Promise<Card[]> {
+        const URL = `${environment.quizUrl}/GetCardsNeedToRepeat/${userId}`;
+
+        return this.http.get(URL)
+            .toPromise()
+            .then(response => response as Card[])
+            .catch(handleError);
+    }
+
+    SetSylesForSubscriptionsDropdownItem(IsCardsNeedForRepeat: boolean) {
+        console.log("IsCardsNeedForRepeat" + IsCardsNeedForRepeat);
+        if (IsCardsNeedForRepeat) {
+          this.styles = {
+            'color': 'red',
+          };
+        }else {
+            this.styles = {
+                'color': 'black',
+              };
+        }
+    }
+
+    GetSylesForSubscriptionsDropdownItem() {
+        return this.styles;
+    }
+
 }

@@ -20,6 +20,7 @@ export interface Card extends BaseEntity {
     IsPassed?: boolean;
     RightAnswersText?: string;
     CustomerAnswersText?: string;
+    IsDisabled?: boolean;
 }
 
 export interface CardType extends BaseEntity {
@@ -169,3 +170,10 @@ export interface CodeAnswer extends BaseEntity {
     CodeAnswerText: string;
     IsRight: boolean;
 }
+
+export interface DataForGetCardsForSubscription {
+    userLogin: string;
+    numberOfCards: number;
+    courseOrDeckLink: string;
+}
+

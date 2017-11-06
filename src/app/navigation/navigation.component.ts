@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../common/services/auth.service';
 import { User } from '../common/models/models';
 import { NavigationService } from '../common/services/navigation.service';
+import { QuizService } from '../common/services/quiz.service';
 
 @Component({
   selector: 'app-navigation',
@@ -18,7 +19,8 @@ export class NavigationComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private navigation: NavigationService,
-    private router: Router
+    private router: Router,
+    private quizService: QuizService,
   ) { }
 
   signOut(): void {
@@ -41,5 +43,9 @@ export class NavigationComponent implements OnInit {
 
   getRouterLink(dependency: string): string[] {
     return ['catalog', this.navigation.dependency, this.navigation.category];
+  }
+
+  GetSylesForSubscriptionsDropdownItem() {
+    return this.quizService.GetSylesForSubscriptionsDropdownItem();
   }
 }
