@@ -28,7 +28,8 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.authService.checkIfIsAuthorized();
     this.router.events
-    .subscribe(() => {
+    .subscribe((e) => {
+      if (e instanceof NavigationEnd) {
        if (this.authService.checkIfIsAuthorized()) {
          const userId = this.authService.getCurrentUserLogin();
          this.quizService
@@ -44,7 +45,7 @@ export class AppComponent implements OnInit {
        }else {
          this.quizService.SetSylesForSubscriptionsDropdownItem(false);
        }
-    });
+    }});
   }
 }
 
