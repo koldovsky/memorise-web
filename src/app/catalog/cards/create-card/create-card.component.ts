@@ -29,6 +29,7 @@ export class CreateCardComponent implements OnInit {
     arrayIsReady = false;
     submitMessage = '';
     correctAnswer = '';
+    userTemplate = '';
     numbersOfAnswers: number[];
     chosenNumbersOfAnswers: number;
     numberOfCorrectAnswer: number;
@@ -84,6 +85,7 @@ export class CreateCardComponent implements OnInit {
         if (this.chosenNumbersOfAnswers === 0) {
             this.card.Answers = [];
             this.card.Answers.push({Text: this.correctAnswer, IsCorrect: true} as Answer);
+            this.card.Answers.push({Text: this.userTemplate, IsCorrect: false} as Answer);
         }
         this.createCard();
         form.reset();

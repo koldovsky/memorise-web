@@ -80,11 +80,22 @@
       <!-- Words Input & Code input -->
       <div *ngIf="card.CardTypeName=='Words input' ||card.CardTypeName=='Code input'" class="form-group">
         <label for="correctAnswer" class="form-control-label">Correct answer:</label>
-        <textarea class="form-control" required [(ngModel)]='card.Answers[0].Text' name="correctAnswer" id="correctAnswer" maxlength={{regex.MAX_LENGTH_TEXTAREA}}
+        <textarea class="form-control" required [(ngModel)]='getCorrectCodeAnswer(card).Text' name="correctAnswer" id="correctAnswer" maxlength={{regex.MAX_LENGTH_TEXTAREA}}
           #corAnswer="ngModel">
                         </textarea>
         <div *ngIf="corAnswer.invalid && (corAnswer.dirty || corAnswer.touched)" class="alert alert-danger">
           <div *ngIf="corAnswer.errors.required">
+            {{error.REQUIRED}}
+          </div>
+        </div>
+      </div>
+      <div *ngIf="card.CardTypeName=='Code input'" class="form-group">
+        <label for="customerTemplate" class="form-control-label">Customer template:</label>
+        <textarea class="form-control" required [(ngModel)]='getCustomerTemplateCodeAnswer(card).Text' name="customerTemplate" id="customerTemplate" maxlength={{regex.MAX_LENGTH_TEXTAREA}}
+          #customerTemplateControl="ngModel">
+                        </textarea>
+        <div *ngIf="customerTemplateControl.invalid && (customerTemplateControl.dirty || customerTemplateControl.touched)" class="alert alert-danger">
+          <div *ngIf="customerTemplateControl.errors.required">
             {{error.REQUIRED}}
           </div>
         </div>

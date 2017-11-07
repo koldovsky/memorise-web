@@ -81,6 +81,14 @@ export class EditCardComponent implements OnInit {
         this.moderationService.whichButtonIsClicked = 'decks';
     }
 
+    getCustomerTemplateCodeAnswer(card: Card): Answer {
+        return card.Answers.find(answer => !answer.IsCorrect);
+    }
+
+    getCorrectCodeAnswer(card: Card): Answer {
+        return card.Answers.find(answer => answer.IsCorrect);
+    }
+
     changeCheckbox(i) {
        this.card.Answers[i].IsCorrect = !this.card.Answers[i].IsCorrect;
        const correctAnswers = this.card.Answers.findIndex(x => x.IsCorrect === true);
