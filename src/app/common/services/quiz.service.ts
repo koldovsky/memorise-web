@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import 'rxjs/add/operator/toPromise';
 
-import { Card, CodeAnswer, WordInput, DataForGetCardsForSubscription } from '../models/models';
+import { Card, CodeAnswer, WordInput, DataForGetCardsForSubscription, Deck, Course } from '../models/models';
 import { handleError } from '../functions/functions';
 import { environment } from '../../../environments/environment';
 
@@ -59,12 +59,21 @@ export class QuizService {
             .catch(handleError);
     }
 
-    GetCardsNeedToRepeat(userId: string): Promise<Card[]> {
-        const URL = `${environment.quizUrl}/GetCardsNeedToRepeat/${userId}`;
+    GetDecksNeedToRepeat(userLogin: string): Promise<Deck[]> {
+        const URL = `${environment.quizUrl}/GetDecksNeedToRepeat/${userLogin}`;
 
         return this.http.get(URL)
             .toPromise()
-            .then(response => response as Card[])
+            .then(response => response as Deck[])
+            .catch(handleError);
+    }
+
+    GetCoursesNeedToRepeat(userLogin: string): Promise<Course[]> {
+        const URL = `${environment.quizUrl}/GetCoursesNeedToRepeat/${userLogin}`;
+
+        return this.http.get(URL)
+            .toPromise()
+            .then(response => response as Course[])
             .catch(handleError);
     }
 

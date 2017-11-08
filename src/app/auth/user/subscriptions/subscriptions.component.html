@@ -16,7 +16,7 @@
         <div *ngSwitchCase="'courses'" class="col-xs-12 col-sm-12">
             <div class="row">
                 <div *ngFor="let course of courses" id="courseId" [class]="addMainItemClasses()">
-                    <div class="card center" style="width: 15rem;">
+                    <div class="card center" [ngStyle]="getStylesForCourse(course.Id)">
                         <div class="crop" [routerLink]="['/catalog/course', course.Linking]">
                             <img class="card-img-top" src="{{course.Photo}}" alt="{{course.Name}}">
                         </div>
@@ -38,22 +38,6 @@
                                         Try it now
                                     </a>
                                 </ng-template>
-                                <a *ngIf="!authService.isAuthorized; else authorized" class="btn btn-sm btn-outline-success" [routerLink]="['/login']">
-                                    Subscribe
-                                </a>
-                                <ng-template #authorized>
-                                    <div *ngIf="course.IsSubscribed; then unsubscribe; else subscribe"></div>
-                                    <ng-template #subscribe>
-                                        <button class="btn btn-sm btn-outline-success" (click)="subscribeToCourse(course)">
-                                            Subscribe
-                                        </button>
-                                    </ng-template>
-                                    <ng-template #unsubscribe>
-                                        <button class="btn btn-sm btn-outline-secondary" (click)="unsubscribeFromCourse(course)">
-                                            Unsubscribe
-                                        </button>
-                                    </ng-template>
-                                </ng-template>
                             </div>
                         </div>
                     </div>
@@ -63,7 +47,7 @@
         <div *ngSwitchCase="'decks'" class="col-xs-12 col-sm-12">
             <div class="row">
                 <div [class]="addMainItemClasses()" id="deckId" *ngFor="let deck of decks">
-                    <div class="card center" style="width: 15rem;">
+                    <div class="card center" [ngStyle]="getStylesForDeck(deck.Id)">
                         <div class="crop">
                             <img class="card-img-top" src="{{deck.Photo}}" alt="{{deck.Name}}">
                         </div>
@@ -82,22 +66,6 @@
                                     <a class="btn btn-sm btn-primary" [routerLink]="['/deck', deck.Linking, 'quiz', 'try']">
                                         Try it now
                                     </a>
-                                </ng-template>
-                                <a *ngIf="!authService.isAuthorized; else authorized" class="btn btn-sm btn-outline-success" [routerLink]="['/login']">
-                                    Subscribe
-                                </a>
-                                <ng-template #authorized>
-                                    <div *ngIf="deck.IsSubscribed; then unsubscribe; else subscribe"></div>
-                                    <ng-template #subscribe>
-                                        <button class="btn btn-sm btn-outline-success" (click)="subscribeToDeck(deck)">
-                                            Subscribe
-                                        </button>
-                                    </ng-template>
-                                    <ng-template #unsubscribe>
-                                        <button class="btn btn-sm btn-outline-secondary" (click)="unsubscribeFromDeck(deck)">
-                                            Unsubscribe
-                                        </button>
-                                    </ng-template>
                                 </ng-template>
                             </div>
                         </div>
