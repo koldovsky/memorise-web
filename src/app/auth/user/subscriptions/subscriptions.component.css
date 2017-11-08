@@ -5,3 +5,29 @@
 .margin{
     margin: 2rem 0;
 }
+
+.container {
+    position: relative;
+    text-align: center;
+}
+
+.centered{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.opacity15 {
+    filter: alpha(Opacity=15);
+    opacity: 0.15; 
+}
+
+.timeToRepeat{
+    color: rgb(248, 75, 60);
+}
+
+.imgImDiv{
+    max-height:100%; 
+    max-width:100%;
+}
