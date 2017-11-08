@@ -3,9 +3,10 @@ import { HttpClient } from '@angular/common/http';
 
 import 'rxjs/add/operator/toPromise';
 
-import { Card, CodeAnswer, WordInput, DataForGetCardsForSubscription } from '../models/models';
+import { Card, CodeAnswer, Algorithm, WordInput, DataForGetCardsForSubscription, Deck, Course } from '../models/models';
 import { handleError } from '../functions/functions';
 import { environment } from '../../../environments/environment';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class QuizService {
@@ -42,8 +43,8 @@ export class QuizService {
     }
 
     GetCardsForSubscribedCourse(dataForCards: DataForGetCardsForSubscription): Promise<Card[]> {
-        const URL =
-        `${environment.quizUrl}/GetCardsForSubscribedCourse/`
+
+        const URL = `${environment.quizUrl}/GetCardsForSubscribedCourse/`
         + `${dataForCards.courseOrDeckLink}/${dataForCards.numberOfCards}/${dataForCards.userLogin}`;
 
         return this.http.get(URL)
@@ -53,8 +54,8 @@ export class QuizService {
     }
 
     GetCardsForSubscribedDeck(dataForCards: DataForGetCardsForSubscription): Promise<Card[]> {
-        const URL =
-        `${environment.quizUrl}/GetCardsForSubscribedDeck/`
+
+        const URL = `${environment.quizUrl}/GetCardsForSubscribedDeck/`
         + `${dataForCards.courseOrDeckLink}/${dataForCards.numberOfCards}/${dataForCards.userLogin}`;
 
         return this.http.get(URL)
@@ -63,17 +64,26 @@ export class QuizService {
             .catch(handleError);
     }
 
-    GetCardsNeedToRepeat(userId: string): Promise<Card[]> {
-        const URL = `${environment.quizUrl}/GetCardsNeedToRepeat/${userId}`;
+    GetDecksNeedToRepeat(userLogin: string): Promise<Deck[]> {
+        const URL = `${environment.quizUrl}/GetDecksNeedToRepeat/${userLogin}`;
 
         return this.http.get(URL)
             .toPromise()
-            .then(response => response as Card[])
+            .then(response => response as Deck[])
+            .catch(handleError);
+    }
+
+    GetCoursesNeedToRepeat(userLogin: string): Promise<Course[]> {
+        const URL = `${environment.quizUrl}/GetCoursesNeedToRepeat/${userLogin}`;
+
+        return this.http.get(URL)
+            .toPromise()
+            .then(response => response as Course[])
             .catch(handleError);
     }
 
     SetSylesForSubscriptionsDropdownItem(IsCardsNeedForRepeat: boolean) {
-        console.log('IsCardsNeedForRepeat' + IsCardsNeedForRepeat);
+
         if (IsCardsNeedForRepeat) {
           this.styles = {
             'color': 'red',
@@ -88,4 +98,14 @@ export class QuizService {
     GetSylesForSubscriptionsDropdownItem() {
         return this.styles;
     }
+
+
+    ChangeAlgorithm(algorithm: Algorithm): Observable<Object> {
+        return this.http.put(`${environment.quizUrl}/ChangeAlgorithm`, algorithm);
+    }
+
+    GetAlgorithms(): Observable<Object> {
+        return this.http.get(`${environment.moderationUrl}/GetAllAlgorithms`);
+    }
+
 }

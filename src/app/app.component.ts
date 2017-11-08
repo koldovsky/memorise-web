@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from './common/services/auth.service';
 import { QuizService } from './common/services/quiz.service';
 import { Router, Event, NavigationEnd, RouteConfigLoadStart, RoutesRecognized } from '@angular/router';
-import { Card } from './common/models/models';
+import { Deck, Course } from './common/models/models';
 
 
 @Component({
@@ -17,7 +17,8 @@ export class AppComponent implements OnInit {
   description = 'Some description';
   name: string;
   event: Event;
-  cardsNeedToRepeat: Card[];
+  decksNeedToRepeat: Deck[];
+  coursesNeedToRepeat: Course[];
 
   constructor(
     private authService: AuthService,
@@ -26,17 +27,21 @@ export class AppComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.authService.checkIfIsAuthorized();
     this.router.events
-    .subscribe(() => {
-       if (this.authService.checkIfIsAuthorized()) {
-         const userId = this.authService.getCurrentUserLogin();
-         this.quizService
-           .GetCardsNeedToRepeat(userId)
-           .then(cards => this.cardsNeedToRepeat = cards);
-         if (this.cardsNeedToRepeat !== undefined &&
-                  this.cardsNeedToRepeat !== null &&
-                  this.cardsNeedToRepeat.length > 0) {
+    .subscribe((e) => {
+      if (this.authService.isAuthorized) {
+        if (e instanceof NavigationEnd) {
+         const userLogin = this.authService.getCurrentUserLogin();
+          this.quizService
+            .GetDecksNeedToRepeat(userLogin)
+            .then(decks => this.decksNeedToRepeat = decks)
+            .catch(error => console.log(error));
+            this.quizService
+            .GetCoursesNeedToRepeat(userLogin)
+            .then(courses => this.coursesNeedToRepeat = courses)
+            .catch(error => console.log(error));
+         if (this.decksNeedToRepeat && this.decksNeedToRepeat.length > 0 ||
+              this.coursesNeedToRepeat && this.coursesNeedToRepeat.length > 0) {
            this.quizService.SetSylesForSubscriptionsDropdownItem(true);
          } else {
            this.quizService.SetSylesForSubscriptionsDropdownItem(false);
@@ -44,7 +49,7 @@ export class AppComponent implements OnInit {
        }else {
          this.quizService.SetSylesForSubscriptionsDropdownItem(false);
        }
+      }
     });
   }
 }
-

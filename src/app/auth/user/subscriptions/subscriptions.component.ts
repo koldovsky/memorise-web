@@ -3,6 +3,7 @@ import { UserSubscriptionsService } from '../../../common/services/user-subscrip
 import { AuthService } from '../../../common/services/auth.service';
 import { Course, Deck } from '../../../common/models/models';
 import { handleError } from '../../../common/functions/functions';
+import { QuizService } from '../../../common/services/quiz.service';
 declare let $: any;
 
 @Component({
@@ -16,18 +17,32 @@ declare let $: any;
     courseNumber: number;
     courses: Course[];
     decks: Deck[];
+    coursesNeedToRepeat: Course[];
+    decksNeedToRepeat: Deck[];
     userLogin: string;
     selector = 'courses';
+    styles: {};
+    isLoaded = false;
     constructor(
       private authService: AuthService,
+      private quizService: QuizService,
       private subscribtionsServise: UserSubscriptionsService,
     ) {}
     ngOnInit(): void {
-      this.userLogin = this.authService.getCurrentUserLogin();
-      if (this.selector === 'courses') {
-        this.getSubscribedCourses();
-      } else {
-        this.getSubscribedDecks();
+      if (this.authService.isAuthorized) {
+          this.userLogin = this.authService.getCurrentUserLogin();
+
+          this.quizService.GetCoursesNeedToRepeat(this.userLogin)
+            .then(courses => this.coursesNeedToRepeat = courses)
+            .then(() => {
+              this.getSubscribedCourses();
+              this.isLoaded = true;
+            })
+            .catch(error => console.log(error));
+
+          this.quizService.GetDecksNeedToRepeat(this.userLogin)
+            .then(decks => this.decksNeedToRepeat = decks)
+            .catch(error => console.log(error));
     }
   }
 
@@ -39,6 +54,7 @@ declare let $: any;
       this.deckNumber = this.decks.length;
       this.decks.forEach(deck => {
         deck.IsSubscribed = true;
+        this.setDecksNeedToRepeat(deck);
       });
     },
     err => handleError);
@@ -52,6 +68,7 @@ declare let $: any;
       this.courseNumber = this.courses.length;
       this.courses.forEach(course => {
         course.IsSubscribed = true;
+        this.setCoursesNeedToRepeat(course);
       });
     },
     err => handleError);
@@ -75,4 +92,54 @@ declare let $: any;
       this.selector = 'decks';
     }
   }
+
+  setCoursesNeedToRepeat(course: Course) {
+      this.coursesNeedToRepeat.forEach(courseNTR => {
+        if (courseNTR.Id === course.Id) {
+          course.IsNeedToRepeat = true;
+        }
+      });
+  }
+
+  setDecksNeedToRepeat(deck: Deck) {
+      this.decksNeedToRepeat.forEach(deckNTR => {
+        if (deckNTR.Id === deck.Id) {
+          deck.IsNeedToRepeat = true;
+        }
+      });
+  }
+
+  // getStylesForCourse(courseId: number) {
+  //   let IsCourseNeedToRepeat: boolean;
+  //   this.courses.forEach(course => {
+  //     if (course.Id === courseId) {
+  //       IsCourseNeedToRepeat = course.IsNeedToRepeat;
+  //     }
+  //   });
+  //   if (IsCourseNeedToRepeat) {
+  //     this.styles = {
+  //       'background-color': 'salmon'
+  //     };
+  //   }else {
+  //       this.styles = {};
+  //   }
+  //   return this.styles;
+  // }
+
+  // getStylesForDeck(deckId: number) {
+  //   let IsDeckNeedToRepeat: boolean;
+  //   this.decks.forEach(deck => {
+  //     if (deck.Id === deckId) {
+  //       IsDeckNeedToRepeat = deck.IsNeedToRepeat;
+  //     }
+  //   });
+  //   if (IsDeckNeedToRepeat) {
+  //     this.styles = {
+  //       'background-color': 'salmon'
+  //     };
+  //   }else {
+  //       this.styles = {}
+  //   }
+  //   return this.styles;
+  // }
 }
