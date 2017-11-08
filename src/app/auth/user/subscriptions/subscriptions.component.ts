@@ -22,6 +22,7 @@ declare let $: any;
     userLogin: string;
     selector = 'courses';
     styles: {};
+    isLoaded = false;
     constructor(
       private authService: AuthService,
       private quizService: QuizService,
@@ -33,7 +34,10 @@ declare let $: any;
 
           this.quizService.GetCoursesNeedToRepeat(this.userLogin)
             .then(courses => this.coursesNeedToRepeat = courses)
-            .then(() => this.getSubscribedCourses())
+            .then(() => {
+              this.getSubscribedCourses();
+              this.isLoaded = true;
+            })
             .catch(error => console.log(error));
 
           this.quizService.GetDecksNeedToRepeat(this.userLogin)
