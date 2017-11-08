@@ -51,7 +51,8 @@ export class PaginationComponent implements OnInit {
     }
 
     numberToArray() {
-        for (let i = 1; i <= this.howMatchPage(); i++) {
+        const getPages = this.howMatchPage();
+        for (let i = 1; i <= getPages; i++) {
             this.items.push(i);
         }
         return this.items;
