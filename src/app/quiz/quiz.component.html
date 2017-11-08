@@ -114,7 +114,8 @@
               <div>
                 <label for="customerCodeAnswerId">Type your answer</label>
                 <br>
-                <textarea id="customerAnswerTextareaId" placeholder="Type your answer here" [(ngModel)]="cards[counter].Answers[0].Text" name="customerCodeAnswerName" rows="12" cols="50">
+                <textarea id="customerAnswerTextareaId" placeholder="Type your answer here" 
+                [(ngModel)]="getUserTemplateCodeAnswer(cards[counter]).Text" name="customerCodeAnswerName" rows="12" cols="50">
                                 </textarea>
               </div>
               <div>
