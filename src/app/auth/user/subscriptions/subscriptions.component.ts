@@ -105,43 +105,37 @@ declare let $: any;
       });
   }
 
-  getStylesForCourse(courseId: number) {
-    let IsCourseNeedToRepeat: boolean;
-    this.courses.forEach(course => {
-      if (course.Id === courseId) {
-        IsCourseNeedToRepeat = course.IsNeedToRepeat;
-      }
-    });
-    if (IsCourseNeedToRepeat) {
-      this.styles = {
-        'width': '15rem',
-        'background-color': 'rgb(245, 91, 30)'
-      };
-    }else {
-        this.styles = {
-          'width': '15rem'
-          };
-    }
-    return this.styles;
-  }
+  // getStylesForCourse(courseId: number) {
+  //   let IsCourseNeedToRepeat: boolean;
+  //   this.courses.forEach(course => {
+  //     if (course.Id === courseId) {
+  //       IsCourseNeedToRepeat = course.IsNeedToRepeat;
+  //     }
+  //   });
+  //   if (IsCourseNeedToRepeat) {
+  //     this.styles = {
+  //       'background-color': 'salmon'
+  //     };
+  //   }else {
+  //       this.styles = {};
+  //   }
+  //   return this.styles;
+  // }
 
-  getStylesForDeck(deckId: number) {
-    let IsDeckNeedToRepeat: boolean;
-    this.decks.forEach(deck => {
-      if (deck.Id === deckId) {
-        IsDeckNeedToRepeat = deck.IsNeedToRepeat;
-      }
-    });
-    if (IsDeckNeedToRepeat) {
-      this.styles = {
-        'width': '15rem',
-        'background-color': 'rgb(245, 91, 30)'
-      };
-    }else {
-        this.styles = {
-          'width': '15rem'
-          };
-    }
-    return this.styles;
-  }
+  // getStylesForDeck(deckId: number) {
+  //   let IsDeckNeedToRepeat: boolean;
+  //   this.decks.forEach(deck => {
+  //     if (deck.Id === deckId) {
+  //       IsDeckNeedToRepeat = deck.IsNeedToRepeat;
+  //     }
+  //   });
+  //   if (IsDeckNeedToRepeat) {
+  //     this.styles = {
+  //       'background-color': 'salmon'
+  //     };
+  //   }else {
+  //       this.styles = {}
+  //   }
+  //   return this.styles;
+  // }
 }
