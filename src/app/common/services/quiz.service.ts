@@ -3,9 +3,10 @@ import { HttpClient } from '@angular/common/http';
 
 import 'rxjs/add/operator/toPromise';
 
-import { Card, CodeAnswer, WordInput, DataForGetCardsForSubscription } from '../models/models';
+import { Card, CodeAnswer, Algorithm, WordInput, DataForGetCardsForSubscription } from '../models/models';
 import { handleError } from '../functions/functions';
 import { environment } from '../../../environments/environment';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class QuizService {
@@ -86,4 +87,11 @@ export class QuizService {
         return this.styles;
     }
 
+    ChangeAlgorithm(algorithm: Algorithm): Observable<Object> {
+        return this.http.put(`${environment.quizUrl}/ChangeAlgorithm`, algorithm);
+    }
+
+    GetAlgorithms(): Observable<Object> {
+        return this.http.get(`${environment.moderationUrl}/GetAllAlgorithms`);
+    }
 }

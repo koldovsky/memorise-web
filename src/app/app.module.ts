@@ -63,6 +63,7 @@ import { NavigationService } from './common/services/navigation.service';
 import { AppComponent } from './app.component';
 import { NotFoundRoutingModule } from './not-found/not-found.routing.module';
 import { SubscriptionsComponent } from './auth/user/subscriptions/subscriptions.component';
+import { QuizPropertiesComponent } from './quiz/quiz-properties/quiz-properties.component';
 
 
 
@@ -101,7 +102,8 @@ import { SubscriptionsComponent } from './auth/user/subscriptions/subscriptions.
         AddDeckComponent,
         EditCategoryComponent,
         PageNotFoundComponent,
-        SubscriptionsComponent
+        SubscriptionsComponent,
+        QuizPropertiesComponent
     ],
     entryComponents: [
         LoginComponent,

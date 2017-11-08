@@ -177,3 +177,9 @@ export interface DataForGetCardsForSubscription {
     courseOrDeckLink: string;
 }
 
+export interface Algorithm extends BaseEntity {
+    Name: string;
+    Description: string;
+    IsActive: boolean;
+}
+
