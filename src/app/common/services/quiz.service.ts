@@ -43,6 +43,7 @@ export class QuizService {
     }
 
     GetCardsForSubscribedCourse(dataForCards: DataForGetCardsForSubscription): Promise<Card[]> {
+
         const URL = `${environment.quizUrl}/GetCardsForSubscribedCourse/`
         + `${dataForCards.courseOrDeckLink}/${dataForCards.numberOfCards}/${dataForCards.userLogin}`;
 
@@ -53,6 +54,7 @@ export class QuizService {
     }
 
     GetCardsForSubscribedDeck(dataForCards: DataForGetCardsForSubscription): Promise<Card[]> {
+
         const URL = `${environment.quizUrl}/GetCardsForSubscribedDeck/`
         + `${dataForCards.courseOrDeckLink}/${dataForCards.numberOfCards}/${dataForCards.userLogin}`;
 
@@ -81,6 +83,7 @@ export class QuizService {
     }
 
     SetSylesForSubscriptionsDropdownItem(IsCardsNeedForRepeat: boolean) {
+
         if (IsCardsNeedForRepeat) {
           this.styles = {
             'color': 'red',
@@ -96,6 +99,7 @@ export class QuizService {
         return this.styles;
     }
 
+
     ChangeAlgorithm(algorithm: Algorithm): Observable<Object> {
         return this.http.put(`${environment.quizUrl}/ChangeAlgorithm`, algorithm);
     }
@@ -103,4 +107,5 @@ export class QuizService {
     GetAlgorithms(): Observable<Object> {
         return this.http.get(`${environment.moderationUrl}/GetAllAlgorithms`);
     }
+
 }
