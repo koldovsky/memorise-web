@@ -64,9 +64,6 @@ import { NavigationService } from './common/services/navigation.service';
 import { AppComponent } from './app.component';
 import { NotFoundRoutingModule } from './not-found/not-found.routing.module';
 
-
-
-
 @NgModule({
     declarations: [
         CatalogComponent,
