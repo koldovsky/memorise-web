@@ -17,32 +17,28 @@ export class StatisticsService {
         const URL = `${environment.statisticsUrl}/GetStatistics/${userLogin}`;
 
         return this.http.get(URL)
-            .map(response => response as Statistics[])
-            .catch(handleError);
+            .map(response => response as Statistics[]);
     }
 
     getStatisticsByUserAndCard(userLogin: string, cardId: number): Observable<Statistics> {
         const URL = `${environment.statisticsUrl}/GetStatistics/${userLogin}/${cardId}`;
 
         return this.http.get(URL)
-            .map(response => response as Statistics)
-            .catch(handleError);
+            .map(response => response as Statistics);
     }
 
     getStatisticsByUserAndDeck(userLogin: string, deckId: number): Observable<Statistics[]> {
         const URL = `${environment.statisticsUrl}/GetDeckStatistics/${userLogin}/${deckId}`;
 
         return this.http.get(URL)
-            .map(response => response as Statistics[])
-            .catch(handleError);
+            .map(response => response as Statistics[]);
     }
 
     getStatisticsByUserAndCourse(userLogin: string, courseId: number): Observable<Statistics[]> {
         const URL = `${environment.statisticsUrl}/GetCourseStatistics/${userLogin}/${courseId}`;
 
         return this.http.get(URL)
-            .map(response => response as Statistics[])
-            .catch(handleError);
+            .map(response => response as Statistics[]);
     }
 
     createStatisticsForCourse(statistics: SubscriptionStatistics): Observable<Statistics[]> {
