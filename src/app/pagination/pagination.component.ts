@@ -58,6 +58,8 @@ export class PaginationComponent {
     select(index) {
         this.pageIndex.next(index);
         this.currentIndex = index;
+        console.log(100);
+
         if (this.items.length > this.comfortableNumbers) {
             if (index === 1) {
                 this.middleItems = this.items.slice(index - 1, index + this.comfortableMiddleNumbers - 1);

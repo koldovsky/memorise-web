@@ -26,7 +26,7 @@ describe('PaginationComponent', () => {
 
     it('GetNumberPagesTest', () => {
         fixture.detectChanges();
-        expect(paginator.howMatchPage()).toBe(20);
+        expect(paginator.getLocalPagesCount()).toBe(20);
     });
 
     it('NumberToArrayTest', () => {
