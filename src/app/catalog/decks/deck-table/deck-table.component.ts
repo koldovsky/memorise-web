@@ -3,7 +3,6 @@ import { PaginationComponent } from '../../../pagination/pagination.component';
 
 import { Deck, PageResponse } from '../../../common/models/models';
 import { DeckService } from '../../../common/services/deck.service';
-import { MessageService } from '../../../common/services/message.service';
 
 @Component({
     selector: 'app-deck-table',

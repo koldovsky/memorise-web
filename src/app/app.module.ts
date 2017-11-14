@@ -65,9 +65,6 @@ import { NotFoundRoutingModule } from './not-found/not-found.routing.module';
 import { SubscriptionsComponent } from './auth/user/subscriptions/subscriptions.component';
 import { QuizPropertiesComponent } from './quiz/quiz-properties/quiz-properties.component';
 
-
-
-
 @NgModule({
     declarations: [
         CatalogComponent,

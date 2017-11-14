@@ -58,6 +58,8 @@ export class PaginationComponent {
     select(index) {
         this.pageIndex.next(index);
         this.currentIndex = index;
+        console.log(100);
+
         if (this.items.length > this.comfortableNumbers) {
             if (index === 1) {
                 this.middleItems = this.items.slice(index - 1, index + this.comfortableMiddleNumbers - 1);
@@ -95,7 +97,7 @@ export class PaginationComponent {
 
     isFirst() {
         if (this.currentIndex < this.comfortableMiddleNumbers ||
-                this.items.length <= this.comfortableNumbers) {
+            this.items.length <= this.comfortableNumbers) {
             return true;
         } else {
             return false;
@@ -104,7 +106,7 @@ export class PaginationComponent {
 
     isLast() {
         if (this.currentIndex > this.items.length - this.comfortableMiddleNumbers + 1 ||
-                this.items.length <= this.comfortableNumbers) {
+            this.items.length <= this.comfortableNumbers) {
             return true;
         } else {
             return false;
