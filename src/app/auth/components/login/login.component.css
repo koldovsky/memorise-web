@@ -1,0 +1,97 @@
+html,body{
+    position: relative;
+    height: 100%;
+}
+
+.container{
+    width: 100%;
+    height: 550px;    
+    background-image: url(../../../../assets/images/login.png);
+    background-repeat: no-repeat;   
+}
+
+.login-container{
+    position: relative;
+    width: 300px;
+    margin: 80px auto;
+    padding: 20px 30px 30px;
+    text-align: center;
+    background: #fff;
+    border: 1px solid #ccc;
+}
+
+.login-container::before,.login-container::after{
+    content: "";
+    position: absolute;
+    width: 100%;height: 100%;
+    top: 3.5px;left: 0;
+    background: #fff;
+    z-index: -1;
+    transform: rotateZ(4deg);
+    transform: rotateZ(4deg);
+    transform: rotateZ(4deg);
+    border: 1px solid #ccc;
+}
+
+.login-container::after{
+    top: 5px;
+    z-index: -2;
+    transform: rotateZ(-2deg);
+    transform: rotateZ(-2deg);
+    transform: rotateZ(-2deg);
+
+}
+
+.form-box input{
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    height:40px;
+    border: 1px solid #ccc;
+    background: #fafafa;
+    transition:0.2s ease-in-out;
+
+}
+
+.form-box input:focus{
+    outline: 0;
+    background: #eee;
+}
+
+.form-box input[type="text"]{
+    border-radius: 5px 5px 0 0;
+    text-transform: lowercase;
+}
+
+.form-box input[type="password"]{
+    border-radius: 0 0 5px 5px;    
+}
+
+.form-box button.login{    
+    margin-top:15px;
+    padding: 10px 20px;
+}
+
+.btn-fb{
+    color: #fff;
+    background-color:#3b5998;
+}
+.btn-fb:hover{
+    color: #fff;
+    background-color:#496ebc 
+}
+.btn-go{
+    color: #fff;
+    background-color:#ff5315;
+}
+.btn-go:hover{
+    color: #fff;
+    background-color:#ff8747;
+}
+.social-buttons button{
+    width: 48%;
+    margin-top: 10px;
+}
+.fb-login-button{
+    margin-top: 10px;
+}

@@ -1,0 +1,114 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-1 col-md-2 col-lg-3"></div>
+  <div *ngIf="isCardLoaded" class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
+    <h2 class="text-center">Edit card</h2>
+    <br>
+    <!-- Snackbar -->
+    <div id="snackbar">{{submitMessage}}</div>
+    <form (ngSubmit)="onSubmit()" #cardForm="ngForm">
+      <div class="form-group">
+        <label for="cardType"> Card Type</label>
+        <input type="text" class="form-control" id="cardType" placeholder="Course linking" [(ngModel)]="card.CardTypeName" name="courseLinking"
+          readonly>
+      </div>
+      <!-- Question -->
+      <div class="form-group">
+        <label for="question" class="form-control-label">Question:</label>
+        <textarea class="form-control" required [(ngModel)]='card.Question' name="Question" id="question" maxlength={{regex.MAX_LENGTH_TEXTAREA}}
+          #question="ngModel">
+                        </textarea>
+        <div *ngIf="question.invalid && (question.dirty || question.touched)" class="alert alert-danger">
+          <div *ngIf="question.errors.required">
+            {{error.REQUIRED}}
+          </div>
+        </div>
+      </div>
+      <!-- Answers -->
+      <!-- Answer One -->
+      <div *ngIf="card.CardTypeName=='One answer'">
+        <div *ngFor="let answer of card.Answers; let i = index" class="form-group">
+          <div class="row">
+            <div class="col-10">
+              <label for="one{{i}}" class="form-control-label">Answer{{i}}:</label>
+              <textarea class="form-control" required [(ngModel)]='answer.Text' name="Text{{i}}" id="one{{i}}" maxlength={{regex.MAX_LENGTH_TEXTAREA}}
+                #answ="ngModel">
+              </textarea>
+            </div>
+            <div class="col-1 center">
+              <label class="custom-control custom-radio">
+                <input id="radio{{i}}" [checked]='answer.IsCorrect' value="{{i}}" name="IsCorrect" type="radio" class="custom-control-input"
+                  (change)="changeRadio(i)">
+                <span class="custom-control-indicator"></span>
+              </label>
+            </div>
+          </div>
+          <div *ngIf="answ.invalid && (answ.dirty || answ.touched)" class="alert alert-danger">
+            <div *ngIf="answ.errors.required">
+              {{error.REQUIRED}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Answer Few -->
+      <div *ngIf="card.CardTypeName=='Few answers'">
+        <div *ngFor="let answer of card.Answers; let i = index" class="form-group">
+          <div class="row">
+            <div class="col-10">
+              <label for="one{{i}}" class="form-control-label">Answer{{i}}:</label>
+              <textarea class="form-control" required [(ngModel)]='answer.Text' name="Text{{i}}" id="one{{i}}" maxlength={{regex.MAX_LENGTH_TEXTAREA}}
+                #answ="ngModel">
+                              </textarea>
+            </div>
+            <div class="col-1 center">
+              <label class="custom-control custom-checkbox">
+                <input id="checkbox{{i}}" [checked]='answer.IsCorrect' required name="IsCorrect" type="checkbox" class="custom-control-input"
+                  (change)="changeCheckbox(i)">
+                <span class="custom-control-indicator"></span>
+              </label>
+            </div>
+          </div>
+          <div *ngIf="answ.invalid && (answ.dirty || answ.touched)" class="alert alert-danger">
+            <div *ngIf="answ.errors.required">
+              {{error.REQUIRED}}
+            </div>
+          </div>
+        </div>
+        <div *ngIf="noCorrectAnswer" class="alert alert-danger">
+          {{error.MUST_BE_CORRECT_ANSWER}}
+        </div>
+      </div>
+      <!-- Words Input & Code input -->
+      <div *ngIf="card.CardTypeName=='Words input' ||card.CardTypeName=='Code input'" class="form-group">
+        <label for="correctAnswer" class="form-control-label">Correct answer:</label>
+        <textarea class="form-control" required [(ngModel)]='getCorrectCodeAnswer(card).Text' name="correctAnswer" id="correctAnswer" maxlength={{regex.MAX_LENGTH_TEXTAREA}}
+          #corAnswer="ngModel">
+                        </textarea>
+        <div *ngIf="corAnswer.invalid && (corAnswer.dirty || corAnswer.touched)" class="alert alert-danger">
+          <div *ngIf="corAnswer.errors.required">
+            {{error.REQUIRED}}
+          </div>
+        </div>
+      </div>
+      <div *ngIf="card.CardTypeName=='Code input'" class="form-group">
+        <label for="customerTemplate" class="form-control-label">Customer template:</label>
+        <textarea class="form-control" required [(ngModel)]='getCustomerTemplateCodeAnswer(card).Text' name="customerTemplate" id="customerTemplate" maxlength={{regex.MAX_LENGTH_TEXTAREA}}
+          #customerTemplateControl="ngModel">
+                        </textarea>
+        <div *ngIf="customerTemplateControl.invalid && (customerTemplateControl.dirty || customerTemplateControl.touched)" class="alert alert-danger">
+          <div *ngIf="customerTemplateControl.errors.required">
+            {{error.REQUIRED}}
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12">
+          <button type="button" class="btn btn-outline-secondary btn-lg float-left" (click)="setWhichButtonIsClicked()" [routerLink]="['/moderator']">Cancel</button>
+          <button type="submit" class="btn btn-primary btn-lg float-right" [disabled]="!cardForm.form.valid || noCorrectAnswer">Update</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="col-xs-12 col-sm-1 col-md-2 col-lg-3"></div>
+  <div class="hight10hv"></div>
+</div>

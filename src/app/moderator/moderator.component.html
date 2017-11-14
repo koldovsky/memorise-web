@@ -1,28 +1,42 @@
-<h1>Moderation Panel</h1>
-<div>
-    <div>
-        <button mat-raised-button [routerLink]="['/moderator/courses']">Courses</button>
-        <button mat-raised-button [routerLink]="['/moderator/decks']">Decks</button>
-    </div>
-    <!-- <button mat-button (click)="openCreateNewCourseDialog()">Create new course</button> -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="h1 d-flex justify-content-center">
+                Moderation Panel
+            </div>
 
-    <div class="container">
-        <mat-table #table [dataSource]="dataSource">
-            <ng-container matColumnDef="Position">
-                <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
-                <mat-cell *matCellDef='let course'>{{course.Position}}</mat-cell>
-                <!-- <mat-cell *matCellDef = "let numbers">{{numbers[]}}</mat-cell> -->
-            </ng-container>
-            <ng-container matColumnDef="Name">
-                <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-                <mat-cell *matCellDef="let course"> {{course.Name}} </mat-cell>
-            </ng-container>            
-            <ng-container matColumnDef="Description">
-                <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
-                <mat-cell *matCellDef = "let course">{{course.Description}}</mat-cell>
-            </ng-container>
-            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-        </mat-table>
+            <br/>
+            <div class="view-table">
+                <button class="btn btn-lg btn-outline-primary col-sm-12 col-md-2" [class.btn-primary]="whichButtonIsClicked=='categories'"
+                    [class.btn-outline-primary]="whichButtonIsClicked!='categories'" id="categories" (click)="onClick($event)">
+                    Categories
+                </button>
+                <button class="btn btn-lg btn-outline-primary col-sm-12 col-md-2" [class.btn-primary]="whichButtonIsClicked=='courses'" [class.btn-outline-primary]="whichButtonIsClicked!='courses'"
+                    id="courses" (click)="onClick($event)">
+                    Courses
+                </button>
+                <button class="btn btn-lg btn-outline-primary col-sm-12 col-md-2" [class.btn-primary]="whichButtonIsClicked=='decks'" [class.btn-outline-primary]="whichButtonIsClicked!='decks'"
+                    id="decks" (click)="onClick($event)">
+                    Decks
+                </button>
+                <button class="btn btn-lg btn-outline-primary col-sm-12 col-md-2" [class.btn-primary]="whichButtonIsClicked=='quiz'" [class.btn-outline-primary]="whichButtonIsClicked!='quiz'"
+                id="quiz" (click)="onClick($event)">
+                Quiz
+            </button>
+            </div>
+
+            <div class="marginTopAndBottom" *ngIf="whichButtonIsClicked=='categories'">
+                <app-catalog-table></app-catalog-table>
+            </div>
+            <div class="marginTopAndBottom" *ngIf="whichButtonIsClicked=='courses'">
+                <app-course-table></app-course-table>
+            </div>
+            <div class="marginTopAndBottom" *ngIf="whichButtonIsClicked=='decks'">
+                <app-deck-table></app-deck-table>
+            </div>
+            <div class="marginTopAndBottom" *ngIf="whichButtonIsClicked=='quiz'">
+                <app-quiz-properties></app-quiz-properties>
+            </div>
+        </div>
     </div>
 </div>

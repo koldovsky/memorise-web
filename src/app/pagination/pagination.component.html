@@ -1,0 +1,30 @@
+<ul class="pagination justify-content-center" [hidden]="_pageSize === 0 || _pageSize >= _totalCount">
+    <li>
+        <button class="btn btn-secondary" (click)="onPrev()" [disabled]="currentIndex === 1">Prev</button>
+    </li>
+    <li>
+        <button class="btn btn-secondary" [hidden]="isFirst()" (click)="select(1)">1</button>
+    </li>
+    <li>
+        <button class="btn btn-light" disabled [hidden]="isFirstEllipsis()">
+            <i class="material-icons 48dp">more_horiz</i>
+        </button>
+    </li>
+    <li>
+        <button class="btn btn-secondary" *ngFor="let item of middleItems" (click)="select(item)" 
+            [ngStyle]="item === currentIndex ? {'color': '#FF0000', 'background-color': '#A9A9A9' } : {}">
+            {{item}}
+        </button>
+    </li>
+    <li>
+        <button class="btn btn-light" disabled [hidden]="isLastEllipsis()">
+            <i class="material-icons 48dp">more_horiz</i>
+        </button>
+    </li>
+    <li>
+        <button class="btn btn-secondary" [hidden]="isLast()" (click)="select(items.length)">{{items.length}}</button>
+    </li>
+    <li>
+        <button class="btn btn-secondary zz" (click)="onNext()" [disabled]="currentIndex === items.length">Next</button>
+    </li>
+</ul>

@@ -1,46 +1,20 @@
-:host {
-    width: 100vw;
+.crop {
+    width: 12rem;
+    height: 12rem;
+    overflow: hidden;
 }
 
-#course {
-    margin: 2vh 10vw;
+.crop img {
+    height: auto;
+    width: 100%;
 }
 
-#quizButton {
-    color: primary;
+#photo {
+    width: 20rem;
+    height: 20rem;
 }
 
-.flex-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: start;
-    align-items: stretch;
-}
-
-.flex-item {
-    order: 1;
-    margin: 2vh 1vw;
-}
-
-.description {
-    margin: -3vh auto auto 2vw;
-}
-
-.fixed-size {
-    width: 20vw;
-    height: 25vh;
-}
-
-.small-fixed-size {
-    width: 10vw;
-    height: 15vh;
-}
-.center {
-    text-align: center;
-}
-
-img {
-    max-width: 100%;
-    max-height: 100%;
+#photo img {
+    height: auto;
+    width: 100%;
 }

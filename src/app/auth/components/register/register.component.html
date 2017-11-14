@@ -1,0 +1,48 @@
+<div class="container">
+    <div id="snackbar" class="btn btn-info login">{{message.SUCCESSFULLY_REGISTERED}}</div>
+    <div class="login-container">
+        <h2>Sign Up</h2>
+        <div class="alert alert-danger" role="alert" *ngIf="!authService.validData() && clicked">
+            {{authService.getError()}}
+        </div>
+        <div class="form-box" [formGroup]="registerForm">
+            <form action="" method="">
+                <input name="user" class="upper" type="text" placeholder="username" [formControl]="registerForm.controls['login']">
+                <ngb-alert *ngIf="registerForm.controls['login'].hasError('required') && 
+                            (registerForm.controls['login'].dirty || registerForm.controls['login'].touched)" [dismissible]="false">
+                    {{message.LOGIN_REQUIRED}}
+                </ngb-alert>
+                <ngb-alert *ngIf="registerForm.controls['login'].hasError('maxlength')" [dismissible]="false">
+                    {{message.LOGIN_LENGTH}}
+                </ngb-alert>
+                <input name="email" class="lower" type="text" placeholder="email" [formControl]="registerForm.controls['email']">
+                <ngb-alert *ngIf="registerForm.controls['email'].hasError('required') && 
+                            (registerForm.controls['email'].dirty || registerForm.controls['email'].touched)" [dismissible]="false">
+                    {{message.EMAIL_REQUIRED}}
+                </ngb-alert>
+                <ngb-alert *ngIf="registerForm.controls['email'].hasError('pattern')" [dismissible]="false">
+                    {{message.EMAIL_VALID}}
+                </ngb-alert>
+                <input type="password" class="upper" placeholder="password" [formControl]="registerForm.controls['password']">
+                <ngb-alert *ngIf="registerForm.controls['password'].hasError('required') && 
+                            (registerForm.controls['password'].dirty || registerForm.controls['password'].touched)" [dismissible]="false">
+                    {{message.PASSWORD_REQUIRED}}
+                </ngb-alert>
+                <ngb-alert *ngIf="registerForm.controls['password'].hasError('minlength')" [dismissible]="false">
+                    {{message.PASSWORD_LENGTH}}
+                </ngb-alert>
+                <input type="password" class="lower" placeholder="confirm password" [formControl]="registerForm.controls['passwordConfirm']">
+                <ngb-alert *ngIf="registerForm.controls['passwordConfirm'].hasError('required') && 
+                            (registerForm.controls['passwordConfirm'].dirty || registerForm.controls['passwordConfirm'].touched)"
+                    [dismissible]="false">
+                    {{message.CONFIRM_REQUIRED}}
+                </ngb-alert>
+                <ngb-alert *ngIf="registerForm.controls['passwordConfirm'].hasError('matchOther')" [dismissible]="false">
+                    {{message.PASSWORD_MATCHING}}
+                </ngb-alert>
+                <button class="btn btn-info login" type="button" [routerLink]="['/login']">Back</button>
+                <button class="btn btn-info login" type="submit" [disabled]="!registerForm.valid" (click)="Register(registerForm.value)">Sign Up</button>
+            </form>
+        </div>
+    </div>
+</div>

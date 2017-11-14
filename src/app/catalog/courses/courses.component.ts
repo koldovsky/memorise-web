@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 import { CourseService } from '../../common/services/course.service';
 import { DeckService } from '../../common/services/deck.service';
-import { Course, Category } from '../../common/models/models';
-import { MessageService } from '../../common/services/message.service';
 import { CategoryService } from '../../common/services/category.service';
+import { UserSubscriptionsService } from '../../common/services/user-subscriptions.service';
+import { StatisticsService } from '../../common/services/statistics.service';
+import { Course, Category, User, CourseSubscription } from '../../common/models/models';
 
 import { Subscription } from 'rxjs/Subscription';
+import { AuthService } from '../../common/services/auth.service';
+import { handleError } from '../../common/functions/functions';
 
 @Component({
     selector: 'app-courses',
@@ -17,39 +21,93 @@ import { Subscription } from 'rxjs/Subscription';
 export class CoursesComponent implements OnInit {
     constructor(
         private courseService: CourseService,
-        private deckService: DeckService,
-        private messageService: MessageService,
-        private categoryService: CategoryService) {
-    }
+        private categoryService: CategoryService,
+        private authService: AuthService,
+        private subscriptionsService: UserSubscriptionsService,
+        private statisticsService: StatisticsService,
+        private route: ActivatedRoute) { }
 
+    currentUserLogin: string;
     courses: Course[];
-    subscription: Subscription;
+    subscriptions: CourseSubscription[];
 
     ngOnInit(): void {
-        if (this.messageService.temp) {
-            const category = this.messageService.temp as Category;
-            this.categoryService.getCoursesByCategory(category.Linking)
-                .then(courses => this.courses = courses);
-        } else {
-            this.courseService.getCourses()
-                .then(courses => this.courses = courses);
-        }
+        this.route.paramMap
+            .switchMap((params: ParamMap) => {
+                const category = params.get('category');
+                return category === 'Any'
+                    ? this.courseService.getCourses()
+                    : this.categoryService.getCoursesByCategory(category);
+            }).subscribe(courses => {
+                this.courses = courses;
+                if (this.authService.checkIfIsAuthorized()) {
+                    this.currentUserLogin = this.authService.getCurrentUserLogin();
+                    this.subscriptionsService.getCourseSubscriptions(this.currentUserLogin)
+                        .subscribe(subscriptions => {
+                            this.subscriptions = subscriptions;
+                            this.checkSubscriptions();
+                        });
+                }
+            });
+    }
 
-        this.messageService.getMessage().subscribe(data => {
-            if (data) {
-                const category = data as Category;
-                this.categoryService.getCoursesByCategory(category.Linking)
-                    .then(courses => this.courses = courses);
-            } else {
-                this.courseService.getCourses()
-                    .then(courses => this.courses = courses);
-            }
+    checkSubscriptions() {
+        this.courses.forEach(course => {
+            course.IsSubscribed = this.subscriptions
+                .find(x => x.CourseId === course.Id)
+                ? true
+                : false;
         });
     }
 
-    getCourseDecks(name: string) {
-        this.deckService.getDecksByCourseName(name)
-            .then(decks => this.courses
-                .find(course => course.Linking === name).Decks = decks);
+    subscribeToCourse(course: Course): void {
+        const subscription = {
+            Rating: -1,
+            UserLogin: this.currentUserLogin,
+            CourseId: course.Id
+        };
+        this.subscriptionsService.subscribeToCourse(subscription)
+            .subscribe(
+            x => {
+                this.subscriptions.push(x);
+                course.IsSubscribed = true;
+                this.createCourseStatistics(course);
+            },
+            err => handleError);
+    }
+
+    unsubscribeFromCourse(course: Course): void {
+        const subscription = this.subscriptions.find(x => x.CourseId === course.Id);
+        if (subscription) {
+            this.subscriptionsService.unsubscribeFromCourse(subscription.Id)
+                .subscribe(
+                x => {
+                    course.IsSubscribed = false;
+                    this.subscriptions = this.subscriptions.filter(s => s !== x);
+                    this.deleteCourseStatistics(course);
+                },
+                err => handleError
+                );
+        }
+    }
+
+    createCourseStatistics(course: Course): void {
+        const subscriptionStatistics = {
+            UserLogin: this.currentUserLogin,
+            ItemId: course.Id
+        };
+        this.statisticsService
+            .createStatisticsForCourse(subscriptionStatistics)
+            .subscribe();
+    }
+
+    deleteCourseStatistics(course: Course): void {
+        this.statisticsService
+            .getStatisticsByUserAndCourse(this.currentUserLogin, course.Id)
+            .subscribe(statistics => {
+                statistics.forEach(x => {
+                    this.statisticsService.deleteStatistics(x.Id).subscribe();
+                });
+            });
     }
 }

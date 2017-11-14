@@ -1,32 +1,45 @@
-<div class="flex-container">
-    <div class="flex-item" *ngFor="let course of courses">
-        <a [routerLink]="['/catalog/courses', course.Linking]">
-            <mat-card>
-                <mat-card-content class="fixed-size center">
-                    <img mat-card-m-image src={{course.Photo}} />
-                </mat-card-content>
-                <mat-card-header>
-                    <mat-card-title-group>
-                        <mat-card-title>
-                            <h2>
-                                {{course.Name}}
-                            </h2>
-                        </mat-card-title>
-                        <mat-card-subtitle>{{course.Price ? course.Price : 'FREE'}}</mat-card-subtitle>
-                        <mat-card-subtitle>
-                            <p>{{course.Description}}</p>
-                        </mat-card-subtitle>
-                    </mat-card-title-group>
-                </mat-card-header>
-                <mat-card-actions class="center">
-                    <a mat-raised-button color="primary" [routerLink]="['/course', course.Linking, 'quiz']">
-                        Try it now
-                    </a>
-                    <button mat-raised-button>
+<div class="d-flex flex-row flex-wrap align-items-stretch justify-content-center">
+    <div *ngFor="let course of courses" class="p-2">
+        <div class="card" style="width: 15rem;">
+            <div class="crop" [routerLink]="['/catalog/course', course.Linking]">
+                <img class="card-img-top" src="{{course.Photo}}" alt="{{course.Name}}">
+            </div>
+            <div class="card-body mt-auto">
+                <div [routerLink]="['/catalog/course', course.Linking]">
+                    <h4 class="card-title">{{course.Name}}</h4>
+                    <p class="card-subtitle mb-2 text-muted">{{course.Price ? course.Price : 'FREE'}}</p>
+                </div>
+                <!-- <p class="card-text">{{course.Description}}</p> -->
+                <div class="text-center">
+                <div *ngIf="course.IsSubscribed; then go; else tryIt"></div>
+                    <ng-template #go>
+                        <a class="btn btn-sm btn-success" [routerLink]="['/course', course.Linking, 'quiz', 'go']">
+                            GO!
+                        </a>
+                    </ng-template>
+                    <ng-template #tryIt>
+                        <a class="btn btn-sm btn-primary" [routerLink]="['/course', course.Linking, 'quiz', 'try']">
+                            Try it now
+                        </a>
+                    </ng-template>
+                    <a *ngIf="!authService.isAuthorized; else authorized" class="btn btn-sm btn-outline-success" [routerLink]="['/login']">
                         Subscribe
-                    </button>
-                </mat-card-actions>
-            </mat-card>
-        </a>
+                    </a>
+                    <ng-template #authorized>
+                        <div *ngIf="course.IsSubscribed; then unsubscribe; else subscribe"></div>
+                        <ng-template #subscribe>
+                            <button class="btn btn-sm btn-outline-success" (click)="subscribeToCourse(course)">
+                                Subscribe
+                            </button>
+                        </ng-template>
+                        <ng-template #unsubscribe>
+                            <button class="btn btn-sm btn-outline-secondary" (click)="unsubscribeFromCourse(course)">
+                                Unsubscribe
+                            </button>
+                        </ng-template>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
