@@ -31,18 +31,18 @@ html,body{
     top: 3.5px;left: 0;
     background: #fff;
     z-index: -1;
-    -webkit-transform: rotateZ(6deg);
-    -moz-transform: rotateZ(6deg);
-    -ms-transform: rotateZ(6deg);
+    transform: rotateZ(6deg);
+    transform: rotateZ(6deg);
+    transform: rotateZ(6deg);
     border: 1px solid #ccc;
 }
 
 .login-container::after{
     top: 5px;
     z-index: -2;
-    -webkit-transform: rotateZ(-4deg);
-     -moz-transform: rotateZ(-4deg);
-      -ms-transform: rotateZ(-4deg);
+    transform: rotateZ(-4deg);
+    transform: rotateZ(-4deg);
+    transform: rotateZ(-4deg);
 
 }
 
@@ -117,5 +117,3 @@ html,body{
     from {bottom: 200px; opacity: 1;}
     to {bottom: 0; opacity: 0;}
 }
-
-

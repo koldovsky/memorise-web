@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { AuthService } from '../../common/services/auth.service';
+import { AuthService } from '../../../common/services/auth.service';
 
 import { Router } from '@angular/router';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { regexExpression } from '../../common/helpers/regexExpression';
-import { errorMessages } from '../../common/helpers/errorMessages';
+import { regexExpression } from '../../../common/helpers/regexExpression';
+import { errorMessages } from '../../../common/helpers/errorMessages';
 
 declare var window: any;
 declare var FB: any;
@@ -19,23 +19,26 @@ declare var FB: any;
 
 export class LoginComponent implements OnInit {
     clicked = false;
-    regex = regexExpression;
-    error = errorMessages;
-    myForm: FormGroup;
+    regex: any;
+    message: any;
+    loginForm: FormGroup;
 
     constructor(
         public fb: FormBuilder,
         private router: Router,
-        private authService: AuthService
+        private authService: AuthService,
     ) {
-        this.myForm = this.fb.group({
+        this.regex = regexExpression;
+        this.message = errorMessages;
+
+        this.loginForm = this.fb.group({
             'login': new FormControl('', [
                 Validators.required,
-                Validators.maxLength(20)
+                Validators.maxLength(this.regex.MAX_LENGTH_INPUT)
             ]),
             'password': new FormControl('', [
                 Validators.required,
-                Validators.minLength(6)
+                Validators.minLength(this.regex.MIN_LENGTH_PASSWORD)
             ])
         });
 
@@ -80,7 +83,7 @@ export class LoginComponent implements OnInit {
                     this.authService.checkIfIsAuthorized();
                     this.router.navigate(['catalog/courses/Any']);
                 } else {
-                    this.myForm.reset();
+                    this.loginForm.reset();
                 }
             });
         this.clicked = true;
@@ -90,12 +93,13 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['register']);
     }
 
+    signOut(): void {
+        FB.logout();
+    }
+
     ngOnInit(): void {
         if (window.FB) {
             window.FB.XFBML.parse();
         }
     }
 }
-
-
-

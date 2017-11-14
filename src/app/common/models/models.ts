@@ -20,6 +20,7 @@ export interface Card extends BaseEntity {
     IsPassed?: boolean;
     RightAnswersText?: string;
     CustomerAnswersText?: string;
+    IsDisabled?: boolean;
 }
 
 export interface CardType extends BaseEntity {
@@ -53,6 +54,7 @@ export interface Course extends BaseEntity {
     DeckNames?: string[];
     Comments?: Comment[];
     IsSubscribed?: boolean;
+    IsNeedToRepeat?: boolean;
 }
 
 export interface Deck extends BaseEntity {
@@ -70,6 +72,7 @@ export interface Deck extends BaseEntity {
     CardIds?: string[];
     CourseNames?: string[];
     IsSubscribed?: boolean;
+    IsNeedToRepeat?: boolean;
 }
 
 export interface Report extends BaseEntity {
@@ -169,3 +172,16 @@ export interface CodeAnswer extends BaseEntity {
     CodeAnswerText: string;
     IsRight: boolean;
 }
+
+export interface DataForGetCardsForSubscription {
+    userLogin: string;
+    numberOfCards: number;
+    courseOrDeckLink: string;
+}
+
+export interface Algorithm extends BaseEntity {
+    Name: string;
+    Description: string;
+    IsActive: boolean;
+}
+

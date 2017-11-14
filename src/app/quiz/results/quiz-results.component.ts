@@ -10,8 +10,8 @@ import { handleError } from '../../common/functions/functions';
 
 const CARD_STATUS = {
   NOT_PASSED: 0,
-  UNCORRECT: 1,
-  CORRECT: 2
+  INCORRECT: -1,
+  CORRECT: 1
 };
 
 @Component({
@@ -35,37 +35,36 @@ export class QuizResultsComponent implements OnInit {
     this.cards = this.quizService.cards;
     this.wordInputs = this.quizService.wordInputs;
     this.codeAnswers = this.quizService.codeAnswers;
-    this.cards.forEach(c => {
-      // const c = this.cards[0]; // just to see how it works
-      if (c.CardType.Name === 'Words input') {
-        c.RightAnswersText = this.wordInputs[c.Id].RightAnswersText.join('; ');
-      } else if (c.CardType.Name === 'Code input') {
-        c.RightAnswersText = '';
+    this.cards.forEach(card => {
+      if (card.CardType.Name === 'Words input') {
+        card.RightAnswersText = this.wordInputs[card.Id].RightAnswersText.join('; ');
+      } else if (card.CardType.Name === 'Code input') {
+        card.RightAnswersText = '';
       } else {
-        c.RightAnswersText = '';
-        c.Answers.forEach(a => {
-          if (a.IsCorrect === true) {
-            c.RightAnswersText += a.Text + '; ';
+        card.RightAnswersText = '';
+        card.Answers.forEach(answer => {
+          if (answer.IsCorrect === true) {
+            card.RightAnswersText += answer.Text + '; ';
           }
         });
-        c.RightAnswersText = c.RightAnswersText.substr(0, c.RightAnswersText.lastIndexOf(';'));
+        card.RightAnswersText = card.RightAnswersText.substr(0, card.RightAnswersText.lastIndexOf(';'));
       }
     });
-    this.cards.forEach(c => {
-      c.CustomerAnswersText = '';
-      if (c.CardType.Name === 'Words input') {
-        c.CustomerAnswersText = this.wordInputs[c.Id].CustomerAnswerText;
-      } else if (c.CardType.Name === 'Code input') {
-        c.CustomerAnswersText = this.codeAnswers[c.Id].CodeAnswerText;
+    this.cards.forEach(card => {
+      card.CustomerAnswersText = '';
+      if (card.CardType.Name === 'Words input') {
+        card.CustomerAnswersText = this.wordInputs[card.Id].CustomerAnswerText;
+      } else if (card.CardType.Name === 'Code input') {
+        card.CustomerAnswersText = this.codeAnswers[card.Id].CodeAnswerText;
       } else {
-        c.Answers.forEach(a => {
-          if (a.IsChecked === true) {
-            c.CustomerAnswersText += a.Text + '; ';
+        card.Answers.forEach(answer => {
+          if (answer.IsChecked === true) {
+            card.CustomerAnswersText += answer.Text + '; ';
           }
         });
-        c.CustomerAnswersText = c.CustomerAnswersText.substr(0, c.CustomerAnswersText.lastIndexOf(';'));
+        card.CustomerAnswersText = card.CustomerAnswersText.substr(0, card.CustomerAnswersText.lastIndexOf(';'));
       }
-      this.saveStatistics(c);
+      this.saveStatistics(card);
     });
   }
 
@@ -80,7 +79,6 @@ export class QuizResultsComponent implements OnInit {
         ? this.checkCodeInput(card)
         : this.checkTestInput(card);
 
-        console.log(isAnswerCorrect);
     return isAnswerCorrect;
   }
 
@@ -96,14 +94,14 @@ export class QuizResultsComponent implements OnInit {
     let customerRightAnswersCount = 0;
     let customerAnswersCount = 0;
     let rightAnswersCount = 0;
-    card.Answers.forEach(a => {
-      if (a.IsChecked) {
+    card.Answers.forEach(answer => {
+      if (answer.IsChecked) {
         customerAnswersCount++;
-        if (a.IsCorrect) {
+        if (answer.IsCorrect) {
           customerRightAnswersCount++;
         }
       }
-      if (a.IsCorrect) {
+      if (answer.IsCorrect) {
         rightAnswersCount++;
       }
     });
@@ -121,7 +119,7 @@ export class QuizResultsComponent implements OnInit {
           if (statistics) {
             statistics.CardStatus = this.checkCard(card)
               ? CARD_STATUS.CORRECT
-              : CARD_STATUS.UNCORRECT;
+              : CARD_STATUS.INCORRECT;
             this.statisticsService.updateStatistics(statistics).subscribe();
           }
         },

@@ -1,0 +1,29 @@
+<div *ngIf="isLoaded">
+    <!-- Snackbar -->
+    <div id="snackbar">{{submitMessage}}</div>
+    <form #mainForm="ngForm" (ngSubmit)="onSubmit()" name="quizPropertiesForm">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <div class="form-group">
+                    <label for="algorithmId">Algorithm:</label>
+                    <select class="form-control" id="algorithmId" name="Name" #selectedAlgorithm (change)='getChosenAlgorithm(selectedAlgorithm.value)'>
+                        <option *ngFor="let alg of algorithms" [attr.selected]="alg.Name === algorithm.Name ? true : null" [value]="alg.Id">
+                            {{alg.Name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <textarea class="form-control" rows="5" [(ngModel)]='algorithm.Description' name="Description" id="description">
+         </textarea> 
+                </div>
+                <div class="row">
+                        <div class="col-xs-12 col-sm-12">
+                    <button type="button" class="btn btn-outline-secondary btn-lg float-left" (click)="setWhichButtonIsClicked()" [routerLink]="['/moderator']">Cancel</button>
+                    <button type="submit" class="btn btn-primary btn-lg float-right">Change</button>
+                       </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

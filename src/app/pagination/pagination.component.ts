@@ -6,7 +6,7 @@ import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
     styleUrls: ['./pagination.component.css']
 })
 
-export class PaginationComponent implements OnInit {
+export class PaginationComponent {
     constructor() { }
     pagesCount: number;
     currentIndex = 0;
@@ -14,34 +14,31 @@ export class PaginationComponent implements OnInit {
     middleItems = [];
     comfortableNumbers = 5;
     comfortableMiddleNumbers = 3;
-    private _totalCount: number;
-    private _pageSize: number;
+    private totalElementsNum: number;
+    private elementsOnPageNum: number;
 
     @Input('total-count') set totalCount(value: number) {
         this.items = [];
-        this._totalCount = value;
+        this.totalElementsNum = value;
         this.numberToArray();
         this.select(1);
     }
 
     @Input('page-size') set pageSize(value: number) {
         this.items = [];
-        this._pageSize = value;
+        this.elementsOnPageNum = value;
         this.numberToArray();
         this.select(1);
     }
 
     @Output('pageIndex') pageIndex: EventEmitter<number> = new EventEmitter<number>();
 
-    ngOnInit() {
-    }
-
-    howMatchPage() {
+    getLocalPagesCount() {
         let localPagesCount: number;
-        if (this._pageSize === 0) {
-            this._pageSize = this._totalCount;
+        if (this.elementsOnPageNum === 0) {
+            this.elementsOnPageNum = this.totalElementsNum;
         }
-        localPagesCount = this._totalCount / this._pageSize;
+        localPagesCount = this.totalElementsNum / this.elementsOnPageNum;
         const temp = Math.floor(localPagesCount);
         if (temp < localPagesCount) {
             localPagesCount = temp;
@@ -51,8 +48,8 @@ export class PaginationComponent implements OnInit {
     }
 
     numberToArray() {
-        const getPages = this.howMatchPage();
-        for (let i = 1; i <= getPages; i++) {
+        const maxNumberPage = this.getLocalPagesCount();
+        for (let i = 1; i <= maxNumberPage; i++) {
             this.items.push(i);
         }
         return this.items;
