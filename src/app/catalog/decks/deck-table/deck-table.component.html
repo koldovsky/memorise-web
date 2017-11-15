@@ -64,7 +64,7 @@
             </tbody>
         </table>
         <app-pagination 
-            [page-size]="pageSize" [total-count]="totalCount" (pageIndex)="onNotify($event)">
+            [page-size]="pageSize" [total-count]="totalCount" (pageIndex)="onNotify($event)" *ngIf="isLoaded">
         </app-pagination>
     </div>
 </div>

@@ -20,6 +20,7 @@ export class DeckTableComponent implements OnInit {
     sorted: boolean;
     searchText: string;
     currentDeck: Deck;
+    isLoaded = false;
 
     constructor(private deckService: DeckService
     ) {
@@ -34,6 +35,7 @@ export class DeckTableComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.isLoaded = false;
         this.sortTable();
     }
 
@@ -43,6 +45,7 @@ export class DeckTableComponent implements OnInit {
                 this.totalCount = pageResponse.totalCount;
                 this.decks = pageResponse.items;
                 this.page = index;
+                this.isLoaded = true;
             });
     }
 

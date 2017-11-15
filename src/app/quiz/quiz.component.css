@@ -31,12 +31,6 @@
     text-align: center;
 }
 
-#check-button {
-    position: absolute;
-    top: -50px;
-    right: 0;
-}
-
 #card {
     flex-grow: 2;
     max-width: 40vw;
@@ -46,12 +40,12 @@
     margin-top: 3vh;
 }
 
-.hight10{
+.hight10 {
     padding: 5vh;
 }
 
-@media (max-width: 991px) { 
-    .cards{
+@media (max-width: 991px) {
+    .cards {
         display: none;
     }
 }
