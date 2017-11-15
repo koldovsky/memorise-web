@@ -22,7 +22,7 @@ export class CatalogTableComponent implements OnInit {
     sorted: boolean;
     searchText: string;
     currentCategory: Category;
-    isLoaded = false;
+    isLoaded: boolean;
 
     constructor(private categoryService: CategoryService
     ) {

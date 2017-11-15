@@ -23,7 +23,7 @@ export class CardTableComponent implements OnInit {
     sorted: boolean;
     searchText: string;
     currentCard: Card;
-    isLoaded = true;
+    isLoaded: boolean;
 
     constructor(
         private cardService: CardService,
@@ -34,8 +34,8 @@ export class CardTableComponent implements OnInit {
 
     ngOnInit() {
         this.deck = this.moderationService.getCurrentDeck();
-        this.sortTable();
         this.isLoaded = false;
+        this.sortTable();
     }
 
     onNotify(index: number): void {
@@ -44,6 +44,7 @@ export class CardTableComponent implements OnInit {
                 this.cards = pageResponse.items;
                 this.page = index;
                 this.totalCount = pageResponse.totalCount;
+                this.isLoaded = true;
             });
     }
 

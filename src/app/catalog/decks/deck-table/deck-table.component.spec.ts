@@ -47,8 +47,6 @@ describe('DeckTableComponent', () => {
     }));
 
     it('DropDownTest', async(() => {
-        // fixture.detectChanges();
-        // spyOn(service, 'getDecks').and.returnValue(null);
         decktable.pageSize = 0;
         expect(decktable.dropDownElements()).toContain('All');
     }));

@@ -62,7 +62,6 @@ export class PaginationComponent implements OnInit {
     select(index) {
         this.pageIndex.next(index);
         this.currentIndex = index;
-        console.log(100);
 
         if (this.items.length > this.comfortableNumbers) {
             if (index === 1) {
