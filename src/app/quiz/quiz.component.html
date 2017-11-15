@@ -1,6 +1,5 @@
 <div class="container-fluid" *ngIf="isLoaded; else loading">
-    <div class="row hight10"></div>
-    <div class="row">
+    <div class="row" *ngIf="cards.length !==0 ; else noCardsInQuiz">
         <div class="col-lg-4 col-xl-4 cards">
             <div class="no-select text-center" id="leftHeap" hidden="hidden" (click)='counterMinus(); heapCtrl(); saveAnswer(); cleanColor(); cleanCustomerAnswerInput();'>
                 <h3>
@@ -143,9 +142,9 @@
                 <img src="../assets/images/{{getImgPreNameLeft()}}-card-back-min.png" alt="card back">
             </div>
         </div>
-        <ng-template #noCardsInQuiz>
-            <h1 class="text-center">Sorry, there are no cards in quiz(</h1>
-        </ng-template>
     </div>
+    <ng-template #noCardsInQuiz>
+        <h1 class="text-center">Sorry, there are no cards in this quiz(</h1>
+    </ng-template>
 </div>
 <ng-template #loading>Loading...</ng-template>

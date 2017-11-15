@@ -300,7 +300,6 @@ export class QuizComponent implements OnInit {
   }
 
   getUserTemplateCodeAnswer(card: Card): Answer {
-    console.log(card);
     return card.Answers.find(answer => !answer.IsCorrect);
   }
 
