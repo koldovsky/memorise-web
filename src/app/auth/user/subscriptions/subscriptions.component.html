@@ -1,6 +1,4 @@
-<div *ngIf="!isLoaded" class="loader">
-  <img src="../assets/images/preloader.gif">
-</div>
+
 <br>
 <div class="row">
     <div class="col-xs-12 col-sm-1 col-md-2 col-lg-3 col-xl-4"></div>
@@ -17,7 +15,7 @@
 <div class="row">
     <div [ngSwitch]="selector" class="col-xs-12 col-sm-12">
         <div *ngSwitchCase="'courses'" class="col-xs-12 col-sm-12">
-            <div class="row">
+            <div class="row" *ngIf="courses !== undefined && courses.length !== 0">
                 <div *ngFor="let course of courses" id="courseId" [class]="addMainItemClasses()">
                     <div class="card center" style="width: 15rem">
                         <div class="crop" [routerLink]="['/catalog/course', course.Linking]">
@@ -47,12 +45,17 @@
                     </div>
                 </div>
             </div>
+            <div class="row" *ngIf="courses === undefined || courses.length === 0">
+                <div class="col-xs-12 col-sm-12">
+                    <h3 class="textCener">You have not subscribed to any courses</h3>
+                </div>
+            </div>
         </div>
         <div *ngSwitchCase="'decks'" class="col-xs-12 col-sm-12">
-            <div class="row">
+            <div class="row" *ngIf="decks !== undefined && decks.length !== 0">
                 <div [class]="addMainItemClasses()" id="deckId" *ngFor="let deck of decks">
                     <div class="card center" style="width: 15rem">
-                        <<div class="crop">
+                        <div class="crop">
                             <div *ngIf="deck.IsNeedToRepeat" class="container">
                                 <img class="card-img-top opacity15" src="{{deck.Photo}}" alt="{{deck.Name}}">
                                 <div *ngIf="deck.IsNeedToRepeat" class="centered">
@@ -74,6 +77,11 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="decks === undefined || decks.length == 0">
+                <div class="col-xs-12 col-sm-12">
+                    <h3 class="textCener">You have not subscribed to any decks</h3>
                 </div>
             </div>
         </div>

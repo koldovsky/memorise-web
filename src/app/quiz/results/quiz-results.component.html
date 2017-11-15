@@ -1,6 +1,5 @@
 <div class="container">
-    <div class="hight10hv"></div>
-    <h1>Quiz results:</h1>
+    <h1 class="text-center">Quiz results: {{correctAnswersCount}} / {{cards.length}}</h1>
     <br>
     <table class="table table-striped">
         <thead>
@@ -22,5 +21,7 @@
             </tr>
         </tbody>
     </table>
-    <div class="hight10hv"></div>
+    <div class="text-center">
+        <button class="btn btn-primary" (click)="backToCatalog()">Back To Catalog</button>
+    </div>
 </div>

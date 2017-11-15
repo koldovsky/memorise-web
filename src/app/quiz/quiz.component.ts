@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { ParamMap, ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 import { QuizService } from '../common/services/quiz.service';
 import { Card, Answer, WordInput, CodeAnswer, DataForGetCardsForSubscription } from '../common/models/models';
@@ -15,6 +16,7 @@ export class QuizComponent implements OnInit {
   constructor(
     private quizService: QuizService,
     private route: ActivatedRoute,
+    private location: Location,
     private authService: AuthService
   ) {
      this.dataForCards = {
@@ -300,7 +302,6 @@ export class QuizComponent implements OnInit {
   }
 
   getUserTemplateCodeAnswer(card: Card): Answer {
-    console.log(card);
     return card.Answers.find(answer => !answer.IsCorrect);
   }
 

@@ -5,6 +5,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
+import { MarkdownModule } from 'angular2-markdown';
 
 import { NavigationComponent } from './navigation/navigation.component';
 import { HomeComponent } from './home/home.component';
@@ -112,6 +113,7 @@ import { QuizPropertiesComponent } from './quiz/quiz-properties/quiz-properties.
         NgbModule.forRoot(),
         BrowserModule,
         HttpClientModule,
+        MarkdownModule.forRoot(),
 
         AppRoutingModule,
         FormsModule,

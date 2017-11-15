@@ -22,6 +22,7 @@ export class CourseTableComponent implements OnInit {
     sorted: boolean;
     searchText: string;
     currentCourse: Course;
+    isLoaded: boolean;
 
     constructor(private courseService: CourseService
     ) {
@@ -37,6 +38,7 @@ export class CourseTableComponent implements OnInit {
 
     ngOnInit() {
         this.sortTable();
+        this.isLoaded = false;
     }
 
     onNotify(index: number): void {

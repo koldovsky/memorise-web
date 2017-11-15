@@ -1,7 +1,9 @@
 .center{
     margin: 0 auto;
 }
-
+.textCener{
+    text-align: center;
+}
 .margin{
     margin: 2rem 0;
 }

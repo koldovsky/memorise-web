@@ -22,6 +22,7 @@ export class CatalogTableComponent implements OnInit {
     sorted: boolean;
     searchText: string;
     currentCategory: Category;
+    isLoaded: boolean;
 
     constructor(private categoryService: CategoryService
     ) {
@@ -34,6 +35,7 @@ export class CatalogTableComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.isLoaded = false;
         this.sortTable();
     }
 
@@ -43,6 +45,7 @@ export class CatalogTableComponent implements OnInit {
                 this.categories = pageResponse.items;
                 this.page = index;
                 this.totalCount = pageResponse.totalCount;
+                this.isLoaded = true;
             });
     }
 
