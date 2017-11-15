@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
-import { ParamMap, ActivatedRoute } from '@angular/router';
+import { ParamMap, ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 import { QuizService } from '../../common/services/quiz.service';
 import { Card, Answer, WordInput, CodeAnswer, Statistics } from '../../common/models/models';
@@ -7,6 +8,7 @@ import { QuizComponent } from '../quiz.component';
 import { StatisticsService } from '../../common/services/statistics.service';
 import { AuthService } from '../../common/services/auth.service';
 import { handleError } from '../../common/functions/functions';
+import { NavigationService } from '../../common/services/navigation.service';
 
 const CARD_STATUS = {
   NOT_PASSED: 0,
@@ -24,48 +26,60 @@ export class QuizResultsComponent implements OnInit {
   cards: Card[];
   wordInputs: WordInput[] = [];
   codeAnswers: CodeAnswer[] = [];
+  correctAnswersCount: number;
 
   constructor(
+    private router: Router,
+    private location: Location,
     private quizService: QuizService,
     private statisticsService: StatisticsService,
-    private authService: AuthService
+    private authService: AuthService,
+    private navigationService: NavigationService
   ) { }
 
   ngOnInit(): void {
+    this.correctAnswersCount = 0;
     this.cards = this.quizService.cards;
-    this.wordInputs = this.quizService.wordInputs;
-    this.codeAnswers = this.quizService.codeAnswers;
-    this.cards.forEach(card => {
-      if (card.CardType.Name === 'Words input') {
-        card.RightAnswersText = this.wordInputs[card.Id].RightAnswersText.join('; ');
-      } else if (card.CardType.Name === 'Code input') {
-        card.RightAnswersText = '';
-      } else {
-        card.RightAnswersText = '';
-        card.Answers.forEach(answer => {
-          if (answer.IsCorrect === true) {
-            card.RightAnswersText += answer.Text + '; ';
-          }
-        });
-        card.RightAnswersText = card.RightAnswersText.substr(0, card.RightAnswersText.lastIndexOf(';'));
-      }
-    });
-    this.cards.forEach(card => {
-      card.CustomerAnswersText = '';
-      if (card.CardType.Name === 'Words input') {
-        card.CustomerAnswersText = this.wordInputs[card.Id].CustomerAnswerText;
-      } else if (card.CardType.Name === 'Code input') {
-        card.CustomerAnswersText = this.codeAnswers[card.Id].CodeAnswerText;
-      } else {
-        card.Answers.forEach(answer => {
-          if (answer.IsChecked === true) {
-            card.CustomerAnswersText += answer.Text + '; ';
-          }
-        });
-        card.CustomerAnswersText = card.CustomerAnswersText.substr(0, card.CustomerAnswersText.lastIndexOf(';'));
-      }
-      this.saveStatistics(card);
-    });
+    if (!this.cards) {
+      this.location.back();
+    } else {
+      this.wordInputs = this.quizService.wordInputs;
+      this.codeAnswers = this.quizService.codeAnswers;
+      this.cards.forEach(card => {
+        if (card.CardType.Name === 'Words input') {
+          card.RightAnswersText = this.wordInputs[card.Id].RightAnswersText.join('; ');
+        } else if (card.CardType.Name === 'Code input') {
+          card.RightAnswersText = '';
+        } else {
+          card.RightAnswersText = '';
+          card.Answers.forEach(answer => {
+            if (answer.IsCorrect === true) {
+              card.RightAnswersText += answer.Text + '; ';
+            }
+          });
+          card.RightAnswersText = card.RightAnswersText.substr(0, card.RightAnswersText.lastIndexOf(';'));
+        }
+      });
+      this.cards.forEach(card => {
+        card.CustomerAnswersText = '';
+        if (card.CardType.Name === 'Words input') {
+          card.CustomerAnswersText = this.wordInputs[card.Id].CustomerAnswerText;
+        } else if (card.CardType.Name === 'Code input') {
+          card.CustomerAnswersText = this.codeAnswers[card.Id].CodeAnswerText;
+        } else {
+          card.Answers.forEach(answer => {
+            if (answer.IsChecked === true) {
+              card.CustomerAnswersText += answer.Text + '; ';
+            }
+          });
+          card.CustomerAnswersText = card.CustomerAnswersText.substr(0, card.CustomerAnswersText.lastIndexOf(';'));
+        }
+        this.saveStatistics(card);
+        if (this.checkCard(card)) {
+          this.correctAnswersCount++;
+        }
+      });
+    }
   }
 
   getIcon(card: Card): string {
@@ -125,5 +139,13 @@ export class QuizResultsComponent implements OnInit {
         },
         err => handleError);
     }
+  }
+
+  backToCatalog() {
+    this.router.navigate([
+      'catalog',
+      this.navigationService.dependency,
+      this.navigationService.category
+    ]);
   }
 }
