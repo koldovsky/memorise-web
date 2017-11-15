@@ -13,9 +13,9 @@ import { DeckService } from '../../../common/services/deck.service';
 export class DeckTableComponent implements OnInit {
 
     decks: Deck[];
-    arrayOfElementByPage = [1, 2, 5, 10, 'All'];
+    arrayOfElementByPage = [1, 5, 10, 'All'];
     totalCount: number;
-    page = 1; pageSize = this.arrayOfElementByPage[0];
+    page = 1; pageSize = this.arrayOfElementByPage[1];
     pageResponse: PageResponse<Deck>;
     sorted: boolean;
     searchText: string;
