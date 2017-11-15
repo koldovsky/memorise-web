@@ -13,13 +13,14 @@ import { DeckService } from '../../../common/services/deck.service';
 export class DeckTableComponent implements OnInit {
 
     decks: Deck[];
-    arrayOfElementByPage = [1, 2, 5, 10, 'All'];
+    arrayOfElementByPage = [1, 5, 10, 'All'];
     totalCount: number;
-    page = 1; pageSize = this.arrayOfElementByPage[0];
+    page = 1; pageSize = this.arrayOfElementByPage[1];
     pageResponse: PageResponse<Deck>;
     sorted: boolean;
     searchText: string;
     currentDeck: Deck;
+    isLoaded = false;
 
     constructor(private deckService: DeckService
     ) {
@@ -34,6 +35,7 @@ export class DeckTableComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.isLoaded = false;
         this.sortTable();
     }
 
@@ -43,6 +45,7 @@ export class DeckTableComponent implements OnInit {
                 this.totalCount = pageResponse.totalCount;
                 this.decks = pageResponse.items;
                 this.page = index;
+                this.isLoaded = true;
             });
     }
 
