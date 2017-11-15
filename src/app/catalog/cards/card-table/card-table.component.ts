@@ -23,6 +23,7 @@ export class CardTableComponent implements OnInit {
     sorted: boolean;
     searchText: string;
     currentCard: Card;
+    isLoaded = true;
 
     constructor(
         private cardService: CardService,
@@ -34,6 +35,7 @@ export class CardTableComponent implements OnInit {
     ngOnInit() {
         this.deck = this.moderationService.getCurrentDeck();
         this.sortTable();
+        this.isLoaded = false;
     }
 
     onNotify(index: number): void {

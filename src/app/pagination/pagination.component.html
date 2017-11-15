@@ -1,4 +1,4 @@
-<ul class="pagination justify-content-center" [hidden]="_pageSize === 0 || _pageSize >= _totalCount">
+<ul class="pagination justify-content-center" [hidden]="elementsOnPageNum === 0 || elementsOnPageNum >= totalElementsNum">
     <li>
         <button class="btn btn-secondary" (click)="onPrev()" [disabled]="currentIndex === 1">Prev</button>
     </li>
