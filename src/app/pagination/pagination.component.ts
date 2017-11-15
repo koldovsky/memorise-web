@@ -6,7 +6,8 @@ import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
     styleUrls: ['./pagination.component.css']
 })
 
-export class PaginationComponent {
+export class PaginationComponent implements OnInit {
+
     constructor() { }
     pagesCount: number;
     currentIndex = 0;
@@ -33,6 +34,9 @@ export class PaginationComponent {
 
     @Output('pageIndex') pageIndex: EventEmitter<number> = new EventEmitter<number>();
 
+    ngOnInit(): void {
+    }
+
     getLocalPagesCount() {
         let localPagesCount: number;
         if (this.elementsOnPageNum === 0) {
@@ -58,7 +62,6 @@ export class PaginationComponent {
     select(index) {
         this.pageIndex.next(index);
         this.currentIndex = index;
-        console.log(100);
 
         if (this.items.length > this.comfortableNumbers) {
             if (index === 1) {

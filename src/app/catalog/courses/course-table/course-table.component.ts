@@ -22,7 +22,7 @@ export class CourseTableComponent implements OnInit {
     sorted: boolean;
     searchText: string;
     currentCourse: Course;
-    isLoaded = true;
+    isLoaded: boolean;
 
     constructor(private courseService: CourseService
     ) {

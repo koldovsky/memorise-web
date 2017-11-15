@@ -20,7 +20,7 @@ export class DeckTableComponent implements OnInit {
     sorted: boolean;
     searchText: string;
     currentDeck: Deck;
-    isLoaded = false;
+    isLoaded: boolean;
 
     constructor(private deckService: DeckService
     ) {
@@ -90,6 +90,7 @@ export class DeckTableComponent implements OnInit {
             numberFilter = 0;
         }
         this.pageSize = numberFilter;
+        this.isLoaded = false;
         this.onNotify(1);
     }
 
