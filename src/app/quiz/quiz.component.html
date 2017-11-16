@@ -47,7 +47,7 @@
 
                         <div class="card-body">
                             <h4 class="card-title">
-                                {{cards[counter].Question}}
+                                <markdown [data]="cards[counter].Question"></markdown>
                             </h4>
                             <br>
                             <p class="card-text" *ngFor="let answer of cards[counter].Answers">
@@ -72,7 +72,7 @@
 
                         <div class="card-body">
                             <h4 class="card-title">
-                                {{cards[counter].Question}}
+                                <markdown [data]="cards[counter].Question"></markdown>
                             </h4>
                             <br>
                             <div>
@@ -93,7 +93,7 @@
 
                         <div class="card-body">
                             <h4 class="card-title">
-                                {{cards[counter].Question}}
+                                <markdown [data]="cards[counter].Question"></markdown>
                             </h4>
                             <br>
                             <div>
