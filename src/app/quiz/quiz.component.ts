@@ -320,6 +320,10 @@ export class QuizComponent implements OnInit {
   }
 
   isCheckDisabled(card: Card) {
+    if (card.CardType.Name === 'Words input' ||
+        card.CardType.Name === 'Code input') {
+          return false;
+    }
     let flag = true;
     card.Answers.forEach(answer => {
       if (answer.IsChecked === true) {
