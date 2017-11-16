@@ -111,11 +111,11 @@ export class QuizComponent implements OnInit {
     this.quizService.cards = this.cards;
     this.codeAnswers = [];
     this.wordInputs = [];
-    this.cards.forEach(x => {
-      if (x.CardType.Name === 'Words input') {
-        this.wordInputCheck(x, false);
-      } else if (x.CardType.Name === 'Code input') {
-        this.codeAnswerCheck(x);
+    this.cards.forEach(card => {
+      if (card.CardType.Name === 'Words input') {
+        this.wordInputCheck(card, false);
+      } else if (card.CardType.Name === 'Code input') {
+        this.codeAnswerCheck(card);
       }
     });
     this.quizService.codeAnswers = this.codeAnswers;

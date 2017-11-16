@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
+import { retry } from 'rxjs/operator/retry';
 
 @Component({
     selector: 'app-pagination',
@@ -80,40 +81,26 @@ export class PaginationComponent implements OnInit {
         if (this.items.length < this.comfortableNumbers + 1) {
             return true;
         }
-        if (this.currentIndex > this.comfortableMiddleNumbers) {
-            return false;
-        } else {
-            return true;
-        }
+        return this.currentIndex > this.comfortableMiddleNumbers ? false : true;
     }
 
     isLastEllipsis() {
         if (this.items.length < this.comfortableNumbers + 1) {
             return true;
         }
-        if (this.currentIndex > this.items.length - this.comfortableMiddleNumbers) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.currentIndex > this.items.length - this.comfortableMiddleNumbers ? true : false;
     }
 
     isFirst() {
-        if (this.currentIndex < this.comfortableMiddleNumbers ||
-            this.items.length <= this.comfortableNumbers) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.currentIndex < this.comfortableMiddleNumbers ||
+            this.items.length <= this.comfortableNumbers
+            ? true : false;
     }
 
     isLast() {
-        if (this.currentIndex > this.items.length - this.comfortableMiddleNumbers + 1 ||
-            this.items.length <= this.comfortableNumbers) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.currentIndex > this.items.length - this.comfortableMiddleNumbers + 1 ||
+            this.items.length <= this.comfortableNumbers
+            ? true : false;
     }
 
     onNext() {

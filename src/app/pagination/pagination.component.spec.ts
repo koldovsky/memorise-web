@@ -21,7 +21,7 @@ describe('PaginationComponent', () => {
         paginator.pageSize = 5;
         paginator.currentIndex = 18;
 
-        el = fixture.debugElement.query(By.css('.zz'));
+        el = fixture.debugElement.query(By.css('.isNext'));
 
         fixture.detectChanges();
     });

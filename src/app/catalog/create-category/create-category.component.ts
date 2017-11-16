@@ -82,9 +82,9 @@ export class CreateCategoryComponent implements OnInit {
     }
 
     showSnackbar() {
-        const x = document.getElementById('snackbar');
-        x.className = 'show';
-        setTimeout(function () { x.className = x.className.replace('show', ''); }, 3000);
+        const snack = document.getElementById('snackbar');
+        snack.className = 'show';
+        setTimeout(function () { snack.className = snack.className.replace('show', ''); }, 3000);
     }
 
     checkName() {

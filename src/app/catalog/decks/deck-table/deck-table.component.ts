@@ -3,6 +3,7 @@ import { PaginationComponent } from '../../../pagination/pagination.component';
 
 import { Deck, PageResponse } from '../../../common/models/models';
 import { DeckService } from '../../../common/services/deck.service';
+import { handleError } from '../../../common/functions/functions';
 
 @Component({
     selector: 'app-deck-table',
@@ -50,13 +51,8 @@ export class DeckTableComponent implements OnInit {
     }
 
     sortTable() {
-        if (this.sorted === false) {
-            this.sorted = true;
-        } else {
-            this.sorted = false;
-        }
         this.onNotify(this.page);
-        return this.sorted;
+        return this.sorted = !this.sorted;
     }
 
     onChange(event: any) {
@@ -77,7 +73,7 @@ export class DeckTableComponent implements OnInit {
             .subscribe(() => {
                 this.decks = this.decks.filter(x => x.Id !== this.currentDeck.Id);
             },
-            (err) => console.log(err)
+            (err) => (handleError)
             );
     }
 

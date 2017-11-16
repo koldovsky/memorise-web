@@ -25,6 +25,6 @@
         <button class="btn btn-secondary" [hidden]="isLast()" (click)="select(items.length)">{{items.length}}</button>
     </li>
     <li>
-        <button class="btn btn-secondary zz" (click)="onNext()" [disabled]="currentIndex === items.length">Next</button>
+        <button class="btn btn-secondary isNext" (click)="onNext()" [disabled]="currentIndex === items.length">Next</button>
     </li>
 </ul>

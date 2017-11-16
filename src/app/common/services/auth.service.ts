@@ -101,11 +101,7 @@ export class AuthService {
     }
 
     getToken() {
-        let currentToken = localStorage.getItem('token');
-        if (!currentToken) {
-            currentToken = 'empty';
-        }
-        return currentToken;
+        return localStorage.getItem('token') || 'empty';
     }
 
     getError() {
